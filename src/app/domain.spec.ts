@@ -6,6 +6,7 @@ import {
   CriteriaAge,
   CriteriaAnnualSalary,
   CriteriaProfessionalCareer,
+  CriteriaLicenses,
   CriteriaCategory,
   VisaType,
 } from '@app/domain'
@@ -111,6 +112,7 @@ describe('Visa type B point calculation', () => {
       salary,
     }
   }
+
   describe('annual salary', () => {
     it('12,500,000 JPY', () => {
       const checklist = checklistWithCriteria([annualSalaryOf(12_500_000)])
@@ -160,6 +162,7 @@ describe('Visa type B point calculation', () => {
       age,
     }
   }
+
   describe('age', () => {
     it('29 years old', () => {
       const checklist = checklistWithCriteria([ageOf(29)])
@@ -200,6 +203,7 @@ describe('Visa type B point calculation', () => {
       id: kind,
     }
   }
+
   describe('research achievements', () => {
     it('have at least one patent', () => {
       const checklist = checklistWithCriteria([
@@ -250,6 +254,48 @@ describe('Visa type B point calculation', () => {
       const points = calculatePoints(checklist)
 
       expect(points).toBe(15)
+    })
+  })
+
+  function licenseHolder({ count }: { count: number }): CriteriaLicenses {
+    return {
+      category: CriteriaCategory.Licenses,
+      id: 'licenses',
+      count,
+    }
+  }
+
+  describe('national licenses', () => {
+    it('has three national licenses', () => {
+      const checklist = checklistWithCriteria([licenseHolder({ count: 3 })])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('has two national licenses', () => {
+      const checklist = checklistWithCriteria([licenseHolder({ count: 2 })])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('has one national license', () => {
+      const checklist = checklistWithCriteria([licenseHolder({ count: 1 })])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(5)
+    })
+
+    it('has no national licenses', () => {
+      const checklist = checklistWithCriteria([licenseHolder({ count: 0 })])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(0)
     })
   })
 })

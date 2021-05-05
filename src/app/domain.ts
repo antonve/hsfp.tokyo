@@ -52,6 +52,12 @@ export interface CriteriaAge extends Criteria {
   age: number
 }
 
+export interface CriteriaLicenses extends Criteria {
+  category: CriteriaCategory.Licenses
+  id: 'licenses'
+  count: number
+}
+
 interface CriteriaDefinition {
   id: string
   points: number
@@ -208,10 +214,31 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
   {
     category: CriteriaCategory.Licenses,
     definitions: [
-      { id: 'has_one_national_license', points: 5 },
-      { id: 'has_two_or_more_national_license', points: 5 },
+      {
+        id: 'has_one_national_license',
+        points: 5,
+        match: count => count >= 1,
+      },
+      {
+        id: 'has_two_or_more_national_license',
+        points: 10,
+        match: count => count >= 2,
+      },
     ],
-    totalPoints: definitions => 0,
+    totalPoints: (definitions, criteria) => {
+      const match = criteria.find(
+        c => c.category === CriteriaCategory.Licenses,
+      ) as CriteriaLicenses | undefined
+
+      if (match === undefined) {
+        return 0
+      }
+
+      const count = match.count
+      const points = maxMatchingPoints(definitions, count)
+
+      return points
+    },
   },
   {
     category: CriteriaCategory.Special,
