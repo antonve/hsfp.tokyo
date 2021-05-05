@@ -6,10 +6,24 @@ export interface Checklist {
 export const calculatePoints = (checklist: Checklist): number => {
   switch (checklist.visaType) {
     case VisaType.B:
-      return 0
+      return calculate(criteriaForVisaB, checklist.matchingCriteria)
     default:
       throw new Error('not yet implemented')
   }
+}
+
+const calculate = (
+  definitionGroups: CriteriaDefinitionGroup[],
+  criteria: Criteria[],
+): number => {
+  return definitionGroups
+    .map(group => {
+      const matchingCriteria = criteria.filter(
+        c => c.category === group.category,
+      )
+      return group.totalPoints(group.definitions, matchingCriteria)
+    })
+    .reduce((accumulator, current) => accumulator + current, 0)
 }
 
 export enum VisaType {
@@ -46,7 +60,10 @@ export enum CriteriaCategory {
 interface CriteriaDefinitionGroup {
   category: CriteriaCategory
   definitions: CriteriaDefinition[]
-  totalPoints: (defintions: CriteriaDefinition[]) => number
+  totalPoints: (
+    defintions: CriteriaDefinition[],
+    criteria: Criteria[],
+  ) => number
 }
 
 const criteriaForVisaB: CriteriaDefinitionGroup[] = [
@@ -59,7 +76,21 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: 'bachelor', points: 30 },
       { id: 'dual_degree', points: 5 },
     ],
-    totalPoints: definitions => definitions.length,
+    totalPoints: (definitions, criteria) => {
+      const matches = definitions.filter(d =>
+        criteria.map(c => c.id).includes(d.id),
+      )
+      const points = matches
+        .filter(d => d.id != 'dual_degree')
+        .reduce((accumulator, current) => {
+          if (current.points > accumulator) {
+            return current.points
+          }
+          return accumulator
+        }, 0)
+
+      return points
+    },
   },
   {
     category: CriteriaCategory.ProfessionalCareer,
@@ -69,7 +100,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: '5_years_or_more', points: 10 },
       { id: '3_years_or_more', points: 5 },
     ],
-    totalPoints: definitions => definitions.length,
+    totalPoints: definitions => 0,
   },
   {
     category: CriteriaCategory.AnnualSalary,
@@ -82,7 +113,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: '5m_or_more', points: 15 },
       { id: '4m_or_more', points: 10 },
     ],
-    totalPoints: definitions => definitions.length,
+    totalPoints: definitions => 0,
   },
   {
     category: CriteriaCategory.Age,
@@ -91,7 +122,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: 'less_than_35', points: 10 },
       { id: 'less_than_40', points: 5 },
     ],
-    totalPoints: definitions => definitions.length,
+    totalPoints: definitions => 0,
   },
   {
     category: CriteriaCategory.ResearchAchievements,
@@ -101,7 +132,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: 'has_published_three_papers', points: 15 },
       { id: 'research_recognized_by_japan', points: 15 },
     ],
-    totalPoints: definitions => definitions.length,
+    totalPoints: definitions => 0,
   },
   {
     category: CriteriaCategory.Licenses,
@@ -109,7 +140,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: 'has_one_national_license', points: 5 },
       { id: 'has_two_or_more_national_license', points: 5 },
     ],
-    totalPoints: definitions => definitions.length,
+    totalPoints: definitions => 0,
   },
   {
     category: CriteriaCategory.Special,
@@ -122,7 +153,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
         points: 5,
       },
     ],
-    totalPoints: definitions => definitions.length,
+    totalPoints: definitions => 0,
   },
   {
     category: CriteriaCategory.SpecialContractingOrganization,
@@ -131,7 +162,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: 'contracting_organization_small_medium_sized', points: 10 },
       { id: 'contracting_organization_promotes_highly_skilled', points: 10 },
     ],
-    totalPoints: definitions => definitions.length,
+    totalPoints: definitions => 0,
   },
   {
     category: CriteriaCategory.SpecialJapanese,
@@ -140,7 +171,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: 'jlpt_n1_or_equivalent', points: 15 },
       { id: 'jlpt_n2_or_equivalent', points: 10 },
     ],
-    totalPoints: definitions => definitions.length,
+    totalPoints: definitions => 0,
   },
   {
     category: CriteriaCategory.SpecialUniversity,
@@ -156,6 +187,6 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
         points: 10,
       },
     ],
-    totalPoints: definitions => definitions.length,
+    totalPoints: definitions => 0,
   },
 ]
