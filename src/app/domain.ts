@@ -73,7 +73,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: 'doctor', points: 30 },
       { id: 'business_management', points: 25 },
       { id: 'master', points: 20 },
-      { id: 'bachelor', points: 30 },
+      { id: 'bachelor', points: 10 },
       { id: 'dual_degree', points: 5 },
     ],
     totalPoints: (definitions, criteria) => {
@@ -89,7 +89,10 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
           return accumulator
         }, 0)
 
-      return points
+      // A dual degree gives a bonus
+      const bonus = matches.find(d => d.id === 'dual_degree')?.points ?? 0
+
+      return points + bonus
     },
   },
   {
