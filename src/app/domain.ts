@@ -3,6 +3,15 @@ export interface Checklist {
   matchingCriteria: Criteria[]
 }
 
+export const calculatePoints = (checklist: Checklist): number => {
+  switch (checklist.visaType) {
+    case VisaType.B:
+      return 0
+    default:
+      throw new Error('not yet implemented')
+  }
+}
+
 export enum VisaType {
   A = 'A',
   B = 'B',
@@ -11,8 +20,7 @@ export enum VisaType {
 
 export interface Criteria {
   category: CriteriaCategory
-  availableVisaTypes: VisaType[]
-  points: number
+  id: string
 }
 
 interface CriteriaDefinition {
@@ -151,5 +159,3 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
     totalPoints: definitions => definitions.length,
   },
 ]
-
-export calculate
