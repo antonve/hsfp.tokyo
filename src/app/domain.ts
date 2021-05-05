@@ -193,7 +193,17 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: 'has_published_three_papers', points: 15 },
       { id: 'research_recognized_by_japan', points: 15 },
     ],
-    totalPoints: definitions => 0,
+    totalPoints: (definitions, criteria) => {
+      const matches = criteria.filter(
+        c => c.category === CriteriaCategory.ResearchAchievements,
+      )
+
+      if (matches.length > 0) {
+        return definitions[0].points
+      }
+
+      return 0
+    },
   },
   {
     category: CriteriaCategory.Licenses,

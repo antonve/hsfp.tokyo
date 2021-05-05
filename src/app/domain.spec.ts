@@ -193,4 +193,63 @@ describe('Visa type B point calculation', () => {
       expect(points).toBe(0)
     })
   })
+
+  function researchAchievementOf({ kind }: { kind: string }): Criteria {
+    return {
+      category: CriteriaCategory.ResearchAchievements,
+      id: kind,
+    }
+  }
+  describe('research achievements', () => {
+    it('have at least one patent', () => {
+      const checklist = checklistWithCriteria([
+        researchAchievementOf({ kind: 'patent_inventor' }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(15)
+    })
+
+    it('conducted financed projects', () => {
+      const checklist = checklistWithCriteria([
+        researchAchievementOf({ kind: 'conducted_financed_projects' }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(15)
+    })
+
+    it('has published three or more papers', () => {
+      const checklist = checklistWithCriteria([
+        researchAchievementOf({ kind: 'has_published_three_papers' }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(15)
+    })
+
+    it('research is recognized by japan', () => {
+      const checklist = checklistWithCriteria([
+        researchAchievementOf({ kind: 'research_recognized_by_japan' }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(15)
+    })
+
+    it('having multiple research achievements should count as one', () => {
+      const checklist = checklistWithCriteria([
+        researchAchievementOf({ kind: 'patent_inventor' }),
+        researchAchievementOf({ kind: 'has_published_three_papers' }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(15)
+    })
+  })
 })
