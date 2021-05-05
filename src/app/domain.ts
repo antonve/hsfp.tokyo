@@ -46,6 +46,12 @@ export interface CriteriaAnnualSalary extends Criteria {
   salary: number
 }
 
+export interface CriteriaAge extends Criteria {
+  category: CriteriaCategory.Age
+  id: 'age'
+  age: number
+}
+
 interface CriteriaDefinition {
   id: string
   points: number
@@ -122,13 +128,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
         c => c.category === CriteriaCategory.ProfessionalCareer,
       ) as CriteriaProfessionalCareer | undefined
       const yearsOfExperience = match?.yearsOfExperience ?? 0
-      const points = definitions.reduce((total, definition) => {
-        if (definition.match?.(yearsOfExperience) ?? false) {
-          return Math.max(total, definition.points)
-        }
-
-        return total
-      }, 0)
+      const points = maxMatchingPoints(definitions, yearsOfExperience)
 
       return points
     },
@@ -148,23 +148,17 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       const match = criteria.find(
         c => c.category === CriteriaCategory.AnnualSalary,
       ) as CriteriaAnnualSalary | undefined
-      const salary = match?.salary ?? 0
 
       if (match === undefined) {
         return 0
       }
 
+      const salary = match.salary
       if (salary < 3_000_000) {
         throw new Error(errorMessages.salaryTooLow)
       }
 
-      const points = definitions.reduce((total, definition) => {
-        if (definition.match?.(salary) ?? false) {
-          return Math.max(total, definition.points)
-        }
-
-        return total
-      }, 0)
+      const points = maxMatchingPoints(definitions, salary)
 
       return points
     },
@@ -172,11 +166,24 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
   {
     category: CriteriaCategory.Age,
     definitions: [
-      { id: 'less_than_30', points: 15 },
-      { id: 'less_than_35', points: 10 },
-      { id: 'less_than_40', points: 5 },
+      { id: 'less_than_30', points: 15, match: age => age < 30 },
+      { id: 'less_than_35', points: 10, match: age => age < 35 },
+      { id: 'less_than_40', points: 5, match: age => age < 40 },
     ],
-    totalPoints: definitions => 0,
+    totalPoints: (definitions, criteria) => {
+      const match = criteria.find(c => c.category === CriteriaCategory.Age) as
+        | CriteriaAge
+        | undefined
+
+      if (match === undefined) {
+        return 0
+      }
+
+      const age = match.age
+      const points = maxMatchingPoints(definitions, age)
+
+      return points
+    },
   },
   {
     category: CriteriaCategory.ResearchAchievements,
@@ -250,4 +257,19 @@ const groupById = (objects: { id: string }[]) => {
     (accumulator, current) => (accumulator[current.id] = current),
     {} as { [key: string]: any },
   )
+}
+
+const maxMatchingPoints = (
+  definitions: CriteriaDefinition[],
+  value: any,
+): number => {
+  const points = definitions.reduce((total, definition) => {
+    if (definition.match?.(value) ?? false) {
+      return Math.max(total, definition.points)
+    }
+
+    return total
+  }, 0)
+
+  return points
 }

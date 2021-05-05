@@ -3,6 +3,7 @@ import {
   errorMessages,
   Checklist,
   Criteria,
+  CriteriaAge,
   CriteriaAnnualSalary,
   CriteriaProfessionalCareer,
   CriteriaCategory,
@@ -149,6 +150,47 @@ describe('Visa type B point calculation', () => {
       expect(() => {
         calculatePoints(checklist)
       }).toThrowError(errorMessages.salaryTooLow)
+    })
+  })
+
+  function ageOf(age: number): CriteriaAge {
+    return {
+      category: CriteriaCategory.Age,
+      id: 'age',
+      age,
+    }
+  }
+  describe('age', () => {
+    it('29 years old', () => {
+      const checklist = checklistWithCriteria([ageOf(29)])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(15)
+    })
+
+    it('34 years old', () => {
+      const checklist = checklistWithCriteria([ageOf(34)])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('35 years old', () => {
+      const checklist = checklistWithCriteria([ageOf(35)])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(5)
+    })
+
+    it('40 years old', () => {
+      const checklist = checklistWithCriteria([ageOf(40)])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(0)
     })
   })
 })
