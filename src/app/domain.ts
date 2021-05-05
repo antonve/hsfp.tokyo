@@ -18,10 +18,7 @@ const calculate = (
 ): number => {
   return definitionGroups
     .map(group => {
-      const matchingCriteria = criteria.filter(
-        c => c.category === group.category,
-      )
-      return group.totalPoints(group.definitions, matchingCriteria)
+      return group.totalPoints(group.definitions, criteria)
     })
     .reduce((accumulator, current) => accumulator + current, 0)
 }
@@ -35,6 +32,12 @@ export enum VisaType {
 export interface Criteria {
   category: CriteriaCategory
   id: string
+}
+
+export interface CriteriaProfessionalCareer extends Criteria {
+  category: CriteriaCategory.ProfessionalCareer
+  id: 'experience'
+  yearsOfExperience: number
 }
 
 interface CriteriaDefinition {
@@ -77,9 +80,10 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       { id: 'dual_degree', points: 5 },
     ],
     totalPoints: (definitions, criteria) => {
-      const matches = definitions.filter(d =>
-        criteria.map(c => c.id).includes(d.id),
-      )
+      const criteriaIds = criteria
+        .filter(c => c.category === CriteriaCategory.AcademicBackground)
+        .map(c => c.id)
+      const matches = definitions.filter(d => criteriaIds.includes(d.id))
       const points = matches
         .filter(d => d.id != 'dual_degree')
         .reduce((accumulator, current) => {
@@ -98,12 +102,26 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
   {
     category: CriteriaCategory.ProfessionalCareer,
     definitions: [
-      { id: '10_years_or_more', points: 20 },
-      { id: '7_years_or_more', points: 15 },
-      { id: '5_years_or_more', points: 10 },
-      { id: '3_years_or_more', points: 5 },
+      { id: '10_years_or_more', points: 20, match: exp => exp >= 10 },
+      { id: '7_years_or_more', points: 15, match: exp => exp >= 7 },
+      { id: '5_years_or_more', points: 10, match: exp => exp >= 5 },
+      { id: '3_years_or_more', points: 5, match: exp => exp >= 3 },
     ],
-    totalPoints: definitions => 0,
+    totalPoints: (definitions, criteria) => {
+      const match = criteria.find(
+        c => c.category === CriteriaCategory.ProfessionalCareer,
+      ) as CriteriaProfessionalCareer | undefined
+      const yearsOfExperience = match?.yearsOfExperience ?? 0
+      const points = definitions.reduce((total, definition) => {
+        if (definition.match?.(yearsOfExperience) ?? false) {
+          return Math.max(total, definition.points)
+        }
+
+        return total
+      }, 0)
+
+      return points
+    },
   },
   {
     category: CriteriaCategory.AnnualSalary,
@@ -193,3 +211,10 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
     totalPoints: definitions => 0,
   },
 ]
+
+const groupById = (objects: { id: string }[]) => {
+  return objects.reduce(
+    (accumulator, current) => (accumulator[current.id] = current),
+    {} as { [key: string]: any },
+  )
+}
