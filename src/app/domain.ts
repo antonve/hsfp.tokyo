@@ -40,6 +40,12 @@ export interface CriteriaProfessionalCareer extends Criteria {
   yearsOfExperience: number
 }
 
+export interface CriteriaAnnualSalary extends Criteria {
+  category: CriteriaCategory.AnnualSalary
+  id: 'salary'
+  salary: number
+}
+
 interface CriteriaDefinition {
   id: string
   points: number
@@ -67,6 +73,10 @@ interface CriteriaDefinitionGroup {
     defintions: CriteriaDefinition[],
     criteria: Criteria[],
   ) => number
+}
+
+export const errorMessages = {
+  salaryTooLow: 'salary must be above 3m to be eligible for the HSFP visa',
 }
 
 const criteriaForVisaB: CriteriaDefinitionGroup[] = [
@@ -126,15 +136,38 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
   {
     category: CriteriaCategory.AnnualSalary,
     definitions: [
-      { id: '10m_or_more', points: 40 },
-      { id: '9m_or_more', points: 35 },
-      { id: '8m_or_more', points: 30 },
-      { id: '7m_or_more', points: 25 },
-      { id: '6m_or_more', points: 20 },
-      { id: '5m_or_more', points: 15 },
-      { id: '4m_or_more', points: 10 },
+      { id: '10m_or_more', points: 40, match: salary => salary >= 10_000_000 },
+      { id: '9m_or_more', points: 35, match: salary => salary >= 9_000_000 },
+      { id: '8m_or_more', points: 30, match: salary => salary >= 8_000_000 },
+      { id: '7m_or_more', points: 25, match: salary => salary >= 7_000_000 },
+      { id: '6m_or_more', points: 20, match: salary => salary >= 6_000_000 },
+      { id: '5m_or_more', points: 15, match: salary => salary >= 5_000_000 },
+      { id: '4m_or_more', points: 10, match: salary => salary >= 4_000_000 },
     ],
-    totalPoints: definitions => 0,
+    totalPoints: (definitions, criteria) => {
+      const match = criteria.find(
+        c => c.category === CriteriaCategory.AnnualSalary,
+      ) as CriteriaAnnualSalary | undefined
+      const salary = match?.salary ?? 0
+
+      if (match === undefined) {
+        return 0
+      }
+
+      if (salary < 3_000_000) {
+        throw new Error(errorMessages.salaryTooLow)
+      }
+
+      const points = definitions.reduce((total, definition) => {
+        if (definition.match?.(salary) ?? false) {
+          return Math.max(total, definition.points)
+        }
+
+        return total
+      }, 0)
+
+      return points
+    },
   },
   {
     category: CriteriaCategory.Age,

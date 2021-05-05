@@ -1,7 +1,9 @@
 import {
   calculatePoints,
+  errorMessages,
   Checklist,
   Criteria,
+  CriteriaAnnualSalary,
   CriteriaProfessionalCareer,
   CriteriaCategory,
   VisaType,
@@ -98,6 +100,55 @@ describe('Visa type B point calculation', () => {
       const points = calculatePoints(checklist)
 
       expect(points).toBe(0)
+    })
+  })
+
+  function annualSalaryOf(salary: number): CriteriaAnnualSalary {
+    return {
+      category: CriteriaCategory.AnnualSalary,
+      id: 'salary',
+      salary,
+    }
+  }
+  describe('annual salary', () => {
+    it('12,500,000 JPY', () => {
+      const checklist = checklistWithCriteria([annualSalaryOf(12_500_000)])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(40)
+    })
+
+    it('9,999,999 JPY', () => {
+      const checklist = checklistWithCriteria([annualSalaryOf(9_999_999)])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(35)
+    })
+
+    it('5,000,000', () => {
+      const checklist = checklistWithCriteria([annualSalaryOf(5_000_000)])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(15)
+    })
+
+    it('3,000,000', () => {
+      const checklist = checklistWithCriteria([annualSalaryOf(3_000_000)])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(0)
+    })
+
+    it('2,999,999', () => {
+      const checklist = checklistWithCriteria([annualSalaryOf(2_999_999)])
+
+      expect(() => {
+        calculatePoints(checklist)
+      }).toThrowError(errorMessages.salaryTooLow)
     })
   })
 })
