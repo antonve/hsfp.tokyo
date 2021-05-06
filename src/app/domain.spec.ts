@@ -825,4 +825,27 @@ describe('Visa type B point calculation', () => {
       ])
     })
   })
+
+  describe('case #2: self-taught engineer at a startup', () => {
+    it('points should add up', () => {
+      const checklist = checklistWithCriteria([
+        professionalCareerWith({ yearsOfExperience: 3 }),
+        annualSalaryOf(7_000_000),
+        ageOf(27),
+        licenseHolder({ count: 2 }),
+        japanese({ kind: 'jlpt_n1_or_equivalent' }),
+      ])
+
+      const { matches, points } = calculatePoints(checklist)
+
+      expect(points).toBe(70)
+      expect(matches.map(m => m.id).sort()).toEqual([
+        '3_years_or_more',
+        '7m_or_more',
+        'has_two_or_more_national_license',
+        'jlpt_n1_or_equivalent',
+        'less_than_30',
+      ])
+    })
+  })
 })
