@@ -402,11 +402,7 @@ describe('Visa type B point calculation', () => {
     })
   })
 
-  function specialContractingOrganizationOf({
-    kind: id,
-  }: {
-    kind: string
-  }): Criteria {
+  function contractingOrganizationOf({ kind: id }: { kind: string }): Criteria {
     return {
       category: CriteriaCategory.SpecialContractingOrganization,
       id,
@@ -416,10 +412,10 @@ describe('Visa type B point calculation', () => {
   describe('contracting organization', () => {
     it('knows to ignore duplicates', () => {
       const checklist = checklistWithCriteria([
-        specialContractingOrganizationOf({
+        contractingOrganizationOf({
           kind: 'contracting_organization_promotes_highly_skilled',
         }),
-        specialContractingOrganizationOf({
+        contractingOrganizationOf({
           kind: 'contracting_organization_promotes_highly_skilled',
         }),
       ])
@@ -431,7 +427,7 @@ describe('Visa type B point calculation', () => {
 
     it('promotes innovation', () => {
       const checklist = checklistWithCriteria([
-        specialContractingOrganizationOf({
+        contractingOrganizationOf({
           kind: 'contracting_organization_promotes_innovation',
         }),
       ])
@@ -443,10 +439,10 @@ describe('Visa type B point calculation', () => {
 
     it('promotes innovation & small-medium sized company', () => {
       const checklist = checklistWithCriteria([
-        specialContractingOrganizationOf({
+        contractingOrganizationOf({
           kind: 'contracting_organization_promotes_innovation',
         }),
-        specialContractingOrganizationOf({
+        contractingOrganizationOf({
           kind: 'contracting_organization_small_medium_sized',
         }),
       ])
@@ -458,13 +454,13 @@ describe('Visa type B point calculation', () => {
 
     it('promotes highly skilled professionals & innovation & small-medium sized company', () => {
       const checklist = checklistWithCriteria([
-        specialContractingOrganizationOf({
+        contractingOrganizationOf({
           kind: 'contracting_organization_promotes_innovation',
         }),
-        specialContractingOrganizationOf({
+        contractingOrganizationOf({
           kind: 'contracting_organization_small_medium_sized',
         }),
-        specialContractingOrganizationOf({
+        contractingOrganizationOf({
           kind: 'contracting_organization_promotes_highly_skilled',
         }),
       ])
@@ -476,7 +472,7 @@ describe('Visa type B point calculation', () => {
 
     it('ignores small-medium sized company when not promoting innovation', () => {
       const checklist = checklistWithCriteria([
-        specialContractingOrganizationOf({
+        contractingOrganizationOf({
           kind: 'contracting_organization_small_medium_sized',
         }),
       ])
@@ -488,7 +484,7 @@ describe('Visa type B point calculation', () => {
 
     it('promotes highly skilled professionals', () => {
       const checklist = checklistWithCriteria([
-        specialContractingOrganizationOf({
+        contractingOrganizationOf({
           kind: 'contracting_organization_promotes_highly_skilled',
         }),
       ])
