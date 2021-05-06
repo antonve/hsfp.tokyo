@@ -848,4 +848,28 @@ describe('Visa type B point calculation', () => {
       ])
     })
   })
+
+  describe('case #3: experienced ML engineer', () => {
+    it('points should add up', () => {
+      const checklist = checklistWithCriteria([
+        academicBackgroundWith({ degree: 'doctor' }),
+        professionalCareerWith({ yearsOfExperience: 10 }),
+        annualSalaryOf(15_000_000),
+        ageOf(50),
+        researchAchievementOf({ kind: 'patent_inventor' }),
+        researchAchievementOf({ kind: 'has_published_three_papers' }),
+      ])
+
+      const { matches, points } = calculatePoints(checklist)
+
+      expect(points).toBe(105)
+      expect(matches.map(m => m.id).sort()).toEqual([
+        '10_years_or_more',
+        '10m_or_more',
+        'doctor',
+        'has_published_three_papers',
+        'patent_inventor',
+      ])
+    })
+  })
 })
