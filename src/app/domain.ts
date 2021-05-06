@@ -3,7 +3,9 @@ export interface Checklist {
   matchingCriteria: Criteria[]
 }
 
-export const calculatePoints = (checklist: Checklist): number => {
+export const calculatePoints = (
+  checklist: Checklist,
+): MatchingDefinitionsResult => {
   switch (checklist.visaType) {
     case VisaType.B:
       return calculate(
@@ -18,13 +20,21 @@ export const calculatePoints = (checklist: Checklist): number => {
 const calculate = (
   definitionGroups: CriteriaDefinitionGroup[],
   criteria: Criteria[],
-): number => {
+): MatchingDefinitionsResult => {
   return definitionGroups
-    .flatMap(group => {
-      let result = group.matchingDefinitions(group.definitions, criteria)
-      return result.points
-    })
-    .reduce((accumulator, current) => accumulator + current, 0)
+    .map(group => group.matchingDefinitions(group.definitions, criteria))
+    .reduce(
+      (accumulator, current) => {
+        return {
+          matches: accumulator.matches.concat(current.matches),
+          points: accumulator.points + current.points,
+        }
+      },
+      {
+        matches: [],
+        points: 0,
+      } as MatchingDefinitionsResult,
+    )
 }
 
 export enum VisaType {
@@ -62,7 +72,7 @@ export interface CriteriaLicenses extends Criteria {
   count: number
 }
 
-interface CriteriaDefinition {
+export interface CriteriaDefinition {
   id: string
   points: number
   match?: (value: any) => boolean
@@ -291,7 +301,7 @@ const criteriaForVisaB: {
         (accumulator, current) => accumulator + current.points,
         0,
       )
-      return { matches: [], points }
+      return { matches, points }
     },
   },
   [CriteriaCategory.SpecialContractingOrganization]: {
