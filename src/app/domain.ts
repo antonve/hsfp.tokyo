@@ -351,7 +351,28 @@ const criteriaForVisaB: {
       { id: 'jlpt_n1_or_equivalent', points: 15 },
       { id: 'jlpt_n2_or_equivalent', points: 10 },
     ],
-    totalPoints: definitions => 0,
+    totalPoints: (definitions, criteria) => {
+      const defs = mapById(definitions)
+      const matches = criteria
+        .filter(c => c.category === CriteriaCategory.SpecialJapanese)
+        .map(c => c.id)
+      const isUniGraduate = matches.includes('graduated_japanese_uni_or_course')
+      const hasN1 = matches.includes('jlpt_n1_or_equivalent')
+      const hasN2 = matches.includes('jlpt_n2_or_equivalent')
+
+      let points = 0
+      if (hasN2 && !hasN1 && !isUniGraduate) {
+        points += defs['jlpt_n2_or_equivalent']?.points ?? 0
+      }
+      if (hasN1) {
+        points += defs['jlpt_n1_or_equivalent']?.points ?? 0
+      }
+      if (isUniGraduate) {
+        points += defs['graduated_japanese_uni_or_course']?.points ?? 0
+      }
+
+      return points
+    },
   },
   [CriteriaCategory.SpecialUniversity]: {
     definitions: [

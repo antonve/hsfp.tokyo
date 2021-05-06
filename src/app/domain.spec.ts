@@ -494,4 +494,109 @@ describe('Visa type B point calculation', () => {
       expect(points).toBe(10)
     })
   })
+
+  function japanese({ kind: id }: { kind: string }): Criteria {
+    return {
+      category: CriteriaCategory.SpecialJapanese,
+      id,
+    }
+  }
+
+  describe('japanese ability', () => {
+    it('knows to ignore duplicates', () => {
+      const checklist = checklistWithCriteria([
+        japanese({
+          kind: 'graduated_japanese_uni_or_course',
+        }),
+        japanese({
+          kind: 'graduated_japanese_uni_or_course',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('graduated japanese university', () => {
+      const checklist = checklistWithCriteria([
+        japanese({
+          kind: 'graduated_japanese_uni_or_course',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('has jlpt n1 or equivalent', () => {
+      const checklist = checklistWithCriteria([
+        japanese({
+          kind: 'jlpt_n1_or_equivalent',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(15)
+    })
+
+    it('has jlpt n2 or equivalent', () => {
+      const checklist = checklistWithCriteria([
+        japanese({
+          kind: 'jlpt_n2_or_equivalent',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('ignores jlpt n2 or equivalent if graduated from japanese university', () => {
+      const checklist = checklistWithCriteria([
+        japanese({
+          kind: 'jlpt_n2_or_equivalent',
+        }),
+        japanese({
+          kind: 'graduated_japanese_uni_or_course',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('ignores jlpt n2 or equivalent when having n1', () => {
+      const checklist = checklistWithCriteria([
+        japanese({
+          kind: 'jlpt_n2_or_equivalent',
+        }),
+        japanese({
+          kind: 'jlpt_n1_or_equivalent',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(15)
+    })
+
+    it('has jlpt n1 or equivalent and graduated from japanese university', () => {
+      const checklist = checklistWithCriteria([
+        japanese({
+          kind: 'jlpt_n1_or_equivalent',
+        }),
+        japanese({
+          kind: 'graduated_japanese_uni_or_course',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(25)
+    })
+  })
 })
