@@ -324,4 +324,81 @@ describe('Visa type B point calculation', () => {
       expect(points).toBe(0)
     })
   })
+
+  function specialOf({ kind: id }: { kind: string }): Criteria {
+    return {
+      category: CriteriaCategory.Special,
+      id,
+    }
+  }
+
+  describe('special', () => {
+    it('knows to ignore duplicates', () => {
+      const checklist = checklistWithCriteria([
+        specialOf({ kind: 'rnd_exceeds_three_percent' }),
+        specialOf({ kind: 'rnd_exceeds_three_percent' }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(5)
+    })
+
+    it('research and development exceeds 3%', () => {
+      const checklist = checklistWithCriteria([
+        specialOf({ kind: 'rnd_exceeds_three_percent' }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(5)
+    })
+
+    it('has foreign work related qualification', () => {
+      const checklist = checklistWithCriteria([
+        specialOf({ kind: 'foreign_work_related_qualification' }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(5)
+    })
+
+    it('has worked on an advanced project in a growth field', () => {
+      const checklist = checklistWithCriteria([
+        specialOf({ kind: 'advanced_project_growth_field' }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('completed training conducted by JICA as part of Innovative Asia Project', () => {
+      const checklist = checklistWithCriteria([
+        specialOf({
+          kind: 'completed_training_conducted_by_jica_innovative_asia_project',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(5)
+    })
+
+    it('qualifies for all special criteria', () => {
+      const checklist = checklistWithCriteria([
+        specialOf({ kind: 'rnd_exceeds_three_percent' }),
+        specialOf({ kind: 'foreign_work_related_qualification' }),
+        specialOf({ kind: 'advanced_project_growth_field' }),
+        specialOf({
+          kind: 'completed_training_conducted_by_jica_innovative_asia_project',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(25)
+    })
+  })
 })

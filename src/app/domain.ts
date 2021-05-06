@@ -283,7 +283,27 @@ const criteriaForVisaB: {
         points: 5,
       },
     ],
-    totalPoints: definitions => 0,
+    totalPoints: (definitions, criteria) => {
+      const ids = definitions.map(d => d.id)
+      const qualifyingPoints = criteria
+        .filter(c => c.category === CriteriaCategory.Special)
+        .filter(c => ids.includes(c.id))
+        .reduce((accumulator, current) => {
+          const definition = definitions.find(d => d.id === current.id)
+          if (definition === undefined) {
+            return accumulator
+          }
+
+          // Make sure we only count each category once
+          accumulator[current.id] = definition.points
+          return accumulator
+        }, {} as { [key: string]: number })
+      const points = Object.values(qualifyingPoints).reduce(
+        (accumulator, current) => accumulator + current,
+        0,
+      )
+      return points
+    },
   },
   [CriteriaCategory.SpecialContractingOrganization]: {
     definitions: [
