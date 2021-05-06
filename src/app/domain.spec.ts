@@ -599,4 +599,84 @@ describe('Visa type B point calculation', () => {
       expect(points).toBe(25)
     })
   })
+
+  function universityOf({ kind: id }: { kind: string }): Criteria {
+    return {
+      category: CriteriaCategory.SpecialUniversity,
+      id,
+    }
+  }
+
+  describe('university', () => {
+    it('knows to ignore duplicates', () => {
+      const checklist = checklistWithCriteria([
+        universityOf({
+          kind: 'top_ranked_university_graduate',
+        }),
+        universityOf({
+          kind: 'top_ranked_university_graduate',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('is a top 300 university', () => {
+      const checklist = checklistWithCriteria([
+        universityOf({
+          kind: 'top_ranked_university_graduate',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('is funded by top global universities project', () => {
+      const checklist = checklistWithCriteria([
+        universityOf({
+          kind:
+            'graduate_of_university_funded_by_top_global_universities_project',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('is designated partner school in the innovative asia project', () => {
+      const checklist = checklistWithCriteria([
+        universityOf({
+          kind: 'graduate_of_university_partner_school',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('points should not add', () => {
+      const checklist = checklistWithCriteria([
+        universityOf({
+          kind: 'top_ranked_university_graduate',
+        }),
+        universityOf({
+          kind:
+            'graduate_of_university_funded_by_top_global_universities_project',
+        }),
+        universityOf({
+          kind: 'graduate_of_university_partner_school',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+  })
 })

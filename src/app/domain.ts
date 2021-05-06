@@ -378,16 +378,27 @@ const criteriaForVisaB: {
     definitions: [
       { id: 'top_ranked_university_graduate', points: 10 },
       {
-        id: 'university_funded_by_top_global_universities_project_graduate',
+        id: 'graduate_of_university_funded_by_top_global_universities_project',
         points: 10,
       },
       {
-        id:
-          'university_designated_innovative_asia_project_partner_school_graduate',
+        id: 'graduate_of_university_partner_school',
         points: 10,
       },
     ],
-    totalPoints: definitions => 0,
+    totalPoints: (definitions, criteria) => {
+      const ids = definitions.map(d => d.id)
+      const match = criteria
+        .filter(c => c.category === CriteriaCategory.SpecialUniversity)
+        .find(c => ids.includes(c.id))
+
+      if (match === undefined) {
+        return 0
+      }
+      const points = definitions[0].points
+
+      return points
+    },
   },
   // This is ignored for visa B
   [CriteriaCategory.Position]: {
