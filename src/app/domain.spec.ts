@@ -136,7 +136,7 @@ describe('Visa type B point calculation', () => {
       expect(points).toBe(35)
     })
 
-    it('5,000,000 @ 34 years old', () => {
+    it('5,000,000 JPY @ 34 years old', () => {
       const checklist = checklistWithCriteria([
         annualSalaryOf(5_000_000), // 15 points
         ageOf(34), // 10 points
@@ -147,7 +147,7 @@ describe('Visa type B point calculation', () => {
       expect(points).toBe(25)
     })
 
-    it('5,000,000 @ 35 years old', () => {
+    it('5,000,000 JPY @ 35 years old', () => {
       const checklist = checklistWithCriteria([
         annualSalaryOf(5_000_000), // 0 points
         ageOf(35), // 5 points
@@ -158,7 +158,7 @@ describe('Visa type B point calculation', () => {
       expect(points).toBe(5)
     })
 
-    it('3,000,000 @ 20 years old', () => {
+    it('3,000,000 JPY @ 20 years old', () => {
       const checklist = checklistWithCriteria([
         annualSalaryOf(3_000_000), // 0 points
         ageOf(20), // 15 points
@@ -169,7 +169,7 @@ describe('Visa type B point calculation', () => {
       expect(points).toBe(15)
     })
 
-    it('2,999,999 @ 24 years old', () => {
+    it('2,999,999 JPY @ 24 years old', () => {
       const checklist = checklistWithCriteria([
         annualSalaryOf(2_999_999),
         ageOf(24),
