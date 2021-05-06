@@ -114,40 +114,66 @@ describe('Visa type B point calculation', () => {
   }
 
   describe('annual salary', () => {
-    it('12,500,000 JPY', () => {
-      const checklist = checklistWithCriteria([annualSalaryOf(12_500_000)])
+    it('12,500,000 JPY @ 50 years old', () => {
+      const checklist = checklistWithCriteria([
+        annualSalaryOf(12_500_000),
+        ageOf(50),
+      ])
 
       const points = calculatePoints(checklist)
 
       expect(points).toBe(40)
     })
 
-    it('9,999,999 JPY', () => {
-      const checklist = checklistWithCriteria([annualSalaryOf(9_999_999)])
+    it('9,999,999 JPY @ 50 years old', () => {
+      const checklist = checklistWithCriteria([
+        annualSalaryOf(9_999_999),
+        ageOf(50),
+      ])
 
       const points = calculatePoints(checklist)
 
       expect(points).toBe(35)
     })
 
-    it('5,000,000', () => {
-      const checklist = checklistWithCriteria([annualSalaryOf(5_000_000)])
+    it('5,000,000 @ 34 years old', () => {
+      const checklist = checklistWithCriteria([
+        annualSalaryOf(5_000_000), // 15 points
+        ageOf(34), // 10 points
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(25)
+    })
+
+    it('5,000,000 @ 35 years old', () => {
+      const checklist = checklistWithCriteria([
+        annualSalaryOf(5_000_000), // 0 points
+        ageOf(35), // 5 points
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(5)
+    })
+
+    it('3,000,000 @ 20 years old', () => {
+      const checklist = checklistWithCriteria([
+        annualSalaryOf(3_000_000), // 0 points
+        ageOf(20), // 15 points
+      ])
 
       const points = calculatePoints(checklist)
 
       expect(points).toBe(15)
     })
 
-    it('3,000,000', () => {
-      const checklist = checklistWithCriteria([annualSalaryOf(3_000_000)])
-
-      const points = calculatePoints(checklist)
-
-      expect(points).toBe(0)
-    })
-
-    it('2,999,999', () => {
-      const checklist = checklistWithCriteria([annualSalaryOf(2_999_999)])
+    it('2,999,999 @ 24 years old', () => {
+      const checklist = checklistWithCriteria([
+        annualSalaryOf(2_999_999),
+        ageOf(24),
+      ])
 
       expect(() => {
         calculatePoints(checklist)

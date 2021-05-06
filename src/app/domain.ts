@@ -6,7 +6,10 @@ export interface Checklist {
 export const calculatePoints = (checklist: Checklist): number => {
   switch (checklist.visaType) {
     case VisaType.B:
-      return calculate(criteriaForVisaB, checklist.matchingCriteria)
+      return calculate(
+        Object.values(criteriaForVisaB),
+        checklist.matchingCriteria,
+      )
     default:
       throw new Error('not yet implemented')
   }
@@ -79,7 +82,6 @@ export enum CriteriaCategory {
 }
 
 interface CriteriaDefinitionGroup {
-  category: CriteriaCategory
   definitions: CriteriaDefinition[]
   totalPoints: (
     defintions: CriteriaDefinition[],
@@ -91,9 +93,10 @@ export const errorMessages = {
   salaryTooLow: 'salary must be above 3m to be eligible for the HSFP visa',
 }
 
-const criteriaForVisaB: CriteriaDefinitionGroup[] = [
-  {
-    category: CriteriaCategory.AcademicBackground,
+const criteriaForVisaB: {
+  [key in CriteriaCategory]: CriteriaDefinitionGroup
+} = {
+  [CriteriaCategory.AcademicBackground]: {
     definitions: [
       { id: 'doctor', points: 30 },
       { id: 'business_management', points: 25 },
@@ -121,8 +124,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       return points + bonus
     },
   },
-  {
-    category: CriteriaCategory.ProfessionalCareer,
+  [CriteriaCategory.ProfessionalCareer]: {
     definitions: [
       { id: '10_years_or_more', points: 20, match: exp => exp >= 10 },
       { id: '7_years_or_more', points: 15, match: exp => exp >= 7 },
@@ -139,38 +141,71 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       return points
     },
   },
-  {
-    category: CriteriaCategory.AnnualSalary,
+  [CriteriaCategory.AnnualSalary]: {
     definitions: [
-      { id: '10m_or_more', points: 40, match: salary => salary >= 10_000_000 },
-      { id: '9m_or_more', points: 35, match: salary => salary >= 9_000_000 },
-      { id: '8m_or_more', points: 30, match: salary => salary >= 8_000_000 },
-      { id: '7m_or_more', points: 25, match: salary => salary >= 7_000_000 },
-      { id: '6m_or_more', points: 20, match: salary => salary >= 6_000_000 },
-      { id: '5m_or_more', points: 15, match: salary => salary >= 5_000_000 },
-      { id: '4m_or_more', points: 10, match: salary => salary >= 4_000_000 },
+      {
+        id: '10m_or_more',
+        points: 40,
+        match: ({ salary }) => salary >= 10_000_000,
+      },
+      {
+        id: '9m_or_more',
+        points: 35,
+        match: ({ salary }) => salary >= 9_000_000,
+      },
+      {
+        id: '8m_or_more',
+        points: 30,
+        match: ({ salary }) => salary >= 8_000_000,
+      },
+      {
+        id: '7m_or_more',
+        points: 25,
+        match: ({ salary, age }) => salary >= 7_000_000 && age < 40,
+      },
+      {
+        id: '6m_or_more',
+        points: 20,
+        match: ({ salary, age }) => salary >= 6_000_000 && age < 40,
+      },
+      {
+        id: '5m_or_more',
+        points: 15,
+        match: ({ salary, age }) => salary >= 5_000_000 && age < 35,
+      },
+      {
+        id: '4m_or_more',
+        points: 10,
+        match: ({ salary, age }) => salary >= 4_000_000 && age < 30,
+      },
     ],
     totalPoints: (definitions, criteria) => {
-      const match = criteria.find(
+      const matchSalary = criteria.find(
         c => c.category === CriteriaCategory.AnnualSalary,
       ) as CriteriaAnnualSalary | undefined
+      const matchAge = criteria.find(
+        c => c.category === CriteriaCategory.Age,
+      ) as CriteriaAge | undefined
 
-      if (match === undefined) {
+      if (matchSalary === undefined) {
+        return 0
+      }
+      if (matchAge === undefined) {
         return 0
       }
 
-      const salary = match.salary
+      const age = matchAge.age
+      const salary = matchSalary.salary
       if (salary < 3_000_000) {
         throw new Error(errorMessages.salaryTooLow)
       }
 
-      const points = maxMatchingPoints(definitions, salary)
+      const points = maxMatchingPoints(definitions, { salary, age })
 
       return points
     },
   },
-  {
-    category: CriteriaCategory.Age,
+  [CriteriaCategory.Age]: {
     definitions: [
       { id: 'less_than_30', points: 15, match: age => age < 30 },
       { id: 'less_than_35', points: 10, match: age => age < 35 },
@@ -191,8 +226,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       return points
     },
   },
-  {
-    category: CriteriaCategory.ResearchAchievements,
+  [CriteriaCategory.ResearchAchievements]: {
     definitions: [
       { id: 'patent_inventor', points: 15 },
       { id: 'conducted_financed_projects', points: 15 },
@@ -211,8 +245,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       return 0
     },
   },
-  {
-    category: CriteriaCategory.Licenses,
+  [CriteriaCategory.Licenses]: {
     definitions: [
       {
         id: 'has_one_national_license',
@@ -240,8 +273,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
       return points
     },
   },
-  {
-    category: CriteriaCategory.Special,
+  [CriteriaCategory.Special]: {
     definitions: [
       { id: 'rnd_exceeds_three_percent', points: 5 },
       { id: 'foreign_work_related_qualification', points: 5 },
@@ -253,8 +285,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
     ],
     totalPoints: definitions => 0,
   },
-  {
-    category: CriteriaCategory.SpecialContractingOrganization,
+  [CriteriaCategory.SpecialContractingOrganization]: {
     definitions: [
       { id: 'contracting_organization_promotes_innovation', points: 10 },
       { id: 'contracting_organization_small_medium_sized', points: 10 },
@@ -262,8 +293,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
     ],
     totalPoints: definitions => 0,
   },
-  {
-    category: CriteriaCategory.SpecialJapanese,
+  [CriteriaCategory.SpecialJapanese]: {
     definitions: [
       { id: 'graduated_japanese_uni_or_course', points: 10 },
       { id: 'jlpt_n1_or_equivalent', points: 15 },
@@ -271,8 +301,7 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
     ],
     totalPoints: definitions => 0,
   },
-  {
-    category: CriteriaCategory.SpecialUniversity,
+  [CriteriaCategory.SpecialUniversity]: {
     definitions: [
       { id: 'top_ranked_university_graduate', points: 10 },
       {
@@ -287,7 +316,12 @@ const criteriaForVisaB: CriteriaDefinitionGroup[] = [
     ],
     totalPoints: definitions => 0,
   },
-]
+  // This is ignored for visa B
+  [CriteriaCategory.Position]: {
+    definitions: [],
+    totalPoints: () => 0,
+  },
+}
 
 const groupById = (objects: { id: string }[]) => {
   return objects.reduce(
