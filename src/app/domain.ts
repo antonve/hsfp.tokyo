@@ -311,7 +311,39 @@ const criteriaForVisaB: {
       { id: 'contracting_organization_small_medium_sized', points: 10 },
       { id: 'contracting_organization_promotes_highly_skilled', points: 10 },
     ],
-    totalPoints: definitions => 0,
+    totalPoints: (definitions, criteria) => {
+      const defs = mapById(definitions)
+      const matches = criteria
+        .filter(
+          c => c.category === CriteriaCategory.SpecialContractingOrganization,
+        )
+        .map(c => c.id)
+      const isInnovative = matches.includes(
+        'contracting_organization_promotes_innovation',
+      )
+      const isSmallCompany = matches.includes(
+        'contracting_organization_small_medium_sized',
+      )
+      const isPromotingHighlySkilled = matches.includes(
+        'contracting_organization_promotes_highly_skilled',
+      )
+
+      let points = 0
+      if (isInnovative) {
+        points +=
+          defs['contracting_organization_promotes_innovation']?.points ?? 0
+      }
+      if (isInnovative && isSmallCompany) {
+        points +=
+          defs['contracting_organization_small_medium_sized']?.points ?? 0
+      }
+      if (isPromotingHighlySkilled) {
+        points +=
+          defs['contracting_organization_promotes_highly_skilled']?.points ?? 0
+      }
+
+      return points
+    },
   },
   [CriteriaCategory.SpecialJapanese]: {
     definitions: [
@@ -343,11 +375,11 @@ const criteriaForVisaB: {
   },
 }
 
-const groupById = (objects: { id: string }[]) => {
-  return objects.reduce(
-    (accumulator, current) => (accumulator[current.id] = current),
-    {} as { [key: string]: any },
-  )
+const mapById = (objects: { id: string }[]) => {
+  return objects.reduce((accumulator, current) => {
+    accumulator[current.id] = current
+    return accumulator
+  }, {} as { [key: string]: any })
 }
 
 const maxMatchingPoints = (

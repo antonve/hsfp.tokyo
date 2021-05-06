@@ -401,4 +401,101 @@ describe('Visa type B point calculation', () => {
       expect(points).toBe(25)
     })
   })
+
+  function specialContractingOrganizationOf({
+    kind: id,
+  }: {
+    kind: string
+  }): Criteria {
+    return {
+      category: CriteriaCategory.SpecialContractingOrganization,
+      id,
+    }
+  }
+
+  describe('contracting organization', () => {
+    it('knows to ignore duplicates', () => {
+      const checklist = checklistWithCriteria([
+        specialContractingOrganizationOf({
+          kind: 'contracting_organization_promotes_highly_skilled',
+        }),
+        specialContractingOrganizationOf({
+          kind: 'contracting_organization_promotes_highly_skilled',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('promotes innovation', () => {
+      const checklist = checklistWithCriteria([
+        specialContractingOrganizationOf({
+          kind: 'contracting_organization_promotes_innovation',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+
+    it('promotes innovation & small-medium sized company', () => {
+      const checklist = checklistWithCriteria([
+        specialContractingOrganizationOf({
+          kind: 'contracting_organization_promotes_innovation',
+        }),
+        specialContractingOrganizationOf({
+          kind: 'contracting_organization_small_medium_sized',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(20)
+    })
+
+    it('promotes highly skilled professionals & innovation & small-medium sized company', () => {
+      const checklist = checklistWithCriteria([
+        specialContractingOrganizationOf({
+          kind: 'contracting_organization_promotes_innovation',
+        }),
+        specialContractingOrganizationOf({
+          kind: 'contracting_organization_small_medium_sized',
+        }),
+        specialContractingOrganizationOf({
+          kind: 'contracting_organization_promotes_highly_skilled',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(30)
+    })
+
+    it('ignores small-medium sized company when not promoting innovation', () => {
+      const checklist = checklistWithCriteria([
+        specialContractingOrganizationOf({
+          kind: 'contracting_organization_small_medium_sized',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(0)
+    })
+
+    it('promotes highly skilled professionals', () => {
+      const checklist = checklistWithCriteria([
+        specialContractingOrganizationOf({
+          kind: 'contracting_organization_promotes_highly_skilled',
+        }),
+      ])
+
+      const points = calculatePoints(checklist)
+
+      expect(points).toBe(10)
+    })
+  })
 })
