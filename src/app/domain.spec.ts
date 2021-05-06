@@ -872,4 +872,38 @@ describe('Visa type B point calculation', () => {
       ])
     })
   })
+
+  describe('case #4: experienced product manager', () => {
+    it('points should add up', () => {
+      const checklist = checklistWithCriteria([
+        academicBackgroundWith({ degree: 'business_management' }),
+        academicBackgroundWith({ degree: 'master' }),
+        professionalCareerWith({ yearsOfExperience: 5 }),
+        annualSalaryOf(14_000_000),
+        ageOf(34),
+        contractingOrganizationOf({
+          kind: 'contracting_organization_promotes_innovation',
+        }),
+        contractingOrganizationOf({
+          kind: 'contracting_organization_small_medium_sized',
+        }),
+        japanese({ kind: 'graduated_japanese_uni_or_course' }),
+        japanese({ kind: 'jlpt_n1_or_equivalent' }),
+      ])
+
+      const { matches, points } = calculatePoints(checklist)
+
+      expect(points).toBe(130)
+      expect(matches.map(m => m.id).sort()).toEqual([
+        '10m_or_more',
+        '5_years_or_more',
+        'business_management',
+        'contracting_organization_promotes_innovation',
+        'contracting_organization_small_medium_sized',
+        'graduated_japanese_uni_or_course',
+        'jlpt_n1_or_equivalent',
+        'less_than_35',
+      ])
+    })
+  })
 })
