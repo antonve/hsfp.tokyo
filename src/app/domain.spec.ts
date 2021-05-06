@@ -26,6 +26,77 @@ describe('Visa type B point calculation', () => {
     }
   }
 
+  function professionalCareerWith({
+    yearsOfExperience,
+  }: {
+    yearsOfExperience: number
+  }): CriteriaProfessionalCareer {
+    return {
+      category: CriteriaCategory.ProfessionalCareer,
+      id: 'experience',
+      yearsOfExperience,
+    }
+  }
+
+  function annualSalaryOf(salary: number): CriteriaAnnualSalary {
+    return {
+      category: CriteriaCategory.AnnualSalary,
+      id: 'salary',
+      salary,
+    }
+  }
+
+  function ageOf(age: number): CriteriaAge {
+    return {
+      category: CriteriaCategory.Age,
+      id: 'age',
+      age,
+    }
+  }
+
+  function researchAchievementOf({ kind }: { kind: string }): Criteria {
+    return {
+      category: CriteriaCategory.ResearchAchievements,
+      id: kind,
+    }
+  }
+
+  function licenseHolder({ count }: { count: number }): CriteriaLicenses {
+    return {
+      category: CriteriaCategory.Licenses,
+      id: 'licenses',
+      count,
+    }
+  }
+
+  function specialOf({ kind: id }: { kind: string }): Criteria {
+    return {
+      category: CriteriaCategory.Special,
+      id,
+    }
+  }
+
+  function contractingOrganizationOf({ kind: id }: { kind: string }): Criteria {
+    return {
+      category: CriteriaCategory.SpecialContractingOrganization,
+      id,
+    }
+  }
+
+  function japanese({ kind: id }: { kind: string }): Criteria {
+    return {
+      category: CriteriaCategory.SpecialJapanese,
+      id,
+    }
+  }
+
+  function universityOf({ kind: id }: { kind: string }): Criteria {
+    return {
+      category: CriteriaCategory.SpecialUniversity,
+      id,
+    }
+  }
+
   describe('academic background', () => {
     it('single degree', () => {
       const checklist = checklistWithCriteria([
@@ -64,18 +135,6 @@ describe('Visa type B point calculation', () => {
     })
   })
 
-  function professionalCareerWith({
-    yearsOfExperience,
-  }: {
-    yearsOfExperience: number
-  }): CriteriaProfessionalCareer {
-    return {
-      category: CriteriaCategory.ProfessionalCareer,
-      id: 'experience',
-      yearsOfExperience,
-    }
-  }
-
   describe('professional career', () => {
     it('10 years of experience', () => {
       const checklist = checklistWithCriteria([
@@ -110,14 +169,6 @@ describe('Visa type B point calculation', () => {
       expect(matches.map(m => m.id).sort()).toEqual([])
     })
   })
-
-  function annualSalaryOf(salary: number): CriteriaAnnualSalary {
-    return {
-      category: CriteriaCategory.AnnualSalary,
-      id: 'salary',
-      salary,
-    }
-  }
 
   describe('annual salary', () => {
     it('12,500,000 JPY @ 50 years old', () => {
@@ -195,14 +246,6 @@ describe('Visa type B point calculation', () => {
     })
   })
 
-  function ageOf(age: number): CriteriaAge {
-    return {
-      category: CriteriaCategory.Age,
-      id: 'age',
-      age,
-    }
-  }
-
   describe('age', () => {
     it('29 years old', () => {
       const checklist = checklistWithCriteria([ageOf(29)])
@@ -240,13 +283,6 @@ describe('Visa type B point calculation', () => {
       expect(matches.map(m => m.id).sort()).toEqual([])
     })
   })
-
-  function researchAchievementOf({ kind }: { kind: string }): Criteria {
-    return {
-      category: CriteriaCategory.ResearchAchievements,
-      id: kind,
-    }
-  }
 
   describe('research achievements', () => {
     it('have at least one patent', () => {
@@ -315,14 +351,6 @@ describe('Visa type B point calculation', () => {
     })
   })
 
-  function licenseHolder({ count }: { count: number }): CriteriaLicenses {
-    return {
-      category: CriteriaCategory.Licenses,
-      id: 'licenses',
-      count,
-    }
-  }
-
   describe('national licenses', () => {
     it('has three national licenses', () => {
       const checklist = checklistWithCriteria([licenseHolder({ count: 3 })])
@@ -366,13 +394,6 @@ describe('Visa type B point calculation', () => {
       expect(matches.map(m => m.id).sort()).toEqual([])
     })
   })
-
-  function specialOf({ kind: id }: { kind: string }): Criteria {
-    return {
-      category: CriteriaCategory.Special,
-      id,
-    }
-  }
 
   describe('special', () => {
     it('knows to ignore duplicates', () => {
@@ -464,13 +485,6 @@ describe('Visa type B point calculation', () => {
       ])
     })
   })
-
-  function contractingOrganizationOf({ kind: id }: { kind: string }): Criteria {
-    return {
-      category: CriteriaCategory.SpecialContractingOrganization,
-      id,
-    }
-  }
 
   describe('contracting organization', () => {
     it('knows to ignore duplicates', () => {
@@ -576,13 +590,6 @@ describe('Visa type B point calculation', () => {
       ])
     })
   })
-
-  function japanese({ kind: id }: { kind: string }): Criteria {
-    return {
-      category: CriteriaCategory.SpecialJapanese,
-      id,
-    }
-  }
 
   describe('japanese ability', () => {
     it('knows to ignore duplicates', () => {
@@ -697,13 +704,6 @@ describe('Visa type B point calculation', () => {
       ])
     })
   })
-
-  function universityOf({ kind: id }: { kind: string }): Criteria {
-    return {
-      category: CriteriaCategory.SpecialUniversity,
-      id,
-    }
-  }
 
   describe('university', () => {
     it('knows to ignore duplicates', () => {
