@@ -59,9 +59,21 @@ export interface LicensesQualification extends Qualification {
   count: number
 }
 
-export type Category = CategoryVisaA | CategoryVisaB | CategoryVisaC
+export type Category =
+  | 'ACADEMIC_BACKGROUND'
+  | 'PROFESSIONAL_CAREER'
+  | 'AGE'
+  | 'ANNUAL_SALARY'
+  | 'RESEARCH_ACHIEVEMENTS'
+  | 'POSITION'
+  | 'LICENSES'
+  | 'SPECIAL'
+  | 'SPECIAL_CONTRACTING_ORGANIZATION'
+  | 'SPECIAL_JAPANESE'
+  | 'SPECIAL_UNIVERSITY'
+  | 'SPECIAL_INVESTOR'
 
-type CategoryVisaA =
+export type CategoryVisaA =
   | 'ACADEMIC_BACKGROUND'
   | 'PROFESSIONAL_CAREER'
   | 'AGE'
@@ -84,7 +96,7 @@ export type CategoryVisaB =
   | 'SPECIAL_JAPANESE'
   | 'SPECIAL_UNIVERSITY'
 
-type CategoryVisaC =
+export type CategoryVisaC =
   | 'ACADEMIC_BACKGROUND'
   | 'PROFESSIONAL_CAREER'
   | 'ANNUAL_SALARY'
