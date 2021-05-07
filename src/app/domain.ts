@@ -22,7 +22,7 @@ const calculate = (
   qualifications: Qualification[],
 ): SimulationResult => {
   return definitionGroups
-    .map(group => group.matchingDefinitions(group.definitions, qualifications))
+    .map(group => group.matchingDefinitions(group.criteria, qualifications))
     .reduce(
       (accumulator, current) => {
         return {
@@ -118,7 +118,7 @@ type CriteriaCategoryVisaC =
   | 'SPECIAL_INVESTOR'
 
 interface CriteriaDefinitionGroup {
-  definitions: Criteria[]
+  criteria: Criteria[]
   matchingDefinitions: (
     defintions: Criteria[],
     qualifications: Qualification[],
@@ -138,7 +138,7 @@ const criteriaForVisaB: {
   [key in CriteriaCategoryVisaB]: CriteriaDefinitionGroup
 } = {
   ACADEMIC_BACKGROUND: {
-    definitions: [
+    criteria: [
       { id: 'doctor', points: 30 },
       { id: 'business_management', points: 25 },
       { id: 'master', points: 20 },
@@ -173,7 +173,7 @@ const criteriaForVisaB: {
     },
   },
   PROFESSIONAL_CAREER: {
-    definitions: [
+    criteria: [
       { id: '10_years_or_more', points: 20, match: exp => exp >= 10 },
       { id: '7_years_or_more', points: 15, match: exp => exp >= 7 },
       { id: '5_years_or_more', points: 10, match: exp => exp >= 5 },
@@ -189,7 +189,7 @@ const criteriaForVisaB: {
     },
   },
   ANNUAL_SALARY: {
-    definitions: [
+    criteria: [
       {
         id: '10m_or_more',
         points: 40,
@@ -248,7 +248,7 @@ const criteriaForVisaB: {
     },
   },
   AGE: {
-    definitions: [
+    criteria: [
       { id: 'less_than_30', points: 15, match: age => age < 30 },
       { id: 'less_than_35', points: 10, match: age => age < 35 },
       { id: 'less_than_40', points: 5, match: age => age < 40 },
@@ -267,7 +267,7 @@ const criteriaForVisaB: {
     },
   },
   RESEARCH_ACHIEVEMENTS: {
-    definitions: [
+    criteria: [
       { id: 'patent_inventor', points: 15 },
       { id: 'conducted_financed_projects', points: 15 },
       { id: 'has_published_three_papers', points: 15 },
@@ -281,7 +281,7 @@ const criteriaForVisaB: {
     },
   },
   LICENSES: {
-    definitions: [
+    criteria: [
       {
         id: 'has_one_national_license',
         points: 5,
@@ -307,7 +307,7 @@ const criteriaForVisaB: {
     },
   },
   SPECIAL: {
-    definitions: [
+    criteria: [
       { id: 'rnd_exceeds_three_percent', points: 5 },
       { id: 'foreign_work_related_qualification', points: 5 },
       { id: 'advanced_project_growth_field', points: 10 },
@@ -330,7 +330,7 @@ const criteriaForVisaB: {
     },
   },
   SPECIAL_CONTRACTING_ORGANIZATION: {
-    definitions: [
+    criteria: [
       { id: 'contracting_organization_promotes_innovation', points: 10 },
       { id: 'contracting_organization_small_medium_sized', points: 10 },
       { id: 'contracting_organization_promotes_highly_skilled', points: 10 },
@@ -371,7 +371,7 @@ const criteriaForVisaB: {
     },
   },
   SPECIAL_JAPANESE: {
-    definitions: [
+    criteria: [
       { id: 'graduated_japanese_uni_or_course', points: 10 },
       { id: 'jlpt_n1_or_equivalent', points: 15 },
       { id: 'jlpt_n2_or_equivalent', points: 10 },
@@ -407,7 +407,7 @@ const criteriaForVisaB: {
     },
   },
   SPECIAL_UNIVERSITY: {
-    definitions: [
+    criteria: [
       { id: 'top_ranked_university_graduate', points: 10 },
       {
         id: 'graduate_of_university_funded_by_top_global_universities_project',
