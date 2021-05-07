@@ -5,7 +5,7 @@ export interface Simulation {
 
 export const calculatePoints = (
   simulation: Simulation,
-): MatchingDefinitionsResult => {
+): SimulationResult => {
   switch (simulation.visaType) {
     case VisaType.B:
       return calculate(
@@ -20,7 +20,7 @@ export const calculatePoints = (
 const calculate = (
   definitionGroups: CriteriaDefinitionGroup[],
   qualifications: Qualification[],
-): MatchingDefinitionsResult => {
+): SimulationResult => {
   return definitionGroups
     .map(group => group.matchingDefinitions(group.definitions, qualifications))
     .reduce(
@@ -33,7 +33,7 @@ const calculate = (
       {
         matches: [],
         points: 0,
-      } as MatchingDefinitionsResult,
+      } as SimulationResult,
     )
 }
 
@@ -122,10 +122,10 @@ interface CriteriaDefinitionGroup {
   matchingDefinitions: (
     defintions: CriteriaDefinition[],
     qualifications: Qualification[],
-  ) => MatchingDefinitionsResult
+  ) => SimulationResult
 }
 
-interface MatchingDefinitionsResult {
+interface SimulationResult {
   matches: CriteriaDefinition[]
   points: number
 }
@@ -438,7 +438,7 @@ const mapById = (objects: { id: string }[]) => {
 const matchAny = (
   definitions: CriteriaDefinition[],
   qualifications: Qualification[],
-): MatchingDefinitionsResult => {
+): SimulationResult => {
   const matches = definitions.filter(
     d => qualifications.find(q => q.id == d.id) != undefined,
   )
@@ -454,8 +454,8 @@ const matchAny = (
 const matchMaxPoints = (
   definitions: CriteriaDefinition[],
   value: any,
-): MatchingDefinitionsResult => {
-  let result: MatchingDefinitionsResult = { matches: [], points: 0 }
+): SimulationResult => {
+  let result: SimulationResult = { matches: [], points: 0 }
 
   definitions.forEach(definition => {
     if (definition.match?.(value) ?? false) {
