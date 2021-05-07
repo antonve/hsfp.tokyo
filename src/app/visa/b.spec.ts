@@ -1,109 +1,19 @@
+import { calculatePoints, errorMessages } from '@app/domain'
 import {
-  calculatePoints,
-  errorMessages,
-  Simulation,
-  Qualification,
-  AgeQualification,
-  AnnualSalaryQualification,
-  ProfessionalCareerQualification,
-  LicensesQualification,
-  VisaType,
-} from '@app/domain'
+  academicBackgroundWith,
+  ageOf,
+  annualSalaryOf,
+  contractingOrganizationOf,
+  japanese,
+  licenseHolder,
+  professionalCareerWith,
+  researchAchievementOf,
+  simulationWithCriteria,
+  specialOf,
+  universityOf,
+} from '@app/spec.helper'
 
 describe('Visa type B point simulation', () => {
-  function simulationWithCriteria(qualifications: Qualification[]): Simulation {
-    return {
-      visaType: VisaType.B,
-      qualifications,
-    }
-  }
-
-  function academicBackgroundWith({
-    degree,
-  }: {
-    degree: string
-  }): Qualification {
-    return {
-      category: 'ACADEMIC_BACKGROUND',
-      id: degree,
-    }
-  }
-
-  function professionalCareerWith({
-    yearsOfExperience,
-  }: {
-    yearsOfExperience: number
-  }): ProfessionalCareerQualification {
-    return {
-      category: 'PROFESSIONAL_CAREER',
-      id: 'experience',
-      yearsOfExperience,
-    }
-  }
-
-  function annualSalaryOf(salary: number): AnnualSalaryQualification {
-    return {
-      category: 'ANNUAL_SALARY',
-      id: 'salary',
-      salary,
-    }
-  }
-
-  function ageOf(age: number): AgeQualification {
-    return {
-      category: 'AGE',
-      id: 'age',
-      age,
-    }
-  }
-
-  function researchAchievementOf({ kind }: { kind: string }): Qualification {
-    return {
-      category: 'RESEARCH_ACHIEVEMENTS',
-      id: kind,
-    }
-  }
-
-  function licenseHolder({ count }: { count: number }): LicensesQualification {
-    return {
-      category: 'LICENSES',
-      id: 'licenses',
-      count,
-    }
-  }
-
-  function specialOf({ kind: id }: { kind: string }): Qualification {
-    return {
-      category: 'SPECIAL',
-      id,
-    }
-  }
-
-  function contractingOrganizationOf({
-    kind: id,
-  }: {
-    kind: string
-  }): Qualification {
-    return {
-      category: 'SPECIAL_CONTRACTING_ORGANIZATION',
-      id,
-    }
-  }
-
-  function japanese({ kind: id }: { kind: string }): Qualification {
-    return {
-      category: 'SPECIAL_JAPANESE',
-      id,
-    }
-  }
-
-  function universityOf({ kind: id }: { kind: string }): Qualification {
-    return {
-      category: 'SPECIAL_UNIVERSITY',
-      id,
-    }
-  }
-
   describe('categories', () => {
     describe('academic background', () => {
       it('single degree', () => {

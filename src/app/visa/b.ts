@@ -10,7 +10,7 @@ import {
   matchAny,
   LicensesQualification,
   mapById,
-} from '../domain'
+} from '@app/domain'
 
 export const matchersForVisaB: {
   [category in CategoryVisaB]: CriteriaMatcher
