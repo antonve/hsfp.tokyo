@@ -44,7 +44,7 @@ export enum VisaType {
 }
 
 export interface Qualification {
-  category: CriteriaCategory
+  category: Category
   id: string
 }
 
@@ -78,12 +78,12 @@ interface Criteria {
   match?: (value: any) => boolean
 }
 
-export type CriteriaCategory =
-  | CriteriaCategoryVisaA
-  | CriteriaCategoryVisaB
-  | CriteriaCategoryVisaC
+export type Category =
+  | CategoryVisaA
+  | CategoryVisaB
+  | CategoryVisaC
 
-type CriteriaCategoryVisaA =
+type CategoryVisaA =
   | 'ACADEMIC_BACKGROUND'
   | 'PROFESSIONAL_CAREER'
   | 'AGE'
@@ -94,7 +94,7 @@ type CriteriaCategoryVisaA =
   | 'SPECIAL_JAPANESE'
   | 'SPECIAL_UNIVERSITY'
 
-type CriteriaCategoryVisaB =
+type CategoryVisaB =
   | 'ACADEMIC_BACKGROUND'
   | 'PROFESSIONAL_CAREER'
   | 'AGE'
@@ -106,7 +106,7 @@ type CriteriaCategoryVisaB =
   | 'SPECIAL_JAPANESE'
   | 'SPECIAL_UNIVERSITY'
 
-type CriteriaCategoryVisaC =
+type CategoryVisaC =
   | 'ACADEMIC_BACKGROUND'
   | 'PROFESSIONAL_CAREER'
   | 'ANNUAL_SALARY'
@@ -135,7 +135,7 @@ export const errorMessages = {
 }
 
 const criteriaForVisaB: {
-  [key in CriteriaCategoryVisaB]: CriteriaDefinitionGroup
+  [key in CategoryVisaB]: CriteriaDefinitionGroup
 } = {
   ACADEMIC_BACKGROUND: {
     criteria: [
