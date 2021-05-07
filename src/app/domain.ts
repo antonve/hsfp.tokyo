@@ -22,7 +22,7 @@ const calculate = (
   qualifications: Qualification[],
 ): SimulationResult => {
   return definitionGroups
-    .map(group => group.matchingDefinitions(group.criteria, qualifications))
+    .map(group => group.match(group.criteria, qualifications))
     .reduce(
       (accumulator, current) => {
         return {
@@ -119,8 +119,8 @@ type CriteriaCategoryVisaC =
 
 interface CriteriaDefinitionGroup {
   criteria: Criteria[]
-  matchingDefinitions: (
-    defintions: Criteria[],
+  match: (
+    criteria: Criteria[],
     qualifications: Qualification[],
   ) => SimulationResult
 }
@@ -145,7 +145,7 @@ const criteriaForVisaB: {
       { id: 'bachelor', points: 10 },
       { id: 'dual_degree', points: 5 },
     ],
-    matchingDefinitions: (criteria, allQualifications) => {
+    match: (criteria, allQualifications) => {
       const qualifications = allQualifications
         .filter(q => q.category === 'ACADEMIC_BACKGROUND')
         .map(q => q.id)
@@ -179,7 +179,7 @@ const criteriaForVisaB: {
       { id: '5_years_or_more', points: 10, match: exp => exp >= 5 },
       { id: '3_years_or_more', points: 5, match: exp => exp >= 3 },
     ],
-    matchingDefinitions: (criteria, qualifications) => {
+    match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'PROFESSIONAL_CAREER') as
         | CriteriaProfessionalCareer
         | undefined
@@ -226,7 +226,7 @@ const criteriaForVisaB: {
         match: ({ salary, age }) => salary >= 4_000_000 && age < 30,
       },
     ],
-    matchingDefinitions: (criteria, qualifications) => {
+    match: (criteria, qualifications) => {
       const matchSalary = qualifications.find(q => q.category === 'ANNUAL_SALARY') as
         | CriteriaAnnualSalary
         | undefined
@@ -253,7 +253,7 @@ const criteriaForVisaB: {
       { id: 'less_than_35', points: 10, match: age => age < 35 },
       { id: 'less_than_40', points: 5, match: age => age < 40 },
     ],
-    matchingDefinitions: (criteria, qualifications) => {
+    match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'AGE') as
         | CriteriaAge
         | undefined
@@ -273,7 +273,7 @@ const criteriaForVisaB: {
       { id: 'has_published_three_papers', points: 15 },
       { id: 'research_recognized_by_japan', points: 15 },
     ],
-    matchingDefinitions: (criteria, allQualifications) => {
+    match: (criteria, allQualifications) => {
       const qualifications = allQualifications.filter(
         q => q.category === 'RESEARCH_ACHIEVEMENTS',
       )
@@ -293,7 +293,7 @@ const criteriaForVisaB: {
         match: count => count >= 2,
       },
     ],
-    matchingDefinitions: (criteria, qualifications) => {
+    match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'LICENSES') as
         | CriteriaLicenses
         | undefined
@@ -316,7 +316,7 @@ const criteriaForVisaB: {
         points: 5,
       },
     ],
-    matchingDefinitions: (criteria, allQualifications) => {
+    match: (criteria, allQualifications) => {
       const qualifications = allQualifications
         .filter(q => q.category === 'SPECIAL')
         .map(q => q.id)
@@ -335,7 +335,7 @@ const criteriaForVisaB: {
       { id: 'contracting_organization_small_medium_sized', points: 10 },
       { id: 'contracting_organization_promotes_highly_skilled', points: 10 },
     ],
-    matchingDefinitions: (allCriteria, allQualifications) => {
+    match: (allCriteria, allQualifications) => {
       let points = 0
       let matches: Criteria[] = []
 
@@ -376,7 +376,7 @@ const criteriaForVisaB: {
       { id: 'jlpt_n1_or_equivalent', points: 15 },
       { id: 'jlpt_n2_or_equivalent', points: 10 },
     ],
-    matchingDefinitions: (allCriteria, allQualifications) => {
+    match: (allCriteria, allQualifications) => {
       let points = 0
       let matches: Criteria[] = []
 
@@ -418,7 +418,7 @@ const criteriaForVisaB: {
         points: 10,
       },
     ],
-    matchingDefinitions: (criteria, allQualifications) => {
+    match: (criteria, allQualifications) => {
       const qualifications = allQualifications.filter(
         q => q.category === 'SPECIAL_UNIVERSITY',
       )
