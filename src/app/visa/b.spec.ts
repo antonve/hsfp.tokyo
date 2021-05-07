@@ -18,7 +18,11 @@ describe('Visa type B point simulation', () => {
     }
   }
 
-  function academicBackgroundWith({ degree }: { degree: string }): Qualification {
+  function academicBackgroundWith({
+    degree,
+  }: {
+    degree: string
+  }): Qualification {
     return {
       category: 'ACADEMIC_BACKGROUND',
       id: degree,
@@ -75,7 +79,11 @@ describe('Visa type B point simulation', () => {
     }
   }
 
-  function contractingOrganizationOf({ kind: id }: { kind: string }): Qualification {
+  function contractingOrganizationOf({
+    kind: id,
+  }: {
+    kind: string
+  }): Qualification {
     return {
       category: 'SPECIAL_CONTRACTING_ORGANIZATION',
       id,
