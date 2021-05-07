@@ -48,25 +48,25 @@ export interface Qualification {
   id: string
 }
 
-export interface CriteriaProfessionalCareer extends Qualification {
+export interface ProfessionalCareerQualification extends Qualification {
   category: 'PROFESSIONAL_CAREER'
   id: 'experience'
   yearsOfExperience: number
 }
 
-export interface CriteriaAnnualSalary extends Qualification {
+export interface AnnualSalaryQualification extends Qualification {
   category: 'ANNUAL_SALARY'
   id: 'salary'
   salary: number
 }
 
-export interface CriteriaAge extends Qualification {
+export interface AgeQualification extends Qualification {
   category: 'AGE'
   id: 'age'
   age: number
 }
 
-export interface CriteriaLicenses extends Qualification {
+export interface LicensesQualification extends Qualification {
   category: 'LICENSES'
   id: 'licenses'
   count: number
@@ -181,7 +181,7 @@ const criteriaForVisaB: {
     ],
     match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'PROFESSIONAL_CAREER') as
-        | CriteriaProfessionalCareer
+        | ProfessionalCareerQualification
         | undefined
       const yearsOfExperience = match?.yearsOfExperience ?? 0
 
@@ -228,10 +228,10 @@ const criteriaForVisaB: {
     ],
     match: (criteria, qualifications) => {
       const matchSalary = qualifications.find(q => q.category === 'ANNUAL_SALARY') as
-        | CriteriaAnnualSalary
+        | AnnualSalaryQualification
         | undefined
       const matchAge = qualifications.find(q => q.category === 'AGE') as
-        | CriteriaAge
+        | AgeQualification
         | undefined
 
       if (matchSalary === undefined || matchAge == undefined) {
@@ -255,7 +255,7 @@ const criteriaForVisaB: {
     ],
     match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'AGE') as
-        | CriteriaAge
+        | AgeQualification
         | undefined
 
       if (match === undefined) {
@@ -295,7 +295,7 @@ const criteriaForVisaB: {
     ],
     match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'LICENSES') as
-        | CriteriaLicenses
+        | LicensesQualification
         | undefined
 
       if (match === undefined) {

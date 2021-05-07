@@ -3,10 +3,10 @@ import {
   errorMessages,
   Simulation,
   Qualification,
-  CriteriaAge,
-  CriteriaAnnualSalary,
-  CriteriaProfessionalCareer,
-  CriteriaLicenses,
+  AgeQualification,
+  AnnualSalaryQualification,
+  ProfessionalCareerQualification,
+  LicensesQualification,
   VisaType,
 } from '@app/domain'
 
@@ -29,7 +29,7 @@ describe('Visa type B point simulation', () => {
     yearsOfExperience,
   }: {
     yearsOfExperience: number
-  }): CriteriaProfessionalCareer {
+  }): ProfessionalCareerQualification {
     return {
       category: 'PROFESSIONAL_CAREER',
       id: 'experience',
@@ -37,7 +37,7 @@ describe('Visa type B point simulation', () => {
     }
   }
 
-  function annualSalaryOf(salary: number): CriteriaAnnualSalary {
+  function annualSalaryOf(salary: number): AnnualSalaryQualification {
     return {
       category: 'ANNUAL_SALARY',
       id: 'salary',
@@ -45,7 +45,7 @@ describe('Visa type B point simulation', () => {
     }
   }
 
-  function ageOf(age: number): CriteriaAge {
+  function ageOf(age: number): AgeQualification {
     return {
       category: 'AGE',
       id: 'age',
@@ -60,7 +60,7 @@ describe('Visa type B point simulation', () => {
     }
   }
 
-  function licenseHolder({ count }: { count: number }): CriteriaLicenses {
+  function licenseHolder({ count }: { count: number }): LicensesQualification {
     return {
       category: 'LICENSES',
       id: 'licenses',
