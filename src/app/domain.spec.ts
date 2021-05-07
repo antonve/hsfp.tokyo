@@ -1,7 +1,7 @@
 import {
   calculatePoints,
   errorMessages,
-  Checklist,
+  Simulation,
   Criteria,
   CriteriaAge,
   CriteriaAnnualSalary,
@@ -10,8 +10,8 @@ import {
   VisaType,
 } from '@app/domain'
 
-describe('Visa type B point calculation', () => {
-  function checklistWithCriteria(criteria: Criteria[]): Checklist {
+describe('Visa type B point simulation', () => {
+  function simulationWithCriteria(criteria: Criteria[]): Simulation {
     return {
       visaType: VisaType.B,
       matchingCriteria: criteria,
@@ -99,7 +99,7 @@ describe('Visa type B point calculation', () => {
   describe('categories', () => {
     describe('academic background', () => {
       it('single degree', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           academicBackgroundWith({ degree: 'doctor' }),
         ])
 
@@ -110,7 +110,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('multiple degrees, should pick highest degree', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           academicBackgroundWith({ degree: 'master' }),
           academicBackgroundWith({ degree: 'bachelor' }),
         ])
@@ -122,7 +122,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('a dual degree should give bonus', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           academicBackgroundWith({ degree: 'master' }),
           academicBackgroundWith({ degree: 'bachelor' }),
           academicBackgroundWith({ degree: 'dual_degree' }),
@@ -137,7 +137,7 @@ describe('Visa type B point calculation', () => {
 
     describe('professional career', () => {
       it('10 years of experience', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           professionalCareerWith({ yearsOfExperience: 15 }),
         ])
 
@@ -148,7 +148,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('4 years of experience', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           professionalCareerWith({ yearsOfExperience: 4 }),
         ])
 
@@ -159,7 +159,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('1 year of experience', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           professionalCareerWith({ yearsOfExperience: 1 }),
         ])
 
@@ -172,7 +172,7 @@ describe('Visa type B point calculation', () => {
 
     describe('annual salary', () => {
       it('12,500,000 JPY @ 50 years old', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           annualSalaryOf(12_500_000),
           ageOf(50),
         ])
@@ -184,7 +184,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('9,999,999 JPY @ 50 years old', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           annualSalaryOf(9_999_999),
           ageOf(50),
         ])
@@ -196,7 +196,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('5,000,000 JPY @ 34 years old', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           annualSalaryOf(5_000_000), // 15 points
           ageOf(34), // 10 points
         ])
@@ -211,7 +211,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('5,000,000 JPY @ 35 years old', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           annualSalaryOf(5_000_000), // 0 points
           ageOf(35), // 5 points
         ])
@@ -223,7 +223,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('3,000,000 JPY @ 20 years old', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           annualSalaryOf(3_000_000), // 0 points
           ageOf(20), // 15 points
         ])
@@ -235,7 +235,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('2,999,999 JPY @ 24 years old', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           annualSalaryOf(2_999_999),
           ageOf(24),
         ])
@@ -248,7 +248,7 @@ describe('Visa type B point calculation', () => {
 
     describe('age', () => {
       it('29 years old', () => {
-        const checklist = checklistWithCriteria([ageOf(29)])
+        const checklist = simulationWithCriteria([ageOf(29)])
 
         const { matches, points } = calculatePoints(checklist)
 
@@ -257,7 +257,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('34 years old', () => {
-        const checklist = checklistWithCriteria([ageOf(34)])
+        const checklist = simulationWithCriteria([ageOf(34)])
 
         const { matches, points } = calculatePoints(checklist)
 
@@ -266,7 +266,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('35 years old', () => {
-        const checklist = checklistWithCriteria([ageOf(35)])
+        const checklist = simulationWithCriteria([ageOf(35)])
 
         const { matches, points } = calculatePoints(checklist)
 
@@ -275,7 +275,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('40 years old', () => {
-        const checklist = checklistWithCriteria([ageOf(40)])
+        const checklist = simulationWithCriteria([ageOf(40)])
 
         const { matches, points } = calculatePoints(checklist)
 
@@ -286,7 +286,7 @@ describe('Visa type B point calculation', () => {
 
     describe('research achievements', () => {
       it('have at least one patent', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           researchAchievementOf({ kind: 'patent_inventor' }),
         ])
 
@@ -297,7 +297,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('conducted financed projects', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           researchAchievementOf({ kind: 'conducted_financed_projects' }),
         ])
 
@@ -310,7 +310,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('has published three or more papers', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           researchAchievementOf({ kind: 'has_published_three_papers' }),
         ])
 
@@ -323,7 +323,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('research is recognized by japan', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           researchAchievementOf({ kind: 'research_recognized_by_japan' }),
         ])
 
@@ -336,7 +336,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('having multiple research achievements should count as one', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           researchAchievementOf({ kind: 'patent_inventor' }),
           researchAchievementOf({ kind: 'has_published_three_papers' }),
         ])
@@ -353,7 +353,7 @@ describe('Visa type B point calculation', () => {
 
     describe('national licenses', () => {
       it('has three national licenses', () => {
-        const checklist = checklistWithCriteria([licenseHolder({ count: 3 })])
+        const checklist = simulationWithCriteria([licenseHolder({ count: 3 })])
 
         const { matches, points } = calculatePoints(checklist)
 
@@ -364,7 +364,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('has two national licenses', () => {
-        const checklist = checklistWithCriteria([licenseHolder({ count: 2 })])
+        const checklist = simulationWithCriteria([licenseHolder({ count: 2 })])
 
         const { matches, points } = calculatePoints(checklist)
 
@@ -375,7 +375,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('has one national license', () => {
-        const checklist = checklistWithCriteria([licenseHolder({ count: 1 })])
+        const checklist = simulationWithCriteria([licenseHolder({ count: 1 })])
 
         const { matches, points } = calculatePoints(checklist)
 
@@ -386,7 +386,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('has no national licenses', () => {
-        const checklist = checklistWithCriteria([licenseHolder({ count: 0 })])
+        const checklist = simulationWithCriteria([licenseHolder({ count: 0 })])
 
         const { matches, points } = calculatePoints(checklist)
 
@@ -397,7 +397,7 @@ describe('Visa type B point calculation', () => {
 
     describe('special', () => {
       it('knows to ignore duplicates', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           specialOf({ kind: 'rnd_exceeds_three_percent' }),
           specialOf({ kind: 'rnd_exceeds_three_percent' }),
         ])
@@ -411,7 +411,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('research and development exceeds 3%', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           specialOf({ kind: 'rnd_exceeds_three_percent' }),
         ])
 
@@ -424,7 +424,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('has foreign work related qualification', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           specialOf({ kind: 'foreign_work_related_qualification' }),
         ])
 
@@ -437,7 +437,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('has worked on an advanced project in a growth field', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           specialOf({ kind: 'advanced_project_growth_field' }),
         ])
 
@@ -450,7 +450,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('completed training conducted by JICA as part of Innovative Asia Project', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           specialOf({
             kind:
               'completed_training_conducted_by_jica_innovative_asia_project',
@@ -466,7 +466,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('qualifies for all special criteria', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           specialOf({ kind: 'rnd_exceeds_three_percent' }),
           specialOf({ kind: 'foreign_work_related_qualification' }),
           specialOf({ kind: 'advanced_project_growth_field' }),
@@ -490,7 +490,7 @@ describe('Visa type B point calculation', () => {
 
     describe('contracting organization', () => {
       it('knows to ignore duplicates', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_highly_skilled',
           }),
@@ -508,7 +508,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('promotes innovation', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_innovation',
           }),
@@ -523,7 +523,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('promotes innovation & small-medium sized company', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_innovation',
           }),
@@ -542,7 +542,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('promotes highly skilled professionals & innovation & small-medium sized company', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_innovation',
           }),
@@ -565,7 +565,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('ignores small-medium sized company when not promoting innovation', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           contractingOrganizationOf({
             kind: 'contracting_organization_small_medium_sized',
           }),
@@ -578,7 +578,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('promotes highly skilled professionals', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_highly_skilled',
           }),
@@ -595,7 +595,7 @@ describe('Visa type B point calculation', () => {
 
     describe('japanese ability', () => {
       it('knows to ignore duplicates', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           japanese({
             kind: 'graduated_japanese_uni_or_course',
           }),
@@ -613,7 +613,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('graduated japanese university', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           japanese({
             kind: 'graduated_japanese_uni_or_course',
           }),
@@ -628,7 +628,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('has jlpt n1 or equivalent', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           japanese({
             kind: 'jlpt_n1_or_equivalent',
           }),
@@ -641,7 +641,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('has jlpt n2 or equivalent', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           japanese({
             kind: 'jlpt_n2_or_equivalent',
           }),
@@ -654,7 +654,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('ignores jlpt n2 or equivalent if graduated from japanese university', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           japanese({
             kind: 'jlpt_n2_or_equivalent',
           }),
@@ -672,7 +672,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('ignores jlpt n2 or equivalent when having n1', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           japanese({
             kind: 'jlpt_n2_or_equivalent',
           }),
@@ -688,7 +688,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('has jlpt n1 or equivalent and graduated from japanese university', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           japanese({
             kind: 'jlpt_n1_or_equivalent',
           }),
@@ -709,7 +709,7 @@ describe('Visa type B point calculation', () => {
 
     describe('university', () => {
       it('knows to ignore duplicates', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           universityOf({
             kind: 'top_ranked_university_graduate',
           }),
@@ -727,7 +727,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('is a top 300 university', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           universityOf({
             kind: 'top_ranked_university_graduate',
           }),
@@ -742,7 +742,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('is funded by top global universities project', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           universityOf({
             kind:
               'graduate_of_university_funded_by_top_global_universities_project',
@@ -758,7 +758,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('is designated partner school in the innovative asia project', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           universityOf({
             kind: 'graduate_of_university_partner_school',
           }),
@@ -773,7 +773,7 @@ describe('Visa type B point calculation', () => {
       })
 
       it('points should not add', () => {
-        const checklist = checklistWithCriteria([
+        const checklist = simulationWithCriteria([
           universityOf({
             kind: 'top_ranked_university_graduate',
           }),
@@ -800,7 +800,7 @@ describe('Visa type B point calculation', () => {
 
   describe('case #1: Google engineer', () => {
     it('points should add up', () => {
-      const checklist = checklistWithCriteria([
+      const checklist = simulationWithCriteria([
         academicBackgroundWith({ degree: 'master' }),
         professionalCareerWith({ yearsOfExperience: 6 }),
         annualSalaryOf(25_000_000),
@@ -827,7 +827,7 @@ describe('Visa type B point calculation', () => {
 
   describe('case #2: self-taught engineer at a startup', () => {
     it('points should add up', () => {
-      const checklist = checklistWithCriteria([
+      const checklist = simulationWithCriteria([
         professionalCareerWith({ yearsOfExperience: 3 }),
         annualSalaryOf(7_000_000),
         ageOf(27),
@@ -850,7 +850,7 @@ describe('Visa type B point calculation', () => {
 
   describe('case #3: experienced ML engineer', () => {
     it('points should add up', () => {
-      const checklist = checklistWithCriteria([
+      const checklist = simulationWithCriteria([
         academicBackgroundWith({ degree: 'doctor' }),
         professionalCareerWith({ yearsOfExperience: 10 }),
         annualSalaryOf(15_000_000),
@@ -874,7 +874,7 @@ describe('Visa type B point calculation', () => {
 
   describe('case #4: experienced product manager', () => {
     it('points should add up', () => {
-      const checklist = checklistWithCriteria([
+      const checklist = simulationWithCriteria([
         academicBackgroundWith({ degree: 'business_management' }),
         academicBackgroundWith({ degree: 'master' }),
         professionalCareerWith({ yearsOfExperience: 5 }),

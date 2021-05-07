@@ -1,16 +1,16 @@
-export interface Checklist {
+export interface Simulation {
   visaType: VisaType
   matchingCriteria: Criteria[]
 }
 
 export const calculatePoints = (
-  checklist: Checklist,
+  simulation: Simulation,
 ): MatchingDefinitionsResult => {
-  switch (checklist.visaType) {
+  switch (simulation.visaType) {
     case VisaType.B:
       return calculate(
         Object.values(criteriaForVisaB),
-        checklist.matchingCriteria,
+        simulation.matchingCriteria,
       )
     default:
       throw new Error('not yet implemented')

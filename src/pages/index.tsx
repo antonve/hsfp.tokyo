@@ -1,6 +1,5 @@
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { Checklist } from '@app/domain'
 
 function Home() {
   const { t } = useTranslation('common')
