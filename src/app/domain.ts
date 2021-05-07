@@ -15,7 +15,7 @@ interface Criteria {
   match?: (value: any) => boolean
 }
 
-interface CriteriaDefinitionGroup {
+interface CriteriaMatcher {
   criteria: Criteria[]
   match: (
     criteria: Criteria[],
@@ -102,7 +102,7 @@ export const calculatePoints = (
   switch (simulation.visaType) {
     case VisaType.B:
       return calculate(
-        Object.values(criteriaForVisaB),
+        Object.values(matchersForVisaB),
         simulation.qualifications,
       )
     default:
@@ -111,10 +111,10 @@ export const calculatePoints = (
 }
 
 const calculate = (
-  definitionGroups: CriteriaDefinitionGroup[],
+  matchers: CriteriaMatcher[],
   qualifications: Qualification[],
 ): SimulationResult => {
-  return definitionGroups
+  return matchers
     .map(group => group.match(group.criteria, qualifications))
     .reduce(
       (accumulator, current) => {
@@ -134,8 +134,8 @@ export const errorMessages = {
   salaryTooLow: 'salary must be above 3m to be eligible for the HSFP visa',
 }
 
-const criteriaForVisaB: {
-  [key in CategoryVisaB]: CriteriaDefinitionGroup
+const matchersForVisaB: {
+  [category in CategoryVisaB]: CriteriaMatcher
 } = {
   ACADEMIC_BACKGROUND: {
     criteria: [
