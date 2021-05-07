@@ -7,7 +7,6 @@ import {
   CriteriaAnnualSalary,
   CriteriaProfessionalCareer,
   CriteriaLicenses,
-  CriteriaCategory,
   VisaType,
 } from '@app/domain'
 

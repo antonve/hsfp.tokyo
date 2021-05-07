@@ -79,6 +79,22 @@ export interface CriteriaDefinition {
 }
 
 export type CriteriaCategory =
+  | CriteriaCategoryVisaA
+  | CriteriaCategoryVisaB
+  | CriteriaCategoryVisaC
+
+type CriteriaCategoryVisaA =
+  | 'ACADEMIC_BACKGROUND'
+  | 'PROFESSIONAL_CAREER'
+  | 'AGE'
+  | 'ANNUAL_SALARY'
+  | 'RESEARCH_ACHIEVEMENTS'
+  | 'SPECIAL'
+  | 'SPECIAL_CONTRACTING_ORGANIZATION'
+  | 'SPECIAL_JAPANESE'
+  | 'SPECIAL_UNIVERSITY'
+
+type CriteriaCategoryVisaB =
   | 'ACADEMIC_BACKGROUND'
   | 'PROFESSIONAL_CAREER'
   | 'AGE'
@@ -89,7 +105,17 @@ export type CriteriaCategory =
   | 'SPECIAL_CONTRACTING_ORGANIZATION'
   | 'SPECIAL_JAPANESE'
   | 'SPECIAL_UNIVERSITY'
+
+type CriteriaCategoryVisaC =
+  | 'ACADEMIC_BACKGROUND'
+  | 'PROFESSIONAL_CAREER'
+  | 'ANNUAL_SALARY'
   | 'POSITION'
+  | 'SPECIAL'
+  | 'SPECIAL_CONTRACTING_ORGANIZATION'
+  | 'SPECIAL_JAPANESE'
+  | 'SPECIAL_UNIVERSITY'
+  | 'SPECIAL_INVESTOR'
 
 interface CriteriaDefinitionGroup {
   definitions: CriteriaDefinition[]
@@ -109,7 +135,7 @@ export const errorMessages = {
 }
 
 const criteriaForVisaB: {
-  [key in CriteriaCategory]: CriteriaDefinitionGroup
+  [key in CriteriaCategoryVisaB]: CriteriaDefinitionGroup
 } = {
   ACADEMIC_BACKGROUND: {
     definitions: [
@@ -399,11 +425,6 @@ const criteriaForVisaB: {
 
       return matchAny(definitions, criteria)
     },
-  },
-  // This is ignored for visa B
-  POSITION: {
-    definitions: [],
-    matchingDefinitions: () => ({ matches: [], points: 0 }),
   },
 }
 
