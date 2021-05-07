@@ -3,44 +3,29 @@ export interface Simulation {
   qualifications: Qualification[]
 }
 
-export const calculatePoints = (
-  simulation: Simulation,
-): SimulationResult => {
-  switch (simulation.visaType) {
-    case VisaType.B:
-      return calculate(
-        Object.values(criteriaForVisaB),
-        simulation.qualifications,
-      )
-    default:
-      throw new Error('not yet implemented')
-  }
-}
-
-const calculate = (
-  definitionGroups: CriteriaDefinitionGroup[],
-  qualifications: Qualification[],
-): SimulationResult => {
-  return definitionGroups
-    .map(group => group.match(group.criteria, qualifications))
-    .reduce(
-      (accumulator, current) => {
-        return {
-          matches: accumulator.matches.concat(current.matches),
-          points: accumulator.points + current.points,
-        }
-      },
-      {
-        matches: [],
-        points: 0,
-      } as SimulationResult,
-    )
-}
-
 export enum VisaType {
   A = 'A',
   B = 'B',
   C = 'C',
+}
+
+interface Criteria {
+  id: string
+  points: number
+  match?: (value: any) => boolean
+}
+
+interface CriteriaDefinitionGroup {
+  criteria: Criteria[]
+  match: (
+    criteria: Criteria[],
+    qualifications: Qualification[],
+  ) => SimulationResult
+}
+
+interface SimulationResult {
+  matches: Criteria[]
+  points: number
 }
 
 export interface Qualification {
@@ -70,12 +55,6 @@ export interface LicensesQualification extends Qualification {
   category: 'LICENSES'
   id: 'licenses'
   count: number
-}
-
-interface Criteria {
-  id: string
-  points: number
-  match?: (value: any) => boolean
 }
 
 export type Category =
@@ -117,17 +96,38 @@ type CategoryVisaC =
   | 'SPECIAL_UNIVERSITY'
   | 'SPECIAL_INVESTOR'
 
-interface CriteriaDefinitionGroup {
-  criteria: Criteria[]
-  match: (
-    criteria: Criteria[],
-    qualifications: Qualification[],
-  ) => SimulationResult
+export const calculatePoints = (
+  simulation: Simulation,
+): SimulationResult => {
+  switch (simulation.visaType) {
+    case VisaType.B:
+      return calculate(
+        Object.values(criteriaForVisaB),
+        simulation.qualifications,
+      )
+    default:
+      throw new Error('not yet implemented')
+  }
 }
 
-interface SimulationResult {
-  matches: Criteria[]
-  points: number
+const calculate = (
+  definitionGroups: CriteriaDefinitionGroup[],
+  qualifications: Qualification[],
+): SimulationResult => {
+  return definitionGroups
+    .map(group => group.match(group.criteria, qualifications))
+    .reduce(
+      (accumulator, current) => {
+        return {
+          matches: accumulator.matches.concat(current.matches),
+          points: accumulator.points + current.points,
+        }
+      },
+      {
+        matches: [],
+        points: 0,
+      } as SimulationResult,
+    )
 }
 
 export const errorMessages = {
