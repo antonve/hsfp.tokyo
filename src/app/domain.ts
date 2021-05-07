@@ -49,25 +49,25 @@ export interface Criteria {
 }
 
 export interface CriteriaProfessionalCareer extends Criteria {
-  category: CriteriaCategory.ProfessionalCareer
+  category: 'PROFESSIONAL_CAREER'
   id: 'experience'
   yearsOfExperience: number
 }
 
 export interface CriteriaAnnualSalary extends Criteria {
-  category: CriteriaCategory.AnnualSalary
+  category: 'ANNUAL_SALARY'
   id: 'salary'
   salary: number
 }
 
 export interface CriteriaAge extends Criteria {
-  category: CriteriaCategory.Age
+  category: 'AGE'
   id: 'age'
   age: number
 }
 
 export interface CriteriaLicenses extends Criteria {
-  category: CriteriaCategory.Licenses
+  category: 'LICENSES'
   id: 'licenses'
   count: number
 }
@@ -78,19 +78,18 @@ export interface CriteriaDefinition {
   match?: (value: any) => boolean
 }
 
-export enum CriteriaCategory {
-  AcademicBackground = 'ACADEMIC_BACKGROUND',
-  ProfessionalCareer = 'PROFESSIONAL_CAREER',
-  Age = 'AGE',
-  AnnualSalary = 'ANNUAL_SALARY',
-  ResearchAchievements = 'RESEARCH_ACHIEVEMENTS',
-  Licenses = 'LICENSES',
-  Special = 'SPECIAL',
-  SpecialContractingOrganization = 'SPECIAL_CONTRACTING_ORGANIZATION',
-  SpecialJapanese = 'SPECIAL_JAPANESE',
-  SpecialUniversity = 'SPECIAL_UNIVERSITY',
-  Position = 'POSITION',
-}
+export type CriteriaCategory =
+  | 'ACADEMIC_BACKGROUND'
+  | 'PROFESSIONAL_CAREER'
+  | 'AGE'
+  | 'ANNUAL_SALARY'
+  | 'RESEARCH_ACHIEVEMENTS'
+  | 'LICENSES'
+  | 'SPECIAL'
+  | 'SPECIAL_CONTRACTING_ORGANIZATION'
+  | 'SPECIAL_JAPANESE'
+  | 'SPECIAL_UNIVERSITY'
+  | 'POSITION'
 
 interface CriteriaDefinitionGroup {
   definitions: CriteriaDefinition[]
@@ -112,7 +111,7 @@ export const errorMessages = {
 const criteriaForVisaB: {
   [key in CriteriaCategory]: CriteriaDefinitionGroup
 } = {
-  [CriteriaCategory.AcademicBackground]: {
+  ACADEMIC_BACKGROUND: {
     definitions: [
       { id: 'doctor', points: 30 },
       { id: 'business_management', points: 25 },
@@ -122,7 +121,7 @@ const criteriaForVisaB: {
     ],
     matchingDefinitions: (definitions, allCriteria) => {
       const criteria = allCriteria
-        .filter(c => c.category === CriteriaCategory.AcademicBackground)
+        .filter(c => c.category === 'ACADEMIC_BACKGROUND')
         .map(c => c.id)
 
       const degrees = definitions.filter(d => criteria.includes(d.id))
@@ -147,7 +146,7 @@ const criteriaForVisaB: {
       return { matches, points }
     },
   },
-  [CriteriaCategory.ProfessionalCareer]: {
+  PROFESSIONAL_CAREER: {
     definitions: [
       { id: '10_years_or_more', points: 20, match: exp => exp >= 10 },
       { id: '7_years_or_more', points: 15, match: exp => exp >= 7 },
@@ -155,15 +154,15 @@ const criteriaForVisaB: {
       { id: '3_years_or_more', points: 5, match: exp => exp >= 3 },
     ],
     matchingDefinitions: (definitions, criteria) => {
-      const match = criteria.find(
-        c => c.category === CriteriaCategory.ProfessionalCareer,
-      ) as CriteriaProfessionalCareer | undefined
+      const match = criteria.find(c => c.category === 'PROFESSIONAL_CAREER') as
+        | CriteriaProfessionalCareer
+        | undefined
       const yearsOfExperience = match?.yearsOfExperience ?? 0
 
       return matchMaxPoints(definitions, yearsOfExperience)
     },
   },
-  [CriteriaCategory.AnnualSalary]: {
+  ANNUAL_SALARY: {
     definitions: [
       {
         id: '10m_or_more',
@@ -202,12 +201,12 @@ const criteriaForVisaB: {
       },
     ],
     matchingDefinitions: (definitions, criteria) => {
-      const matchSalary = criteria.find(
-        c => c.category === CriteriaCategory.AnnualSalary,
-      ) as CriteriaAnnualSalary | undefined
-      const matchAge = criteria.find(
-        c => c.category === CriteriaCategory.Age,
-      ) as CriteriaAge | undefined
+      const matchSalary = criteria.find(c => c.category === 'ANNUAL_SALARY') as
+        | CriteriaAnnualSalary
+        | undefined
+      const matchAge = criteria.find(c => c.category === 'AGE') as
+        | CriteriaAge
+        | undefined
 
       if (matchSalary === undefined || matchAge == undefined) {
         return { matches: [], points: 0 }
@@ -222,14 +221,14 @@ const criteriaForVisaB: {
       return matchMaxPoints(definitions, { salary, age })
     },
   },
-  [CriteriaCategory.Age]: {
+  AGE: {
     definitions: [
       { id: 'less_than_30', points: 15, match: age => age < 30 },
       { id: 'less_than_35', points: 10, match: age => age < 35 },
       { id: 'less_than_40', points: 5, match: age => age < 40 },
     ],
     matchingDefinitions: (definitions, criteria) => {
-      const match = criteria.find(c => c.category === CriteriaCategory.Age) as
+      const match = criteria.find(c => c.category === 'AGE') as
         | CriteriaAge
         | undefined
 
@@ -241,7 +240,7 @@ const criteriaForVisaB: {
       return matchMaxPoints(definitions, age)
     },
   },
-  [CriteriaCategory.ResearchAchievements]: {
+  RESEARCH_ACHIEVEMENTS: {
     definitions: [
       { id: 'patent_inventor', points: 15 },
       { id: 'conducted_financed_projects', points: 15 },
@@ -250,12 +249,12 @@ const criteriaForVisaB: {
     ],
     matchingDefinitions: (definitions, allCriteria) => {
       const criteria = allCriteria.filter(
-        c => c.category === CriteriaCategory.ResearchAchievements,
+        c => c.category === 'RESEARCH_ACHIEVEMENTS',
       )
       return matchAny(definitions, criteria)
     },
   },
-  [CriteriaCategory.Licenses]: {
+  LICENSES: {
     definitions: [
       {
         id: 'has_one_national_license',
@@ -269,9 +268,9 @@ const criteriaForVisaB: {
       },
     ],
     matchingDefinitions: (definitions, criteria) => {
-      const match = criteria.find(
-        c => c.category === CriteriaCategory.Licenses,
-      ) as CriteriaLicenses | undefined
+      const match = criteria.find(c => c.category === 'LICENSES') as
+        | CriteriaLicenses
+        | undefined
 
       if (match === undefined) {
         return { matches: [], points: 0 }
@@ -281,7 +280,7 @@ const criteriaForVisaB: {
       return matchMaxPoints(definitions, count)
     },
   },
-  [CriteriaCategory.Special]: {
+  SPECIAL: {
     definitions: [
       { id: 'rnd_exceeds_three_percent', points: 5 },
       { id: 'foreign_work_related_qualification', points: 5 },
@@ -293,7 +292,7 @@ const criteriaForVisaB: {
     ],
     matchingDefinitions: (definitions, allCriteria) => {
       const criteria = allCriteria
-        .filter(c => c.category === CriteriaCategory.Special)
+        .filter(c => c.category === 'SPECIAL')
         .map(c => c.id)
 
       const matches = definitions.filter(d => criteria.includes(d.id))
@@ -304,7 +303,7 @@ const criteriaForVisaB: {
       return { matches, points }
     },
   },
-  [CriteriaCategory.SpecialContractingOrganization]: {
+  SPECIAL_CONTRACTING_ORGANIZATION: {
     definitions: [
       { id: 'contracting_organization_promotes_innovation', points: 10 },
       { id: 'contracting_organization_small_medium_sized', points: 10 },
@@ -316,9 +315,7 @@ const criteriaForVisaB: {
 
       const defs = mapById(definitions)
       const criteria = allCriteria
-        .filter(
-          c => c.category === CriteriaCategory.SpecialContractingOrganization,
-        )
+        .filter(c => c.category === 'SPECIAL_CONTRACTING_ORGANIZATION')
         .map(c => c.id)
       const isInnovative = criteria.includes(
         'contracting_organization_promotes_innovation',
@@ -347,7 +344,7 @@ const criteriaForVisaB: {
       return { matches, points }
     },
   },
-  [CriteriaCategory.SpecialJapanese]: {
+  SPECIAL_JAPANESE: {
     definitions: [
       { id: 'graduated_japanese_uni_or_course', points: 10 },
       { id: 'jlpt_n1_or_equivalent', points: 15 },
@@ -359,7 +356,7 @@ const criteriaForVisaB: {
 
       const defs = mapById(definitions)
       const criteria = allCriteria
-        .filter(c => c.category === CriteriaCategory.SpecialJapanese)
+        .filter(c => c.category === 'SPECIAL_JAPANESE')
         .map(c => c.id)
       const isUniGraduate = criteria.includes(
         'graduated_japanese_uni_or_course',
@@ -383,7 +380,7 @@ const criteriaForVisaB: {
       return { matches, points }
     },
   },
-  [CriteriaCategory.SpecialUniversity]: {
+  SPECIAL_UNIVERSITY: {
     definitions: [
       { id: 'top_ranked_university_graduate', points: 10 },
       {
@@ -397,14 +394,14 @@ const criteriaForVisaB: {
     ],
     matchingDefinitions: (definitions, allCriteria) => {
       const criteria = allCriteria.filter(
-        c => c.category === CriteriaCategory.SpecialUniversity,
+        c => c.category === 'SPECIAL_UNIVERSITY',
       )
 
       return matchAny(definitions, criteria)
     },
   },
   // This is ignored for visa B
-  [CriteriaCategory.Position]: {
+  POSITION: {
     definitions: [],
     matchingDefinitions: () => ({ matches: [], points: 0 }),
   },

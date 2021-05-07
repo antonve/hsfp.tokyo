@@ -21,7 +21,7 @@ describe('Visa type B point calculation', () => {
 
   function academicBackgroundWith({ degree }: { degree: string }): Criteria {
     return {
-      category: CriteriaCategory.AcademicBackground,
+      category: 'ACADEMIC_BACKGROUND',
       id: degree,
     }
   }
@@ -32,7 +32,7 @@ describe('Visa type B point calculation', () => {
     yearsOfExperience: number
   }): CriteriaProfessionalCareer {
     return {
-      category: CriteriaCategory.ProfessionalCareer,
+      category: 'PROFESSIONAL_CAREER',
       id: 'experience',
       yearsOfExperience,
     }
@@ -40,7 +40,7 @@ describe('Visa type B point calculation', () => {
 
   function annualSalaryOf(salary: number): CriteriaAnnualSalary {
     return {
-      category: CriteriaCategory.AnnualSalary,
+      category: 'ANNUAL_SALARY',
       id: 'salary',
       salary,
     }
@@ -48,7 +48,7 @@ describe('Visa type B point calculation', () => {
 
   function ageOf(age: number): CriteriaAge {
     return {
-      category: CriteriaCategory.Age,
+      category: 'AGE',
       id: 'age',
       age,
     }
@@ -56,14 +56,14 @@ describe('Visa type B point calculation', () => {
 
   function researchAchievementOf({ kind }: { kind: string }): Criteria {
     return {
-      category: CriteriaCategory.ResearchAchievements,
+      category: 'RESEARCH_ACHIEVEMENTS',
       id: kind,
     }
   }
 
   function licenseHolder({ count }: { count: number }): CriteriaLicenses {
     return {
-      category: CriteriaCategory.Licenses,
+      category: 'LICENSES',
       id: 'licenses',
       count,
     }
@@ -71,28 +71,28 @@ describe('Visa type B point calculation', () => {
 
   function specialOf({ kind: id }: { kind: string }): Criteria {
     return {
-      category: CriteriaCategory.Special,
+      category: 'SPECIAL',
       id,
     }
   }
 
   function contractingOrganizationOf({ kind: id }: { kind: string }): Criteria {
     return {
-      category: CriteriaCategory.SpecialContractingOrganization,
+      category: 'SPECIAL_CONTRACTING_ORGANIZATION',
       id,
     }
   }
 
   function japanese({ kind: id }: { kind: string }): Criteria {
     return {
-      category: CriteriaCategory.SpecialJapanese,
+      category: 'SPECIAL_JAPANESE',
       id,
     }
   }
 
   function universityOf({ kind: id }: { kind: string }): Criteria {
     return {
-      category: CriteriaCategory.SpecialUniversity,
+      category: 'SPECIAL_UNIVERSITY',
       id,
     }
   }
