@@ -452,16 +452,16 @@ const matchAny = (
 }
 
 const matchMaxPoints = (
-  definitions: Criteria[],
+  allCriteria: Criteria[],
   value: any,
 ): SimulationResult => {
   let result: SimulationResult = { matches: [], points: 0 }
 
-  definitions.forEach(definition => {
-    if (definition.match?.(value) ?? false) {
-      if (result.points < definition.points) {
-        result.points = definition.points
-        result.matches = [definition]
+  allCriteria.forEach(criteria => {
+    if (criteria.match?.(value) ?? false) {
+      if (result.points < criteria.points) {
+        result.points = criteria.points
+        result.matches = [criteria]
       }
     }
   })
