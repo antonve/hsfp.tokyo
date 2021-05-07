@@ -2,7 +2,7 @@ import {
   calculatePoints,
   errorMessages,
   Simulation,
-  Criteria,
+  Qualification,
   CriteriaAge,
   CriteriaAnnualSalary,
   CriteriaProfessionalCareer,
@@ -11,14 +11,14 @@ import {
 } from '@app/domain'
 
 describe('Visa type B point simulation', () => {
-  function simulationWithCriteria(criteria: Criteria[]): Simulation {
+  function simulationWithCriteria(criteria: Qualification[]): Simulation {
     return {
       visaType: VisaType.B,
       matchingCriteria: criteria,
     }
   }
 
-  function academicBackgroundWith({ degree }: { degree: string }): Criteria {
+  function academicBackgroundWith({ degree }: { degree: string }): Qualification {
     return {
       category: 'ACADEMIC_BACKGROUND',
       id: degree,
@@ -53,7 +53,7 @@ describe('Visa type B point simulation', () => {
     }
   }
 
-  function researchAchievementOf({ kind }: { kind: string }): Criteria {
+  function researchAchievementOf({ kind }: { kind: string }): Qualification {
     return {
       category: 'RESEARCH_ACHIEVEMENTS',
       id: kind,
@@ -68,28 +68,28 @@ describe('Visa type B point simulation', () => {
     }
   }
 
-  function specialOf({ kind: id }: { kind: string }): Criteria {
+  function specialOf({ kind: id }: { kind: string }): Qualification {
     return {
       category: 'SPECIAL',
       id,
     }
   }
 
-  function contractingOrganizationOf({ kind: id }: { kind: string }): Criteria {
+  function contractingOrganizationOf({ kind: id }: { kind: string }): Qualification {
     return {
       category: 'SPECIAL_CONTRACTING_ORGANIZATION',
       id,
     }
   }
 
-  function japanese({ kind: id }: { kind: string }): Criteria {
+  function japanese({ kind: id }: { kind: string }): Qualification {
     return {
       category: 'SPECIAL_JAPANESE',
       id,
     }
   }
 
-  function universityOf({ kind: id }: { kind: string }): Criteria {
+  function universityOf({ kind: id }: { kind: string }): Qualification {
     return {
       category: 'SPECIAL_UNIVERSITY',
       id,

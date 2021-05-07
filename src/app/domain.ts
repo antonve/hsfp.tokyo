@@ -1,6 +1,6 @@
 export interface Simulation {
   visaType: VisaType
-  matchingCriteria: Criteria[]
+  matchingCriteria: Qualification[]
 }
 
 export const calculatePoints = (
@@ -19,7 +19,7 @@ export const calculatePoints = (
 
 const calculate = (
   definitionGroups: CriteriaDefinitionGroup[],
-  criteria: Criteria[],
+  criteria: Qualification[],
 ): MatchingDefinitionsResult => {
   return definitionGroups
     .map(group => group.matchingDefinitions(group.definitions, criteria))
@@ -43,30 +43,30 @@ export enum VisaType {
   C = 'C',
 }
 
-export interface Criteria {
+export interface Qualification {
   category: CriteriaCategory
   id: string
 }
 
-export interface CriteriaProfessionalCareer extends Criteria {
+export interface CriteriaProfessionalCareer extends Qualification {
   category: 'PROFESSIONAL_CAREER'
   id: 'experience'
   yearsOfExperience: number
 }
 
-export interface CriteriaAnnualSalary extends Criteria {
+export interface CriteriaAnnualSalary extends Qualification {
   category: 'ANNUAL_SALARY'
   id: 'salary'
   salary: number
 }
 
-export interface CriteriaAge extends Criteria {
+export interface CriteriaAge extends Qualification {
   category: 'AGE'
   id: 'age'
   age: number
 }
 
-export interface CriteriaLicenses extends Criteria {
+export interface CriteriaLicenses extends Qualification {
   category: 'LICENSES'
   id: 'licenses'
   count: number
@@ -121,7 +121,7 @@ interface CriteriaDefinitionGroup {
   definitions: CriteriaDefinition[]
   matchingDefinitions: (
     defintions: CriteriaDefinition[],
-    criteria: Criteria[],
+    qualifications: Qualification[],
   ) => MatchingDefinitionsResult
 }
 
@@ -437,7 +437,7 @@ const mapById = (objects: { id: string }[]) => {
 
 const matchAny = (
   definitions: CriteriaDefinition[],
-  criteria: Criteria[],
+  criteria: Qualification[],
 ): MatchingDefinitionsResult => {
   const matches = definitions.filter(
     d => criteria.find(c => c.id == d.id) != undefined,
