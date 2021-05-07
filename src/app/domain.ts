@@ -72,7 +72,7 @@ export interface CriteriaLicenses extends Qualification {
   count: number
 }
 
-export interface CriteriaDefinition {
+interface Criteria {
   id: string
   points: number
   match?: (value: any) => boolean
@@ -118,15 +118,15 @@ type CriteriaCategoryVisaC =
   | 'SPECIAL_INVESTOR'
 
 interface CriteriaDefinitionGroup {
-  definitions: CriteriaDefinition[]
+  definitions: Criteria[]
   matchingDefinitions: (
-    defintions: CriteriaDefinition[],
+    defintions: Criteria[],
     qualifications: Qualification[],
   ) => SimulationResult
 }
 
 interface SimulationResult {
-  matches: CriteriaDefinition[]
+  matches: Criteria[]
   points: number
 }
 
@@ -157,7 +157,7 @@ const criteriaForVisaB: {
         .sort((a, b) => b.points - a.points)
 
       let points = 0
-      let matches: CriteriaDefinition[] = []
+      let matches: Criteria[] = []
 
       if (highestDegree) {
         points += highestDegree.points
@@ -337,7 +337,7 @@ const criteriaForVisaB: {
     ],
     matchingDefinitions: (definitions, allQualifications) => {
       let points = 0
-      let matches: CriteriaDefinition[] = []
+      let matches: Criteria[] = []
 
       const defs = mapById(definitions)
       const qualifications = allQualifications
@@ -378,7 +378,7 @@ const criteriaForVisaB: {
     ],
     matchingDefinitions: (definitions, allQualifications) => {
       let points = 0
-      let matches: CriteriaDefinition[] = []
+      let matches: Criteria[] = []
 
       const defs = mapById(definitions)
       const qualifications = allQualifications
@@ -436,7 +436,7 @@ const mapById = (objects: { id: string }[]) => {
 }
 
 const matchAny = (
-  definitions: CriteriaDefinition[],
+  definitions: Criteria[],
   qualifications: Qualification[],
 ): SimulationResult => {
   const matches = definitions.filter(
@@ -452,7 +452,7 @@ const matchAny = (
 }
 
 const matchMaxPoints = (
-  definitions: CriteriaDefinition[],
+  definitions: Criteria[],
   value: any,
 ): SimulationResult => {
   let result: SimulationResult = { matches: [], points: 0 }
