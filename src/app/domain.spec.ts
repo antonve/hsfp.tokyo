@@ -11,10 +11,10 @@ import {
 } from '@app/domain'
 
 describe('Visa type B point simulation', () => {
-  function simulationWithCriteria(criteria: Qualification[]): Simulation {
+  function simulationWithCriteria(qualifications: Qualification[]): Simulation {
     return {
       visaType: VisaType.B,
-      matchingCriteria: criteria,
+      qualifications,
     }
   }
 

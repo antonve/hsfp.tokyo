@@ -1,6 +1,6 @@
 export interface Simulation {
   visaType: VisaType
-  matchingCriteria: Qualification[]
+  qualifications: Qualification[]
 }
 
 export const calculatePoints = (
@@ -10,7 +10,7 @@ export const calculatePoints = (
     case VisaType.B:
       return calculate(
         Object.values(criteriaForVisaB),
-        simulation.matchingCriteria,
+        simulation.qualifications,
       )
     default:
       throw new Error('not yet implemented')
