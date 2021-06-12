@@ -1,16 +1,20 @@
 import { FC } from 'react'
 
-import { containsQualificationWithId, Qualification } from '@app/domain'
-import { Checkbox } from '@app/components/Form'
+import {
+  containsMatchingQualification,
+  containsQualificationWithId,
+  Qualification,
+} from '@app/domain'
+import { Checkbox, RadioButton } from '@app/components/Form'
 import classNames from 'classnames'
 
-interface Props {
+interface QualificationOptionProps {
   qualifications: Qualification[]
   id: string
   onChange: (value: string) => void
 }
 
-export const QualificationOption: FC<Props> = ({
+export const QualificationOption: FC<QualificationOptionProps> = ({
   children,
   qualifications,
   id,
@@ -29,6 +33,36 @@ export const QualificationOption: FC<Props> = ({
       <div className="flex-grow">{children}</div>
       <div className="flex content-center items-center">
         <Checkbox value={checked} onChange={() => onChange(id)} />
+      </div>
+    </label>
+  )
+}
+
+interface QualificationRadioProps {
+  qualifications: Qualification[]
+  match: (qualification: Qualification) => boolean
+  onChange: () => void
+}
+
+export const QualificationRadio: FC<QualificationRadioProps> = ({
+  children,
+  qualifications,
+  match,
+  onChange,
+}) => {
+  const checked = containsMatchingQualification(qualifications, match)
+  const containerClasses = classNames(
+    'py-2 px-4 flex cursor-pointer select-none',
+    {
+      'bg-indigo-400': checked,
+    },
+  )
+
+  return (
+    <label className={containerClasses}>
+      <div className="flex-grow">{children}</div>
+      <div className="flex content-center items-center">
+        <RadioButton value={checked} onChange={onChange} />
       </div>
     </label>
   )
