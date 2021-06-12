@@ -1,8 +1,17 @@
 {
   "intro": "Hello {{siteName}}",
   "visaType": {
-    "A": "Type A",
-    "B": "Type B",
-    "C": "Type C"
+    "A": {
+      "name": "Type A",
+      "description": "Academic Research"
+    },
+    "B": {
+      "name": "Type B",
+      "description": "Specialized or Technical"
+    },
+    "C": {
+      "name": "Type C",
+      "description": "Business management"
+    }
   }
 }
