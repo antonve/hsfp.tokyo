@@ -1,4 +1,4 @@
-import { useState, FC } from 'react'
+import { useState, FC, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 
 import {
@@ -8,6 +8,7 @@ import {
   VisaType,
 } from '@app/domain'
 import { QualificationIds } from '@app/visa/b'
+import { Checkbox } from '@app/components/Form'
 
 const ids = QualificationIds.AcademicBackground
 
@@ -31,9 +32,17 @@ const AcademicBackground: FC<Props> = () => {
     setQualifications([...qualifications, newQualification])
   }
 
+  useEffect(() => {
+    console.log(qualifications)
+  }, [qualifications])
+
   return (
     <QualificationList>
-      <QualificationOption value={ids.doctor} onChange={toggleQualification}>
+      <QualificationOption
+        qualifications={qualifications}
+        id={ids.doctor}
+        onChange={toggleQualification}
+      >
         <h3>{t('academicBackground.bachelor.name')}</h3>
         <p>{t('academicBackground.bachelor.description')}</p>
       </QualificationOption>
@@ -42,12 +51,26 @@ const AcademicBackground: FC<Props> = () => {
 }
 
 interface QualificationOptionProps {
-  value: string
+  qualifications: Qualification[]
+  id: string
   onChange: (value: string) => void
 }
 
-const QualificationOption: FC<QualificationOptionProps> = ({ children }) => (
-  <div className="">{children}</div>
+const QualificationOption: FC<QualificationOptionProps> = ({
+  children,
+  qualifications,
+  id,
+  onChange,
+}) => (
+  <div className="">
+    <div>{children}</div>
+    <div>
+      <Checkbox
+        value={containsQualificationWithId(qualifications, id)}
+        onChange={() => onChange(id)}
+      />
+    </div>
+  </div>
 )
 
 const QualificationList: FC<{}> = ({ children }) => (
