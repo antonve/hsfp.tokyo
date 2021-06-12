@@ -1,3 +1,8 @@
 {
-  "intro": "Hello {{siteName}}"
+  "intro": "Hello {{siteName}}",
+  "visaType": {
+    "A": "Type A",
+    "B": "Type B",
+    "C": "Type C"
+  }
 }
