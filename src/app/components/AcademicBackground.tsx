@@ -1,12 +1,7 @@
-import { useState, FC, useEffect } from 'react'
+import { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 
-import {
-  containsQualificationWithId,
-  Qualification,
-  removeQualificationWithId,
-  VisaType,
-} from '@app/domain'
+import { Qualification, VisaType } from '@app/domain'
 import { QualificationIds } from '@app/visa/b'
 import QualificationList, { QualificationOption } from './QualificationList'
 
@@ -14,34 +9,33 @@ const ids = QualificationIds.AcademicBackground
 
 interface Props {
   visaType: VisaType
+  qualifications: Qualification[]
+  toggleQualification: (
+    id: string,
+    createNewQualification: (id: string) => Qualification,
+  ) => void
 }
 
-const AcademicBackground: FC<Props> = () => {
-  const [qualifications, setQualifications] = useState([] as Qualification[])
+const AcademicBackground: FC<Props> = ({
+  qualifications,
+  toggleQualification,
+}) => {
   const { t } = useTranslation()
 
-  const toggleQualification = (id: string) => {
-    if (containsQualificationWithId(qualifications, id)) {
-      return setQualifications(removeQualificationWithId(qualifications, id))
-    }
+  const createNewQualification = (id: string): Qualification => ({
+    category: 'ACADEMIC_BACKGROUND',
+    id,
+  })
 
-    const newQualification: Qualification = {
-      category: 'ACADEMIC_BACKGROUND',
-      id,
-    }
-    setQualifications([...qualifications, newQualification])
-  }
-
-  useEffect(() => {
-    console.log(qualifications)
-  }, [qualifications])
+  const onChange = (id: string) =>
+    toggleQualification(id, createNewQualification)
 
   return (
     <QualificationList>
       <QualificationOption
         qualifications={qualifications}
         id={ids.doctor}
-        onChange={toggleQualification}
+        onChange={onChange}
       >
         <h3>{t('academicBackground.doctor.name')}</h3>
         <p>{t('academicBackground.doctor.description')}</p>
@@ -49,7 +43,7 @@ const AcademicBackground: FC<Props> = () => {
       <QualificationOption
         qualifications={qualifications}
         id={ids.master}
-        onChange={toggleQualification}
+        onChange={onChange}
       >
         <h3>{t('academicBackground.master.name')}</h3>
         <p>{t('academicBackground.master.description')}</p>
