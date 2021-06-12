@@ -7,7 +7,7 @@ const Layout: FC<{}> = ({ children }) => (
     >
       HSFP
     </header>
-    <div className="max-w-2xl mx-auto overflow-hidden">{children}</div>
+    <div className="max-w-2xl mx-auto">{children}</div>
   </div>
 )
 
