@@ -2,7 +2,10 @@ import { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 
 import { LicensesQualification, Qualification, VisaType } from '@app/domain'
-import QualificationList, { QualificationRadio } from './QualificationList'
+import QualificationList, {
+  QualificationRadio,
+} from '@app/components/QualificationList'
+import FormSection from '@app/components/FormSection'
 
 interface Props {
   visaType: VisaType
@@ -35,32 +38,37 @@ const Licenses: FC<Props> = ({
     (qualification as LicensesQualification).count === count
 
   return (
-    <QualificationList>
-      <QualificationRadio
-        qualifications={qualifications}
-        onChange={onChangeFor(0)}
-        match={matcherFor(0)}
-      >
-        <h3>{t('licenses.none.name')}</h3>
-        <p>{t('licenses.none.description')}</p>
-      </QualificationRadio>
-      <QualificationRadio
-        qualifications={qualifications}
-        onChange={onChangeFor(1)}
-        match={matcherFor(1)}
-      >
-        <h3>{t('licenses.one.name')}</h3>
-        <p>{t('licenses.one.description')}</p>
-      </QualificationRadio>
-      <QualificationRadio
-        qualifications={qualifications}
-        onChange={onChangeFor(2)}
-        match={matcherFor(2)}
-      >
-        <h3>{t('licenses.two_or_more.name')}</h3>
-        <p>{t('licenses.two_or_more.description')}</p>
-      </QualificationRadio>
-    </QualificationList>
+    <FormSection
+      title={t('simulation.licenses.title')}
+      description={t('simulation.licenses.description')}
+    >
+      <QualificationList>
+        <QualificationRadio
+          qualifications={qualifications}
+          onChange={onChangeFor(0)}
+          match={matcherFor(0)}
+        >
+          <h3>{t('licenses.none.name')}</h3>
+          <p>{t('licenses.none.description')}</p>
+        </QualificationRadio>
+        <QualificationRadio
+          qualifications={qualifications}
+          onChange={onChangeFor(1)}
+          match={matcherFor(1)}
+        >
+          <h3>{t('licenses.one.name')}</h3>
+          <p>{t('licenses.one.description')}</p>
+        </QualificationRadio>
+        <QualificationRadio
+          qualifications={qualifications}
+          onChange={onChangeFor(2)}
+          match={matcherFor(2)}
+        >
+          <h3>{t('licenses.two_or_more.name')}</h3>
+          <p>{t('licenses.two_or_more.description')}</p>
+        </QualificationRadio>
+      </QualificationList>
+    </FormSection>
   )
 }
 
