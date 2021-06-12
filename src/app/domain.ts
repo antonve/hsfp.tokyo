@@ -183,3 +183,13 @@ export const matchMaxPoints = (
 
   return result
 }
+
+export const containsQualificationWithId = (
+  qualifications: Qualification[],
+  id: string,
+): boolean => qualifications.find(q => q.id === id) !== undefined
+
+export const removeQualificationWithId = (
+  qualifications: Qualification[],
+  id: string,
+): Qualification[] => qualifications.filter(q => q.id !== id)
