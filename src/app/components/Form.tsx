@@ -11,3 +11,15 @@ export const Checkbox: FC<{
     onChange={() => onChange(!value)}
   />
 )
+
+export const RadioButton: FC<{
+  value: boolean
+  onChange: (value: boolean) => void
+}> = ({ value, onChange }) => (
+  <input
+    type="radio"
+    className={`rounded-full`}
+    checked={value}
+    onChange={() => onChange(!value)}
+  />
+)
