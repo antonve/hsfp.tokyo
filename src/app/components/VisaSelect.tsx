@@ -35,19 +35,14 @@ interface VisaOptionProps {
   onSelect: (value: VisaType) => void
 }
 
-const VisaOption: FC<VisaOptionProps> = ({
-  type,
-  description,
-  selectedType,
-  onSelect,
-}) => {
+const VisaOption: FC<VisaOptionProps> = ({ type, selectedType, onSelect }) => {
   const classes = classNames('flex-1 py-4 px-8 focus:outline-none', {
     'bg-indigo-400 text-white': type === selectedType,
   })
   const { t } = useTranslation()
 
   return (
-    <button href="#" onClick={() => onSelect(type)} className={classes}>
+    <button onClick={() => onSelect(type)} className={classes}>
       <h3>{localizeVisaType(t, type)}</h3>
       <p className={`text-sm`}>{localizeVisaTypeDescription(t, type)}</p>
     </button>
