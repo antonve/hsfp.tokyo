@@ -1,7 +1,9 @@
 import { useState, FC } from 'react'
+import { useTranslation } from 'next-i18next'
 import classNames from 'classnames'
 
 import { VisaType } from '@app/domain'
+import { localizeVisaType } from '@app/localize'
 
 const VisaSelect: FC<{}> = () => {
   const [visaType, setVisaType] = useState(undefined as undefined | VisaType)
@@ -46,9 +48,11 @@ const VisaOption: FC<VisaOptionProps> = ({
   const classes = classNames('flex-1 py-4 px-8', {
     'bg-indigo-400 text-white': type === selectedType,
   })
+  const { t } = useTranslation()
+
   return (
     <a href="#" onClick={() => onSelect(type)} className={classes}>
-      <h3>{type}</h3>
+      <h3>{localizeVisaType(t, type)}</h3>
       <p>{description}</p>
     </a>
   )
