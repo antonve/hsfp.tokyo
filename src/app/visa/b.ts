@@ -12,6 +12,16 @@ import {
   mapById,
 } from '@app/domain'
 
+export const QualificationIds = {
+  AcademicBackground: {
+    doctor: 'doctor',
+    businessManagement: 'business_management',
+    master: 'master',
+    bachelor: 'bachelor',
+    dualDegree: 'dual_degree',
+  },
+}
+
 export const matchersForVisaB: {
   [category in CategoryVisaB]: CriteriaMatcher
 } = {
