@@ -72,17 +72,20 @@ const QualificationOption: FC<QualificationOptionProps> = ({
   onChange,
 }) => {
   const checked = containsQualificationWithId(qualifications, id)
-  const containerClasses = classNames('py-2 px-4 flex', {
-    'bg-indigo-400': checked,
-  })
+  const containerClasses = classNames(
+    'py-2 px-4 flex cursor-pointer select-none',
+    {
+      'bg-indigo-400': checked,
+    },
+  )
 
   return (
-    <div className={containerClasses}>
+    <label className={containerClasses}>
       <div className="flex-grow">{children}</div>
       <div className="flex content-center items-center">
         <Checkbox value={checked} onChange={() => onChange(id)} />
       </div>
-    </div>
+    </label>
   )
 }
 
