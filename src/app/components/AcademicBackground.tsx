@@ -9,6 +9,7 @@ import {
 } from '@app/domain'
 import { QualificationIds } from '@app/visa/b'
 import { Checkbox } from '@app/components/Form'
+import classNames from 'classnames'
 
 const ids = QualificationIds.AcademicBackground
 
@@ -43,8 +44,16 @@ const AcademicBackground: FC<Props> = () => {
         id={ids.doctor}
         onChange={toggleQualification}
       >
-        <h3>{t('academicBackground.bachelor.name')}</h3>
-        <p>{t('academicBackground.bachelor.description')}</p>
+        <h3>{t('academicBackground.doctor.name')}</h3>
+        <p>{t('academicBackground.doctor.description')}</p>
+      </QualificationOption>
+      <QualificationOption
+        qualifications={qualifications}
+        id={ids.master}
+        onChange={toggleQualification}
+      >
+        <h3>{t('academicBackground.master.name')}</h3>
+        <p>{t('academicBackground.master.description')}</p>
       </QualificationOption>
     </QualificationList>
   )
@@ -61,20 +70,26 @@ const QualificationOption: FC<QualificationOptionProps> = ({
   qualifications,
   id,
   onChange,
-}) => (
-  <div className="">
-    <div>{children}</div>
-    <div>
-      <Checkbox
-        value={containsQualificationWithId(qualifications, id)}
-        onChange={() => onChange(id)}
-      />
+}) => {
+  const checked = containsQualificationWithId(qualifications, id)
+  const containerClasses = classNames('py-2 px-4 flex', {
+    'bg-indigo-400': checked,
+  })
+
+  return (
+    <div className={containerClasses}>
+      <div className="flex-grow">{children}</div>
+      <div className="flex content-center items-center">
+        <Checkbox value={checked} onChange={() => onChange(id)} />
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 const QualificationList: FC<{}> = ({ children }) => (
-  <div className="">{children}</div>
+  <div className="grid grid-cols-1 w-full rounded-md border-4 border-indigo-400 divide-y divide-y-8">
+    {children}
+  </div>
 )
 
 export default AcademicBackground
