@@ -8,6 +8,7 @@ import {
 import VisaSelect from '@app/components/VisaSelect'
 import AcademicBackground from '@app/components/AcademicBackground'
 import { VisaType } from '@app/domain'
+import Licenses from '@app/components/Licenses'
 
 const SimulationForm = () => {
   const [qualifications, setQualifications] = useState([] as Qualification[])
@@ -22,6 +23,14 @@ const SimulationForm = () => {
     setQualifications([...qualifications, createNewQualification(id)])
   }
 
+  const selectQualificationForCategory = (qualification: Qualification) => {
+    const filteredQualifications = qualifications.filter(
+      q =>
+        !(q.category === qualification.category && q.id === qualification.id),
+    )
+    setQualifications([...filteredQualifications, qualification])
+  }
+
   useEffect(() => {
     console.log(qualifications)
   }, [qualifications])
@@ -33,6 +42,11 @@ const SimulationForm = () => {
         visaType={VisaType.B}
         qualifications={qualifications}
         toggleQualification={toggleQualification}
+      />
+      <Licenses
+        visaType={VisaType.B}
+        qualifications={qualifications}
+        selectQualificationForCategory={selectQualificationForCategory}
       />
     </>
   )
