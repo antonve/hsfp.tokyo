@@ -189,6 +189,11 @@ export const containsQualificationWithId = (
   id: string,
 ): boolean => qualifications.find(q => q.id === id) !== undefined
 
+export const containsMatchingQualification = (
+  qualifications: Qualification[],
+  match: (qualification: Qualification) => boolean,
+): boolean => qualifications.find(q => match(q)) !== undefined
+
 export const removeQualificationWithId = (
   qualifications: Qualification[],
   id: string,
