@@ -198,3 +198,10 @@ export const removeQualificationWithId = (
   qualifications: Qualification[],
   id: string,
 ): Qualification[] => qualifications.filter(q => q.id !== id)
+
+export const getQualification = (
+  qualifications: Qualification[],
+  category: string,
+  id: string,
+): Qualification | undefined =>
+  qualifications.find(q => q.category === category && q.id === id)

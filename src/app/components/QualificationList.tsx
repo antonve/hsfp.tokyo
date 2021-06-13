@@ -3,9 +3,10 @@ import { FC } from 'react'
 import {
   containsMatchingQualification,
   containsQualificationWithId,
+  getQualification,
   Qualification,
 } from '@app/domain'
-import { Checkbox, RadioButton } from '@app/components/Form'
+import { Checkbox, NumberInput, RadioButton } from '@app/components/Form'
 import classNames from 'classnames'
 
 interface QualificationOptionProps {
@@ -33,6 +34,38 @@ export const QualificationOption: FC<QualificationOptionProps> = ({
       <div className="flex-grow">{children}</div>
       <div className="flex content-center items-center">
         <Checkbox value={checked} onChange={() => onChange(id)} />
+      </div>
+    </label>
+  )
+}
+
+interface QualificationNumberProps {
+  qualifications: Qualification[]
+  category: string
+  id: string
+  onChange: (value: number) => void
+  getValue: (qualification: Qualification | undefined) => number | undefined
+}
+
+export const QualificationNumber: FC<QualificationNumberProps> = ({
+  children,
+  qualifications,
+  id,
+  category,
+  onChange,
+  getValue,
+}) => {
+  const qualification = getQualification(qualifications, category, id)
+  const value = getValue(qualification)
+  const containerClasses = classNames(
+    'py-2 px-4 flex cursor-pointer select-none',
+  )
+
+  return (
+    <label className={containerClasses}>
+      <div className="flex-grow">{children}</div>
+      <div className="flex content-center items-center">
+        <NumberInput value={value} onChange={onChange} />
       </div>
     </label>
   )
