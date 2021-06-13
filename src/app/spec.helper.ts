@@ -3,7 +3,7 @@ import {
   Qualification,
   AgeQualification,
   AnnualSalaryQualification,
-  ProfessionalCareerQualification,
+  CareerQualification,
   LicensesQualification,
   VisaType,
 } from '@app/domain'
@@ -32,7 +32,7 @@ export function professionalCareerWith({
   yearsOfExperience,
 }: {
   yearsOfExperience: number
-}): ProfessionalCareerQualification {
+}): CareerQualification {
   return {
     category: 'CAREER',
     id: 'experience',

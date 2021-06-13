@@ -2,7 +2,7 @@ import {
   CategoryVisaB,
   CriteriaMatcher,
   Criteria,
-  ProfessionalCareerQualification,
+  CareerQualification,
   matchMaxPoints,
   AnnualSalaryQualification,
   AgeQualification,
@@ -69,7 +69,7 @@ export const matchersForVisaB: {
     ],
     match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'CAREER') as
-        | ProfessionalCareerQualification
+        | CareerQualification
         | undefined
       const yearsOfExperience = match?.yearsOfExperience ?? 0
 

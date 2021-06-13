@@ -35,7 +35,7 @@ export interface Qualification {
   id: string
 }
 
-export interface ProfessionalCareerQualification extends Qualification {
+export interface CareerQualification extends Qualification {
   category: 'CAREER'
   id: 'experience'
   yearsOfExperience: number
