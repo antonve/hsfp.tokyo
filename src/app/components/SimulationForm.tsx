@@ -9,6 +9,7 @@ import VisaSelect from '@app/components/VisaSelect'
 import AcademicBackground from '@app/components/AcademicBackground'
 import { VisaType } from '@app/domain'
 import Licenses from '@app/components/Licenses'
+import Career from '@app/components/Career'
 
 const SimulationForm = () => {
   const [qualifications, setQualifications] = useState([] as Qualification[])
@@ -47,6 +48,11 @@ const SimulationForm = () => {
         visaType={VisaType.B}
         qualifications={qualifications}
         selectQualificationForCategory={selectQualificationForCategory}
+      />
+      <Career
+        visaType={VisaType.B}
+        qualifications={qualifications}
+        updateQualification={selectQualificationForCategory}
       />
     </>
   )
