@@ -60,7 +60,7 @@ export const matchersForVisaB: {
       return { matches, points }
     },
   },
-  PROFESSIONAL_CAREER: {
+  CAREER: {
     criteria: [
       { id: '10_years_or_more', points: 20, match: exp => exp >= 10 },
       { id: '7_years_or_more', points: 15, match: exp => exp >= 7 },
@@ -68,9 +68,9 @@ export const matchersForVisaB: {
       { id: '3_years_or_more', points: 5, match: exp => exp >= 3 },
     ],
     match: (criteria, qualifications) => {
-      const match = qualifications.find(
-        q => q.category === 'PROFESSIONAL_CAREER',
-      ) as ProfessionalCareerQualification | undefined
+      const match = qualifications.find(q => q.category === 'CAREER') as
+        | ProfessionalCareerQualification
+        | undefined
       const yearsOfExperience = match?.yearsOfExperience ?? 0
 
       return matchMaxPoints(criteria, yearsOfExperience)

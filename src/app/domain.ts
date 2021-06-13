@@ -36,7 +36,7 @@ export interface Qualification {
 }
 
 export interface ProfessionalCareerQualification extends Qualification {
-  category: 'PROFESSIONAL_CAREER'
+  category: 'CAREER'
   id: 'experience'
   yearsOfExperience: number
 }
@@ -61,7 +61,7 @@ export interface LicensesQualification extends Qualification {
 
 export type Category =
   | 'ACADEMIC_BACKGROUND'
-  | 'PROFESSIONAL_CAREER'
+  | 'CAREER'
   | 'AGE'
   | 'ANNUAL_SALARY'
   | 'RESEARCH_ACHIEVEMENTS'
@@ -75,7 +75,7 @@ export type Category =
 
 export type CategoryVisaA =
   | 'ACADEMIC_BACKGROUND'
-  | 'PROFESSIONAL_CAREER'
+  | 'CAREER'
   | 'AGE'
   | 'ANNUAL_SALARY'
   | 'RESEARCH_ACHIEVEMENTS'
@@ -86,7 +86,7 @@ export type CategoryVisaA =
 
 export type CategoryVisaB =
   | 'ACADEMIC_BACKGROUND'
-  | 'PROFESSIONAL_CAREER'
+  | 'CAREER'
   | 'AGE'
   | 'ANNUAL_SALARY'
   | 'RESEARCH_ACHIEVEMENTS'
@@ -98,7 +98,7 @@ export type CategoryVisaB =
 
 export type CategoryVisaC =
   | 'ACADEMIC_BACKGROUND'
-  | 'PROFESSIONAL_CAREER'
+  | 'CAREER'
   | 'ANNUAL_SALARY'
   | 'POSITION'
   | 'SPECIAL'

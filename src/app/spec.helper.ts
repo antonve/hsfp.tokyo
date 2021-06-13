@@ -34,7 +34,7 @@ export function professionalCareerWith({
   yearsOfExperience: number
 }): ProfessionalCareerQualification {
   return {
-    category: 'PROFESSIONAL_CAREER',
+    category: 'CAREER',
     id: 'experience',
     yearsOfExperience,
   }
