@@ -2,6 +2,7 @@ import { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 
 import {
+  AgeQualification,
   AnnualSalaryQualification,
   CareerQualification,
   Qualification,
@@ -40,6 +41,12 @@ const Career: FC<Props> = ({ qualifications, updateQualification }) => {
     yearsOfExperience: value,
   })
 
+  const createNewAgeQualification = (value: number): AgeQualification => ({
+    category: 'AGE',
+    id: 'age',
+    age: value,
+  })
+
   const onChangeFor = (
     createQualificationFunction: (value: number) => Qualification,
   ) => (value: number | undefined) => {
@@ -74,6 +81,16 @@ const Career: FC<Props> = ({ qualifications, updateQualification }) => {
         >
           <h3>{t('career.experience.name')}</h3>
           <p>{t('career.experience.description')}</p>
+        </QualificationNumber>
+        <QualificationNumber
+          qualifications={qualifications}
+          category={`AGE`}
+          id={ids.age}
+          onChange={onChangeFor(createNewAgeQualification)}
+          getValue={q => (q as AgeQualification)?.age}
+        >
+          <h3>{t('career.age.name')}</h3>
+          <p>{t('career.age.description')}</p>
         </QualificationNumber>
       </QualificationList>
     </FormSection>
