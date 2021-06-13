@@ -20,6 +20,11 @@ export const QualificationIds = {
     bachelor: 'bachelor',
     dualDegree: 'dual_degree',
   },
+  Career: {
+    salary: 'salary',
+    experience: 'experience',
+    age: 'age',
+  },
 }
 
 export const matchersForVisaB: {
