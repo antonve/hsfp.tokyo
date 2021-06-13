@@ -25,14 +25,14 @@ export const RadioButton: FC<{
 )
 
 export const NumberInput: FC<{
-  value: number
+  value: number | undefined
   onChange: (value: number) => void
   step?: number
 }> = ({ value, onChange, step }) => (
   <input
     type="number"
     className={`rounded`}
-    value={value}
+    value={value ?? ''}
     onChange={event => {
       const updatedValue = parseInt(event.target.value, 10)
       onChange(isNaN(updatedValue) ? 0 : updatedValue)
