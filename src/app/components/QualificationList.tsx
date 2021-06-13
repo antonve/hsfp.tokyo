@@ -45,6 +45,9 @@ interface QualificationNumberProps {
   id: string
   onChange: (value: number) => void
   getValue: (qualification: Qualification | undefined) => number | undefined
+  step?: number
+  min?: number
+  max?: number
 }
 
 export const QualificationNumber: FC<QualificationNumberProps> = ({
@@ -54,6 +57,9 @@ export const QualificationNumber: FC<QualificationNumberProps> = ({
   category,
   onChange,
   getValue,
+  step,
+  min,
+  max,
 }) => {
   const qualification = getQualification(qualifications, category, id)
   const value = getValue(qualification)
@@ -64,8 +70,14 @@ export const QualificationNumber: FC<QualificationNumberProps> = ({
   return (
     <label className={containerClasses}>
       <div className="flex-grow">{children}</div>
-      <div className="flex content-center items-center">
-        <NumberInput value={value} onChange={onChange} />
+      <div className="flex content-center items-center w-1/4">
+        <NumberInput
+          value={value}
+          onChange={onChange}
+          step={step}
+          min={min}
+          max={max}
+        />
       </div>
     </label>
   )

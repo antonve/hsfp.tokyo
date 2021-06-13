@@ -28,15 +28,19 @@ export const NumberInput: FC<{
   value: number | undefined
   onChange: (value: number) => void
   step?: number
-}> = ({ value, onChange, step }) => (
+  min?: number
+  max?: number
+}> = ({ value, onChange, step, min, max }) => (
   <input
     type="number"
-    className={`rounded`}
+    className={'rounded w-full'}
     value={value ?? ''}
     onChange={event => {
       const updatedValue = parseInt(event.target.value, 10)
       onChange(isNaN(updatedValue) ? 0 : updatedValue)
     }}
     step={step ?? 1}
+    min={min}
+    max={max}
   />
 )

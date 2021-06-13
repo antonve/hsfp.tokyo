@@ -68,6 +68,8 @@ const Career: FC<Props> = ({ qualifications, updateQualification }) => {
           id={ids.salary}
           onChange={onChangeFor(createNewSalaryQualification)}
           getValue={q => (q as AnnualSalaryQualification)?.salary}
+          step={100_000}
+          min={3_000_000}
         >
           <h3>{t('career.salary.name')}</h3>
           <p>{t('career.salary.description')}</p>
@@ -78,6 +80,8 @@ const Career: FC<Props> = ({ qualifications, updateQualification }) => {
           id={ids.experience}
           onChange={onChangeFor(createNewExperienceQualification)}
           getValue={q => (q as CareerQualification)?.yearsOfExperience}
+          min={0}
+          max={60}
         >
           <h3>{t('career.experience.name')}</h3>
           <p>{t('career.experience.description')}</p>
@@ -88,6 +92,8 @@ const Career: FC<Props> = ({ qualifications, updateQualification }) => {
           id={ids.age}
           onChange={onChangeFor(createNewAgeQualification)}
           getValue={q => (q as AgeQualification)?.age}
+          min={18}
+          max={130}
         >
           <h3>{t('career.age.name')}</h3>
           <p>{t('career.age.description')}</p>
