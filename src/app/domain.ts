@@ -5,18 +5,28 @@ export interface Simulation {
   qualifications: Qualification[]
 }
 
+// The different types of HSP visas
+// TODO: Rename from A | B | C to more generic name
 export enum VisaType {
+  // Advanced academic research activities
   A = 'A',
+  // Advanced specialized/technical activities
   B = 'B',
+  // Advanced business management activities
   C = 'C',
 }
 
+// A Criteria is a row in the HSP points table.
+// The points will be added to when a qualification matches with a criteria.
 export interface Criteria {
   id: string
   points: number
   match?: (value: any) => boolean
 }
 
+// Some criteria are grouped together and need to be scored together.
+// CriteriaMatcher is a group of criteria with an associated match function to get a final score.
+// TODO: Maybe a better name for this would be CategoryMatcher
 export interface CriteriaMatcher {
   criteria: Criteria[]
   match: (
@@ -30,6 +40,9 @@ export interface SimulationResult {
   points: number
 }
 
+// A qualification is something the user has or is.
+// These can later be used to match against Criteria to get points.
+// There are variations with more specific values limited to that type of qualification.
 export interface Qualification {
   category: Category
   id: string
@@ -59,6 +72,9 @@ export interface LicensesQualification extends Qualification {
   count: number
 }
 
+// Qualifications are linked to a Category and a whole category should be scored together.
+// Each visa type has slight variations of what categories are available.
+// Forms are also generated based on these types.
 export type Category =
   | 'ACADEMIC_BACKGROUND'
   | 'CAREER'
@@ -159,6 +175,7 @@ export const matchAny = (
   )
 
   let points = 0
+  // TODO: Is this logic sound?
   if (matches.length > 0) {
     points = criteria[0].points
   }
