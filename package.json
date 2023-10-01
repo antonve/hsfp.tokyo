@@ -6,10 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
-    "@types/jest": "^29.5.5",
     "classnames": "^2.3.2",
     "jest": "^29.7.0",
     "next": "latest",
@@ -25,6 +25,7 @@
     "autoprefixer": "latest",
     "postcss": "latest",
     "tailwindcss": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "@types/jest": "^29.5.5"
   }
 }
