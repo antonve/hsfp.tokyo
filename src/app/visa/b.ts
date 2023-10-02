@@ -162,7 +162,7 @@ export const matchersForVisaB: {
   RESEARCH_ACHIEVEMENTS: {
     criteria: [
       { id: 'patent_inventor', points: 15 },
-      { id: 'conducted_financed_projects', points: 15 },
+      { id: 'conducted_financed_projects_three_times', points: 15 },
       { id: 'has_published_three_papers', points: 15 },
       { id: 'research_recognized_by_japan', points: 15 },
     ],

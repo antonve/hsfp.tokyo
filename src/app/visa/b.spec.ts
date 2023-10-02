@@ -216,14 +216,14 @@ describe('Visa type B point simulation', () => {
 
       it('conducted financed projects', () => {
         const checklist = simulationWithCriteria([
-          researchAchievementOf({ kind: 'conducted_financed_projects' }),
+          researchAchievementOf({ kind: 'conducted_financed_projects_three_times' }),
         ])
 
         const { matches, points } = calculatePoints(checklist)
 
         expect(points).toBe(15)
         expect(matches.map(m => m.id).sort()).toEqual([
-          'conducted_financed_projects',
+          'conducted_financed_projects_three_times',
         ])
       })
 
