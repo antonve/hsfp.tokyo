@@ -86,37 +86,37 @@ export const matchersForVisaB: {
       {
         id: '10m_or_more',
         points: 40,
-        match: ({ salary }) => salary >= 10000000,
+        match: ({ salary }) => salary >= 10_000_000,
       },
       {
         id: '9m_or_more',
         points: 35,
-        match: ({ salary }) => salary >= 9000000,
+        match: ({ salary }) => salary >= 9_000_000,
       },
       {
         id: '8m_or_more',
         points: 30,
-        match: ({ salary }) => salary >= 8000000,
+        match: ({ salary }) => salary >= 8_000_000,
       },
       {
         id: '7m_or_more',
         points: 25,
-        match: ({ salary, age }) => salary >= 7000000 && age < 40,
+        match: ({ salary, age }) => salary >= 7_000_000 && age < 40,
       },
       {
         id: '6m_or_more',
         points: 20,
-        match: ({ salary, age }) => salary >= 6000000 && age < 40,
+        match: ({ salary, age }) => salary >= 6_000_000 && age < 40,
       },
       {
         id: '5m_or_more',
         points: 15,
-        match: ({ salary, age }) => salary >= 5000000 && age < 35,
+        match: ({ salary, age }) => salary >= 5_000_000 && age < 35,
       },
       {
         id: '4m_or_more',
         points: 10,
-        match: ({ salary, age }) => salary >= 4000000 && age < 30,
+        match: ({ salary, age }) => salary >= 4_000_000 && age < 30,
       },
     ],
     match: (criteria, qualifications) => {
@@ -133,7 +133,7 @@ export const matchersForVisaB: {
 
       const age = matchAge.age
       const salary = matchSalary.salary
-      if (salary < 3000000) {
+      if (salary < 3_000_000) {
         throw new Error(errorMessages.salaryTooLow)
       }
 
