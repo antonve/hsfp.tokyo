@@ -19,7 +19,7 @@ export const matchersForVisaC: {
             { id: 'business_management', points: 25 },
             { id: 'master', points: 20 },
             { id: 'bachelor', points: 10 },
-            { id: 'dual_degree', points: 5 }
+            { id: 'dual_degree', points: 5 },
         ],
         match: (criteria, allQualitifications) => {
             const qualifications = allQualitifications
@@ -64,34 +64,34 @@ export const matchersForVisaC: {
             {
                 id: '30m_or_more',
                 points: 50,
-                match: ({ salary }) => salary >= 30_000_0000,
+                match: ({ salary }) => salary >= 30_000_000,
             },
             {
                 id: '25m_or_more',
                 points: 40,
-                match: ({ salary }) => salary >= 25_000_0000,
+                match: ({ salary }) => salary >= 25_000_000,
             },
             {
                 id: '20m_or_more',
                 points: 30,
-                match: ({ salary }) => salary >= 20_000_0000,
+                match: ({ salary }) => salary >= 20_000_000,
             },
             {
                 id: '15m_or_more',
                 points: 20,
-                match: ({ salary }) => salary >= 15_000_0000,
+                match: ({ salary }) => salary >= 15_000_000,
             },
             {
                 id: '10m_or_more',
                 points: 10,
-                match: ({ salary }) => salary >= 10_000_0000,
+                match: ({ salary }) => salary >= 10_000_000,
             },
         ],
         match: (criteria, qualifications) => {
-            const matchSalary = qualifications.find(
-                q => q.category === 'ANNUAL_SALARY',
-            ) as AnnualSalaryQualification | undefined
-            // no age separation for type C
+            const matchSalary = qualifications.find(q => q.category === 'ANNUAL_SALARY') as
+                | AnnualSalaryQualification
+                | undefined
+
             if (matchSalary === undefined) {
                 return { matches: [], points: 0 }
             }
@@ -115,10 +115,16 @@ export const matchersForVisaC: {
 
         ],
         match: (criteria, allQualifications) => {
-            const qualifications = allQualifications.filter(
-                q => q.category === 'POSITION',
+            const qualifications = allQualifications
+                .filter(q => q.category === 'POSITION')
+                .map(q => q.id)
+
+            const matches = criteria.filter(c => qualifications.includes(c.id))
+            const points = matches.reduce(
+                (accumulator, current) => accumulator + current.points,
+                0,
             )
-            return matchAny(criteria, qualifications)
+            return { matches, points }
         },
     },
     SPECIAL: {
@@ -130,6 +136,10 @@ export const matchersForVisaC: {
                 id: 'completed_training_conducted_by_jica_innovative_asia_project',
                 points: 5,
             },
+            {
+                id: 'investment_management_business',
+                points: 10,
+            }
         ],
         match: (criteria, allQualifications) => {
             const qualifications = allQualifications
@@ -244,5 +254,4 @@ export const matchersForVisaC: {
             return matchAny(criteria, qualifications)
         },
     },
-
 }

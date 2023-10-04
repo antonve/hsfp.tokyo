@@ -1,4 +1,5 @@
 import { matchersForVisaB } from './visa/b'
+import { matchersForVisaC } from './visa/c'
 
 export interface Simulation {
   visaType: VisaType
@@ -121,7 +122,6 @@ export type CategoryVisaC =
   | 'SPECIAL_CONTRACTING_ORGANIZATION'
   | 'SPECIAL_JAPANESE'
   | 'SPECIAL_UNIVERSITY'
-  | 'SPECIAL_INVESTOR'
 
 export const calculatePoints = (simulation: Simulation): SimulationResult => {
   switch (simulation.visaType) {
@@ -129,6 +129,11 @@ export const calculatePoints = (simulation: Simulation): SimulationResult => {
       return calculate(
         Object.values(matchersForVisaB),
         simulation.qualifications,
+      )
+    case VisaType.C:
+      return calculate(
+        Object.values(matchersForVisaC),
+        simulation.qualifications
       )
     default:
       throw new Error('not yet implemented')
