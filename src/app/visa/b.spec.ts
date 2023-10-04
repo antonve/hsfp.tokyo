@@ -823,4 +823,32 @@ describe('Visa type B point simulation', () => {
       ])
     })
   })
+  describe('Case #5: non University Degree holder Innovator', () => {
+    it('points should add up', () => {
+      const checklist = simulationWithCriteria([
+        professionalCareerWith({ yearsOfExperience: 10 }), //20
+        annualSalaryOf(20_000_000), // 40
+        ageOf(25), // 15
+        researchAchievementOf({ kind: 'patent_inventor' }), // 15
+        contractingOrganizationOf({
+          kind: 'contracting_organization_promotes_innovation', // 10
+        }),
+        contractingOrganizationOf({
+          kind: 'contracting_organization_small_medium_sized', //10
+        }),
+      ])
+
+      const { matches, points } = calculatePoints(checklist)
+
+      expect(points).toBe(110)
+      expect(matches.map(m => m.id).sort()).toEqual([
+        '10_years_or_more',
+        '10m_or_more',
+        'contracting_organization_promotes_innovation',
+        'contracting_organization_small_medium_sized',
+        'less_than_30',
+        'patent_inventor',
+      ])
+    })
+  })
 })
