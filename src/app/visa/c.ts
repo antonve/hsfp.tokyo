@@ -10,6 +10,7 @@ import {
     mapById
 }
     from '@app/domain'
+import { filterUniqueQualifications } from '@app/CommonUtils'
 // build matcher for case C 
 export const matchersForVisaC: {
     [category in CategoryVisaC]: CriteriaMatcher
@@ -115,16 +116,8 @@ export const matchersForVisaC: {
 
         ],
         match: (criteria, allQualifications) => {
-            const qualifications = allQualifications
-                .filter(q => q.category === 'POSITION')
-                .map(q => q.id)
-
-            const matches = criteria.filter(c => qualifications.includes(c.id))
-            const points = matches.reduce(
-                (accumulator, current) => accumulator + current.points,
-                0,
-            )
-            return { matches, points }
+            const category = 'POSITION'
+            return filterUniqueQualifications(criteria, allQualifications, category)
         },
     },
     SPECIAL: {
@@ -146,16 +139,8 @@ export const matchersForVisaC: {
             }
         ],
         match: (criteria, allQualifications) => {
-            const qualifications = allQualifications
-                .filter(q => q.category === 'SPECIAL')
-                .map(q => q.id)
-
-            const matches = criteria.filter(c => qualifications.includes(c.id))
-            const points = matches.reduce(
-                (accumulator, current) => accumulator + current.points,
-                0,
-            )
-            return { matches, points }
+            const category = 'SPECIAL'
+            return filterUniqueQualifications(criteria, allQualifications, category)
         },
     },
     SPECIAL_CONTRACTING_ORGANIZATION: {
