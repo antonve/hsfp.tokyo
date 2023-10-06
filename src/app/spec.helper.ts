@@ -8,7 +8,7 @@ import {
   VisaType,
 } from '@app/domain'
 
-export function simulationWithCriteria(
+export function simulationWithCriteriaB(
   qualifications: Qualification[],
 ): Simulation {
   return {
