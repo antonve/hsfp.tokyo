@@ -16,7 +16,6 @@ import {
 // non university holder business owner
 // investment banker
 describe('Visa type C point simulation', () => {
-
     describe('categories', () => {
         describe('academic background', () => {
             it('holder of multiple degrees in many areas', () => {
@@ -43,22 +42,31 @@ describe('Visa type C point simulation', () => {
                 expect(matches.map(m => m.id).sort()).toEqual(['master'])
             })
 
-            it('a dual degree should give bonus', () => {
+            it('Single degree holder', () => {
                 const checklist = simulationWithCriteriaC([
-                    academicBackgroundWith({ degree: 'master' }),
                     academicBackgroundWith({ degree: 'bachelor' }),
-                    academicBackgroundWith({ degree: 'dual_degree' }),
                 ])
 
                 const { matches, points } = calculatePoints(checklist)
 
-                expect(points).toBe(25)
-                expect(matches.map(m => m.id).sort()).toEqual(['dual_degree', 'master'])
+                expect(points).toBe(10)
+                expect(matches.map(m => m.id).sort()).toEqual(['bachelor'])
+            })
+            it('two bachelor degree holder', () => {
+                const checklist = simulationWithCriteriaC([
+                    academicBackgroundWith({ degree: 'bachelor' }),
+                    academicBackgroundWith({ degree: 'dual_degree' }),
+
+                ])
+
+                const { matches, points } = calculatePoints(checklist)
+
+                expect(points).toBe(15)
+                expect(matches.map(m => m.id).sort()).toEqual(['bachelor', 'dual_degree'])
             })
         })
 
         describe('professional career', () => {
-
             it('10 years of experience', () => {
                 const checklist = simulationWithCriteriaC([
                     professionalCareerWith({ yearsOfExperience: 10 }),
@@ -125,6 +133,16 @@ describe('Visa type C point simulation', () => {
                     calculatePoints(checklist)
                 }).toThrowError(errorMessages.salaryTooLow)
             })
+            it('9.9 million', () => {
+                const checklist = simulationWithCriteriaC([
+                    annualSalaryOf(9_999_999), // 0 points
+                ])
+
+                const { matches, points } = calculatePoints(checklist)
+
+                expect(points).toBe(0)
+                expect(matches.map(m => m.id).sort()).toEqual([])
+            })
             it('10 million', () => {
                 const checklist = simulationWithCriteriaC([
                     annualSalaryOf(10_000_000), // 10 points
@@ -178,6 +196,7 @@ describe('Visa type C point simulation', () => {
         })
 
         describe('position in company', () => {
+
             it('representative director', () => {
                 const checklist = simulationWithCriteriaC([
                     positionInCompany({ kind: 'representative_director' }), // 10 points
@@ -196,7 +215,7 @@ describe('Visa type C point simulation', () => {
                 expect(matches.map(m => m.id).sort()).toEqual(['executive_officer'])
 
             })
-            it('being both executive officer and representative director',
+            it('executive officer and representative director should not be mutually exclusive',
                 () => {
                     const checklist = simulationWithCriteriaC([
                         positionInCompany({ kind: 'executive_officer' }), // 5 points
@@ -211,114 +230,6 @@ describe('Visa type C point simulation', () => {
         })
 
         describe('special', () => {
-            it('knows to ignore duplicates', () => {
-                const checklist = simulationWithCriteriaC([
-                    specialOf({ kind: 'rnd_exceeds_three_percent' }),
-                    specialOf({ kind: 'rnd_exceeds_three_percent' }),
-                ])
-
-                const { matches, points } = calculatePoints(checklist)
-
-                expect(points).toBe(5)
-                expect(matches.map(m => m.id).sort()).toEqual([
-                    'rnd_exceeds_three_percent',
-                ])
-            })
-
-            it('research and development exceeds 3%', () => {
-                const checklist = simulationWithCriteriaC([
-                    specialOf({ kind: 'rnd_exceeds_three_percent' }),
-                ])
-
-                const { matches, points } = calculatePoints(checklist)
-
-                expect(points).toBe(5)
-                expect(matches.map(m => m.id).sort()).toEqual([
-                    'rnd_exceeds_three_percent',
-                ])
-            })
-
-            it('has foreign work related qualification', () => {
-                const checklist = simulationWithCriteriaC([
-                    specialOf({ kind: 'foreign_work_related_qualification' }),
-                ])
-
-                const { matches, points } = calculatePoints(checklist)
-
-                expect(points).toBe(5)
-                expect(matches.map(m => m.id).sort()).toEqual([
-                    'foreign_work_related_qualification',
-                ])
-            })
-
-            it('has worked on an advanced project in a growth field', () => {
-                const checklist = simulationWithCriteriaC([
-                    specialOf({ kind: 'advanced_project_growth_field' }),
-                ])
-
-                const { matches, points } = calculatePoints(checklist)
-
-                expect(points).toBe(10)
-                expect(matches.map(m => m.id).sort()).toEqual([
-                    'advanced_project_growth_field',
-                ])
-            })
-
-            it('completed training conducted by JICA as part of Innovative Asia Project', () => {
-                const checklist = simulationWithCriteriaC([
-                    specialOf({
-                        kind:
-                            'completed_training_conducted_by_jica_innovative_asia_project',
-                    }),
-                ])
-
-                const { matches, points } = calculatePoints(checklist)
-
-                expect(points).toBe(5)
-                expect(matches.map(m => m.id).sort()).toEqual([
-                    'completed_training_conducted_by_jica_innovative_asia_project',
-                ])
-            })
-
-            it('participates in investment business', () => {
-                const checklist = simulationWithCriteriaC([
-                    specialOf({ kind: 'investment_management_business' }),
-                ])
-
-                const { matches, points } = calculatePoints(checklist)
-
-                expect(points).toBe(10)
-                expect(matches.map(m => m.id).sort()).toEqual([
-                    'investment_management_business',
-                ])
-            })
-            it('qualifies for all special criteria', () => {
-                const checklist = simulationWithCriteriaC([
-                    specialOf({ kind: 'rnd_exceeds_three_percent' }),
-                    specialOf({ kind: 'foreign_work_related_qualification' }),
-                    specialOf({ kind: 'advanced_project_growth_field' }),
-                    specialOf({
-                        kind:
-                            'completed_training_conducted_by_jica_innovative_asia_project',
-                    }),
-                    specialOf({ kind: 'investment_management_business' }),
-
-                ])
-
-                const { matches, points } = calculatePoints(checklist)
-
-                expect(points).toBe(35)
-                expect(matches.map(m => m.id).sort()).toEqual([
-                    'advanced_project_growth_field',
-                    'completed_training_conducted_by_jica_innovative_asia_project',
-                    'foreign_work_related_qualification',
-                    'investment_management_business',
-                    'rnd_exceeds_three_percent',
-                ])
-            })
-        })
-
-        describe('contracting organization', () => {
             it('knows to ignore duplicates', () => {
                 const checklist = simulationWithCriteriaC([
                     contractingOrganizationOf({
@@ -351,7 +262,6 @@ describe('Visa type C point simulation', () => {
                     'contracting_organization_promotes_innovation',
                 ])
             })
-
             it('promotes innovation & small-medium sized company', () => {
                 const checklist = simulationWithCriteriaC([
                     contractingOrganizationOf({
@@ -370,7 +280,6 @@ describe('Visa type C point simulation', () => {
                     'contracting_organization_small_medium_sized',
                 ])
             })
-
             it('promotes highly skilled professionals & innovation & small-medium sized company', () => {
                 const checklist = simulationWithCriteriaC([
                     contractingOrganizationOf({
@@ -393,7 +302,6 @@ describe('Visa type C point simulation', () => {
                     'contracting_organization_small_medium_sized',
                 ])
             })
-
             it('ignores small-medium sized company when not promoting innovation', () => {
                 const checklist = simulationWithCriteriaC([
                     contractingOrganizationOf({
@@ -406,7 +314,6 @@ describe('Visa type C point simulation', () => {
                 expect(points).toBe(0)
                 expect(matches.map(m => m.id).sort()).toEqual([])
             })
-
             it('promotes highly skilled professionals', () => {
                 const checklist = simulationWithCriteriaC([
                     contractingOrganizationOf({
@@ -421,8 +328,108 @@ describe('Visa type C point simulation', () => {
                     'contracting_organization_promotes_highly_skilled',
                 ])
             })
-        })
+            it('research and development exceeds 3%', () => {
+                const checklist = simulationWithCriteriaC([
+                    specialOf({ kind: 'rnd_exceeds_three_percent' }),
+                ])
 
+                const { matches, points } = calculatePoints(checklist)
+
+                expect(points).toBe(5)
+                expect(matches.map(m => m.id).sort()).toEqual([
+                    'rnd_exceeds_three_percent',
+                ])
+            })
+            it('has foreign work related qualification', () => {
+                const checklist = simulationWithCriteriaC([
+                    specialOf({ kind: 'foreign_work_related_qualification' }),
+                ])
+
+                const { matches, points } = calculatePoints(checklist)
+
+                expect(points).toBe(5)
+                expect(matches.map(m => m.id).sort()).toEqual([
+                    'foreign_work_related_qualification',
+                ])
+            })
+            it('has worked on an advanced project in a growth field', () => {
+                const checklist = simulationWithCriteriaC([
+                    specialOf({ kind: 'advanced_project_growth_field' }),
+                ])
+
+                const { matches, points } = calculatePoints(checklist)
+
+                expect(points).toBe(10)
+                expect(matches.map(m => m.id).sort()).toEqual([
+                    'advanced_project_growth_field',
+                ])
+            })
+            it('completed training conducted by JICA as part of Innovative Asia Project', () => {
+                const checklist = simulationWithCriteriaC([
+                    specialOf({
+                        kind:
+                            'completed_training_conducted_by_jica_innovative_asia_project',
+                    }),
+                ])
+
+                const { matches, points } = calculatePoints(checklist)
+
+                expect(points).toBe(5)
+                expect(matches.map(m => m.id).sort()).toEqual([
+                    'completed_training_conducted_by_jica_innovative_asia_project',
+                ])
+            })
+            it('invested over 100 million yen in an orginzation in japan', () => {
+                const checklist = simulationWithCriteriaC([
+                    specialOf({ kind: 'invested_over_100_million_yen_in_japan' }),
+                ])
+
+                const { matches, points } = calculatePoints(checklist)
+
+                expect(points).toBe(5)
+                expect(matches.map(m => m.id).sort()).toEqual([
+                    'invested_over_100_million_yen_in_japan',
+                ])
+            })
+            it('participates in investment business', () => {
+                const checklist = simulationWithCriteriaC([
+                    specialOf({ kind: 'investment_management_business' }),
+                ])
+
+                const { matches, points } = calculatePoints(checklist)
+
+                expect(points).toBe(10)
+                expect(matches.map(m => m.id).sort()).toEqual([
+                    'investment_management_business',
+                ])
+            })
+
+            it('qualifies for all special criteria', () => {
+                const checklist = simulationWithCriteriaC([
+                    specialOf({ kind: 'rnd_exceeds_three_percent' }),
+                    specialOf({ kind: 'foreign_work_related_qualification' }),
+                    specialOf({ kind: 'advanced_project_growth_field' }),
+                    specialOf({
+                        kind:
+                            'completed_training_conducted_by_jica_innovative_asia_project',
+                    }),
+                    specialOf({ kind: 'investment_management_business' }),
+                    specialOf({ kind: 'invested_over_100_million_yen_in_japan' }),
+                ])
+
+                const { matches, points } = calculatePoints(checklist)
+
+                expect(points).toBe(40)
+                expect(matches.map(m => m.id).sort()).toEqual([
+                    'advanced_project_growth_field',
+                    'completed_training_conducted_by_jica_innovative_asia_project',
+                    'foreign_work_related_qualification',
+                    'invested_over_100_million_yen_in_japan',
+                    'investment_management_business',
+                    'rnd_exceeds_three_percent',
+                ])
+            })
+        })
         describe('japanese ability', () => {
             it('knows to ignore duplicates', () => {
                 const checklist = simulationWithCriteriaC([

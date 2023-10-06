@@ -137,6 +137,10 @@ export const matchersForVisaC: {
                 points: 5,
             },
             {
+                id: 'invested_over_100_million_yen_in_japan',
+                points: 5,
+            },
+            {
                 id: 'investment_management_business',
                 points: 10,
             }
