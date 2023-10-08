@@ -1,6 +1,5 @@
 import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
 import { CategoryMatcher, calculatePoints } from '@lib/domain/calculator'
-import { errorMessages } from './errors'
 import {
   filterUniqueQualifications,
   matchMaxPoints,
@@ -11,6 +10,7 @@ import {
   AnnualSalaryQualification,
   Qualification,
 } from '@lib/domain/qualifications'
+import { errorMessages } from '@lib/visa/errors'
 
 export function calculatePointsForVisaC(qualifications: Qualification[]) {
   return calculatePoints(Object.values(matchersForVisaC), qualifications)

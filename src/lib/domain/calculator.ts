@@ -1,5 +1,5 @@
-import { Criteria } from './criteria'
-import { Qualification } from './qualifications'
+import { Criteria } from '@lib/domain/criteria'
+import { Qualification } from '@lib/domain/qualifications'
 
 export interface SimulationResult {
   matches: Criteria[]

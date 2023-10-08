@@ -1,4 +1,3 @@
-import { errorMessages } from './errors'
 import { academicBackgroundWith } from '@lib/domain/qualifications'
 import {
   ageOf,
@@ -11,7 +10,8 @@ import {
   specialOf,
   universityOf,
 } from '@lib/domain/qualifications'
-import { calculatePointsForVisaB } from './b'
+import { calculatePointsForVisaB } from '@lib/visa/b'
+import { errorMessages } from '@lib/visa/errors'
 
 describe('Visa type B point simulation', () => {
   describe('categories', () => {

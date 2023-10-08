@@ -1,6 +1,5 @@
-import { Criteria } from './criteria'
-
-import { Qualification } from './qualifications'
+import { Criteria } from '@lib/domain/criteria'
+import { Qualification } from '@lib/domain/qualifications'
 
 // TODO: this can be replaced with matchQualificationWithMostPoints
 export const matchAny = (

@@ -1,7 +1,6 @@
-import { VisaType } from './visa'
-import { Category } from './qualifications'
-
-import { Qualification } from './qualifications'
+import { VisaType } from '@lib/domain/visa'
+import { Category } from '@lib/domain/qualifications'
+import { Qualification } from '@lib/domain/qualifications'
 
 export interface FormProgress {
   qualifications: Qualification[]

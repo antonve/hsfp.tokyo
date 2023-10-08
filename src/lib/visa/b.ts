@@ -2,7 +2,6 @@ import { calculatePoints } from '@lib/domain/calculator'
 import { VisaType } from '@lib/domain/visa'
 import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
 import { CategoryMatcher } from '@lib/domain/calculator'
-import { errorMessages } from './errors'
 import { matchMaxPoints, matchAny } from '@lib/domain/matchers'
 import { Form } from '@lib/domain/form'
 import {
@@ -12,6 +11,7 @@ import {
   LicensesQualification,
   Qualification,
 } from '@lib/domain/qualifications'
+import { errorMessages } from '@lib/visa/errors'
 
 export const form: Form = {
   visa: VisaType.A,

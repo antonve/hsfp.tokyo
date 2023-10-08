@@ -1,6 +1,3 @@
-// write test cases for visa C
-import { errorMessages } from './errors'
-
 import { academicBackgroundWith } from '@lib/domain/qualifications'
 import {
   annualSalaryOf,
@@ -11,7 +8,8 @@ import {
   universityOf,
   positionInCompany,
 } from '@lib/domain/qualifications'
-import { calculatePointsForVisaC } from './c'
+import { calculatePointsForVisaC } from '@lib/visa/c'
+import { errorMessages } from '@lib/visa/errors'
 
 // non university holder business owner
 // investment banker
