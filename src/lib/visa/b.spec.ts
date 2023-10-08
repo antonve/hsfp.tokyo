@@ -361,6 +361,19 @@ describe('Visa type B point simulation', () => {
         ])
       })
 
+      it('participates in investment business', () => {
+        const checklist = [
+          specialOf({ kind: 'investment_management_business' }),
+        ]
+
+        const { matches, points } = calculatePointsForVisaB(checklist)
+
+        expect(points).toBe(10)
+        expect(matches.map(m => m.id).sort()).toEqual([
+          'investment_management_business',
+        ])
+      })
+
       it('qualifies for all special criteria', () => {
         const checklist = [
           specialOf({ kind: 'rnd_exceeds_three_percent' }),
