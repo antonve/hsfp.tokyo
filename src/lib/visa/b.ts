@@ -10,21 +10,35 @@ import {
   matchAny,
   LicensesQualification,
   mapById,
+  Form,
+  VisaType,
 } from '@lib/domain'
 
-export const QualificationIds = {
-  AcademicBackground: {
-    doctor: 'doctor',
-    businessManagement: 'business_management',
-    master: 'master',
-    bachelor: 'bachelor',
-    dualDegree: 'dual_degree',
-  },
-  Career: {
-    salary: 'salary',
-    experience: 'experience',
-    age: 'age',
-  },
+export const form: Form = {
+  visa: VisaType.A,
+  sections: [
+    {
+      category: 'ACADEMIC_BACKGROUND',
+      prompts: [
+        {
+          id: 'HIGHEST_DEGREE',
+          type: 'CHOICE',
+          options: [
+            'doctor',
+            'business_management',
+            'master',
+            'bachelor',
+            'fallback',
+          ],
+        },
+        {
+          id: 'DUAL_DEGREE',
+          type: 'CHOICE',
+          options: ['dual_degree', 'fallback'],
+        },
+      ],
+    },
+  ],
 }
 
 export const matchersForVisaB: {
