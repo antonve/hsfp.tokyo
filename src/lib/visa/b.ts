@@ -1,4 +1,5 @@
-import { VisaType, calculatePoints } from '@lib/domain/calculator'
+import { calculatePoints } from '@lib/domain/calculator'
+import { VisaType } from '@lib/domain/visa'
 import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
 import { CategoryMatcher } from '@lib/domain/calculator'
 import { errorMessages } from './errors'

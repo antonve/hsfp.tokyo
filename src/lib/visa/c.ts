@@ -16,7 +16,7 @@ export function calculatePointsForVisaC(qualifications: Qualification[]) {
   return calculatePoints(Object.values(matchersForVisaC), qualifications)
 }
 
-export type CategoryVisaC =
+type CategoryVisaC =
   | 'ACADEMIC_BACKGROUND'
   | 'CAREER'
   | 'ANNUAL_SALARY'

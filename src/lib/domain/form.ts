@@ -1,3 +1,4 @@
+import { VisaType } from './visa'
 import { Category } from './qualifications'
 
 import { Qualification } from './qualifications'
