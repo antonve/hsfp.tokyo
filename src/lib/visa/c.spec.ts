@@ -1,5 +1,6 @@
 // write test cases for visa C
-import { calculatePoints, errorMessages } from '@lib/domain'
+import { calculatePoints } from '@lib/domain'
+import { errorMessages } from './errors'
 
 import { simulationWithCriteriaC } from '@lib/spec.helper'
 import { academicBackgroundWith } from '@lib/domain/qualifications'

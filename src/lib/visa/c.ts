@@ -1,10 +1,5 @@
-import {
-  CategoryVisaC,
-  CriteriaMatcher,
-  Criteria,
-  errorMessages,
-  mapById,
-} from '@lib/domain'
+import { CategoryVisaC, CriteriaMatcher, Criteria, mapById } from '@lib/domain'
+import { errorMessages } from './errors'
 import { filterUniqueQualifications } from '@lib/domain/matchers'
 import { matchMaxPoints, matchAny } from '@lib/domain/matchers'
 import {

@@ -2,10 +2,10 @@ import {
   CategoryVisaB,
   CriteriaMatcher,
   Criteria,
-  errorMessages,
   mapById,
   VisaType,
 } from '@lib/domain'
+import { errorMessages } from './errors'
 import { matchMaxPoints, matchAny } from '@lib/domain/matchers'
 import { Form } from '@lib/domain/form'
 import {

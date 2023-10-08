@@ -82,10 +82,6 @@ export type CategoryVisaC =
   | 'SPECIAL_JAPANESE'
   | 'SPECIAL_UNIVERSITY'
 
-export const errorMessages = {
-  salaryTooLow: 'salary must be above 3m to be eligible for the HSFP visa',
-}
-
 export const mapById = (objects: { id: string }[]) => {
   return objects.reduce((accumulator, current) => {
     accumulator[current.id] = current
