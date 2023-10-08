@@ -2,17 +2,19 @@ import {
   CategoryVisaB,
   CriteriaMatcher,
   Criteria,
-  CareerQualification,
   matchMaxPoints,
-  AnnualSalaryQualification,
-  AgeQualification,
   errorMessages,
   matchAny,
-  LicensesQualification,
   mapById,
-  Form,
   VisaType,
 } from '@lib/domain'
+import { Form } from '@lib/domain/form'
+import {
+  CareerQualification,
+  AnnualSalaryQualification,
+  AgeQualification,
+  LicensesQualification,
+} from '@lib/domain/qualifications'
 
 export const form: Form = {
   visa: VisaType.A,

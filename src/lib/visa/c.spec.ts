@@ -2,7 +2,7 @@
 import { calculatePoints, errorMessages } from '@lib/domain'
 
 import { simulationWithCriteriaC } from '@lib/spec.helper'
-import { academicBackgroundWith } from '@lib/domain'
+import { academicBackgroundWith } from '@lib/domain/qualifications'
 import {
   annualSalaryOf,
   contractingOrganizationOf,
@@ -11,7 +11,7 @@ import {
   specialOf,
   universityOf,
   positionInCompany,
-} from '@lib/domain'
+} from '@lib/domain/qualifications'
 
 // non university holder business owner
 // investment banker

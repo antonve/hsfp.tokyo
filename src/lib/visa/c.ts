@@ -2,14 +2,16 @@ import {
   CategoryVisaC,
   CriteriaMatcher,
   Criteria,
-  CareerQualification,
   matchMaxPoints,
-  AnnualSalaryQualification,
   errorMessages,
   matchAny,
   mapById,
   filterUniqueQualifications,
 } from '@lib/domain'
+import {
+  CareerQualification,
+  AnnualSalaryQualification,
+} from '@lib/domain/qualifications'
 
 export const matchersForVisaC: {
   [category in CategoryVisaC]: CriteriaMatcher
