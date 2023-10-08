@@ -5,8 +5,8 @@ import {
   containsQualificationWithId,
   getQualification,
   Qualification,
-} from '@app/domain'
-import { Checkbox, NumberInput, RadioButton } from '@app/components/Form'
+} from '@lib/domain'
+import { Checkbox, NumberInput, RadioButton } from '@components/Form'
 import classNames from 'classnames'
 
 interface QualificationOptionProps {

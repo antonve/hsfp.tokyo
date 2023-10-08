@@ -6,7 +6,7 @@ import {
   CareerQualification,
   LicensesQualification,
   VisaType,
-} from '@app/domain'
+} from '@lib/domain'
 
 export function simulationWithCriteriaB(
   qualifications: Qualification[],
@@ -22,7 +22,7 @@ export function simulationWithCriteriaC(
 ): Simulation {
   return {
     visaType: VisaType.C,
-    qualifications
+    qualifications,
   }
 }
 
@@ -120,11 +120,7 @@ export function universityOf({ kind: id }: { kind: string }): Qualification {
   }
 }
 
-export function positionInCompany({
-  kind,
-}: {
-  kind: string
-}): Qualification {
+export function positionInCompany({ kind }: { kind: string }): Qualification {
   return {
     category: 'POSITION',
     id: kind,

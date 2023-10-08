@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { useTranslation } from 'next-i18next'
 
-import { LicensesQualification, Qualification, VisaType } from '@app/domain'
+import { LicensesQualification, Qualification, VisaType } from '@lib/domain'
 import QualificationList, {
   QualificationRadio,
-} from '@app/components/QualificationList'
-import FormSection from '@app/components/FormSection'
+} from '@components/QualificationList'
+import FormSection from '@components/FormSection'
 
 interface Props {
   visaType: VisaType
@@ -30,12 +30,12 @@ const Licenses: FC<Props> = ({
   const onChangeFor = (count: number) => () =>
     selectQualificationForCategory(createNewQualification(count))
 
-  const matcherFor = (count: number): MatchFunction => (
-    qualification: Qualification,
-  ) =>
-    qualification.category === 'LICENSES' &&
-    qualification.id === 'licenses' &&
-    (qualification as LicensesQualification).count === count
+  const matcherFor =
+    (count: number): MatchFunction =>
+    (qualification: Qualification) =>
+      qualification.category === 'LICENSES' &&
+      qualification.id === 'licenses' &&
+      (qualification as LicensesQualification).count === count
 
   return (
     <FormSection

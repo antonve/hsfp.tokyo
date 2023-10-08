@@ -1,4 +1,4 @@
-import { calculatePoints, errorMessages } from '@app/domain'
+import { calculatePoints, errorMessages } from '@lib/domain'
 import {
   academicBackgroundWith,
   ageOf,
@@ -11,7 +11,7 @@ import {
   simulationWithCriteriaB,
   specialOf,
   universityOf,
-} from '@app/spec.helper'
+} from '@lib/spec.helper'
 
 describe('Visa type B point simulation', () => {
   describe('categories', () => {
@@ -216,7 +216,9 @@ describe('Visa type B point simulation', () => {
 
       it('conducted financed projects', () => {
         const checklist = simulationWithCriteriaB([
-          researchAchievementOf({ kind: 'conducted_financed_projects_three_times' }),
+          researchAchievementOf({
+            kind: 'conducted_financed_projects_three_times',
+          }),
         ])
 
         const { matches, points } = calculatePoints(checklist)
@@ -370,8 +372,7 @@ describe('Visa type B point simulation', () => {
       it('completed training conducted by JICA as part of Innovative Asia Project', () => {
         const checklist = simulationWithCriteriaB([
           specialOf({
-            kind:
-              'completed_training_conducted_by_jica_innovative_asia_project',
+            kind: 'completed_training_conducted_by_jica_innovative_asia_project',
           }),
         ])
 
@@ -389,8 +390,7 @@ describe('Visa type B point simulation', () => {
           specialOf({ kind: 'foreign_work_related_qualification' }),
           specialOf({ kind: 'advanced_project_growth_field' }),
           specialOf({
-            kind:
-              'completed_training_conducted_by_jica_innovative_asia_project',
+            kind: 'completed_training_conducted_by_jica_innovative_asia_project',
           }),
         ])
 
@@ -662,8 +662,7 @@ describe('Visa type B point simulation', () => {
       it('is funded by top global universities project', () => {
         const checklist = simulationWithCriteriaB([
           universityOf({
-            kind:
-              'graduate_of_university_funded_by_top_global_universities_project',
+            kind: 'graduate_of_university_funded_by_top_global_universities_project',
           }),
         ])
 
@@ -696,8 +695,7 @@ describe('Visa type B point simulation', () => {
             kind: 'top_ranked_university_graduate',
           }),
           universityOf({
-            kind:
-              'graduate_of_university_funded_by_top_global_universities_project',
+            kind: 'graduate_of_university_funded_by_top_global_universities_project',
           }),
           universityOf({
             kind: 'graduate_of_university_partner_school',

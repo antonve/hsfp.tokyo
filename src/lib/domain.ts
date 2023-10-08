@@ -133,7 +133,7 @@ export const calculatePoints = (simulation: Simulation): SimulationResult => {
     case VisaType.C:
       return calculate(
         Object.values(matchersForVisaC),
-        simulation.qualifications
+        simulation.qualifications,
       )
     default:
       throw new Error('not yet implemented')
@@ -227,3 +227,19 @@ export const getQualification = (
   id: string,
 ): Qualification | undefined =>
   qualifications.find(q => q.category === category && q.id === id)
+
+export const filterUniqueQualifications = (
+  criteria: Criteria[],
+  allQualifications: Qualification[],
+  category: String,
+) => {
+  const qualifications = allQualifications
+    .filter(q => q.category === category)
+    .map(q => q.id)
+  const matches = criteria.filter(c => qualifications.includes(c.id))
+  const points = matches.reduce(
+    (accumulator, current) => accumulator + current.points,
+    0,
+  )
+  return { matches, points }
+}

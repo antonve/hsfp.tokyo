@@ -7,12 +7,12 @@ import {
   CareerQualification,
   Qualification,
   VisaType,
-} from '@app/domain'
-import { QualificationIds } from '@app/visa/b'
+} from '@lib/domain'
+import { QualificationIds } from '../lib/visa/b'
 import QualificationList, {
   QualificationNumber,
-} from '@app/components/QualificationList'
-import FormSection from '@app/components/FormSection'
+} from '@components/QualificationList'
+import FormSection from '@components/FormSection'
 
 const ids = QualificationIds.Career
 
@@ -47,14 +47,14 @@ const Career: FC<Props> = ({ qualifications, updateQualification }) => {
     age: value,
   })
 
-  const onChangeFor = (
-    createQualificationFunction: (value: number) => Qualification,
-  ) => (value: number | undefined) => {
-    if (value === undefined) {
-      return
+  const onChangeFor =
+    (createQualificationFunction: (value: number) => Qualification) =>
+    (value: number | undefined) => {
+      if (value === undefined) {
+        return
+      }
+      updateQualification(createQualificationFunction(value))
     }
-    updateQualification(createQualificationFunction(value))
-  }
 
   return (
     <FormSection

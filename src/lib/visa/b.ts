@@ -10,7 +10,7 @@ import {
   matchAny,
   LicensesQualification,
   mapById,
-} from '@app/domain'
+} from '@lib/domain'
 
 export const QualificationIds = {
   AcademicBackground: {

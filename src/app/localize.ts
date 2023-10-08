@@ -1,5 +1,5 @@
 import { TFunction } from 'next-i18next'
-import { VisaType } from '@app/domain'
+import { VisaType } from '@lib/domain'
 
 export const localizeVisaType = (t: TFunction, type: VisaType): string =>
   t(`visaType.${type}.name`)
