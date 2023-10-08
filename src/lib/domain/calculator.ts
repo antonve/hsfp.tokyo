@@ -1,7 +1,7 @@
-import { Criteria } from './domain/criteria'
-import { Qualification } from './domain/qualifications'
-import { matchersForVisaB } from './visa/b'
-import { matchersForVisaC } from './visa/c'
+import { Criteria } from './criteria'
+import { Qualification } from './qualifications'
+import { matchersForVisaB } from '../visa/b'
+import { matchersForVisaC } from '../visa/c'
 
 // The different types of HSP visas
 // TODO: Rename from A | B | C to more generic name

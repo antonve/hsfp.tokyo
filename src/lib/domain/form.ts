@@ -1,4 +1,4 @@
-import { VisaType, Category } from '@lib/domain'
+import { VisaType, Category } from '@lib/domain/calculator'
 
 import { Qualification } from './qualifications'
 

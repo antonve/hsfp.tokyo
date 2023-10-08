@@ -1,6 +1,6 @@
-import { CategoryVisaC } from '@lib/domain'
+import { CategoryVisaC } from '@lib/domain/calculator'
 import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
-import { CategoryMatcher } from '@lib/domain'
+import { CategoryMatcher } from '@lib/domain/calculator'
 import { errorMessages } from './errors'
 import { filterUniqueQualifications } from '@lib/domain/matchers'
 import { matchMaxPoints, matchAny } from '@lib/domain/matchers'

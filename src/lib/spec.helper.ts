@@ -1,4 +1,4 @@
-import { Simulation, VisaType } from '@lib/domain'
+import { Simulation, VisaType } from '@lib/domain/calculator'
 import { Qualification } from './domain/qualifications'
 
 export function simulationWithCriteriaB(

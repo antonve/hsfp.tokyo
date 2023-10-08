@@ -1,4 +1,4 @@
-import { Category } from '@lib/domain'
+import { Category } from '@lib/domain/calculator'
 
 // A qualification is something the user has or is.
 // These can later be used to match against Criteria to get points.
