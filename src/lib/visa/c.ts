@@ -1,15 +1,32 @@
-import { CategoryVisaC } from '@lib/domain/calculator'
 import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
-import { CategoryMatcher } from '@lib/domain/calculator'
+import { CategoryMatcher, calculatePoints } from '@lib/domain/calculator'
 import { errorMessages } from './errors'
-import { filterUniqueQualifications } from '@lib/domain/matchers'
-import { matchMaxPoints, matchAny } from '@lib/domain/matchers'
+import {
+  filterUniqueQualifications,
+  matchMaxPoints,
+  matchAny,
+} from '@lib/domain/matchers'
 import {
   CareerQualification,
   AnnualSalaryQualification,
+  Qualification,
 } from '@lib/domain/qualifications'
 
-export const matchersForVisaC: {
+export function calculatePointsForVisaC(qualifications: Qualification[]) {
+  return calculatePoints(Object.values(matchersForVisaC), qualifications)
+}
+
+export type CategoryVisaC =
+  | 'ACADEMIC_BACKGROUND'
+  | 'CAREER'
+  | 'ANNUAL_SALARY'
+  | 'POSITION'
+  | 'SPECIAL'
+  | 'SPECIAL_CONTRACTING_ORGANIZATION'
+  | 'SPECIAL_JAPANESE'
+  | 'SPECIAL_UNIVERSITY'
+
+const matchersForVisaC: {
   [category in CategoryVisaC]: CategoryMatcher
 } = {
   ACADEMIC_BACKGROUND: {

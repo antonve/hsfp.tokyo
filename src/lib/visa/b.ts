@@ -1,4 +1,4 @@
-import { CategoryVisaB, VisaType } from '@lib/domain/calculator'
+import { VisaType, calculatePoints } from '@lib/domain/calculator'
 import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
 import { CategoryMatcher } from '@lib/domain/calculator'
 import { errorMessages } from './errors'
@@ -9,6 +9,7 @@ import {
   AnnualSalaryQualification,
   AgeQualification,
   LicensesQualification,
+  Qualification,
 } from '@lib/domain/qualifications'
 
 export const form: Form = {
@@ -38,7 +39,23 @@ export const form: Form = {
   ],
 }
 
-export const matchersForVisaB: {
+export function calculatePointsForVisaB(qualifications: Qualification[]) {
+  return calculatePoints(Object.values(matchersForVisaB), qualifications)
+}
+
+type CategoryVisaB =
+  | 'ACADEMIC_BACKGROUND'
+  | 'CAREER'
+  | 'AGE'
+  | 'ANNUAL_SALARY'
+  | 'RESEARCH_ACHIEVEMENTS'
+  | 'LICENSES'
+  | 'SPECIAL'
+  | 'SPECIAL_CONTRACTING_ORGANIZATION'
+  | 'SPECIAL_JAPANESE'
+  | 'SPECIAL_UNIVERSITY'
+
+const matchersForVisaB: {
   [category in CategoryVisaB]: CategoryMatcher
 } = {
   ACADEMIC_BACKGROUND: {

@@ -1,9 +1,6 @@
-import { Category } from '@lib/domain/calculator'
-
 // A qualification is something the user has or is.
 // These can later be used to match against Criteria to get points.
 // There are variations with more specific values limited to that type of qualification.
-
 export interface Qualification {
   category: Category
   id: string
@@ -32,6 +29,34 @@ export interface LicensesQualification extends Qualification {
   id: 'licenses'
   count: number
 }
+
+// Qualifications are linked to a Category and a whole category should be scored together.
+// Each visa type has slight variations of what categories are available.
+// Forms are also generated based on these types.
+export type Category =
+  | 'ACADEMIC_BACKGROUND'
+  | 'CAREER'
+  | 'AGE'
+  | 'ANNUAL_SALARY'
+  | 'RESEARCH_ACHIEVEMENTS'
+  | 'POSITION'
+  | 'LICENSES'
+  | 'SPECIAL'
+  | 'SPECIAL_CONTRACTING_ORGANIZATION'
+  | 'SPECIAL_JAPANESE'
+  | 'SPECIAL_UNIVERSITY'
+  | 'SPECIAL_INVESTOR'
+
+export type CategoryVisaA =
+  | 'ACADEMIC_BACKGROUND'
+  | 'CAREER'
+  | 'AGE'
+  | 'ANNUAL_SALARY'
+  | 'RESEARCH_ACHIEVEMENTS'
+  | 'SPECIAL'
+  | 'SPECIAL_CONTRACTING_ORGANIZATION'
+  | 'SPECIAL_JAPANESE'
+  | 'SPECIAL_UNIVERSITY'
 
 // Qualification generator functions
 

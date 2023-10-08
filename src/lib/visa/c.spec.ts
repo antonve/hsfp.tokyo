@@ -1,8 +1,6 @@
 // write test cases for visa C
-import { calculatePoints } from '@lib/domain/calculator'
 import { errorMessages } from './errors'
 
-import { simulationWithCriteriaC } from '@lib/spec.helper'
 import { academicBackgroundWith } from '@lib/domain/qualifications'
 import {
   annualSalaryOf,
@@ -13,6 +11,7 @@ import {
   universityOf,
   positionInCompany,
 } from '@lib/domain/qualifications'
+import { calculatePointsForVisaC } from './c'
 
 // non university holder business owner
 // investment banker
@@ -20,46 +19,44 @@ describe('Visa type C point simulation', () => {
   describe('categories', () => {
     describe('academic background', () => {
       it('holder of multiple degrees in many areas', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           academicBackgroundWith({ degree: 'dual_degree' }),
           academicBackgroundWith({ degree: 'master' }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(25)
         expect(matches.map(m => m.id).sort()).toEqual(['dual_degree', 'master'])
       })
 
       it('multiple degrees, should pick highest degree', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           academicBackgroundWith({ degree: 'master' }),
           academicBackgroundWith({ degree: 'bachelor' }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(20)
         expect(matches.map(m => m.id).sort()).toEqual(['master'])
       })
 
       it('Single degree holder', () => {
-        const checklist = simulationWithCriteriaC([
-          academicBackgroundWith({ degree: 'bachelor' }),
-        ])
+        const checklist = [academicBackgroundWith({ degree: 'bachelor' })]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual(['bachelor'])
       })
       it('two bachelor degree holder', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           academicBackgroundWith({ degree: 'bachelor' }),
           academicBackgroundWith({ degree: 'dual_degree' }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(15)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -71,55 +68,45 @@ describe('Visa type C point simulation', () => {
 
     describe('professional career', () => {
       it('10 years of experience', () => {
-        const checklist = simulationWithCriteriaC([
-          professionalCareerWith({ yearsOfExperience: 10 }),
-        ])
+        const checklist = [professionalCareerWith({ yearsOfExperience: 10 })]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(25)
         expect(matches.map(m => m.id).sort()).toEqual(['10_years_or_more'])
       })
 
       it('8_years_or_more', () => {
-        const checklist = simulationWithCriteriaC([
-          professionalCareerWith({ yearsOfExperience: 8 }),
-        ])
+        const checklist = [professionalCareerWith({ yearsOfExperience: 8 })]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(20)
         expect(matches.map(m => m.id).sort()).toEqual(['7_years_or_more'])
       })
 
       it('6 years of experience', () => {
-        const checklist = simulationWithCriteriaC([
-          professionalCareerWith({ yearsOfExperience: 6 }),
-        ])
+        const checklist = [professionalCareerWith({ yearsOfExperience: 6 })]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(15)
         expect(matches.map(m => m.id).sort()).toEqual(['5_years_or_more'])
       })
 
       it('4 years of experience', () => {
-        const checklist = simulationWithCriteriaC([
-          professionalCareerWith({ yearsOfExperience: 4 }),
-        ])
+        const checklist = [professionalCareerWith({ yearsOfExperience: 4 })]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual(['3_years_or_more'])
       })
 
       it('1 year of experience', () => {
-        const checklist = simulationWithCriteriaC([
-          professionalCareerWith({ yearsOfExperience: 1 }),
-        ])
+        const checklist = [professionalCareerWith({ yearsOfExperience: 1 })]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(0)
         expect(matches.map(m => m.id).sort()).toEqual([])
@@ -128,70 +115,70 @@ describe('Visa type C point simulation', () => {
 
     describe('annual salary', () => {
       it('2.9 million', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           annualSalaryOf(2_999_999), // 0 points
-        ])
+        ]
 
         expect(() => {
-          calculatePoints(checklist)
+          calculatePointsForVisaC(checklist)
         }).toThrowError(errorMessages.salaryTooLow)
       })
       it('9.9 million', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           annualSalaryOf(9_999_999), // 0 points
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(0)
         expect(matches.map(m => m.id).sort()).toEqual([])
       })
       it('10 million', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           annualSalaryOf(10_000_000), // 10 points
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual(['10m_or_more'])
       })
       it('15 million', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           annualSalaryOf(15_000_000), // 20 points
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(20)
         expect(matches.map(m => m.id).sort()).toEqual(['15m_or_more'])
       })
       it('20 million', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           annualSalaryOf(20_000_000), // 30 points
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(30)
         expect(matches.map(m => m.id).sort()).toEqual(['20m_or_more'])
       })
       it('25 million', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           annualSalaryOf(25_000_000), // 40 points
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(40)
         expect(matches.map(m => m.id).sort()).toEqual(['25m_or_more'])
       })
       it('30 million', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           annualSalaryOf(30_000_000), // 50 points
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(50)
         expect(matches.map(m => m.id).sort()).toEqual(['30m_or_more'])
@@ -200,29 +187,29 @@ describe('Visa type C point simulation', () => {
 
     describe('position in company', () => {
       it('representative director', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           positionInCompany({ kind: 'representative_director' }), // 10 points
-        ])
-        const { matches, points } = calculatePoints(checklist)
+        ]
+        const { matches, points } = calculatePointsForVisaC(checklist)
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
           'representative_director',
         ])
       })
       it('executive officer', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           positionInCompany({ kind: 'executive_officer' }), // 5 points
-        ])
-        const { matches, points } = calculatePoints(checklist)
+        ]
+        const { matches, points } = calculatePointsForVisaC(checklist)
         expect(points).toBe(5)
         expect(matches.map(m => m.id).sort()).toEqual(['executive_officer'])
       })
       it('executive officer and representative director should not be mutually exclusive', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           positionInCompany({ kind: 'executive_officer' }), // 5 points
           positionInCompany({ kind: 'representative_director' }), // 10 points
-        ])
-        const { matches, points } = calculatePoints(checklist)
+        ]
+        const { matches, points } = calculatePointsForVisaC(checklist)
         expect(points).toBe(15)
         expect(matches.map(m => m.id).sort()).toEqual([
           'executive_officer',
@@ -233,16 +220,16 @@ describe('Visa type C point simulation', () => {
 
     describe('special', () => {
       it('knows to ignore duplicates', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_highly_skilled',
           }),
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_highly_skilled',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -251,13 +238,13 @@ describe('Visa type C point simulation', () => {
       })
 
       it('promotes innovation', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_innovation',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -265,16 +252,16 @@ describe('Visa type C point simulation', () => {
         ])
       })
       it('promotes innovation & small-medium sized company', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_innovation',
           }),
           contractingOrganizationOf({
             kind: 'contracting_organization_small_medium_sized',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(20)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -283,7 +270,7 @@ describe('Visa type C point simulation', () => {
         ])
       })
       it('promotes highly skilled professionals & innovation & small-medium sized company', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_innovation',
           }),
@@ -293,9 +280,9 @@ describe('Visa type C point simulation', () => {
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_highly_skilled',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(30)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -305,25 +292,25 @@ describe('Visa type C point simulation', () => {
         ])
       })
       it('ignores small-medium sized company when not promoting innovation', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           contractingOrganizationOf({
             kind: 'contracting_organization_small_medium_sized',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(0)
         expect(matches.map(m => m.id).sort()).toEqual([])
       })
       it('promotes highly skilled professionals', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           contractingOrganizationOf({
             kind: 'contracting_organization_promotes_highly_skilled',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -331,11 +318,9 @@ describe('Visa type C point simulation', () => {
         ])
       })
       it('research and development exceeds 3%', () => {
-        const checklist = simulationWithCriteriaC([
-          specialOf({ kind: 'rnd_exceeds_three_percent' }),
-        ])
+        const checklist = [specialOf({ kind: 'rnd_exceeds_three_percent' })]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(5)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -343,11 +328,11 @@ describe('Visa type C point simulation', () => {
         ])
       })
       it('has foreign work related qualification', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           specialOf({ kind: 'foreign_work_related_qualification' }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(5)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -355,11 +340,9 @@ describe('Visa type C point simulation', () => {
         ])
       })
       it('has worked on an advanced project in a growth field', () => {
-        const checklist = simulationWithCriteriaC([
-          specialOf({ kind: 'advanced_project_growth_field' }),
-        ])
+        const checklist = [specialOf({ kind: 'advanced_project_growth_field' })]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -367,13 +350,13 @@ describe('Visa type C point simulation', () => {
         ])
       })
       it('completed training conducted by JICA as part of Innovative Asia Project', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           specialOf({
             kind: 'completed_training_conducted_by_jica_innovative_asia_project',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(5)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -381,11 +364,11 @@ describe('Visa type C point simulation', () => {
         ])
       })
       it('invested over 100 million yen in an orginzation in japan', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           specialOf({ kind: 'invested_over_100_million_yen_in_japan' }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(5)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -393,11 +376,11 @@ describe('Visa type C point simulation', () => {
         ])
       })
       it('participates in investment business', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           specialOf({ kind: 'investment_management_business' }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -406,7 +389,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('qualifies for all special criteria', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           specialOf({ kind: 'rnd_exceeds_three_percent' }),
           specialOf({ kind: 'foreign_work_related_qualification' }),
           specialOf({ kind: 'advanced_project_growth_field' }),
@@ -415,9 +398,9 @@ describe('Visa type C point simulation', () => {
           }),
           specialOf({ kind: 'investment_management_business' }),
           specialOf({ kind: 'invested_over_100_million_yen_in_japan' }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(40)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -432,16 +415,16 @@ describe('Visa type C point simulation', () => {
     })
     describe('japanese ability', () => {
       it('knows to ignore duplicates', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           japanese({
             kind: 'graduated_japanese_uni_or_course',
           }),
           japanese({
             kind: 'graduated_japanese_uni_or_course',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -450,13 +433,13 @@ describe('Visa type C point simulation', () => {
       })
 
       it('graduated japanese university', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           japanese({
             kind: 'graduated_japanese_uni_or_course',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -465,42 +448,42 @@ describe('Visa type C point simulation', () => {
       })
 
       it('has jlpt n1 or equivalent', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           japanese({
             kind: 'jlpt_n1_or_equivalent',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(15)
         expect(matches.map(m => m.id).sort()).toEqual(['jlpt_n1_or_equivalent'])
       })
 
       it('has jlpt n2 or equivalent', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           japanese({
             kind: 'jlpt_n2_or_equivalent',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual(['jlpt_n2_or_equivalent'])
       })
 
       it('ignores jlpt n2 or equivalent if graduated from japanese university', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           japanese({
             kind: 'jlpt_n2_or_equivalent',
           }),
           japanese({
             kind: 'graduated_japanese_uni_or_course',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -509,32 +492,32 @@ describe('Visa type C point simulation', () => {
       })
 
       it('ignores jlpt n2 or equivalent when having n1', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           japanese({
             kind: 'jlpt_n2_or_equivalent',
           }),
           japanese({
             kind: 'jlpt_n1_or_equivalent',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(15)
         expect(matches.map(m => m.id).sort()).toEqual(['jlpt_n1_or_equivalent'])
       })
 
       it('has jlpt n1 or equivalent and graduated from japanese university', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           japanese({
             kind: 'jlpt_n1_or_equivalent',
           }),
           japanese({
             kind: 'graduated_japanese_uni_or_course',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(25)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -546,16 +529,16 @@ describe('Visa type C point simulation', () => {
 
     describe('university', () => {
       it('knows to ignore duplicates', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           universityOf({
             kind: 'top_ranked_university_graduate',
           }),
           universityOf({
             kind: 'top_ranked_university_graduate',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -564,13 +547,13 @@ describe('Visa type C point simulation', () => {
       })
 
       it('is a top 300 university', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           universityOf({
             kind: 'top_ranked_university_graduate',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -579,13 +562,13 @@ describe('Visa type C point simulation', () => {
       })
 
       it('is funded by top global universities project', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           universityOf({
             kind: 'graduate_of_university_funded_by_top_global_universities_project',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -594,13 +577,13 @@ describe('Visa type C point simulation', () => {
       })
 
       it('is designated partner school in the innovative asia project', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           universityOf({
             kind: 'graduate_of_university_partner_school',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
@@ -609,7 +592,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('points should not add', () => {
-        const checklist = simulationWithCriteriaC([
+        const checklist = [
           universityOf({
             kind: 'top_ranked_university_graduate',
           }),
@@ -619,9 +602,9 @@ describe('Visa type C point simulation', () => {
           universityOf({
             kind: 'graduate_of_university_partner_school',
           }),
-        ])
+        ]
 
-        const { matches, points } = calculatePoints(checklist)
+        const { matches, points } = calculatePointsForVisaC(checklist)
 
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([

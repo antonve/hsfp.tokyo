@@ -1,4 +1,3 @@
-import { SimulationResult } from '@lib/domain/calculator'
 import { Criteria } from './criteria'
 
 import { Qualification } from './qualifications'
@@ -7,7 +6,7 @@ import { Qualification } from './qualifications'
 export const matchAny = (
   criteria: Criteria[],
   qualifications: Qualification[],
-): SimulationResult => {
+) => {
   const matches = criteria.filter(
     c => qualifications.find(q => q.id == c.id) != undefined,
   )
@@ -22,11 +21,8 @@ export const matchAny = (
 }
 
 // TODO: rename to matchQualificationWithMostPoints
-export const matchMaxPoints = (
-  allCriteria: Criteria[],
-  value: any,
-): SimulationResult => {
-  let result: SimulationResult = { matches: [], points: 0 }
+export const matchMaxPoints = (allCriteria: Criteria[], value: any) => {
+  let result = { matches: [] as Criteria[], points: 0 }
 
   allCriteria.forEach(criteria => {
     if (criteria.match?.(value) ?? false) {
