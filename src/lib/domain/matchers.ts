@@ -51,3 +51,22 @@ export const filterUniqueQualifications = (
   )
   return { matches, points }
 }
+
+export const matchQualificationsWithExtraPoints = (
+  criteria: Criteria[],
+  qualifications: Qualification[],
+  threshold: number,
+  bonus: number
+) => {
+  const matches = criteria.filter(
+    c => qualifications.find(q => q.id == c.id) != undefined,
+  )
+  let points = 0
+  if (matches.length >= threshold) {
+    // give bonus
+    points = criteria[0].points + bonus
+    return { matches, points }
+  }
+  // give only one point of criteria
+  return matchAny(criteria, qualifications)
+}

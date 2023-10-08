@@ -47,16 +47,6 @@ export type Category =
   | 'SPECIAL_UNIVERSITY'
   | 'SPECIAL_INVESTOR'
 
-export type CategoryVisaA =
-  | 'ACADEMIC_BACKGROUND'
-  | 'CAREER'
-  | 'AGE'
-  | 'ANNUAL_SALARY'
-  | 'RESEARCH_ACHIEVEMENTS'
-  | 'SPECIAL'
-  | 'SPECIAL_CONTRACTING_ORGANIZATION'
-  | 'SPECIAL_JAPANESE'
-  | 'SPECIAL_UNIVERSITY'
 
 // Qualification generator functions
 
