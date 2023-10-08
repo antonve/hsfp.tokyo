@@ -14,7 +14,7 @@ import {
 import { errorMessages } from '@lib/visa/errors'
 
 export const form: Form = {
-  visa: VisaType.A,
+  visa: VisaType.B, //fix
   sections: [
     {
       category: 'ACADEMIC_BACKGROUND',
