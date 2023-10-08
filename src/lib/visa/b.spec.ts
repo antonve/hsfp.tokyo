@@ -1,6 +1,7 @@
 import { calculatePoints, errorMessages } from '@lib/domain'
+import { simulationWithCriteriaB } from '@lib/spec.helper'
+import { academicBackgroundWith } from '@lib/domain'
 import {
-  academicBackgroundWith,
   ageOf,
   annualSalaryOf,
   contractingOrganizationOf,
@@ -8,10 +9,9 @@ import {
   licenseHolder,
   professionalCareerWith,
   researchAchievementOf,
-  simulationWithCriteriaB,
   specialOf,
   universityOf,
-} from '@lib/spec.helper'
+} from '@lib/domain'
 
 describe('Visa type B point simulation', () => {
   describe('categories', () => {

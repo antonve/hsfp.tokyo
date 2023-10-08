@@ -1,17 +1,17 @@
 // write test cases for visa C
 import { calculatePoints, errorMessages } from '@lib/domain'
 
+import { simulationWithCriteriaC } from '@lib/spec.helper'
+import { academicBackgroundWith } from '@lib/domain'
 import {
-  academicBackgroundWith,
   annualSalaryOf,
   contractingOrganizationOf,
   japanese,
   professionalCareerWith,
-  simulationWithCriteriaC,
   specialOf,
   universityOf,
   positionInCompany,
-} from '@lib/spec.helper'
+} from '@lib/domain'
 
 // non university holder business owner
 // investment banker
@@ -248,6 +248,7 @@ describe('Visa type C point simulation', () => {
           'contracting_organization_promotes_highly_skilled',
         ])
       })
+
       it('promotes innovation', () => {
         const checklist = simulationWithCriteriaC([
           contractingOrganizationOf({

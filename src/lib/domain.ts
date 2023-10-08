@@ -1,3 +1,11 @@
+import {
+  CareerQualification,
+  AnnualSalaryQualification,
+  AgeQualification,
+  Qualification,
+  LicensesQualification,
+  Qualification,
+} from './domain'
 import { matchersForVisaB } from './visa/b'
 import { matchersForVisaC } from './visa/c'
 
@@ -264,4 +272,105 @@ export interface Prompt {
   id: string
   type: 'CHOICE' | 'NUMBER'
   options?: string[]
+}
+
+export function academicBackgroundWith({
+  degree,
+}: {
+  degree: string
+}): Qualification {
+  return {
+    category: 'ACADEMIC_BACKGROUND',
+    id: degree,
+  }
+}
+
+export function professionalCareerWith({
+  yearsOfExperience,
+}: {
+  yearsOfExperience: number
+}): CareerQualification {
+  return {
+    category: 'CAREER',
+    id: 'experience',
+    yearsOfExperience,
+  }
+}
+
+export function annualSalaryOf(salary: number): AnnualSalaryQualification {
+  return {
+    category: 'ANNUAL_SALARY',
+    id: 'salary',
+    salary,
+  }
+}
+
+export function ageOf(age: number): AgeQualification {
+  return {
+    category: 'AGE',
+    id: 'age',
+    age,
+  }
+}
+
+export function researchAchievementOf({
+  kind,
+}: {
+  kind: string
+}): Qualification {
+  return {
+    category: 'RESEARCH_ACHIEVEMENTS',
+    id: kind,
+  }
+}
+
+export function licenseHolder({
+  count,
+}: {
+  count: number
+}): LicensesQualification {
+  return {
+    category: 'LICENSES',
+    id: 'licenses',
+    count,
+  }
+}
+
+export function specialOf({ kind: id }: { kind: string }): Qualification {
+  return {
+    category: 'SPECIAL',
+    id,
+  }
+}
+
+export function contractingOrganizationOf({
+  kind: id,
+}: {
+  kind: string
+}): Qualification {
+  return {
+    category: 'SPECIAL_CONTRACTING_ORGANIZATION',
+    id,
+  }
+}
+
+export function japanese({ kind: id }: { kind: string }): Qualification {
+  return {
+    category: 'SPECIAL_JAPANESE',
+    id,
+  }
+}
+
+export function universityOf({ kind: id }: { kind: string }): Qualification {
+  return {
+    category: 'SPECIAL_UNIVERSITY',
+    id,
+  }
+}
+
+export function positionInCompany({ kind }: { kind: string }): Qualification {
+  return {
+    category: 'POSITION',
+    id: kind,
+  }
 }
