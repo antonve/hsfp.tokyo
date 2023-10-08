@@ -2,12 +2,11 @@ import {
   CategoryVisaB,
   CriteriaMatcher,
   Criteria,
-  matchMaxPoints,
   errorMessages,
-  matchAny,
   mapById,
   VisaType,
 } from '@lib/domain'
+import { matchMaxPoints, matchAny } from '@lib/domain/matchers'
 import { Form } from '@lib/domain/form'
 import {
   CareerQualification,

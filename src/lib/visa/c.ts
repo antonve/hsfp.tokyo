@@ -2,12 +2,11 @@ import {
   CategoryVisaC,
   CriteriaMatcher,
   Criteria,
-  matchMaxPoints,
   errorMessages,
-  matchAny,
   mapById,
-  filterUniqueQualifications,
 } from '@lib/domain'
+import { filterUniqueQualifications } from '@lib/domain/matchers'
+import { matchMaxPoints, matchAny } from '@lib/domain/matchers'
 import {
   CareerQualification,
   AnnualSalaryQualification,
