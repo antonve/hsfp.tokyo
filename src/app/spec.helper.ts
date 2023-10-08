@@ -17,6 +17,15 @@ export function simulationWithCriteria(
   }
 }
 
+export function simulationWithCriteriaC(
+  qualifications: Qualification[],
+): Simulation {
+  return {
+    visaType: VisaType.A,
+    qualifications
+  }
+}
+
 export function academicBackgroundWith({
   degree,
 }: {
