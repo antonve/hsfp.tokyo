@@ -15,7 +15,7 @@ export default function Page() {
               <Link href="/">Home</Link>
             </li>
             <li>
-              <Link href="/start">Simulation</Link>
+              <Link href="/start">Points calculator</Link>
             </li>
             <li>
               <Link href="/about">About</Link>
@@ -23,6 +23,20 @@ export default function Page() {
           </ul>
         </nav>
       </header>
+
+      <div>
+        <Link href="/calculator/researcher">
+          Start research point calculation
+        </Link>
+        <br />
+        <Link href="/calculator/engineer">
+          Start engineer point calculation
+        </Link>
+        <br />
+        <Link href="/calculator/business-manager">
+          Start business manager point calculation
+        </Link>
+      </div>
     </>
   )
 }
