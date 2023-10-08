@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
+import cn from 'classnames'
+import { cormorantGaramond, inter } from './fonts'
 
-import 'tailwindcss/tailwind.css'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'HSFP.tokyo',
@@ -15,7 +17,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body
+        className={cn(
+          'bg-stone-950 text-gray-50 font-sans',
+          cormorantGaramond.variable,
+          inter.variable,
+        )}
+      >
+        <div className="max-w-7xl mx-auto">{children}</div>
+      </body>
     </html>
   )
 }

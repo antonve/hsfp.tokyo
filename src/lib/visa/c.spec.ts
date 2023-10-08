@@ -248,7 +248,6 @@ describe('Visa type C point simulation', () => {
           'contracting_organization_promotes_highly_skilled',
         ])
       })
-
       it('promotes innovation', () => {
         const checklist = simulationWithCriteriaC([
           contractingOrganizationOf({
