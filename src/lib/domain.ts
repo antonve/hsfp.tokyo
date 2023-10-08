@@ -1,3 +1,4 @@
+import { Criteria } from './domain/criteria'
 import { Qualification } from './domain/qualifications'
 import { matchersForVisaB } from './visa/b'
 import { matchersForVisaC } from './visa/c'
@@ -11,25 +12,6 @@ export enum VisaType {
   B = 'B',
   // Advanced business management activities
   C = 'C',
-}
-
-// A Criteria is a row in the HSP points table.
-// The points will be added to when a qualification matches with a criteria.
-export interface Criteria {
-  id: string
-  points: number
-  match?: (value: any) => boolean
-}
-
-// Some criteria are grouped together and need to be scored together.
-// CriteriaMatcher is a group of criteria with an associated match function to get a final score.
-// TODO: Maybe a better name for this would be CategoryMatcher
-export interface CriteriaMatcher {
-  criteria: Criteria[]
-  match: (
-    criteria: Criteria[],
-    qualifications: Qualification[],
-  ) => SimulationResult
 }
 
 // Qualifications are linked to a Category and a whole category should be scored together.
@@ -82,13 +64,6 @@ export type CategoryVisaC =
   | 'SPECIAL_JAPANESE'
   | 'SPECIAL_UNIVERSITY'
 
-export const mapById = (objects: { id: string }[]) => {
-  return objects.reduce((accumulator, current) => {
-    accumulator[current.id] = current
-    return accumulator
-  }, {} as { [key: string]: any })
-}
-
 export interface Simulation {
   visaType: VisaType
   qualifications: Qualification[]
@@ -117,7 +92,7 @@ export const calculatePoints = (simulation: Simulation): SimulationResult => {
 }
 
 const calculate = (
-  matchers: CriteriaMatcher[],
+  matchers: CategoryMatcher[],
   qualifications: Qualification[],
 ): SimulationResult => {
   return matchers
@@ -134,4 +109,15 @@ const calculate = (
         points: 0,
       } as SimulationResult,
     )
+}
+
+// Some criteria are grouped together and need to be scored together.
+// CriteriaMatcher is a group of criteria with an associated match function to get a final score.
+
+export interface CategoryMatcher {
+  criteria: Criteria[]
+  match: (
+    criteria: Criteria[],
+    qualifications: Qualification[],
+  ) => SimulationResult
 }

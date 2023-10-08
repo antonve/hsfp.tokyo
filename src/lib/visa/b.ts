@@ -1,10 +1,6 @@
-import {
-  CategoryVisaB,
-  CriteriaMatcher,
-  Criteria,
-  mapById,
-  VisaType,
-} from '@lib/domain'
+import { CategoryVisaB, VisaType } from '@lib/domain'
+import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
+import { CategoryMatcher } from '@lib/domain'
 import { errorMessages } from './errors'
 import { matchMaxPoints, matchAny } from '@lib/domain/matchers'
 import { Form } from '@lib/domain/form'
@@ -43,7 +39,7 @@ export const form: Form = {
 }
 
 export const matchersForVisaB: {
-  [category in CategoryVisaB]: CriteriaMatcher
+  [category in CategoryVisaB]: CategoryMatcher
 } = {
   ACADEMIC_BACKGROUND: {
     criteria: [
@@ -247,7 +243,7 @@ export const matchersForVisaB: {
       let points = 0
       let matches: Criteria[] = []
 
-      const criteria = mapById(allCriteria)
+      const criteria = mapCriteriaById(allCriteria)
       const qualifications = allQualifications
         .filter(q => q.category === 'SPECIAL_CONTRACTING_ORGANIZATION')
         .map(q => q.id)
@@ -291,7 +287,7 @@ export const matchersForVisaB: {
       let points = 0
       let matches: Criteria[] = []
 
-      const criteria = mapById(allCriteria)
+      const criteria = mapCriteriaById(allCriteria)
       const qualifications = allQualifications
         .filter(q => q.category === 'SPECIAL_JAPANESE')
         .map(q => q.id)

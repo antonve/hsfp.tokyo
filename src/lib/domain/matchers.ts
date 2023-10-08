@@ -1,4 +1,5 @@
-import { Criteria, SimulationResult } from '@lib/domain'
+import { SimulationResult } from '@lib/domain'
+import { Criteria } from './criteria'
 
 import { Qualification } from './qualifications'
 
