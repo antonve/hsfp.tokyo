@@ -11,21 +11,17 @@ import {
 import { calculatePointsForVisaC } from '@lib/visa/c'
 import { errorMessages } from '@lib/visa/errors'
 
-// non university holder business owner
 // investment banker
 describe('Visa type C point simulation', () => {
   describe('categories', () => {
     describe('academic background', () => {
-      it('holder of multiple degrees in many areas', () => {
-        const checklist = [
-          academicBackgroundWith({ degree: 'dual_degree' }),
-          academicBackgroundWith({ degree: 'master' }),
-        ]
+      it('single degree', () => {
+        const checklist = [academicBackgroundWith({ degree: 'bachelor' })]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
-        expect(points).toBe(25)
-        expect(matches.map(m => m.id).sort()).toEqual(['dual_degree', 'master'])
+        expect(points).toBe(10)
+        expect(matches.map(m => m.id).sort()).toEqual(['bachelor'])
       })
 
       it('multiple degrees, should pick highest degree', () => {
@@ -40,14 +36,19 @@ describe('Visa type C point simulation', () => {
         expect(matches.map(m => m.id).sort()).toEqual(['master'])
       })
 
-      it('Single degree holder', () => {
-        const checklist = [academicBackgroundWith({ degree: 'bachelor' })]
+      it('a dual degree should give bonus', () => {
+        const checklist = [
+          academicBackgroundWith({ degree: 'dual_degree' }),
+          academicBackgroundWith({ degree: 'bachelor' }),
+          academicBackgroundWith({ degree: 'master' }),
+        ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
-        expect(points).toBe(10)
-        expect(matches.map(m => m.id).sort()).toEqual(['bachelor'])
+        expect(points).toBe(25)
+        expect(matches.map(m => m.id).sort()).toEqual(['dual_degree', 'master'])
       })
+
       it('two bachelor degree holder', () => {
         const checklist = [
           academicBackgroundWith({ degree: 'bachelor' }),
@@ -74,7 +75,7 @@ describe('Visa type C point simulation', () => {
         expect(matches.map(m => m.id).sort()).toEqual(['10_years_or_more'])
       })
 
-      it('8_years_or_more', () => {
+      it('8 years of experience', () => {
         const checklist = [professionalCareerWith({ yearsOfExperience: 8 })]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -121,6 +122,7 @@ describe('Visa type C point simulation', () => {
           calculatePointsForVisaC(checklist)
         }).toThrowError(errorMessages.salaryTooLow)
       })
+
       it('9.9 million', () => {
         const checklist = [
           annualSalaryOf(9_999_999), // 0 points
@@ -131,6 +133,7 @@ describe('Visa type C point simulation', () => {
         expect(points).toBe(0)
         expect(matches.map(m => m.id).sort()).toEqual([])
       })
+
       it('10 million', () => {
         const checklist = [
           annualSalaryOf(10_000_000), // 10 points
@@ -141,6 +144,7 @@ describe('Visa type C point simulation', () => {
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual(['10m_or_more'])
       })
+
       it('15 million', () => {
         const checklist = [
           annualSalaryOf(15_000_000), // 20 points
@@ -151,6 +155,7 @@ describe('Visa type C point simulation', () => {
         expect(points).toBe(20)
         expect(matches.map(m => m.id).sort()).toEqual(['15m_or_more'])
       })
+
       it('20 million', () => {
         const checklist = [
           annualSalaryOf(20_000_000), // 30 points
@@ -161,6 +166,7 @@ describe('Visa type C point simulation', () => {
         expect(points).toBe(30)
         expect(matches.map(m => m.id).sort()).toEqual(['20m_or_more'])
       })
+
       it('25 million', () => {
         const checklist = [
           annualSalaryOf(25_000_000), // 40 points
@@ -171,6 +177,7 @@ describe('Visa type C point simulation', () => {
         expect(points).toBe(40)
         expect(matches.map(m => m.id).sort()).toEqual(['25m_or_more'])
       })
+
       it('30 million', () => {
         const checklist = [
           annualSalaryOf(30_000_000), // 50 points
@@ -188,26 +195,34 @@ describe('Visa type C point simulation', () => {
         const checklist = [
           positionInCompany({ kind: 'representative_director' }), // 10 points
         ]
+
         const { matches, points } = calculatePointsForVisaC(checklist)
+
         expect(points).toBe(10)
         expect(matches.map(m => m.id).sort()).toEqual([
           'representative_director',
         ])
       })
+
       it('executive officer', () => {
         const checklist = [
           positionInCompany({ kind: 'executive_officer' }), // 5 points
         ]
+
         const { matches, points } = calculatePointsForVisaC(checklist)
+
         expect(points).toBe(5)
         expect(matches.map(m => m.id).sort()).toEqual(['executive_officer'])
       })
+
       it('executive officer and representative director should not be mutually exclusive', () => {
         const checklist = [
           positionInCompany({ kind: 'executive_officer' }), // 5 points
           positionInCompany({ kind: 'representative_director' }), // 10 points
         ]
+
         const { matches, points } = calculatePointsForVisaC(checklist)
+
         expect(points).toBe(15)
         expect(matches.map(m => m.id).sort()).toEqual([
           'executive_officer',
@@ -249,6 +264,7 @@ describe('Visa type C point simulation', () => {
           'contracting_organization_promotes_innovation',
         ])
       })
+
       it('promotes innovation & small-medium sized company', () => {
         const checklist = [
           contractingOrganizationOf({
@@ -267,6 +283,7 @@ describe('Visa type C point simulation', () => {
           'contracting_organization_small_medium_sized',
         ])
       })
+
       it('promotes highly skilled professionals & innovation & small-medium sized company', () => {
         const checklist = [
           contractingOrganizationOf({
@@ -289,6 +306,7 @@ describe('Visa type C point simulation', () => {
           'contracting_organization_small_medium_sized',
         ])
       })
+
       it('ignores small-medium sized company when not promoting innovation', () => {
         const checklist = [
           contractingOrganizationOf({
@@ -301,6 +319,7 @@ describe('Visa type C point simulation', () => {
         expect(points).toBe(0)
         expect(matches.map(m => m.id).sort()).toEqual([])
       })
+
       it('promotes highly skilled professionals', () => {
         const checklist = [
           contractingOrganizationOf({
@@ -315,6 +334,7 @@ describe('Visa type C point simulation', () => {
           'contracting_organization_promotes_highly_skilled',
         ])
       })
+
       it('research and development exceeds 3%', () => {
         const checklist = [specialOf({ kind: 'rnd_exceeds_three_percent' })]
 
@@ -325,6 +345,7 @@ describe('Visa type C point simulation', () => {
           'rnd_exceeds_three_percent',
         ])
       })
+
       it('has foreign work related qualification', () => {
         const checklist = [
           specialOf({ kind: 'foreign_work_related_qualification' }),
@@ -337,6 +358,7 @@ describe('Visa type C point simulation', () => {
           'foreign_work_related_qualification',
         ])
       })
+
       it('has worked on an advanced project in a growth field', () => {
         const checklist = [specialOf({ kind: 'advanced_project_growth_field' })]
 
@@ -347,6 +369,7 @@ describe('Visa type C point simulation', () => {
           'advanced_project_growth_field',
         ])
       })
+
       it('completed training conducted by JICA as part of Innovative Asia Project', () => {
         const checklist = [
           specialOf({
@@ -361,6 +384,7 @@ describe('Visa type C point simulation', () => {
           'completed_training_conducted_by_jica_innovative_asia_project',
         ])
       })
+
       it('invested over 100 million yen in an orginzation in japan', () => {
         const checklist = [
           specialOf({ kind: 'invested_over_100_million_yen_in_japan' }),
@@ -373,6 +397,7 @@ describe('Visa type C point simulation', () => {
           'invested_over_100_million_yen_in_japan',
         ])
       })
+
       it('participates in investment business', () => {
         const checklist = [
           specialOf({ kind: 'investment_management_business' }),
@@ -411,6 +436,7 @@ describe('Visa type C point simulation', () => {
         ])
       })
     })
+
     describe('japanese ability', () => {
       it('knows to ignore duplicates', () => {
         const checklist = [

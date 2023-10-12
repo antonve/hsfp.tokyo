@@ -59,6 +59,7 @@ describe('Visa type A point simulation', () => {
         expect(points).toBe(15)
         expect(matches.map(m => m.id).sort()).toEqual(['7_years_or_more'])
       })
+
       it('6 years of experience', () => {
         const checklist = [professionalCareerWith({ yearsOfExperience: 6 })]
 
