@@ -7,7 +7,7 @@ export interface FormProgress {
   currentPromptIndex: number
 }
 
-export interface Form {
+export interface FormConfig {
   // Definitions of each form section
   // Prompts will be shown in the order as defined.
   sections: Partial<Record<Category, Prompt[]>>

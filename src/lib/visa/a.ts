@@ -8,7 +8,7 @@ import {
   matchAny,
   matchQualificationsWithExtraPoints,
 } from '@lib/domain/matchers'
-import { Form } from '@lib/domain/form'
+import { FormConfig } from '@lib/domain/form'
 import {
   CareerQualification,
   AnnualSalaryQualification,

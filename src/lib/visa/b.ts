@@ -3,7 +3,7 @@ import { VisaType } from '@lib/domain/visa'
 import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
 import { CategoryMatcher } from '@lib/domain/calculator'
 import { matchMaxPoints, matchAny } from '@lib/domain/matchers'
-import { Form } from '@lib/domain/form'
+import { FormConfig } from '@lib/domain/form'
 import {
   CareerQualification,
   AnnualSalaryQualification,
@@ -13,7 +13,7 @@ import {
 } from '@lib/domain/qualifications'
 import { errorMessages } from '@lib/visa/errors'
 
-export const form: Form = {
+export const formConfig: FormConfig = {
   sections: {
     ACADEMIC_BACKGROUND: [
       {
@@ -30,39 +30,21 @@ export const form: Form = {
       {
         id: 'experience',
         type: 'NUMBER',
-        getQualification(yearsOfExperience) {
-          return {
-            category: 'CAREER',
-            id: 'experience',
-            yearsOfExperience,
-          }
-        },
+        qualificationValueFieldName: 'yearsOfExperience',
       },
     ],
     AGE: [
       {
         id: 'age',
         type: 'NUMBER',
-        getQualification(age) {
-          return {
-            category: 'AGE',
-            id: 'age',
-            age,
-          }
-        },
+        qualificationValueFieldName: 'age',
       },
     ],
     ANNUAL_SALARY: [
       {
         id: 'salary',
         type: 'NUMBER',
-        getQualification(salary) {
-          return {
-            category: 'ANNUAL_SALARY',
-            id: 'salary',
-            salary,
-          }
-        },
+        qualificationValueFieldName: 'salary',
       },
     ],
     RESEARCH_ACHIEVEMENTS: [
