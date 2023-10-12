@@ -237,6 +237,10 @@ const matchersForVisaB: {
         id: 'completed_training_conducted_by_jica_innovative_asia_project',
         points: 5,
       },
+      {
+        id: 'investment_management_business',
+        points: 10,
+      },
     ],
     match: (criteria, allQualifications) => {
       const qualifications = allQualifications
