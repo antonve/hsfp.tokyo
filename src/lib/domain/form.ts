@@ -1,25 +1,36 @@
-import { VisaType } from '@lib/domain/visa'
 import { Category } from '@lib/domain/qualifications'
 import { Qualification } from '@lib/domain/qualifications'
 
 export interface FormProgress {
   qualifications: Qualification[]
-  currentCategoryIndex: number
+  currentCategory: Category
   currentPromptIndex: number
 }
 
 export interface Form {
-  visa: VisaType
-  sections: FormSection[]
+  // Definitions of each form section
+  // Prompts will be shown in the order as defined.
+  sections: Partial<Record<Category, Prompt[]>>
+
+  // The order sections should be shown
+  order: Category[]
 }
 
-export interface FormSection {
-  category: Category
-  prompts: Prompt[]
-}
+export type Prompt = ChoicePrompt | NumberPrompt | BooleanPrompt
 
-export interface Prompt {
+export interface ChoicePrompt {
   id: string
-  type: 'CHOICE' | 'NUMBER'
-  options?: string[]
+  type: 'CHOICE'
+  options: string[]
+}
+
+export interface NumberPrompt {
+  id: string
+  type: 'NUMBER'
+  getQualification: (input: number) => Qualification
+}
+
+export interface BooleanPrompt {
+  id: string
+  type: 'BOOLEAN'
 }

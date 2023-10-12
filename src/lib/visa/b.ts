@@ -14,30 +14,77 @@ import {
 import { errorMessages } from '@lib/visa/errors'
 
 export const form: Form = {
-  visa: VisaType.B, //fix
-  sections: [
-    {
-      category: 'ACADEMIC_BACKGROUND',
-      prompts: [
-        {
-          id: 'HIGHEST_DEGREE',
-          type: 'CHOICE',
-          options: [
-            'doctor',
-            'business_management',
-            'master',
-            'bachelor',
-            'fallback',
-          ],
+  sections: {
+    ACADEMIC_BACKGROUND: [
+      {
+        id: 'highest_degree',
+        type: 'CHOICE',
+        options: ['doctor', 'business_management', 'master', 'bachelor'],
+      },
+      {
+        id: 'dual_degree',
+        type: 'BOOLEAN',
+      },
+    ],
+    CAREER: [
+      {
+        id: 'experience',
+        type: 'NUMBER',
+        getQualification(yearsOfExperience) {
+          return {
+            category: 'CAREER',
+            id: 'experience',
+            yearsOfExperience,
+          }
         },
-        {
-          id: 'DUAL_DEGREE',
-          type: 'CHOICE',
-          options: ['dual_degree', 'fallback'],
+      },
+    ],
+    AGE: [
+      {
+        id: 'age',
+        type: 'NUMBER',
+        getQualification(age) {
+          return {
+            category: 'AGE',
+            id: 'age',
+            age,
+          }
         },
-      ],
-    },
-  ],
+      },
+    ],
+    ANNUAL_SALARY: [
+      {
+        id: 'salary',
+        type: 'NUMBER',
+        getQualification(salary) {
+          return {
+            category: 'ANNUAL_SALARY',
+            id: 'salary',
+            salary,
+          }
+        },
+      },
+    ],
+    RESEARCH_ACHIEVEMENTS: [
+      {
+        id: 'patent_inventor',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'conducted_financed_projects_three_times',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'has_published_three_papers',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'research_recognized_by_japan',
+        type: 'BOOLEAN',
+      },
+    ],
+  },
+  order: ['ACADEMIC_BACKGROUND', 'CAREER', 'AGE', 'ANNUAL_SALARY'],
 }
 
 export function calculatePointsForVisaB(qualifications: Qualification[]) {
