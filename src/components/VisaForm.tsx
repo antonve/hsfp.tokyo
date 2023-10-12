@@ -3,8 +3,8 @@
 import { useParams } from 'next/navigation'
 import { z } from 'zod'
 
-import { FormConfig } from '@lib/domain/form'
-import { CategorySchema } from '@lib/domain/qualifications'
+import { FormConfig, Prompt } from '@lib/domain/form'
+import { Category, CategorySchema } from '@lib/domain/qualifications'
 
 const paramsSchema = z.object({
   category: CategorySchema.optional().default('academic-background'),
@@ -22,5 +22,42 @@ export function VisaForm({ config }: Props) {
   const { category: currentCategory, prompt: currentPromptIndex } =
     paramsSchema.parse(params)
 
-  return `category: ${currentCategory}, prompt: ${currentPromptIndex}`
+  return (
+    <form>
+      {config.order.map(section => (
+        <VisaFormSection
+          prompts={config.sections[section]!!}
+          category={section}
+        />
+      ))}
+    </form>
+  )
+}
+
+function VisaFormSection({
+  prompts,
+  category,
+}: {
+  prompts: Prompt[]
+  category: Category
+}) {
+  return (
+    <div className="pb-10">
+      <h2 className="font-bold text-xl">{category}</h2>
+      {prompts.map(prompt => (
+        <VisaFromPrompt prompt={prompt} />
+      ))}
+    </div>
+  )
+}
+
+function VisaFromPrompt({ prompt }: { prompt: Prompt }) {
+  switch (prompt.type) {
+    case 'NUMBER':
+      return <div>number prompt: {prompt.id}</div>
+    case 'BOOLEAN':
+      return <div>bool prompt: {prompt.id}</div>
+    case 'CHOICE':
+      return <div>choice prompt: {prompt.id}</div>
+  }
 }
