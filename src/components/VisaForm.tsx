@@ -7,7 +7,7 @@ import { FormConfig } from '@lib/domain/form'
 import { CategorySchema } from '@lib/domain/qualifications'
 
 const paramsSchema = z.object({
-  category: CategorySchema.optional().default('ACADEMIC_BACKGROUND'),
+  category: CategorySchema.optional().default('academic-background'),
   prompt: z.coerce.number().optional().default(1),
 })
 

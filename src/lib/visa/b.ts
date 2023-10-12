@@ -15,7 +15,7 @@ import { errorMessages } from '@lib/visa/errors'
 
 export const formConfig: FormConfig = {
   sections: {
-    ACADEMIC_BACKGROUND: [
+    'academic-background': [
       {
         id: 'highest_degree',
         type: 'CHOICE',
@@ -26,28 +26,28 @@ export const formConfig: FormConfig = {
         type: 'BOOLEAN',
       },
     ],
-    CAREER: [
+    career: [
       {
         id: 'experience',
         type: 'NUMBER',
         qualificationValueFieldName: 'yearsOfExperience',
       },
     ],
-    AGE: [
+    age: [
       {
         id: 'age',
         type: 'NUMBER',
         qualificationValueFieldName: 'age',
       },
     ],
-    ANNUAL_SALARY: [
+    'annual-salary': [
       {
         id: 'salary',
         type: 'NUMBER',
         qualificationValueFieldName: 'salary',
       },
     ],
-    RESEARCH_ACHIEVEMENTS: [
+    'research-achievements': [
       {
         id: 'patent_inventor',
         type: 'BOOLEAN',
@@ -66,7 +66,7 @@ export const formConfig: FormConfig = {
       },
     ],
   },
-  order: ['ACADEMIC_BACKGROUND', 'CAREER', 'AGE', 'ANNUAL_SALARY'],
+  order: ['academic-background', 'career', 'age', 'annual-salary'],
 }
 
 export function calculatePointsForVisaB(qualifications: Qualification[]) {
@@ -74,21 +74,21 @@ export function calculatePointsForVisaB(qualifications: Qualification[]) {
 }
 
 type CategoryVisaB =
-  | 'ACADEMIC_BACKGROUND'
-  | 'CAREER'
-  | 'AGE'
-  | 'ANNUAL_SALARY'
-  | 'RESEARCH_ACHIEVEMENTS'
-  | 'LICENSES'
-  | 'SPECIAL'
-  | 'SPECIAL_CONTRACTING_ORGANIZATION'
-  | 'SPECIAL_JAPANESE'
-  | 'SPECIAL_UNIVERSITY'
+  | 'academic-background'
+  | 'career'
+  | 'age'
+  | 'annual-salary'
+  | 'research-achievements'
+  | 'licenses'
+  | 'bonus'
+  | 'contracting-organization'
+  | 'japanese'
+  | 'university'
 
 const matchersForVisaB: {
   [category in CategoryVisaB]: CategoryMatcher
 } = {
-  ACADEMIC_BACKGROUND: {
+  'academic-background': {
     criteria: [
       { id: 'doctor', points: 30 },
       { id: 'business_management', points: 25 },
@@ -98,7 +98,7 @@ const matchersForVisaB: {
     ],
     match: (criteria, allQualifications) => {
       const qualifications = allQualifications
-        .filter(q => q.category === 'ACADEMIC_BACKGROUND')
+        .filter(q => q.category === 'academic-background')
         .map(q => q.id)
 
       const degrees = criteria.filter(c => qualifications.includes(c.id))
@@ -123,7 +123,7 @@ const matchersForVisaB: {
       return { matches, points }
     },
   },
-  CAREER: {
+  career: {
     criteria: [
       { id: '10_years_or_more', points: 20, match: exp => exp >= 10 },
       { id: '7_years_or_more', points: 15, match: exp => exp >= 7 },
@@ -131,7 +131,7 @@ const matchersForVisaB: {
       { id: '3_years_or_more', points: 5, match: exp => exp >= 3 },
     ],
     match: (criteria, qualifications) => {
-      const match = qualifications.find(q => q.category === 'CAREER') as
+      const match = qualifications.find(q => q.category === 'career') as
         | CareerQualification
         | undefined
       const yearsOfExperience = match?.yearsOfExperience ?? 0
@@ -139,7 +139,7 @@ const matchersForVisaB: {
       return matchMaxPoints(criteria, yearsOfExperience)
     },
   },
-  ANNUAL_SALARY: {
+  'annual-salary': {
     criteria: [
       {
         id: '10m_or_more',
@@ -179,9 +179,9 @@ const matchersForVisaB: {
     ],
     match: (criteria, qualifications) => {
       const matchSalary = qualifications.find(
-        q => q.category === 'ANNUAL_SALARY',
+        q => q.category === 'annual-salary',
       ) as AnnualSalaryQualification | undefined
-      const matchAge = qualifications.find(q => q.category === 'AGE') as
+      const matchAge = qualifications.find(q => q.category === 'age') as
         | AgeQualification
         | undefined
 
@@ -198,14 +198,14 @@ const matchersForVisaB: {
       return matchMaxPoints(criteria, { salary, age })
     },
   },
-  AGE: {
+  age: {
     criteria: [
       { id: 'less_than_30', points: 15, match: age => age < 30 },
       { id: 'less_than_35', points: 10, match: age => age < 35 },
       { id: 'less_than_40', points: 5, match: age => age < 40 },
     ],
     match: (criteria, qualifications) => {
-      const match = qualifications.find(q => q.category === 'AGE') as
+      const match = qualifications.find(q => q.category === 'age') as
         | AgeQualification
         | undefined
 
@@ -217,7 +217,7 @@ const matchersForVisaB: {
       return matchMaxPoints(criteria, age)
     },
   },
-  RESEARCH_ACHIEVEMENTS: {
+  'research-achievements': {
     criteria: [
       { id: 'patent_inventor', points: 15 },
       { id: 'conducted_financed_projects_three_times', points: 15 },
@@ -226,12 +226,12 @@ const matchersForVisaB: {
     ],
     match: (criteria, allQualifications) => {
       const qualifications = allQualifications.filter(
-        q => q.category === 'RESEARCH_ACHIEVEMENTS',
+        q => q.category === 'research-achievements',
       )
       return matchAny(criteria, qualifications)
     },
   },
-  LICENSES: {
+  licenses: {
     criteria: [
       {
         id: 'has_one_national_license',
@@ -245,7 +245,7 @@ const matchersForVisaB: {
       },
     ],
     match: (criteria, qualifications) => {
-      const match = qualifications.find(q => q.category === 'LICENSES') as
+      const match = qualifications.find(q => q.category === 'licenses') as
         | LicensesQualification
         | undefined
 
@@ -257,7 +257,7 @@ const matchersForVisaB: {
       return matchMaxPoints(criteria, count)
     },
   },
-  SPECIAL: {
+  bonus: {
     criteria: [
       { id: 'rnd_exceeds_three_percent', points: 5 },
       { id: 'foreign_work_related_qualification', points: 5 },
@@ -273,7 +273,7 @@ const matchersForVisaB: {
     ],
     match: (criteria, allQualifications) => {
       const qualifications = allQualifications
-        .filter(q => q.category === 'SPECIAL')
+        .filter(q => q.category === 'bonus')
         .map(q => q.id)
 
       const matches = criteria.filter(c => qualifications.includes(c.id))
@@ -284,7 +284,7 @@ const matchersForVisaB: {
       return { matches, points }
     },
   },
-  SPECIAL_CONTRACTING_ORGANIZATION: {
+  'contracting-organization': {
     criteria: [
       { id: 'contracting_organization_promotes_innovation', points: 10 },
       { id: 'contracting_organization_small_medium_sized', points: 10 },
@@ -296,7 +296,7 @@ const matchersForVisaB: {
 
       const criteria = mapCriteriaById(allCriteria)
       const qualifications = allQualifications
-        .filter(q => q.category === 'SPECIAL_CONTRACTING_ORGANIZATION')
+        .filter(q => q.category === 'contracting-organization')
         .map(q => q.id)
       const isInnovative = qualifications.includes(
         'contracting_organization_promotes_innovation',
@@ -328,7 +328,7 @@ const matchersForVisaB: {
       return { matches, points }
     },
   },
-  SPECIAL_JAPANESE: {
+  japanese: {
     criteria: [
       { id: 'graduated_japanese_uni_or_course', points: 10 },
       { id: 'jlpt_n1_or_equivalent', points: 15 },
@@ -340,7 +340,7 @@ const matchersForVisaB: {
 
       const criteria = mapCriteriaById(allCriteria)
       const qualifications = allQualifications
-        .filter(q => q.category === 'SPECIAL_JAPANESE')
+        .filter(q => q.category === 'japanese')
         .map(q => q.id)
       const isUniGraduate = qualifications.includes(
         'graduated_japanese_uni_or_course',
@@ -364,7 +364,7 @@ const matchersForVisaB: {
       return { matches, points }
     },
   },
-  SPECIAL_UNIVERSITY: {
+  university: {
     criteria: [
       { id: 'top_ranked_university_graduate', points: 10 },
       {
@@ -378,7 +378,7 @@ const matchersForVisaB: {
     ],
     match: (criteria, allQualifications) => {
       const qualifications = allQualifications.filter(
-        q => q.category === 'SPECIAL_UNIVERSITY',
+        q => q.category === 'university',
       )
 
       return matchAny(criteria, qualifications)

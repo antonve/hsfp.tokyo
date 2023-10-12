@@ -28,7 +28,7 @@
 //   const createNewSalaryQualification = (
 //     value: number,
 //   ): AnnualSalaryQualification => ({
-//     category: 'ANNUAL_SALARY',
+//     category: 'annual-salary',
 //     id: 'salary',
 //     salary: value,
 //   })
@@ -36,13 +36,13 @@
 //   const createNewExperienceQualification = (
 //     value: number,
 //   ): CareerQualification => ({
-//     category: 'CAREER',
+//     category: 'career',
 //     id: 'experience',
 //     yearsOfExperience: value,
 //   })
 
 //   const createNewAgeQualification = (value: number): AgeQualification => ({
-//     category: 'AGE',
+//     category: 'age',
 //     id: 'age',
 //     age: value,
 //   })
@@ -64,7 +64,7 @@
 //       <QualificationList>
 //         <QualificationNumber
 //           qualifications={qualifications}
-//           category={`ANNUAL_SALARY`}
+//           category={`annual-salary`}
 //           id={ids.salary}
 //           onChange={onChangeFor(createNewSalaryQualification)}
 //           getValue={q => (q as AnnualSalaryQualification)?.salary}
@@ -76,7 +76,7 @@
 //         </QualificationNumber>
 //         <QualificationNumber
 //           qualifications={qualifications}
-//           category={`CAREER`}
+//           category={`career`}
 //           id={ids.experience}
 //           onChange={onChangeFor(createNewExperienceQualification)}
 //           getValue={q => (q as CareerQualification)?.yearsOfExperience}
@@ -88,7 +88,7 @@
 //         </QualificationNumber>
 //         <QualificationNumber
 //           qualifications={qualifications}
-//           category={`AGE`}
+//           category={`age`}
 //           id={ids.age}
 //           onChange={onChangeFor(createNewAgeQualification)}
 //           getValue={q => (q as AgeQualification)?.age}

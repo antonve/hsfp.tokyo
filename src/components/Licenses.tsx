@@ -22,7 +22,7 @@
 //   const { t } = useTranslation()
 
 //   const createNewQualification = (count: number): LicensesQualification => ({
-//     category: 'LICENSES',
+//     category: 'licenses',
 //     id: 'licenses',
 //     count,
 //   })
@@ -33,7 +33,7 @@
 //   const matcherFor =
 //     (count: number): MatchFunction =>
 //     (qualification: Qualification) =>
-//       qualification.category === 'LICENSES' &&
+//       qualification.category === 'licenses' &&
 //       qualification.id === 'licenses' &&
 //       (qualification as LicensesQualification).count === count
 

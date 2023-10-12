@@ -17,19 +17,19 @@ export function calculatePointsForVisaC(qualifications: Qualification[]) {
 }
 
 type CategoryVisaC =
-  | 'ACADEMIC_BACKGROUND'
-  | 'CAREER'
-  | 'ANNUAL_SALARY'
-  | 'POSITION'
-  | 'SPECIAL'
-  | 'SPECIAL_CONTRACTING_ORGANIZATION'
-  | 'SPECIAL_JAPANESE'
-  | 'SPECIAL_UNIVERSITY'
+  | 'academic-background'
+  | 'career'
+  | 'annual-salary'
+  | 'position'
+  | 'bonus'
+  | 'contracting-organization'
+  | 'japanese'
+  | 'university'
 
 const matchersForVisaC: {
   [category in CategoryVisaC]: CategoryMatcher
 } = {
-  ACADEMIC_BACKGROUND: {
+  'academic-background': {
     criteria: [
       { id: 'business_management', points: 25 },
       { id: 'master', points: 20 },
@@ -38,7 +38,7 @@ const matchersForVisaC: {
     ],
     match: (criteria, allQualitifications) => {
       const qualifications = allQualitifications
-        .filter(q => q.category === 'ACADEMIC_BACKGROUND')
+        .filter(q => q.category === 'academic-background')
         .map(q => q.id)
       const degrees = criteria.filter(c => qualifications.includes(c.id))
       const bonus = degrees.find(d => d.id === 'dual_degree')
@@ -59,7 +59,7 @@ const matchersForVisaC: {
       return { matches, points }
     },
   },
-  CAREER: {
+  career: {
     criteria: [
       { id: '10_years_or_more', points: 25, match: exp => exp >= 10 },
       { id: '7_years_or_more', points: 20, match: exp => exp >= 7 },
@@ -67,14 +67,14 @@ const matchersForVisaC: {
       { id: '3_years_or_more', points: 10, match: exp => exp >= 3 },
     ],
     match: (criteria, qualifications) => {
-      const match = qualifications.find(q => q.category === 'CAREER') as
+      const match = qualifications.find(q => q.category === 'career') as
         | CareerQualification
         | undefined
       const yearsOfExperience = match?.yearsOfExperience ?? 0
       return matchMaxPoints(criteria, yearsOfExperience)
     },
   },
-  ANNUAL_SALARY: {
+  'annual-salary': {
     criteria: [
       {
         id: '30m_or_more',
@@ -104,7 +104,7 @@ const matchersForVisaC: {
     ],
     match: (criteria, qualifications) => {
       const matchSalary = qualifications.find(
-        q => q.category === 'ANNUAL_SALARY',
+        q => q.category === 'annual-salary',
       ) as AnnualSalaryQualification | undefined
 
       if (matchSalary === undefined) {
@@ -117,7 +117,7 @@ const matchersForVisaC: {
       return matchMaxPoints(criteria, { salary })
     },
   },
-  POSITION: {
+  position: {
     criteria: [
       {
         id: 'representative_director',
@@ -129,11 +129,11 @@ const matchersForVisaC: {
       },
     ],
     match: (criteria, allQualifications) => {
-      const category = 'POSITION'
+      const category = 'position'
       return filterUniqueQualifications(criteria, allQualifications, category)
     },
   },
-  SPECIAL: {
+  bonus: {
     criteria: [
       { id: 'rnd_exceeds_three_percent', points: 5 },
       { id: 'foreign_work_related_qualification', points: 5 },
@@ -152,11 +152,11 @@ const matchersForVisaC: {
       },
     ],
     match: (criteria, allQualifications) => {
-      const category = 'SPECIAL'
+      const category = 'bonus'
       return filterUniqueQualifications(criteria, allQualifications, category)
     },
   },
-  SPECIAL_CONTRACTING_ORGANIZATION: {
+  'contracting-organization': {
     criteria: [
       { id: 'contracting_organization_promotes_innovation', points: 10 },
       { id: 'contracting_organization_small_medium_sized', points: 10 },
@@ -168,7 +168,7 @@ const matchersForVisaC: {
 
       const criteria = mapCriteriaById(allCriteria)
       const qualifications = allQualifications
-        .filter(q => q.category === 'SPECIAL_CONTRACTING_ORGANIZATION')
+        .filter(q => q.category === 'contracting-organization')
         .map(q => q.id)
       const isInnovative = qualifications.includes(
         'contracting_organization_promotes_innovation',
@@ -200,7 +200,7 @@ const matchersForVisaC: {
       return { matches, points }
     },
   },
-  SPECIAL_JAPANESE: {
+  japanese: {
     criteria: [
       { id: 'graduated_japanese_uni_or_course', points: 10 },
       { id: 'jlpt_n1_or_equivalent', points: 15 },
@@ -212,7 +212,7 @@ const matchersForVisaC: {
 
       const criteria = mapCriteriaById(allCriteria)
       const qualifications = allQualifications
-        .filter(q => q.category === 'SPECIAL_JAPANESE')
+        .filter(q => q.category === 'japanese')
         .map(q => q.id)
       const isUniGraduate = qualifications.includes(
         'graduated_japanese_uni_or_course',
@@ -236,7 +236,7 @@ const matchersForVisaC: {
       return { matches, points }
     },
   },
-  SPECIAL_UNIVERSITY: {
+  university: {
     criteria: [
       { id: 'top_ranked_university_graduate', points: 10 },
       {
@@ -250,7 +250,7 @@ const matchersForVisaC: {
     ],
     match: (criteria, allQualifications) => {
       const qualifications = allQualifications.filter(
-        q => q.category === 'SPECIAL_UNIVERSITY',
+        q => q.category === 'university',
       )
 
       return matchAny(criteria, qualifications)

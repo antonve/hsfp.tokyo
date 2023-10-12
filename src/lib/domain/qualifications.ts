@@ -10,45 +10,46 @@ export interface Qualification {
 }
 
 export interface CareerQualification extends Qualification {
-  category: 'CAREER'
+  category: 'career'
   id: 'experience'
   yearsOfExperience: number
 }
 
 export interface AnnualSalaryQualification extends Qualification {
-  category: 'ANNUAL_SALARY'
+  category: 'annual-salary'
   id: 'salary'
   salary: number
 }
 
 export interface AgeQualification extends Qualification {
-  category: 'AGE'
+  category: 'age'
   id: 'age'
   age: number
 }
 
 export interface LicensesQualification extends Qualification {
-  category: 'LICENSES'
+  category: 'licenses'
   id: 'licenses'
   count: number
 }
 
+// TODO: we need to rename the bonus points
 // Qualifications are linked to a Category and a whole category should be scored together.
 // Each visa type has slight variations of what categories are available.
 // Forms are also generated based on these types.
 export const CategorySchema = z.enum([
-  'ACADEMIC_BACKGROUND',
-  'CAREER',
-  'AGE',
-  'ANNUAL_SALARY',
-  'RESEARCH_ACHIEVEMENTS',
-  'POSITION',
-  'LICENSES',
-  'SPECIAL',
-  'SPECIAL_CONTRACTING_ORGANIZATION',
-  'SPECIAL_JAPANESE',
-  'SPECIAL_UNIVERSITY',
-  'SPECIAL_INVESTOR',
+  'academic-background',
+  'career',
+  'age',
+  'annual-salary',
+  'research-achievements',
+  'position',
+  'licenses',
+  'bonus',
+  'contracting-organization',
+  'japanese',
+  'university',
+  'investor',
 ])
 
 export type Category = z.infer<typeof CategorySchema>
@@ -61,7 +62,7 @@ export function academicBackgroundWith({
   degree: string
 }): Qualification {
   return {
-    category: 'ACADEMIC_BACKGROUND',
+    category: 'academic-background',
     id: degree,
   }
 }
@@ -72,7 +73,7 @@ export function professionalCareerWith({
   yearsOfExperience: number
 }): CareerQualification {
   return {
-    category: 'CAREER',
+    category: 'career',
     id: 'experience',
     yearsOfExperience,
   }
@@ -80,7 +81,7 @@ export function professionalCareerWith({
 
 export function annualSalaryOf(salary: number): AnnualSalaryQualification {
   return {
-    category: 'ANNUAL_SALARY',
+    category: 'annual-salary',
     id: 'salary',
     salary,
   }
@@ -88,7 +89,7 @@ export function annualSalaryOf(salary: number): AnnualSalaryQualification {
 
 export function ageOf(age: number): AgeQualification {
   return {
-    category: 'AGE',
+    category: 'age',
     id: 'age',
     age,
   }
@@ -100,7 +101,7 @@ export function researchAchievementOf({
   kind: string
 }): Qualification {
   return {
-    category: 'RESEARCH_ACHIEVEMENTS',
+    category: 'research-achievements',
     id: kind,
   }
 }
@@ -111,7 +112,7 @@ export function licenseHolder({
   count: number
 }): LicensesQualification {
   return {
-    category: 'LICENSES',
+    category: 'licenses',
     id: 'licenses',
     count,
   }
@@ -119,7 +120,7 @@ export function licenseHolder({
 
 export function specialOf({ kind: id }: { kind: string }): Qualification {
   return {
-    category: 'SPECIAL',
+    category: 'bonus',
     id,
   }
 }
@@ -130,28 +131,28 @@ export function contractingOrganizationOf({
   kind: string
 }): Qualification {
   return {
-    category: 'SPECIAL_CONTRACTING_ORGANIZATION',
+    category: 'contracting-organization',
     id,
   }
 }
 
 export function japanese({ kind: id }: { kind: string }): Qualification {
   return {
-    category: 'SPECIAL_JAPANESE',
+    category: 'japanese',
     id,
   }
 }
 
 export function universityOf({ kind: id }: { kind: string }): Qualification {
   return {
-    category: 'SPECIAL_UNIVERSITY',
+    category: 'university',
     id,
   }
 }
 
 export function positionInCompany({ kind }: { kind: string }): Qualification {
   return {
-    category: 'POSITION',
+    category: 'position',
     id: kind,
   }
 }

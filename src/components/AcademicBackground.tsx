@@ -26,7 +26,7 @@
 //   const { t } = useTranslation()
 
 //   const createNewQualification = (id: string): Qualification => ({
-//     category: 'ACADEMIC_BACKGROUND',
+//     category: 'academic-background',
 //     id,
 //   })
 

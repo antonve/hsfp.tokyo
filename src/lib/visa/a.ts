@@ -23,20 +23,20 @@ export function calculatePointsForVisaA(qualifications: Qualification[]) {
 }
 
 type CategoryVisaA =
-  | 'ACADEMIC_BACKGROUND'
-  | 'CAREER'
-  | 'ANNUAL_SALARY'
-  | 'AGE'
-  | 'RESEARCH_ACHIEVEMENTS'
-  | 'SPECIAL'
-  | 'SPECIAL_CONTRACTING_ORGANIZATION'
-  | 'SPECIAL_JAPANESE'
-  | 'SPECIAL_UNIVERSITY'
+  | 'academic-background'
+  | 'career'
+  | 'annual-salary'
+  | 'age'
+  | 'research-achievements'
+  | 'bonus'
+  | 'contracting-organization'
+  | 'japanese'
+  | 'university'
 
 const matchersForVisaA: {
   [category in CategoryVisaA]: CategoryMatcher
 } = {
-  ACADEMIC_BACKGROUND: {
+  'academic-background': {
     criteria: [
       { id: 'doctor', points: 30 },
       { id: 'master', points: 20 },
@@ -45,7 +45,7 @@ const matchersForVisaA: {
     ],
     match: (criteria, allQualifications) => {
       const qualifications = allQualifications
-        .filter(q => q.category === 'ACADEMIC_BACKGROUND')
+        .filter(q => q.category === 'academic-background')
         .map(q => q.id)
 
       const degrees = criteria.filter(c => qualifications.includes(c.id))
@@ -70,14 +70,14 @@ const matchersForVisaA: {
       return { matches, points }
     },
   },
-  CAREER: {
+  career: {
     criteria: [
       { id: '7_years_or_more', points: 15, match: exp => exp >= 7 },
       { id: '5_years_or_more', points: 10, match: exp => exp >= 5 },
       { id: '3_years_or_more', points: 5, match: exp => exp >= 3 },
     ],
     match: (criteria, qualifications) => {
-      const match = qualifications.find(q => q.category === 'CAREER') as
+      const match = qualifications.find(q => q.category === 'career') as
         | CareerQualification
         | undefined
       const yearsOfExperience = match?.yearsOfExperience ?? 0
@@ -85,7 +85,7 @@ const matchersForVisaA: {
       return matchMaxPoints(criteria, yearsOfExperience)
     },
   },
-  ANNUAL_SALARY: {
+  'annual-salary': {
     criteria: [
       {
         id: '10m_or_more',
@@ -125,9 +125,9 @@ const matchersForVisaA: {
     ],
     match: (criteria, qualifications) => {
       const matchSalary = qualifications.find(
-        q => q.category === 'ANNUAL_SALARY',
+        q => q.category === 'annual-salary',
       ) as AnnualSalaryQualification | undefined
-      const matchAge = qualifications.find(q => q.category === 'AGE') as
+      const matchAge = qualifications.find(q => q.category === 'age') as
         | AgeQualification
         | undefined
 
@@ -144,14 +144,14 @@ const matchersForVisaA: {
       return matchMaxPoints(criteria, { salary, age })
     },
   },
-  AGE: {
+  age: {
     criteria: [
       { id: 'less_than_30', points: 15, match: age => age < 30 },
       { id: 'less_than_35', points: 10, match: age => age < 35 },
       { id: 'less_than_40', points: 5, match: age => age < 40 },
     ],
     match: (criteria, qualifications) => {
-      const match = qualifications.find(q => q.category === 'AGE') as
+      const match = qualifications.find(q => q.category === 'age') as
         | AgeQualification
         | undefined
 
@@ -163,7 +163,7 @@ const matchersForVisaA: {
       return matchMaxPoints(criteria, age)
     },
   },
-  RESEARCH_ACHIEVEMENTS: {
+  'research-achievements': {
     // threshold: 2, bonus: 5
     criteria: [
       { id: 'patent_inventor', points: 20 },
@@ -173,7 +173,7 @@ const matchersForVisaA: {
     ],
     match: (criteria, allQualifications) => {
       const qualifications = allQualifications.filter(
-        q => q.category === 'RESEARCH_ACHIEVEMENTS',
+        q => q.category === 'research-achievements',
       )
       const threshold = 2
       const bonus = 5
@@ -185,7 +185,7 @@ const matchersForVisaA: {
       )
     },
   },
-  SPECIAL: {
+  bonus: {
     criteria: [
       { id: 'rnd_exceeds_three_percent', points: 5 },
       { id: 'foreign_work_related_qualification', points: 5 },
@@ -197,7 +197,7 @@ const matchersForVisaA: {
     ],
     match: (criteria, allQualifications) => {
       const qualifications = allQualifications
-        .filter(q => q.category === 'SPECIAL')
+        .filter(q => q.category === 'bonus')
         .map(q => q.id)
 
       const matches = criteria.filter(c => qualifications.includes(c.id))
@@ -208,7 +208,7 @@ const matchersForVisaA: {
       return { matches, points }
     },
   },
-  SPECIAL_CONTRACTING_ORGANIZATION: {
+  'contracting-organization': {
     criteria: [
       { id: 'contracting_organization_promotes_innovation', points: 10 },
       { id: 'contracting_organization_small_medium_sized', points: 10 },
@@ -220,7 +220,7 @@ const matchersForVisaA: {
 
       const criteria = mapCriteriaById(allCriteria)
       const qualifications = allQualifications
-        .filter(q => q.category === 'SPECIAL_CONTRACTING_ORGANIZATION')
+        .filter(q => q.category === 'contracting-organization')
         .map(q => q.id)
       const isInnovative = qualifications.includes(
         'contracting_organization_promotes_innovation',
@@ -252,7 +252,7 @@ const matchersForVisaA: {
       return { matches, points }
     },
   },
-  SPECIAL_JAPANESE: {
+  japanese: {
     criteria: [
       { id: 'graduated_japanese_uni_or_course', points: 10 },
       { id: 'jlpt_n1_or_equivalent', points: 15 },
@@ -264,7 +264,7 @@ const matchersForVisaA: {
 
       const criteria = mapCriteriaById(allCriteria)
       const qualifications = allQualifications
-        .filter(q => q.category === 'SPECIAL_JAPANESE')
+        .filter(q => q.category === 'japanese')
         .map(q => q.id)
       const isUniGraduate = qualifications.includes(
         'graduated_japanese_uni_or_course',
@@ -288,7 +288,7 @@ const matchersForVisaA: {
       return { matches, points }
     },
   },
-  SPECIAL_UNIVERSITY: {
+  university: {
     criteria: [
       { id: 'top_ranked_university_graduate', points: 10 },
       {
@@ -302,7 +302,7 @@ const matchersForVisaA: {
     ],
     match: (criteria, allQualifications) => {
       const qualifications = allQualifications.filter(
-        q => q.category === 'SPECIAL_UNIVERSITY',
+        q => q.category === 'university',
       )
 
       return matchAny(criteria, qualifications)
