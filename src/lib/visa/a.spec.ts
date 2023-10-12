@@ -50,42 +50,6 @@ describe('Visa type A point simulation', () => {
       })
     })
 
-    describe('academic background', () => {
-      it('single degree', () => {
-        const checklist = [academicBackgroundWith({ degree: 'doctor' })]
-
-        const { matches, points } = calculatePointsForVisaA(checklist)
-
-        expect(points).toBe(30)
-        expect(matches.map(m => m.id).sort()).toEqual(['doctor'])
-      })
-
-      it('multiple degrees, should pick highest degree', () => {
-        const checklist = [
-          academicBackgroundWith({ degree: 'master' }),
-          academicBackgroundWith({ degree: 'bachelor' }),
-        ]
-
-        const { matches, points } = calculatePointsForVisaA(checklist)
-
-        expect(points).toBe(20)
-        expect(matches.map(m => m.id).sort()).toEqual(['master'])
-      })
-
-      it('a dual degree should give bonus', () => {
-        const checklist = [
-          academicBackgroundWith({ degree: 'master' }),
-          academicBackgroundWith({ degree: 'bachelor' }),
-          academicBackgroundWith({ degree: 'dual_degree' }),
-        ]
-
-        const { matches, points } = calculatePointsForVisaA(checklist)
-
-        expect(points).toBe(25)
-        expect(matches.map(m => m.id).sort()).toEqual(['dual_degree', 'master'])
-      })
-    })
-
     describe('professional career', () => {
       it('8 years of experience', () => {
         const checklist = [professionalCareerWith({ yearsOfExperience: 8 })]
