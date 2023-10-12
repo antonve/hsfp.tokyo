@@ -27,7 +27,7 @@ export interface ChoicePrompt {
 export interface NumberPrompt {
   id: string
   type: 'NUMBER'
-  getQualification: (input: number) => Qualification
+  qualificationValueFieldName: string
 }
 
 export interface BooleanPrompt {
