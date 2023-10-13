@@ -1,9 +1,9 @@
-import { academicBackgroundWith } from '@lib/domain/qualifications'
+import { academicBackgroundWithDegree } from '@lib/domain/qualifications'
 import {
   annualSalaryOf,
   contractingOrganizationOf,
   japanese,
-  professionalCareerWith,
+  professionalCareerOfYears,
   specialOf,
   universityOf,
   positionInCompany,
@@ -16,7 +16,7 @@ describe('Visa type C point simulation', () => {
   describe('categories', () => {
     describe('academic background', () => {
       it('single degree', () => {
-        const checklist = [academicBackgroundWith({ degree: 'bachelor' })]
+        const checklist = [academicBackgroundWithDegree('bachelor')]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -26,8 +26,8 @@ describe('Visa type C point simulation', () => {
 
       it('multiple degrees, should pick highest degree', () => {
         const checklist = [
-          academicBackgroundWith({ degree: 'master' }),
-          academicBackgroundWith({ degree: 'bachelor' }),
+          academicBackgroundWithDegree('master'),
+          academicBackgroundWithDegree('bachelor'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -38,9 +38,9 @@ describe('Visa type C point simulation', () => {
 
       it('a dual degree should give bonus', () => {
         const checklist = [
-          academicBackgroundWith({ degree: 'dual_degree' }),
-          academicBackgroundWith({ degree: 'bachelor' }),
-          academicBackgroundWith({ degree: 'master' }),
+          academicBackgroundWithDegree('dual_degree'),
+          academicBackgroundWithDegree('bachelor'),
+          academicBackgroundWithDegree('master'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -51,8 +51,8 @@ describe('Visa type C point simulation', () => {
 
       it('two bachelor degree holder', () => {
         const checklist = [
-          academicBackgroundWith({ degree: 'bachelor' }),
-          academicBackgroundWith({ degree: 'dual_degree' }),
+          academicBackgroundWithDegree('bachelor'),
+          academicBackgroundWithDegree('dual_degree'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -67,7 +67,7 @@ describe('Visa type C point simulation', () => {
 
     describe('professional career', () => {
       it('10 years of experience', () => {
-        const checklist = [professionalCareerWith({ yearsOfExperience: 10 })]
+        const checklist = [professionalCareerOfYears(10)]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -76,7 +76,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('8 years of experience', () => {
-        const checklist = [professionalCareerWith({ yearsOfExperience: 8 })]
+        const checklist = [professionalCareerOfYears(8)]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -85,7 +85,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('6 years of experience', () => {
-        const checklist = [professionalCareerWith({ yearsOfExperience: 6 })]
+        const checklist = [professionalCareerOfYears(6)]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -94,7 +94,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('4 years of experience', () => {
-        const checklist = [professionalCareerWith({ yearsOfExperience: 4 })]
+        const checklist = [professionalCareerOfYears(4)]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -103,7 +103,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('1 year of experience', () => {
-        const checklist = [professionalCareerWith({ yearsOfExperience: 1 })]
+        const checklist = [professionalCareerOfYears(1)]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -193,7 +193,7 @@ describe('Visa type C point simulation', () => {
     describe('position in company', () => {
       it('representative director', () => {
         const checklist = [
-          positionInCompany({ kind: 'representative_director' }), // 10 points
+          positionInCompany('representative_director'), // 10 points
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -206,7 +206,7 @@ describe('Visa type C point simulation', () => {
 
       it('executive officer', () => {
         const checklist = [
-          positionInCompany({ kind: 'executive_officer' }), // 5 points
+          positionInCompany('executive_officer'), // 5 points
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -217,8 +217,8 @@ describe('Visa type C point simulation', () => {
 
       it('executive officer and representative director should not be mutually exclusive', () => {
         const checklist = [
-          positionInCompany({ kind: 'executive_officer' }), // 5 points
-          positionInCompany({ kind: 'representative_director' }), // 10 points
+          positionInCompany('executive_officer'), // 5 points
+          positionInCompany('representative_director'), // 10 points
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -234,12 +234,12 @@ describe('Visa type C point simulation', () => {
     describe('special', () => {
       it('knows to ignore duplicates', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_highly_skilled',
-          }),
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_highly_skilled',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_highly_skilled',
+          ),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_highly_skilled',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -252,9 +252,9 @@ describe('Visa type C point simulation', () => {
 
       it('promotes innovation', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_innovation',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_innovation',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -267,12 +267,12 @@ describe('Visa type C point simulation', () => {
 
       it('promotes innovation & small-medium sized company', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_innovation',
-          }),
-          contractingOrganizationOf({
-            kind: 'contracting_organization_small_medium_sized',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_innovation',
+          ),
+          contractingOrganizationOf(
+            'contracting_organization_small_medium_sized',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -286,15 +286,15 @@ describe('Visa type C point simulation', () => {
 
       it('promotes highly skilled professionals & innovation & small-medium sized company', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_innovation',
-          }),
-          contractingOrganizationOf({
-            kind: 'contracting_organization_small_medium_sized',
-          }),
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_highly_skilled',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_innovation',
+          ),
+          contractingOrganizationOf(
+            'contracting_organization_small_medium_sized',
+          ),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_highly_skilled',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -309,9 +309,9 @@ describe('Visa type C point simulation', () => {
 
       it('ignores small-medium sized company when not promoting innovation', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_small_medium_sized',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_small_medium_sized',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -322,9 +322,9 @@ describe('Visa type C point simulation', () => {
 
       it('promotes highly skilled professionals', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_highly_skilled',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_highly_skilled',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -336,7 +336,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('research and development exceeds 3%', () => {
-        const checklist = [specialOf({ kind: 'rnd_exceeds_three_percent' })]
+        const checklist = [specialOf('rnd_exceeds_three_percent')]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -347,9 +347,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('has foreign work related qualification', () => {
-        const checklist = [
-          specialOf({ kind: 'foreign_work_related_qualification' }),
-        ]
+        const checklist = [specialOf('foreign_work_related_qualification')]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -360,7 +358,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('has worked on an advanced project in a growth field', () => {
-        const checklist = [specialOf({ kind: 'advanced_project_growth_field' })]
+        const checklist = [specialOf('advanced_project_growth_field')]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -372,9 +370,9 @@ describe('Visa type C point simulation', () => {
 
       it('completed training conducted by JICA as part of Innovative Asia Project', () => {
         const checklist = [
-          specialOf({
-            kind: 'completed_training_conducted_by_jica_innovative_asia_project',
-          }),
+          specialOf(
+            'completed_training_conducted_by_jica_innovative_asia_project',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -386,9 +384,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('invested over 100 million yen in an orginzation in japan', () => {
-        const checklist = [
-          specialOf({ kind: 'invested_over_100_million_yen_in_japan' }),
-        ]
+        const checklist = [specialOf('invested_over_100_million_yen_in_japan')]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -399,9 +395,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('participates in investment business', () => {
-        const checklist = [
-          specialOf({ kind: 'investment_management_business' }),
-        ]
+        const checklist = [specialOf('investment_management_business')]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -413,14 +407,14 @@ describe('Visa type C point simulation', () => {
 
       it('qualifies for all special criteria', () => {
         const checklist = [
-          specialOf({ kind: 'rnd_exceeds_three_percent' }),
-          specialOf({ kind: 'foreign_work_related_qualification' }),
-          specialOf({ kind: 'advanced_project_growth_field' }),
-          specialOf({
-            kind: 'completed_training_conducted_by_jica_innovative_asia_project',
-          }),
-          specialOf({ kind: 'investment_management_business' }),
-          specialOf({ kind: 'invested_over_100_million_yen_in_japan' }),
+          specialOf('rnd_exceeds_three_percent'),
+          specialOf('foreign_work_related_qualification'),
+          specialOf('advanced_project_growth_field'),
+          specialOf(
+            'completed_training_conducted_by_jica_innovative_asia_project',
+          ),
+          specialOf('investment_management_business'),
+          specialOf('invested_over_100_million_yen_in_japan'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -440,12 +434,8 @@ describe('Visa type C point simulation', () => {
     describe('japanese ability', () => {
       it('knows to ignore duplicates', () => {
         const checklist = [
-          japanese({
-            kind: 'graduated_japanese_uni_or_course',
-          }),
-          japanese({
-            kind: 'graduated_japanese_uni_or_course',
-          }),
+          japanese('graduated_japanese_uni_or_course'),
+          japanese('graduated_japanese_uni_or_course'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -457,11 +447,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('graduated japanese university', () => {
-        const checklist = [
-          japanese({
-            kind: 'graduated_japanese_uni_or_course',
-          }),
-        ]
+        const checklist = [japanese('graduated_japanese_uni_or_course')]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -472,11 +458,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('has jlpt n1 or equivalent', () => {
-        const checklist = [
-          japanese({
-            kind: 'jlpt_n1_or_equivalent',
-          }),
-        ]
+        const checklist = [japanese('jlpt_n1_or_equivalent')]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -485,11 +467,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('has jlpt n2 or equivalent', () => {
-        const checklist = [
-          japanese({
-            kind: 'jlpt_n2_or_equivalent',
-          }),
-        ]
+        const checklist = [japanese('jlpt_n2_or_equivalent')]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -499,12 +477,8 @@ describe('Visa type C point simulation', () => {
 
       it('ignores jlpt n2 or equivalent if graduated from japanese university', () => {
         const checklist = [
-          japanese({
-            kind: 'jlpt_n2_or_equivalent',
-          }),
-          japanese({
-            kind: 'graduated_japanese_uni_or_course',
-          }),
+          japanese('jlpt_n2_or_equivalent'),
+          japanese('graduated_japanese_uni_or_course'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -517,12 +491,8 @@ describe('Visa type C point simulation', () => {
 
       it('ignores jlpt n2 or equivalent when having n1', () => {
         const checklist = [
-          japanese({
-            kind: 'jlpt_n2_or_equivalent',
-          }),
-          japanese({
-            kind: 'jlpt_n1_or_equivalent',
-          }),
+          japanese('jlpt_n2_or_equivalent'),
+          japanese('jlpt_n1_or_equivalent'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -533,12 +503,8 @@ describe('Visa type C point simulation', () => {
 
       it('has jlpt n1 or equivalent and graduated from japanese university', () => {
         const checklist = [
-          japanese({
-            kind: 'jlpt_n1_or_equivalent',
-          }),
-          japanese({
-            kind: 'graduated_japanese_uni_or_course',
-          }),
+          japanese('jlpt_n1_or_equivalent'),
+          japanese('graduated_japanese_uni_or_course'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -554,12 +520,8 @@ describe('Visa type C point simulation', () => {
     describe('university', () => {
       it('knows to ignore duplicates', () => {
         const checklist = [
-          universityOf({
-            kind: 'top_ranked_university_graduate',
-          }),
-          universityOf({
-            kind: 'top_ranked_university_graduate',
-          }),
+          universityOf('top_ranked_university_graduate'),
+          universityOf('top_ranked_university_graduate'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -571,11 +533,7 @@ describe('Visa type C point simulation', () => {
       })
 
       it('is a top 300 university', () => {
-        const checklist = [
-          universityOf({
-            kind: 'top_ranked_university_graduate',
-          }),
-        ]
+        const checklist = [universityOf('top_ranked_university_graduate')]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
 
@@ -587,9 +545,9 @@ describe('Visa type C point simulation', () => {
 
       it('is funded by top global universities project', () => {
         const checklist = [
-          universityOf({
-            kind: 'graduate_of_university_funded_by_top_global_universities_project',
-          }),
+          universityOf(
+            'graduate_of_university_funded_by_top_global_universities_project',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -602,9 +560,7 @@ describe('Visa type C point simulation', () => {
 
       it('is designated partner school in the innovative asia project', () => {
         const checklist = [
-          universityOf({
-            kind: 'graduate_of_university_partner_school',
-          }),
+          universityOf('graduate_of_university_partner_school'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)
@@ -617,15 +573,11 @@ describe('Visa type C point simulation', () => {
 
       it('points should not add', () => {
         const checklist = [
-          universityOf({
-            kind: 'top_ranked_university_graduate',
-          }),
-          universityOf({
-            kind: 'graduate_of_university_funded_by_top_global_universities_project',
-          }),
-          universityOf({
-            kind: 'graduate_of_university_partner_school',
-          }),
+          universityOf('top_ranked_university_graduate'),
+          universityOf(
+            'graduate_of_university_funded_by_top_global_universities_project',
+          ),
+          universityOf('graduate_of_university_partner_school'),
         ]
 
         const { matches, points } = calculatePointsForVisaC(checklist)

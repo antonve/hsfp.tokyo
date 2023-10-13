@@ -36,22 +36,16 @@ export type Category = z.infer<typeof CategorySchema>
 
 // Qualification generator functions
 
-export function academicBackgroundWith({
-  degree,
-}: {
-  degree: string
-}): Qualification {
+export function academicBackgroundWithDegree(degree: string): Qualification {
   return {
     category: 'academic-background',
     id: degree,
   }
 }
 
-export function professionalCareerWith({
-  yearsOfExperience,
-}: {
-  yearsOfExperience: number
-}): QualificationWithValue {
+export function professionalCareerOfYears(
+  yearsOfExperience: number,
+): QualificationWithValue {
   return {
     category: 'career',
     id: 'experience',
@@ -75,22 +69,14 @@ export function ageOf(age: number): QualificationWithValue {
   }
 }
 
-export function researchAchievementOf({
-  kind,
-}: {
-  kind: string
-}): Qualification {
+export function researchAchievementOf(id: string): Qualification {
   return {
     category: 'research-achievements',
-    id: kind,
+    id,
   }
 }
 
-export function licenseHolder({
-  count,
-}: {
-  count: number
-}): QualificationWithValue {
+export function licenseHolder(count: number): QualificationWithValue {
   return {
     category: 'licenses',
     id: 'licenses',
@@ -98,42 +84,38 @@ export function licenseHolder({
   }
 }
 
-export function specialOf({ kind: id }: { kind: string }): Qualification {
+export function specialOf(id: string): Qualification {
   return {
     category: 'bonus',
     id,
   }
 }
 
-export function contractingOrganizationOf({
-  kind: id,
-}: {
-  kind: string
-}): Qualification {
+export function contractingOrganizationOf(id: string): Qualification {
   return {
     category: 'contracting-organization',
     id,
   }
 }
 
-export function japanese({ kind: id }: { kind: string }): Qualification {
+export function japanese(id: string): Qualification {
   return {
     category: 'japanese',
     id,
   }
 }
 
-export function universityOf({ kind: id }: { kind: string }): Qualification {
+export function universityOf(id: string): Qualification {
   return {
     category: 'university',
     id,
   }
 }
 
-export function positionInCompany({ kind }: { kind: string }): Qualification {
+export function positionInCompany(id: string): Qualification {
   return {
     category: 'position',
-    id: kind,
+    id,
   }
 }
 

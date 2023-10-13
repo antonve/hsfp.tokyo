@@ -1,12 +1,12 @@
 import { calculatePointsForVisaA } from '@lib/visa/a'
 import { errorMessages } from '@lib/visa/errors'
 import {
-  academicBackgroundWith,
+  academicBackgroundWithDegree,
   ageOf,
   annualSalaryOf,
   contractingOrganizationOf,
   japanese,
-  professionalCareerWith,
+  professionalCareerOfYears,
   researchAchievementOf,
   specialOf,
   universityOf,
@@ -16,7 +16,7 @@ describe('Visa type A point simulation', () => {
   describe('categories', () => {
     describe('academic background', () => {
       it('single degree', () => {
-        const checklist = [academicBackgroundWith({ degree: 'doctor' })]
+        const checklist = [academicBackgroundWithDegree('doctor')]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -26,8 +26,8 @@ describe('Visa type A point simulation', () => {
 
       it('multiple degrees, should pick highest degree', () => {
         const checklist = [
-          academicBackgroundWith({ degree: 'master' }),
-          academicBackgroundWith({ degree: 'bachelor' }),
+          academicBackgroundWithDegree('master'),
+          academicBackgroundWithDegree('bachelor'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -38,9 +38,9 @@ describe('Visa type A point simulation', () => {
 
       it('a dual degree should give bonus', () => {
         const checklist = [
-          academicBackgroundWith({ degree: 'master' }),
-          academicBackgroundWith({ degree: 'bachelor' }),
-          academicBackgroundWith({ degree: 'dual_degree' }),
+          academicBackgroundWithDegree('master'),
+          academicBackgroundWithDegree('bachelor'),
+          academicBackgroundWithDegree('dual_degree'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -52,7 +52,7 @@ describe('Visa type A point simulation', () => {
 
     describe('professional career', () => {
       it('8 years of experience', () => {
-        const checklist = [professionalCareerWith({ yearsOfExperience: 8 })]
+        const checklist = [professionalCareerOfYears(8)]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -61,7 +61,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('6 years of experience', () => {
-        const checklist = [professionalCareerWith({ yearsOfExperience: 6 })]
+        const checklist = [professionalCareerOfYears(6)]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -70,7 +70,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('4 years of experience', () => {
-        const checklist = [professionalCareerWith({ yearsOfExperience: 4 })]
+        const checklist = [professionalCareerOfYears(4)]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -79,7 +79,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('1 year of experience', () => {
-        const checklist = [professionalCareerWith({ yearsOfExperience: 1 })]
+        const checklist = [professionalCareerOfYears(1)]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -195,7 +195,7 @@ describe('Visa type A point simulation', () => {
 
     describe('research achievements', () => {
       it('have at least one patent', () => {
-        const checklist = [researchAchievementOf({ kind: 'patent_inventor' })]
+        const checklist = [researchAchievementOf('patent_inventor')]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -205,9 +205,7 @@ describe('Visa type A point simulation', () => {
 
       it('conducted financed projects', () => {
         const checklist = [
-          researchAchievementOf({
-            kind: 'conducted_financed_projects_three_times',
-          }),
+          researchAchievementOf('conducted_financed_projects_three_times'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -219,9 +217,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('has published three or more papers', () => {
-        const checklist = [
-          researchAchievementOf({ kind: 'has_published_three_papers' }),
-        ]
+        const checklist = [researchAchievementOf('has_published_three_papers')]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -233,7 +229,7 @@ describe('Visa type A point simulation', () => {
 
       it('research is recognized by japan', () => {
         const checklist = [
-          researchAchievementOf({ kind: 'research_recognized_by_japan' }),
+          researchAchievementOf('research_recognized_by_japan'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -246,8 +242,8 @@ describe('Visa type A point simulation', () => {
 
       it('2 achievements should result in bonus point', () => {
         const checklist = [
-          researchAchievementOf({ kind: 'has_published_three_papers' }),
-          researchAchievementOf({ kind: 'research_recognized_by_japan' }),
+          researchAchievementOf('has_published_three_papers'),
+          researchAchievementOf('research_recognized_by_japan'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -261,11 +257,9 @@ describe('Visa type A point simulation', () => {
 
       it('3 achievements should result in adding only bonus point', () => {
         const checklist = [
-          researchAchievementOf({ kind: 'has_published_three_papers' }),
-          researchAchievementOf({ kind: 'research_recognized_by_japan' }),
-          researchAchievementOf({
-            kind: 'conducted_financed_projects_three_times',
-          }),
+          researchAchievementOf('has_published_three_papers'),
+          researchAchievementOf('research_recognized_by_japan'),
+          researchAchievementOf('conducted_financed_projects_three_times'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -282,8 +276,8 @@ describe('Visa type A point simulation', () => {
     describe('special', () => {
       it('knows to ignore duplicates', () => {
         const checklist = [
-          specialOf({ kind: 'rnd_exceeds_three_percent' }),
-          specialOf({ kind: 'rnd_exceeds_three_percent' }),
+          specialOf('rnd_exceeds_three_percent'),
+          specialOf('rnd_exceeds_three_percent'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -295,7 +289,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('research and development exceeds 3%', () => {
-        const checklist = [specialOf({ kind: 'rnd_exceeds_three_percent' })]
+        const checklist = [specialOf('rnd_exceeds_three_percent')]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -306,9 +300,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('has foreign work related qualification', () => {
-        const checklist = [
-          specialOf({ kind: 'foreign_work_related_qualification' }),
-        ]
+        const checklist = [specialOf('foreign_work_related_qualification')]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -319,7 +311,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('has worked on an advanced project in a growth field', () => {
-        const checklist = [specialOf({ kind: 'advanced_project_growth_field' })]
+        const checklist = [specialOf('advanced_project_growth_field')]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -331,9 +323,9 @@ describe('Visa type A point simulation', () => {
 
       it('completed training conducted by JICA as part of Innovative Asia Project', () => {
         const checklist = [
-          specialOf({
-            kind: 'completed_training_conducted_by_jica_innovative_asia_project',
-          }),
+          specialOf(
+            'completed_training_conducted_by_jica_innovative_asia_project',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -346,12 +338,12 @@ describe('Visa type A point simulation', () => {
 
       it('qualifies for all special criteria', () => {
         const checklist = [
-          specialOf({ kind: 'rnd_exceeds_three_percent' }),
-          specialOf({ kind: 'foreign_work_related_qualification' }),
-          specialOf({ kind: 'advanced_project_growth_field' }),
-          specialOf({
-            kind: 'completed_training_conducted_by_jica_innovative_asia_project',
-          }),
+          specialOf('rnd_exceeds_three_percent'),
+          specialOf('foreign_work_related_qualification'),
+          specialOf('advanced_project_growth_field'),
+          specialOf(
+            'completed_training_conducted_by_jica_innovative_asia_project',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -369,12 +361,12 @@ describe('Visa type A point simulation', () => {
     describe('contracting organization', () => {
       it('knows to ignore duplicates', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_highly_skilled',
-          }),
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_highly_skilled',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_highly_skilled',
+          ),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_highly_skilled',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -387,9 +379,9 @@ describe('Visa type A point simulation', () => {
 
       it('promotes innovation', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_innovation',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_innovation',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -402,12 +394,12 @@ describe('Visa type A point simulation', () => {
 
       it('promotes innovation & small-medium sized company', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_innovation',
-          }),
-          contractingOrganizationOf({
-            kind: 'contracting_organization_small_medium_sized',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_innovation',
+          ),
+          contractingOrganizationOf(
+            'contracting_organization_small_medium_sized',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -421,15 +413,15 @@ describe('Visa type A point simulation', () => {
 
       it('promotes highly skilled professionals & innovation & small-medium sized company', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_innovation',
-          }),
-          contractingOrganizationOf({
-            kind: 'contracting_organization_small_medium_sized',
-          }),
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_highly_skilled',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_innovation',
+          ),
+          contractingOrganizationOf(
+            'contracting_organization_small_medium_sized',
+          ),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_highly_skilled',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -444,9 +436,9 @@ describe('Visa type A point simulation', () => {
 
       it('ignores small-medium sized company when not promoting innovation', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_small_medium_sized',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_small_medium_sized',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -457,9 +449,9 @@ describe('Visa type A point simulation', () => {
 
       it('promotes highly skilled professionals', () => {
         const checklist = [
-          contractingOrganizationOf({
-            kind: 'contracting_organization_promotes_highly_skilled',
-          }),
+          contractingOrganizationOf(
+            'contracting_organization_promotes_highly_skilled',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -474,12 +466,8 @@ describe('Visa type A point simulation', () => {
     describe('japanese ability', () => {
       it('knows to ignore duplicates', () => {
         const checklist = [
-          japanese({
-            kind: 'graduated_japanese_uni_or_course',
-          }),
-          japanese({
-            kind: 'graduated_japanese_uni_or_course',
-          }),
+          japanese('graduated_japanese_uni_or_course'),
+          japanese('graduated_japanese_uni_or_course'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -491,11 +479,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('graduated japanese university', () => {
-        const checklist = [
-          japanese({
-            kind: 'graduated_japanese_uni_or_course',
-          }),
-        ]
+        const checklist = [japanese('graduated_japanese_uni_or_course')]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -506,11 +490,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('has jlpt n1 or equivalent', () => {
-        const checklist = [
-          japanese({
-            kind: 'jlpt_n1_or_equivalent',
-          }),
-        ]
+        const checklist = [japanese('jlpt_n1_or_equivalent')]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -519,11 +499,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('has jlpt n2 or equivalent', () => {
-        const checklist = [
-          japanese({
-            kind: 'jlpt_n2_or_equivalent',
-          }),
-        ]
+        const checklist = [japanese('jlpt_n2_or_equivalent')]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -533,12 +509,8 @@ describe('Visa type A point simulation', () => {
 
       it('ignores jlpt n2 or equivalent if graduated from japanese university', () => {
         const checklist = [
-          japanese({
-            kind: 'jlpt_n2_or_equivalent',
-          }),
-          japanese({
-            kind: 'graduated_japanese_uni_or_course',
-          }),
+          japanese('jlpt_n2_or_equivalent'),
+          japanese('graduated_japanese_uni_or_course'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -551,12 +523,8 @@ describe('Visa type A point simulation', () => {
 
       it('ignores jlpt n2 or equivalent when having n1', () => {
         const checklist = [
-          japanese({
-            kind: 'jlpt_n2_or_equivalent',
-          }),
-          japanese({
-            kind: 'jlpt_n1_or_equivalent',
-          }),
+          japanese('jlpt_n2_or_equivalent'),
+          japanese('jlpt_n1_or_equivalent'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -567,12 +535,8 @@ describe('Visa type A point simulation', () => {
 
       it('has jlpt n1 or equivalent and graduated from japanese university', () => {
         const checklist = [
-          japanese({
-            kind: 'jlpt_n1_or_equivalent',
-          }),
-          japanese({
-            kind: 'graduated_japanese_uni_or_course',
-          }),
+          japanese('jlpt_n1_or_equivalent'),
+          japanese('graduated_japanese_uni_or_course'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -588,12 +552,8 @@ describe('Visa type A point simulation', () => {
     describe('university', () => {
       it('knows to ignore duplicates', () => {
         const checklist = [
-          universityOf({
-            kind: 'top_ranked_university_graduate',
-          }),
-          universityOf({
-            kind: 'top_ranked_university_graduate',
-          }),
+          universityOf('top_ranked_university_graduate'),
+          universityOf('top_ranked_university_graduate'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -605,11 +565,7 @@ describe('Visa type A point simulation', () => {
       })
 
       it('is a top 300 university', () => {
-        const checklist = [
-          universityOf({
-            kind: 'top_ranked_university_graduate',
-          }),
-        ]
+        const checklist = [universityOf('top_ranked_university_graduate')]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
 
@@ -621,9 +577,9 @@ describe('Visa type A point simulation', () => {
 
       it('is funded by top global universities project', () => {
         const checklist = [
-          universityOf({
-            kind: 'graduate_of_university_funded_by_top_global_universities_project',
-          }),
+          universityOf(
+            'graduate_of_university_funded_by_top_global_universities_project',
+          ),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -636,9 +592,7 @@ describe('Visa type A point simulation', () => {
 
       it('is designated partner school in the innovative asia project', () => {
         const checklist = [
-          universityOf({
-            kind: 'graduate_of_university_partner_school',
-          }),
+          universityOf('graduate_of_university_partner_school'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
@@ -651,15 +605,11 @@ describe('Visa type A point simulation', () => {
 
       it('points should not add', () => {
         const checklist = [
-          universityOf({
-            kind: 'top_ranked_university_graduate',
-          }),
-          universityOf({
-            kind: 'graduate_of_university_funded_by_top_global_universities_project',
-          }),
-          universityOf({
-            kind: 'graduate_of_university_partner_school',
-          }),
+          universityOf('top_ranked_university_graduate'),
+          universityOf(
+            'graduate_of_university_funded_by_top_global_universities_project',
+          ),
+          universityOf('graduate_of_university_partner_school'),
         ]
 
         const { matches, points } = calculatePointsForVisaA(checklist)
