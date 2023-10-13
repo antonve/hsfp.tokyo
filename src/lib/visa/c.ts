@@ -18,7 +18,7 @@ export function calculatePointsForVisaC(qualifications: Qualification[]) {
 type CategoryVisaC =
   | 'academic-background'
   | 'career'
-  | 'annual-salary'
+  | 'compensation'
   | 'position'
   | 'bonus'
   | 'contracting-organization'
@@ -73,7 +73,7 @@ const matchersForVisaC: {
       return matchMaxPoints(criteria, yearsOfExperience)
     },
   },
-  'annual-salary': {
+  compensation: {
     criteria: [
       {
         id: '30m_or_more',
@@ -103,7 +103,7 @@ const matchersForVisaC: {
     ],
     match: (criteria, qualifications) => {
       const matchSalary = qualifications.find(
-        q => q.category === 'annual-salary',
+        q => q.category === 'compensation',
       ) as QualificationWithValue | undefined
 
       if (matchSalary === undefined) {

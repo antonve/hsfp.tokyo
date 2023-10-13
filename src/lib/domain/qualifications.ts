@@ -21,7 +21,7 @@ export const CategorySchema = z.enum([
   'academic-background',
   'career',
   'age',
-  'annual-salary',
+  'compensation',
   'research-achievements',
   'position',
   'licenses',
@@ -61,7 +61,7 @@ export function professionalCareerWith({
 
 export function annualSalaryOf(salary: number): QualificationWithValue {
   return {
-    category: 'annual-salary',
+    category: 'compensation',
     id: 'salary',
     value: salary,
   }

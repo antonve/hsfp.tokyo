@@ -36,7 +36,7 @@ export const formConfig: FormConfig = {
         qualificationValueFieldName: 'age',
       },
     ],
-    'annual-salary': [
+    compensation: [
       {
         id: 'salary',
         type: 'NUMBER',
@@ -62,7 +62,7 @@ export const formConfig: FormConfig = {
       },
     ],
   },
-  order: ['academic-background', 'career', 'age', 'annual-salary'],
+  order: ['academic-background', 'career', 'age', 'compensation'],
 }
 
 export function calculatePointsForVisaB(qualifications: Qualification[]) {
@@ -73,7 +73,7 @@ type CategoryVisaB =
   | 'academic-background'
   | 'career'
   | 'age'
-  | 'annual-salary'
+  | 'compensation'
   | 'research-achievements'
   | 'licenses'
   | 'bonus'
@@ -135,7 +135,7 @@ const matchersForVisaB: {
       return matchMaxPoints(criteria, yearsOfExperience)
     },
   },
-  'annual-salary': {
+  compensation: {
     criteria: [
       {
         id: '10m_or_more',
@@ -175,7 +175,7 @@ const matchersForVisaB: {
     ],
     match: (criteria, qualifications) => {
       const matchSalary = qualifications.find(
-        q => q.category === 'annual-salary',
+        q => q.category === 'compensation',
       ) as QualificationWithValue | undefined
       const matchAge = qualifications.find(q => q.category === 'age') as
         | QualificationWithValue

@@ -28,7 +28,7 @@
 //   const createNewSalaryQualification = (
 //     value: number,
 //   ): AnnualSalaryQualification => ({
-//     category: 'annual-salary',
+//     category: 'compensation',
 //     id: 'salary',
 //     salary: value,
 //   })
@@ -64,7 +64,7 @@
 //       <QualificationList>
 //         <QualificationNumber
 //           qualifications={qualifications}
-//           category={`annual-salary`}
+//           category={`compensation`}
 //           id={ids.salary}
 //           onChange={onChangeFor(createNewSalaryQualification)}
 //           getValue={q => (q as AnnualSalaryQualification)?.salary}
