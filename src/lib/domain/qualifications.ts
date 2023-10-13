@@ -3,16 +3,6 @@
 
 import { z } from 'zod'
 
-// There are variations with more specific values limited to that type of qualification.
-export interface Qualification {
-  category: Category
-  id: string
-}
-
-export interface QualificationWithValue extends Qualification {
-  value: number
-}
-
 // TODO: we need to rename the bonus points
 // Qualifications are linked to a Category and a whole category should be scored together.
 // Each visa type has slight variations of what categories are available.
@@ -33,6 +23,25 @@ export const CategorySchema = z.enum([
 ])
 
 export type Category = z.infer<typeof CategorySchema>
+
+const BaseQualificationSchema = z.object({
+  category: CategorySchema,
+  id: z.string(),
+})
+
+const QualificationWithValueSchema = BaseQualificationSchema.extend({
+  value: z.number(),
+})
+
+export const QualificationSchema = QualificationWithValueSchema.or(
+  BaseQualificationSchema,
+)
+
+export type Qualification = z.infer<typeof BaseQualificationSchema>
+
+export type QualificationWithValue = z.infer<
+  typeof QualificationWithValueSchema
+>
 
 // Qualification generator functions
 

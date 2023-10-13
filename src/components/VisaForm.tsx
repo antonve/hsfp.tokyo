@@ -8,6 +8,7 @@ import {
   Category,
   CategorySchema,
   Qualification,
+  QualificationSchema,
 } from '@lib/domain/qualifications'
 
 const paramsSchema = z.object({
@@ -52,8 +53,8 @@ function parseQualifications(
   const decodedQualifications = atob(encodedQualifications)
   const qualifications = JSON.parse(decodedQualifications)
 
-  // TODO: implement after qualifcation type refactor
-  return []
+  // TODO: figure out how to handle errors in nextjs 13
+  return z.array(QualificationSchema).parse(qualifications)
 }
 
 function VisaFormSection({
