@@ -134,7 +134,7 @@ const matchersForVisaB: {
       const match = qualifications.find(q => q.category === 'career') as
         | CareerQualification
         | undefined
-      const yearsOfExperience = match?.yearsOfExperience ?? 0
+      const yearsOfExperience = match?.value ?? 0
 
       return matchMaxPoints(criteria, yearsOfExperience)
     },
@@ -189,8 +189,8 @@ const matchersForVisaB: {
         return { matches: [], points: 0 }
       }
 
-      const age = matchAge.age
-      const salary = matchSalary.salary
+      const age = matchAge.value
+      const salary = matchSalary.value
       if (salary < 3_000_000) {
         throw new Error(errorMessages.salaryTooLow)
       }
@@ -213,7 +213,7 @@ const matchersForVisaB: {
         return { matches: [], points: 0 }
       }
 
-      const age = match.age
+      const age = match.value
       return matchMaxPoints(criteria, age)
     },
   },
@@ -253,7 +253,7 @@ const matchersForVisaB: {
         return { matches: [], points: 0 }
       }
 
-      const count = match.count
+      const count = match.value
       return matchMaxPoints(criteria, count)
     },
   },

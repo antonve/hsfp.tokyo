@@ -12,25 +12,25 @@ export interface Qualification {
 export interface CareerQualification extends Qualification {
   category: 'career'
   id: 'experience'
-  yearsOfExperience: number
+  value: number
 }
 
 export interface AnnualSalaryQualification extends Qualification {
   category: 'annual-salary'
   id: 'salary'
-  salary: number
+  value: number
 }
 
 export interface AgeQualification extends Qualification {
   category: 'age'
   id: 'age'
-  age: number
+  value: number
 }
 
 export interface LicensesQualification extends Qualification {
   category: 'licenses'
   id: 'licenses'
-  count: number
+  value: number
 }
 
 // TODO: we need to rename the bonus points
@@ -75,7 +75,7 @@ export function professionalCareerWith({
   return {
     category: 'career',
     id: 'experience',
-    yearsOfExperience,
+    value: yearsOfExperience,
   }
 }
 
@@ -83,7 +83,7 @@ export function annualSalaryOf(salary: number): AnnualSalaryQualification {
   return {
     category: 'annual-salary',
     id: 'salary',
-    salary,
+    value: salary,
   }
 }
 
@@ -91,7 +91,7 @@ export function ageOf(age: number): AgeQualification {
   return {
     category: 'age',
     id: 'age',
-    age,
+    value: age,
   }
 }
 
@@ -114,7 +114,7 @@ export function licenseHolder({
   return {
     category: 'licenses',
     id: 'licenses',
-    count,
+    value: count,
   }
 }
 

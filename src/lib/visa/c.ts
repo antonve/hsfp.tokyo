@@ -70,7 +70,7 @@ const matchersForVisaC: {
       const match = qualifications.find(q => q.category === 'career') as
         | CareerQualification
         | undefined
-      const yearsOfExperience = match?.yearsOfExperience ?? 0
+      const yearsOfExperience = match?.value ?? 0
       return matchMaxPoints(criteria, yearsOfExperience)
     },
   },
@@ -110,7 +110,7 @@ const matchersForVisaC: {
       if (matchSalary === undefined) {
         return { matches: [], points: 0 }
       }
-      const salary = matchSalary.salary
+      const salary = matchSalary.value
       if (salary < 3_000_000) {
         throw new Error(errorMessages.salaryTooLow)
       }
