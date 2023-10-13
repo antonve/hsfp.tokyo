@@ -15,16 +15,22 @@ interface Props {
   config: FormConfig
 }
 
+interface VisaProgress {
+  category: Category
+  promptIndex: number
+}
+
 export function VisaForm({ config }: Props) {
   const qualifications = useQualifications()
-  const [currentCategory, currentPromptIndex] = useVisaFormProgress(config)
+  const progress = useVisaFormProgress(config)
 
   return (
     <form>
-      {config.order.map(section => (
+      {config.order.map(category => (
         <VisaFormSection
-          prompts={config.sections[section]!!}
-          category={section}
+          prompts={config.sections[category]!!}
+          category={category}
+          progress={progress}
         />
       ))}
     </form>
@@ -47,7 +53,7 @@ function useVisaFormProgress(config: FormConfig) {
     throw Error(`invalid prompt ${category}`)
   }
 
-  return [category, prompt - 1]
+  return { category, promptIndex: prompt - 1 } as VisaProgress
 }
 
 function useQualifications() {
@@ -68,27 +74,50 @@ function useQualifications() {
 function VisaFormSection({
   prompts,
   category,
+  progress,
 }: {
   prompts: Prompt[]
   category: Category
+  progress: VisaProgress
 }) {
   return (
     <div className="pb-10">
       <h2 className="font-bold text-xl">{category}</h2>
-      {prompts.map(prompt => (
-        <VisaFromPrompt prompt={prompt} />
+      {prompts.map((prompt, i) => (
+        <VisaFromPrompt
+          prompt={prompt}
+          isFocus={progress.category === category && progress.promptIndex === i}
+        />
       ))}
     </div>
   )
 }
 
-function VisaFromPrompt({ prompt }: { prompt: Prompt }) {
+function VisaFromPrompt({
+  prompt,
+  isFocus,
+}: {
+  prompt: Prompt
+  isFocus: boolean
+}) {
   switch (prompt.type) {
     case 'NUMBER':
-      return <div>number prompt: {prompt.id}</div>
+      return (
+        <div className={isFocus ? 'bg-stone-900' : ''}>
+          number prompt: {prompt.id}
+        </div>
+      )
     case 'BOOLEAN':
-      return <div>bool prompt: {prompt.id}</div>
+      return (
+        <div className={isFocus ? 'bg-stone-900' : ''}>
+          bool prompt: {prompt.id}
+        </div>
+      )
     case 'CHOICE':
-      return <div>choice prompt: {prompt.id}</div>
+      return (
+        <div className={isFocus ? 'bg-stone-900' : ''}>
+          choice prompt: {prompt.id}
+        </div>
+      )
   }
 }

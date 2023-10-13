@@ -1,11 +1,4 @@
 import { Category } from '@lib/domain/qualifications'
-import { Qualification } from '@lib/domain/qualifications'
-
-export interface FormProgress {
-  qualifications: Qualification[]
-  currentCategory: Category
-  currentPromptIndex: number
-}
 
 export interface FormConfig {
   // Definitions of each form section
