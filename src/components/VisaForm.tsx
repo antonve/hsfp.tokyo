@@ -22,10 +22,8 @@ interface Props {
 
 export function VisaForm({ config }: Props) {
   const params = useParams()
-  const searchParams = useSearchParams()
 
-  // TODO: extract to hook
-  const qualifications = parseQualifications(searchParams.get('qualifications'))
+  const qualifications = useQualifications()
 
   // TODO: figure out how to handle errors in nextjs 13
   const { category: currentCategory, prompt: currentPromptIndex } =
@@ -43,9 +41,10 @@ export function VisaForm({ config }: Props) {
   )
 }
 
-function parseQualifications(
-  encodedQualifications: string | null,
-): Qualification[] {
+function useQualifications(): Qualification[] {
+  const searchParams = useSearchParams()
+  const encodedQualifications = searchParams.get('qualifications')
+
   if (!encodedQualifications) {
     return []
   }
