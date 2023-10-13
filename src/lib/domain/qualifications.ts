@@ -37,7 +37,7 @@ export const QualificationSchema = QualificationWithValueSchema.or(
   BaseQualificationSchema,
 )
 
-export type Qualification = z.infer<typeof BaseQualificationSchema>
+export type Qualification = z.infer<typeof QualificationSchema>
 
 export type QualificationWithValue = z.infer<
   typeof QualificationWithValueSchema

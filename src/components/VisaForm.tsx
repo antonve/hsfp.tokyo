@@ -11,23 +11,13 @@ import {
   QualificationSchema,
 } from '@lib/domain/qualifications'
 
-const paramsSchema = z.object({
-  category: CategorySchema.optional().default('academic-background'),
-  prompt: z.coerce.number().optional().default(1),
-})
-
 interface Props {
   config: FormConfig
 }
 
 export function VisaForm({ config }: Props) {
-  const params = useParams()
-
   const qualifications = useQualifications()
-
-  // TODO: figure out how to handle errors in nextjs 13
-  const { category: currentCategory, prompt: currentPromptIndex } =
-    paramsSchema.parse(params)
+  const [currentCategory, currentPromptIndex] = useVisaFormProgress(config)
 
   return (
     <form>
@@ -41,7 +31,26 @@ export function VisaForm({ config }: Props) {
   )
 }
 
-function useQualifications(): Qualification[] {
+const paramsSchema = z.object({
+  category: CategorySchema.optional().default('academic-background'),
+  prompt: z.coerce.number().optional().default(1),
+})
+
+function useVisaFormProgress(config: FormConfig) {
+  const params = useParams()
+  const { category, prompt } = paramsSchema.parse(params)
+
+  if (config.sections[category] === undefined) {
+    throw Error(`invalid category ${category}`)
+  }
+  if (config.sections[category]!!.length < prompt) {
+    throw Error(`invalid prompt ${category}`)
+  }
+
+  return [category, prompt - 1]
+}
+
+function useQualifications() {
   const searchParams = useSearchParams()
   const encodedQualifications = searchParams.get('qualifications')
 
