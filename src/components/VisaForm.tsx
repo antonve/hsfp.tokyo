@@ -1,10 +1,14 @@
 'use client'
 
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { z } from 'zod'
 
 import { FormConfig, Prompt } from '@lib/domain/form'
-import { Category, CategorySchema } from '@lib/domain/qualifications'
+import {
+  Category,
+  CategorySchema,
+  Qualification,
+} from '@lib/domain/qualifications'
 
 const paramsSchema = z.object({
   category: CategorySchema.optional().default('academic-background'),
@@ -17,6 +21,10 @@ interface Props {
 
 export function VisaForm({ config }: Props) {
   const params = useParams()
+  const searchParams = useSearchParams()
+
+  // TODO: extract to hook
+  const qualifications = parseQualifications(searchParams.get('qualifications'))
 
   // TODO: figure out how to handle errors in nextjs 13
   const { category: currentCategory, prompt: currentPromptIndex } =
@@ -32,6 +40,20 @@ export function VisaForm({ config }: Props) {
       ))}
     </form>
   )
+}
+
+function parseQualifications(
+  encodedQualifications: string | null,
+): Qualification[] {
+  if (!encodedQualifications) {
+    return []
+  }
+
+  const decodedQualifications = atob(encodedQualifications)
+  const qualifications = JSON.parse(decodedQualifications)
+
+  // TODO: implement after qualifcation type refactor
+  return []
 }
 
 function VisaFormSection({
