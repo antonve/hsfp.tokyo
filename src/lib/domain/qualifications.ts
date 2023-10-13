@@ -9,27 +9,7 @@ export interface Qualification {
   id: string
 }
 
-export interface CareerQualification extends Qualification {
-  category: 'career'
-  id: 'experience'
-  value: number
-}
-
-export interface AnnualSalaryQualification extends Qualification {
-  category: 'annual-salary'
-  id: 'salary'
-  value: number
-}
-
-export interface AgeQualification extends Qualification {
-  category: 'age'
-  id: 'age'
-  value: number
-}
-
-export interface LicensesQualification extends Qualification {
-  category: 'licenses'
-  id: 'licenses'
+export interface QualificationWithValue extends Qualification {
   value: number
 }
 
@@ -71,7 +51,7 @@ export function professionalCareerWith({
   yearsOfExperience,
 }: {
   yearsOfExperience: number
-}): CareerQualification {
+}): QualificationWithValue {
   return {
     category: 'career',
     id: 'experience',
@@ -79,7 +59,7 @@ export function professionalCareerWith({
   }
 }
 
-export function annualSalaryOf(salary: number): AnnualSalaryQualification {
+export function annualSalaryOf(salary: number): QualificationWithValue {
   return {
     category: 'annual-salary',
     id: 'salary',
@@ -87,7 +67,7 @@ export function annualSalaryOf(salary: number): AnnualSalaryQualification {
   }
 }
 
-export function ageOf(age: number): AgeQualification {
+export function ageOf(age: number): QualificationWithValue {
   return {
     category: 'age',
     id: 'age',
@@ -110,7 +90,7 @@ export function licenseHolder({
   count,
 }: {
   count: number
-}): LicensesQualification {
+}): QualificationWithValue {
   return {
     category: 'licenses',
     id: 'licenses',

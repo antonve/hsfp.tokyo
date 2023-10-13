@@ -6,8 +6,7 @@ import {
   matchAny,
 } from '@lib/domain/matchers'
 import {
-  CareerQualification,
-  AnnualSalaryQualification,
+  QualificationWithValue,
   Qualification,
 } from '@lib/domain/qualifications'
 import { errorMessages } from '@lib/visa/errors'
@@ -68,7 +67,7 @@ const matchersForVisaC: {
     ],
     match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'career') as
-        | CareerQualification
+        | QualificationWithValue
         | undefined
       const yearsOfExperience = match?.value ?? 0
       return matchMaxPoints(criteria, yearsOfExperience)
@@ -105,7 +104,7 @@ const matchersForVisaC: {
     match: (criteria, qualifications) => {
       const matchSalary = qualifications.find(
         q => q.category === 'annual-salary',
-      ) as AnnualSalaryQualification | undefined
+      ) as QualificationWithValue | undefined
 
       if (matchSalary === undefined) {
         return { matches: [], points: 0 }

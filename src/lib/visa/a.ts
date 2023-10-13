@@ -8,11 +8,8 @@ import {
   matchAny,
   matchQualificationsWithExtraPoints,
 } from '@lib/domain/matchers'
-import { FormConfig } from '@lib/domain/form'
 import {
-  CareerQualification,
-  AnnualSalaryQualification,
-  AgeQualification,
+  QualificationWithValue,
   Qualification,
 } from '@lib/domain/qualifications'
 
@@ -78,7 +75,7 @@ const matchersForVisaA: {
     ],
     match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'career') as
-        | CareerQualification
+        | QualificationWithValue
         | undefined
       const yearsOfExperience = match?.value ?? 0
 
@@ -126,9 +123,9 @@ const matchersForVisaA: {
     match: (criteria, qualifications) => {
       const matchSalary = qualifications.find(
         q => q.category === 'annual-salary',
-      ) as AnnualSalaryQualification | undefined
+      ) as QualificationWithValue | undefined
       const matchAge = qualifications.find(q => q.category === 'age') as
-        | AgeQualification
+        | QualificationWithValue
         | undefined
 
       if (matchSalary === undefined || matchAge == undefined) {
@@ -152,7 +149,7 @@ const matchersForVisaA: {
     ],
     match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'age') as
-        | AgeQualification
+        | QualificationWithValue
         | undefined
 
       if (match === undefined) {

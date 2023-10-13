@@ -1,15 +1,11 @@
 import { calculatePoints } from '@lib/domain/calculator'
-import { VisaType } from '@lib/domain/visa'
 import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
 import { CategoryMatcher } from '@lib/domain/calculator'
 import { matchMaxPoints, matchAny } from '@lib/domain/matchers'
 import { FormConfig } from '@lib/domain/form'
 import {
-  CareerQualification,
-  AnnualSalaryQualification,
-  AgeQualification,
-  LicensesQualification,
   Qualification,
+  QualificationWithValue,
 } from '@lib/domain/qualifications'
 import { errorMessages } from '@lib/visa/errors'
 
@@ -132,7 +128,7 @@ const matchersForVisaB: {
     ],
     match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'career') as
-        | CareerQualification
+        | QualificationWithValue
         | undefined
       const yearsOfExperience = match?.value ?? 0
 
@@ -180,9 +176,9 @@ const matchersForVisaB: {
     match: (criteria, qualifications) => {
       const matchSalary = qualifications.find(
         q => q.category === 'annual-salary',
-      ) as AnnualSalaryQualification | undefined
+      ) as QualificationWithValue | undefined
       const matchAge = qualifications.find(q => q.category === 'age') as
-        | AgeQualification
+        | QualificationWithValue
         | undefined
 
       if (matchSalary === undefined || matchAge == undefined) {
@@ -206,7 +202,7 @@ const matchersForVisaB: {
     ],
     match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'age') as
-        | AgeQualification
+        | QualificationWithValue
         | undefined
 
       if (match === undefined) {
@@ -246,7 +242,7 @@ const matchersForVisaB: {
     ],
     match: (criteria, qualifications) => {
       const match = qualifications.find(q => q.category === 'licenses') as
-        | LicensesQualification
+        | QualificationWithValue
         | undefined
 
       if (match === undefined) {
