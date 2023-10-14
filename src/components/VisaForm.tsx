@@ -7,7 +7,6 @@ import { FormConfig, Prompt } from '@lib/domain/form'
 import {
   Category,
   CategorySchema,
-  Qualification,
   QualificationSchema,
 } from '@lib/domain/qualifications'
 
@@ -104,20 +103,32 @@ function VisaFromPrompt({
     case 'NUMBER':
       return (
         <div className={isFocus ? 'bg-stone-900' : ''}>
-          number prompt: {prompt.id}
+          <NumberPrompt prompt={prompt} />
         </div>
       )
     case 'BOOLEAN':
       return (
         <div className={isFocus ? 'bg-stone-900' : ''}>
-          bool prompt: {prompt.id}
+          <ChoicePrompt prompt={prompt} />
         </div>
       )
     case 'CHOICE':
       return (
         <div className={isFocus ? 'bg-stone-900' : ''}>
-          choice prompt: {prompt.id}
+          <ChoicePrompt prompt={prompt} />
         </div>
       )
   }
+}
+
+function NumberPrompt({ prompt }: { prompt: Prompt }) {
+  return <div>number prompt: {prompt.id}</div>
+}
+
+function BooleanPrompt({ prompt }: { prompt: Prompt }) {
+  return <div>boolean prompt: {prompt.id}</div>
+}
+
+function ChoicePrompt({ prompt }: { prompt: Prompt }) {
+  return <div>choice prompt: {prompt.id}</div>
 }
