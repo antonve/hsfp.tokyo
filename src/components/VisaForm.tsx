@@ -3,7 +3,13 @@
 import { useParams, useSearchParams } from 'next/navigation'
 import { z } from 'zod'
 
-import { FormConfig, Prompt } from '@lib/domain/form'
+import {
+  BooleanPrompt,
+  ChoicePrompt,
+  FormConfig,
+  NumberPrompt,
+  Prompt,
+} from '@lib/domain/form'
 import {
   Category,
   CategorySchema,
@@ -109,7 +115,7 @@ function VisaFromPrompt({
     case 'BOOLEAN':
       return (
         <div className={isFocus ? 'bg-stone-900' : ''}>
-          <ChoicePrompt prompt={prompt} />
+          <BooleanPrompt prompt={prompt} />
         </div>
       )
     case 'CHOICE':
@@ -121,14 +127,38 @@ function VisaFromPrompt({
   }
 }
 
-function NumberPrompt({ prompt }: { prompt: Prompt }) {
+function NumberPrompt({ prompt }: { prompt: NumberPrompt }) {
   return <div>number prompt: {prompt.id}</div>
 }
 
-function BooleanPrompt({ prompt }: { prompt: Prompt }) {
+function BooleanPrompt({ prompt }: { prompt: BooleanPrompt }) {
   return <div>boolean prompt: {prompt.id}</div>
 }
 
-function ChoicePrompt({ prompt }: { prompt: Prompt }) {
-  return <div>choice prompt: {prompt.id}</div>
+function ChoicePrompt({ prompt }: { prompt: ChoicePrompt }) {
+  return (
+    <form onSubmit={() => {}} className="space-y-4">
+      {prompt.options.map((option, i) => (
+        <div className="w-full">
+          <input
+            id={promptOptionId(prompt, option)}
+            type="radio"
+            onChange={() => {}}
+            name={prompt.id}
+          />
+          <span className="">{getLetterForPosition(i)}</span>
+          <label htmlFor={promptOptionId(prompt, option)}>{option}</label>
+        </div>
+      ))}
+      <button type="submit">Continue</button>
+    </form>
+  )
+}
+
+function promptOptionId(prompt: Prompt, option: string) {
+  return `${prompt.id}-${option}`
+}
+
+function getLetterForPosition(i: number) {
+  return String.fromCharCode(65 + i)
 }
