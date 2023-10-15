@@ -1,4 +1,4 @@
-import { Inter, Cormorant_Garamond } from '@next/font/google'
+import { Inter, Cormorant_Garamond } from 'next/font/google'
 
 export const inter = Inter({
   subsets: ['latin'],
