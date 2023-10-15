@@ -145,7 +145,7 @@ function ChoicePrompt({ prompt }: { prompt: ChoicePrompt }) {
       {prompt.options.map((option, i) => (
         <div className="w-full">
           <div
-            className={cn('px-2 py-2 rounded relative inline-block', {
+            className={cn('px-2 py-2  h-9 rounded relative inline-block', {
               'ring-2 ring-emerald-400/80': value === option,
               'shadow-border': value !== option,
             })}
@@ -180,7 +180,12 @@ function ChoicePrompt({ prompt }: { prompt: ChoicePrompt }) {
           </div>
         </div>
       ))}
-      <button type="submit">Continue</button>
+      <button
+        type="submit"
+        className="px-4 h-9 rounded shadow-border bg-stone-100 text-stone-900 font-bold"
+      >
+        Continue
+      </button>
     </form>
   )
 }
