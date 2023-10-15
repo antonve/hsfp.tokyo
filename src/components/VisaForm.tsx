@@ -69,11 +69,7 @@ function useQualifications() {
     return []
   }
 
-  const decodedQualifications = atob(encodedQualifications)
-  const qualifications = JSON.parse(decodedQualifications)
-
-  // TODO: figure out how to handle errors in nextjs 13
-  return z.array(QualificationSchema).parse(qualifications)
+  return decodeQualifications(encodedQualifications)
 }
 
 function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {
@@ -94,6 +90,23 @@ function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {
   } as VisaProgress
 }
 
+function decodeQualifications(raw: string) {
+  const qualifications = JSON.parse(atob(raw))
+  return z.array(QualificationSchema).parse(qualifications)
+}
+
+function encodeQualifications(qualifications: Qualification[]) {
+  return btoa(JSON.stringify(qualifications))
+}
+
+function addQualification(currentQ: Qualification[], newQ: Qualification) {
+  const qualificationsWithDuplicatesRemoved = currentQ.filter(
+    q => !(q.category === newQ.category && q.id === newQ.id),
+  )
+
+  return [...qualificationsWithDuplicatesRemoved, newQ]
+}
+
 function VisaFormSection({
   config,
   progress,
@@ -111,19 +124,12 @@ function VisaFormSection({
 
   const submit = (newQualification: Qualification) => {
     const { category, promptIndex } = nextStepOfForm(config, progress)
-    const q = qualifications.filter(
-      it =>
-        !(
-          it.category === newQualification.category &&
-          it.id === newQualification.id
-        ),
-    )
-    q.push(newQualification)
-    const qq = JSON.stringify(q)
-    const qqq = btoa(qq)
+    const newQualifications = addQualification(qualifications, newQualification)
 
     router.push(
-      `/calculator/${params['visa']}/${category}/${promptIndex + 1}?q=${qqq}`,
+      `/calculator/${params['visa']}/${category}/${
+        promptIndex + 1
+      }?q=${encodeQualifications(newQualifications)}`,
     )
   }
 
