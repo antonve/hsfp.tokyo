@@ -1,17 +1,17 @@
 import { Criteria } from '@lib/domain/criteria'
-import { Qualification } from '@lib/domain/qualifications'
+import { Qualifications } from '@lib/domain/qualifications'
 
-export interface SimulationResult {
+export interface MatchResult {
   matches: Criteria[]
   points: number
 }
 
 export const calculatePoints = (
-  matchers: CategoryMatcher[],
-  qualifications: Qualification[],
-): SimulationResult => {
+  matchers: Matcher[],
+  qualifications: Qualifications,
+): MatchResult => {
   return matchers
-    .map(group => group.match(group.criteria, qualifications))
+    .map(match => match(qualifications))
     .reduce(
       (accumulator, current) => {
         return {
@@ -22,16 +22,8 @@ export const calculatePoints = (
       {
         matches: [],
         points: 0,
-      } as SimulationResult,
+      } as MatchResult,
     )
 }
 
-// Some criteria are grouped together and need to be scored together.
-// CriteriaMatcher is a group of criteria with an associated match function to get a final score.
-export interface CategoryMatcher {
-  criteria: Criteria[]
-  match: (
-    criteria: Criteria[],
-    qualifications: Qualification[],
-  ) => SimulationResult
-}
+export type Matcher = (q: Qualifications) => MatchResult
