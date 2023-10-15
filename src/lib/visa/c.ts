@@ -10,9 +10,15 @@ import {
   Qualification,
 } from '@lib/domain/qualifications'
 import { errorMessages } from '@lib/visa/errors'
+import { FormConfig } from '@lib/domain/form'
 
 export function calculatePointsForVisaC(qualifications: Qualification[]) {
   return calculatePoints(Object.values(matchersForVisaC), qualifications)
+}
+
+export const formConfig: FormConfig = {
+  sections: {},
+  order: [],
 }
 
 type CategoryVisaC =

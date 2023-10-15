@@ -1,5 +1,4 @@
 import { calculatePoints } from '@lib/domain/calculator'
-import { VisaType } from '@lib/domain/visa'
 import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
 import { CategoryMatcher } from '@lib/domain/calculator'
 import { errorMessages } from './errors'
@@ -12,8 +11,12 @@ import {
   QualificationWithValue,
   Qualification,
 } from '@lib/domain/qualifications'
+import { FormConfig } from '@lib/domain/form'
 
-// todo: add forms configuration
+export const formConfig: FormConfig = {
+  sections: {},
+  order: [],
+}
 
 export function calculatePointsForVisaA(qualifications: Qualification[]) {
   return calculatePoints(Object.values(matchersForVisaA), qualifications)
