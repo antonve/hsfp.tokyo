@@ -5,3 +5,10 @@
 a {
   text-decoration: underline;
 }
+
+@layer utilities {
+  .shadow-border {
+    box-shadow: rgba(255, 255, 255, 0.05) 0px 1px 1px 0px, rgba(235, 235, 234, 0.16) 0px 0px 0px 1px;
+  }
+
+}

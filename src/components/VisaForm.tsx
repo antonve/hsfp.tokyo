@@ -145,14 +145,10 @@ function ChoicePrompt({ prompt }: { prompt: ChoicePrompt }) {
       {prompt.options.map((option, i) => (
         <div className="w-full">
           <div
-            className={cn(
-              'px-2 py-2 rounded relative inline-block bg-stone-900/50',
-              {
-                'ring-2 ring-emerald-400/80': value === option,
-                'shadow-[rgba(255,255,255,0.05)_0px_1px_1px_0px,rgba(235,235,234,0.16)_0px_0px_0px_1px]':
-                  value !== option,
-              },
-            )}
+            className={cn('px-2 py-2 rounded relative inline-block', {
+              'ring-2 ring-emerald-400/80': value === option,
+              'shadow-border': value !== option,
+            })}
           >
             <div className="flex">
               <input
@@ -168,7 +164,7 @@ function ChoicePrompt({ prompt }: { prompt: ChoicePrompt }) {
                   'flex w-5 h-5 items-center justify-center rounded text-xs font-bold',
                   {
                     'bg-emerald-500': value === option,
-                    'bg-stone-700': value !== option,
+                    'bg-stone-700/70': value !== option,
                   },
                 )}
               >
