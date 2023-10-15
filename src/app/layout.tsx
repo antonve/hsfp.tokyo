@@ -24,7 +24,7 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        <div className="max-w-7xl mx-auto">{children}</div>
+        <div className="max-w-7xl mx-auto p-2">{children}</div>
       </body>
     </html>
   )

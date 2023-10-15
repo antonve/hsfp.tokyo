@@ -15,6 +15,8 @@ import {
   CategorySchema,
   QualificationSchema,
 } from '@lib/domain/qualifications'
+import { useState } from 'react'
+import cn from 'classnames'
 
 interface Props {
   config: FormConfig
@@ -108,19 +110,19 @@ function VisaFromPrompt({
   switch (prompt.type) {
     case 'NUMBER':
       return (
-        <div className={isFocus ? 'bg-stone-900' : ''}>
+        <div>
           <NumberPrompt prompt={prompt} />
         </div>
       )
     case 'BOOLEAN':
       return (
-        <div className={isFocus ? 'bg-stone-900' : ''}>
+        <div>
           <BooleanPrompt prompt={prompt} />
         </div>
       )
     case 'CHOICE':
       return (
-        <div className={isFocus ? 'bg-stone-900' : ''}>
+        <div>
           <ChoicePrompt prompt={prompt} />
         </div>
       )
@@ -136,18 +138,50 @@ function BooleanPrompt({ prompt }: { prompt: BooleanPrompt }) {
 }
 
 function ChoicePrompt({ prompt }: { prompt: ChoicePrompt }) {
+  const [value, setValue] = useState<string | undefined>()
+
   return (
     <form onSubmit={() => {}} className="space-y-4">
       {prompt.options.map((option, i) => (
         <div className="w-full">
-          <input
-            id={promptOptionId(prompt, option)}
-            type="radio"
-            onChange={() => {}}
-            name={prompt.id}
-          />
-          <span className="">{getLetterForPosition(i)}</span>
-          <label htmlFor={promptOptionId(prompt, option)}>{option}</label>
+          <div
+            className={cn(
+              'px-2 py-2 rounded relative inline-block bg-stone-900/50',
+              {
+                'ring-2 ring-emerald-400/80': value === option,
+                'shadow-[rgba(255,255,255,0.05)_0px_1px_1px_0px,rgba(235,235,234,0.16)_0px_0px_0px_1px]':
+                  value !== option,
+              },
+            )}
+          >
+            <div className="flex">
+              <input
+                id={promptOptionId(prompt, option)}
+                type="radio"
+                onChange={e => setValue(option)}
+                name={prompt.id}
+                className="absolute inset-0 cursor-pointer w-full h-full opacity-0"
+                checked={value === option}
+              />
+              <span
+                className={cn(
+                  'flex w-5 h-5 items-center justify-center rounded text-xs font-bold',
+                  {
+                    'bg-emerald-500': value === option,
+                    'bg-stone-700': value !== option,
+                  },
+                )}
+              >
+                {getLetterForPosition(i)}
+              </span>
+              <label
+                htmlFor={promptOptionId(prompt, option)}
+                className="pl-3 h-5 text-lg flex items-center"
+              >
+                {option}
+              </label>
+            </div>
+          </div>
         </div>
       ))}
       <button type="submit">Continue</button>
