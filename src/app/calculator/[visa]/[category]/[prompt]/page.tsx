@@ -10,7 +10,6 @@ interface Props {
 
 export default function Page({ params }: Props) {
   const formConfig = formConfigForVisa(params.visa)
-  console.log(formConfig)
   if (!formConfig) {
     notFound()
   }
