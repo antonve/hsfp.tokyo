@@ -2,6 +2,11 @@
 
 import { useParams, useSearchParams } from 'next/navigation'
 import { z } from 'zod'
+import {
+  ArrowLongRightIcon,
+  ArrowRightIcon,
+  ArrowSmallRightIcon,
+} from '@heroicons/react/20/solid'
 
 import {
   BooleanPrompt,
@@ -89,7 +94,7 @@ function VisaFormSection({
 }) {
   return (
     <div className="pb-10">
-      <h2 className="font-bold text-xl">{category}</h2>
+      <h2 className="font-bold text-xl mb-4">{category}</h2>
       {prompts.map((prompt, i) => (
         <VisaFromPrompt
           prompt={prompt}
@@ -141,50 +146,50 @@ function ChoicePrompt({ prompt }: { prompt: ChoicePrompt }) {
   const [value, setValue] = useState<string | undefined>()
 
   return (
-    <form onSubmit={() => {}} className="space-y-4">
-      {prompt.options.map((option, i) => (
-        <div className="w-full">
-          <div
-            className={cn('px-2 py-2  h-9 rounded relative inline-block', {
-              'ring-2 ring-emerald-400/80': value === option,
-              'shadow-border': value !== option,
-            })}
-          >
-            <div className="flex">
-              <input
-                id={promptOptionId(prompt, option)}
-                type="radio"
-                onChange={e => setValue(option)}
-                name={prompt.id}
-                className="absolute inset-0 cursor-pointer w-full h-full opacity-0"
-                checked={value === option}
-              />
-              <span
-                className={cn(
-                  'flex w-5 h-5 items-center justify-center rounded text-xs font-bold',
-                  {
-                    'bg-emerald-500': value === option,
-                    'bg-stone-700/70': value !== option,
-                  },
-                )}
-              >
-                {getLetterForPosition(i)}
-              </span>
-              <label
-                htmlFor={promptOptionId(prompt, option)}
-                className="pl-3 h-5 text-lg flex items-center"
-              >
-                {option}
-              </label>
+    <form onSubmit={() => {}}>
+      <div className="space-y-4 mb-8">
+        {prompt.options.map((option, i) => (
+          <div className="w-full">
+            <div
+              className={cn('px-2 py-2  h-9 rounded relative inline-block', {
+                'ring-2 ring-emerald-400/80': value === option,
+                'shadow-border': value !== option,
+              })}
+            >
+              <div className="flex">
+                <input
+                  id={promptOptionId(prompt, option)}
+                  type="radio"
+                  onChange={e => setValue(option)}
+                  name={prompt.id}
+                  className="absolute inset-0 cursor-pointer w-full h-full opacity-0"
+                  checked={value === option}
+                />
+                <span
+                  className={cn(
+                    'flex w-5 h-5 items-center justify-center rounded text-xs font-bold',
+                    {
+                      'bg-emerald-500': value === option,
+                      'bg-stone-700/70': value !== option,
+                    },
+                  )}
+                >
+                  {getLetterForPosition(i)}
+                </span>
+                <label
+                  htmlFor={promptOptionId(prompt, option)}
+                  className="pl-3 h-5 text-lg flex items-center"
+                >
+                  {option}
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-      <button
-        type="submit"
-        className="px-4 h-9 rounded shadow-border bg-stone-100 text-stone-900 font-bold"
-      >
+        ))}
+      </div>
+      <button type="submit" className="button">
         Continue
+        <ArrowRightIcon className="h-5 w-5 ml-2" />
       </button>
     </form>
   )
