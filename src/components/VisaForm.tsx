@@ -2,11 +2,7 @@
 
 import { useParams, useSearchParams } from 'next/navigation'
 import { z } from 'zod'
-import {
-  ArrowLongRightIcon,
-  ArrowRightIcon,
-  ArrowSmallRightIcon,
-} from '@heroicons/react/20/solid'
+import { ArrowRightIcon } from '@heroicons/react/20/solid'
 
 import {
   BooleanPrompt,
@@ -36,17 +32,7 @@ export function VisaForm({ config }: Props) {
   const qualifications = useQualifications()
   const progress = useVisaFormProgress(config)
 
-  return (
-    <form>
-      {config.order.map(category => (
-        <VisaFormSection
-          prompts={config.sections[category]!!}
-          category={category}
-          progress={progress}
-        />
-      ))}
-    </form>
-  )
+  return <VisaFormSection config={config} progress={progress} />
 }
 
 const paramsSchema = z.object({
@@ -84,34 +70,24 @@ function useQualifications() {
 }
 
 function VisaFormSection({
-  prompts,
-  category,
+  config,
   progress,
 }: {
-  prompts: Prompt[]
-  category: Category
+  config: FormConfig
   progress: VisaProgress
 }) {
+  const prompts = config.sections[progress.category]!!
+  const prompt = prompts[progress.promptIndex]
+
   return (
     <div className="pb-10">
-      <h2 className="font-bold text-xl mb-4">{category}</h2>
-      {prompts.map((prompt, i) => (
-        <VisaFromPrompt
-          prompt={prompt}
-          isFocus={progress.category === category && progress.promptIndex === i}
-        />
-      ))}
+      <h2 className="font-bold text-xl mb-4">{progress.category}</h2>
+      <VisaFormPrompt prompt={prompt} />
     </div>
   )
 }
 
-function VisaFromPrompt({
-  prompt,
-  isFocus,
-}: {
-  prompt: Prompt
-  isFocus: boolean
-}) {
+function VisaFormPrompt({ prompt }: { prompt: Prompt }) {
   switch (prompt.type) {
     case 'NUMBER':
       return (
@@ -143,10 +119,10 @@ function BooleanPrompt({ prompt }: { prompt: BooleanPrompt }) {
 }
 
 function ChoicePrompt({ prompt }: { prompt: ChoicePrompt }) {
-  const [value, setValue] = useState<string | undefined>()
+  const [value, setValue] = useState<string | undefined>(undefined)
 
   return (
-    <form onSubmit={() => {}}>
+    <form>
       <div className="space-y-4 mb-8">
         {prompt.options.map((option, i) => (
           <div className="w-full">
