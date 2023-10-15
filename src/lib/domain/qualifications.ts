@@ -7,6 +7,7 @@ export const QualificationsSchema = z.object({
   dual_degree: z.boolean().optional(),
   experience: z.number().optional(), // years of relevant prefessional experience
   salary: z.number().optional(), // in yen, only counting that from your main source of income
+  age: z.number().optional(), // in years
   representative_director: z.boolean().optional(),
   executive_officer: z.boolean().optional(),
   high_rnd_expenses: z.boolean().optional(), // prev: rnd_exceeds_three_percent
