@@ -1,4 +1,4 @@
-import { Matcher, calculatePoints } from '@lib/domain/calculator'
+import { MatchResult, Matcher, calculatePoints } from '@lib/domain/calculator'
 import { Qualifications } from '@lib/domain/qualifications'
 import { FormConfig } from '@lib/domain/form'
 import { errorMessages } from './errors'
@@ -12,12 +12,34 @@ export function calculatePointsForVisaA(qualifications: Qualifications) {
   return calculatePoints(matchers, qualifications)
 }
 
-const NO_MATCHES = { matches: [], points: 0 }
+const NO_MATCHES: MatchResult = { matches: [], points: 0 }
 
 function matchOf(id: string, points: number) {
   return {
     matches: [{ id, points }],
     points: points,
+  }
+}
+
+function mergeMatches(matches: MatchResult[]) {
+  const mergedCriteria = matches
+    .map(it => it.matches)
+    .reduce((prev, current) => prev.concat(current), [])
+
+  const points = matches
+    .map(it => it.points)
+    .reduce((prev, current) => prev + current, 0)
+
+  return {
+    matches: mergedCriteria,
+    points,
+  } as MatchResult
+}
+
+function limitPoints(match: MatchResult, limit: number) {
+  return {
+    ...match,
+    points: Math.min(match.points, limit),
   }
 }
 
@@ -97,188 +119,112 @@ const matchers: Matcher[] = [
 
     throw new Error(errorMessages.salaryTooLow)
   },
-  // TODO
   function matchAge(q) {
+    const age = q.age ?? 100
+
+    if (age < 30) {
+      return matchOf('under_30y', 15)
+    }
+    if (age < 35) {
+      return matchOf('under_35y', 10)
+    }
+    if (age < 40) {
+      return matchOf('under_40y', 5)
+    }
+
     return NO_MATCHES
   },
   function matchResearchAchievements(q) {
-    return NO_MATCHES
+    const matches: MatchResult[] = []
+
+    if (q.patent_inventor) {
+      matches.push(matchOf('patent_inventor', 20))
+    }
+    if (q.conducted_financed_projects) {
+      matches.push(matchOf('conducted_financed_projects', 20))
+    }
+    if (q.published_papers) {
+      matches.push(matchOf('published_papers', 20))
+    }
+    if (q.recognized_research) {
+      matches.push(matchOf('recognized_research', 20))
+    }
+
+    const merged = mergeMatches(matches)
+
+    return limitPoints(merged, 25)
   },
   function matchBonus(q) {
-    return NO_MATCHES
+    const matches: MatchResult[] = []
+
+    if (q.high_rnd_expenses) {
+      matches.push(matchOf('high_rnd_expenses', 5))
+    }
+    if (q.foreign_qualification) {
+      matches.push(matchOf('foreign_qualification', 5))
+    }
+    if (q.growth_field) {
+      matches.push(matchOf('growth_field', 10))
+    }
+    if (q.training_jica) {
+      matches.push(matchOf('training_jica', 5))
+    }
+
+    return mergeMatches(matches)
   },
   function matchContractingOrganization(q) {
-    return NO_MATCHES
+    const isInnovative = q.org_promotes_innovation ?? false
+    const isSmallCompany = q.org_smb ?? false
+    const isPromotingHighlySkilled = q.org_promotes_highly_skilled ?? false
+
+    const matches: MatchResult[] = []
+
+    if (isInnovative) {
+      matches.push(matchOf('org_promotes_innovation', 10))
+    }
+    if (isInnovative && isSmallCompany) {
+      matches.push(matchOf('org_smb', 10))
+    }
+    if (isPromotingHighlySkilled) {
+      matches.push(matchOf('org_promotes_highly_skilled', 10))
+    }
+
+    return mergeMatches(matches)
   },
   function matchJapanese(q) {
-    return NO_MATCHES
+    const isJapaneseUniGraduate = q.jp_uni_grad ?? false
+    const hasN1 = q.n1 ?? false
+    const hasN2 = q.n2 ?? false
+
+    const matches: MatchResult[] = []
+
+    if (hasN2 && !hasN1 && !isJapaneseUniGraduate) {
+      matches.push(matchOf('n2', 10))
+    }
+    if (hasN1) {
+      matches.push(matchOf('n1', 15))
+    }
+    if (isJapaneseUniGraduate) {
+      matches.push(matchOf('jp_uni_grad', 10))
+    }
+
+    return mergeMatches(matches)
   },
   function matchUniversity(q) {
-    return NO_MATCHES
+    const matches: MatchResult[] = []
+
+    if (q.uni_ranked) {
+      matches.push(matchOf('uni_ranked', 10))
+    }
+    if (q.uni_funded) {
+      matches.push(matchOf('uni_funded', 10))
+    }
+    if (q.uni_partner) {
+      matches.push(matchOf('uni_partner', 10))
+    }
+
+    const merged = mergeMatches(matches)
+
+    return limitPoints(merged, 10)
   },
 ]
-//   age: {
-//     criteria: [
-//       { id: 'less_than_30', points: 15, match: age => age < 30 },
-//       { id: 'less_than_35', points: 10, match: age => age < 35 },
-//       { id: 'less_than_40', points: 5, match: age => age < 40 },
-//     ],
-//     match: (criteria, qualifications) => {
-//       const match = qualifications.find(q => q.category === 'age') as
-//         | QualificationWithValue
-//         | undefined
-
-//       if (match === undefined) {
-//         return { matches: [], points: 0 }
-//       }
-
-//       const age = match.value
-//       return matchMaxPoints(criteria, age)
-//     },
-//   },
-//   'research-achievements': {
-//     // threshold: 2, bonus: 5
-//     criteria: [
-//       { id: 'patent_inventor', points: 20 },
-//       { id: 'conducted_financed_projects_three_times', points: 20 },
-//       { id: 'has_published_three_papers', points: 20 },
-//       { id: 'research_recognized_by_japan', points: 20 },
-//     ],
-//     match: (criteria, allQualifications) => {
-//       const qualifications = allQualifications.filter(
-//         q => q.category === 'research-achievements',
-//       )
-//       const threshold = 2
-//       const bonus = 5
-//       return matchQualificationsWithExtraPoints(
-//         criteria,
-//         qualifications,
-//         threshold,
-//         bonus,
-//       )
-//     },
-//   },
-//   bonus: {
-//     criteria: [
-//       { id: 'rnd_exceeds_three_percent', points: 5 },
-//       { id: 'foreign_work_related_qualification', points: 5 },
-//       { id: 'advanced_project_growth_field', points: 10 },
-//       {
-//         id: 'completed_training_conducted_by_jica_innovative_asia_project',
-//         points: 5,
-//       },
-//     ],
-//     match: (criteria, allQualifications) => {
-//       const qualifications = allQualifications
-//         .filter(q => q.category === 'bonus')
-//         .map(q => q.id)
-
-//       const matches = criteria.filter(c => qualifications.includes(c.id))
-//       const points = matches.reduce(
-//         (accumulator, current) => accumulator + current.points,
-//         0,
-//       )
-//       return { matches, points }
-//     },
-//   },
-//   'contracting-organization': {
-//     criteria: [
-//       { id: 'contracting_organization_promotes_innovation', points: 10 },
-//       { id: 'contracting_organization_small_medium_sized', points: 10 },
-//       { id: 'contracting_organization_promotes_highly_skilled', points: 10 },
-//     ],
-//     match: (allCriteria, allQualifications) => {
-//       let points = 0
-//       let matches: Criteria[] = []
-
-//       const criteria = mapCriteriaById(allCriteria)
-//       const qualifications = allQualifications
-//         .filter(q => q.category === 'contracting-organization')
-//         .map(q => q.id)
-//       const isInnovative = qualifications.includes(
-//         'contracting_organization_promotes_innovation',
-//       )
-//       const isSmallCompany = qualifications.includes(
-//         'contracting_organization_small_medium_sized',
-//       )
-//       const isPromotingHighlySkilled = qualifications.includes(
-//         'contracting_organization_promotes_highly_skilled',
-//       )
-
-//       if (isInnovative) {
-//         matches.push(criteria['contracting_organization_promotes_innovation'])
-//         points +=
-//           criteria['contracting_organization_promotes_innovation'].points
-//       }
-//       if (isInnovative && isSmallCompany) {
-//         matches.push(criteria['contracting_organization_small_medium_sized'])
-//         points += criteria['contracting_organization_small_medium_sized'].points
-//       }
-//       if (isPromotingHighlySkilled) {
-//         matches.push(
-//           criteria['contracting_organization_promotes_highly_skilled'],
-//         )
-//         points +=
-//           criteria['contracting_organization_promotes_highly_skilled'].points
-//       }
-
-//       return { matches, points }
-//     },
-//   },
-//   japanese: {
-//     criteria: [
-//       { id: 'graduated_japanese_uni_or_course', points: 10 },
-//       { id: 'jlpt_n1_or_equivalent', points: 15 },
-//       { id: 'jlpt_n2_or_equivalent', points: 10 },
-//     ],
-//     match: (allCriteria, allQualifications) => {
-//       let points = 0
-//       let matches: Criteria[] = []
-
-//       const criteria = mapCriteriaById(allCriteria)
-//       const qualifications = allQualifications
-//         .filter(q => q.category === 'japanese')
-//         .map(q => q.id)
-//       const isUniGraduate = qualifications.includes(
-//         'graduated_japanese_uni_or_course',
-//       )
-//       const hasN1 = qualifications.includes('jlpt_n1_or_equivalent')
-//       const hasN2 = qualifications.includes('jlpt_n2_or_equivalent')
-
-//       if (hasN2 && !hasN1 && !isUniGraduate) {
-//         matches.push(criteria['jlpt_n2_or_equivalent'])
-//         points += criteria['jlpt_n2_or_equivalent'].points
-//       }
-//       if (hasN1) {
-//         matches.push(criteria['jlpt_n1_or_equivalent'])
-//         points += criteria['jlpt_n1_or_equivalent'].points
-//       }
-//       if (isUniGraduate) {
-//         matches.push(criteria['graduated_japanese_uni_or_course'])
-//         points += criteria['graduated_japanese_uni_or_course'].points
-//       }
-
-//       return { matches, points }
-//     },
-//   },
-//   university: {
-//     criteria: [
-//       { id: 'top_ranked_university_graduate', points: 10 },
-//       {
-//         id: 'graduate_of_university_funded_by_top_global_universities_project',
-//         points: 10,
-//       },
-//       {
-//         id: 'graduate_of_university_partner_school',
-//         points: 10,
-//       },
-//     ],
-//     match: (criteria, allQualifications) => {
-//       const qualifications = allQualifications.filter(
-//         q => q.category === 'university',
-//       )
-
-//       return matchAny(criteria, qualifications)
-//     },
-//   },
-// }
