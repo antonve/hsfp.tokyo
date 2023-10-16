@@ -48,10 +48,10 @@ const matchers: Matcher[] = [
     switch (q.degree) {
       case 'doctor':
         return matchOf('doctor', 30)
-      case 'doctor':
+      case 'master':
         return matchOf('master', 20)
-      case 'doctor':
-        return matchOf('bachelor', 20)
+      case 'bachelor':
+        return matchOf('bachelor', 10)
       default:
         return NO_MATCHES
     }

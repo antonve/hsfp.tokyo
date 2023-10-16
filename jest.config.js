@@ -10,4 +10,5 @@ module.exports = {
     '@components/(.*)': '<rootDir>/src/components/$1',
     '@lib/(.*)': '<rootDir>/src/lib/$1',
   },
+  setupFilesAfterEnv: ['jest-extended/all'],
 }
