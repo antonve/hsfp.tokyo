@@ -2,25 +2,76 @@ import {
   MatchResult,
   Matcher,
   NO_MATCHES,
-  calculatePoints,
+  matchQualifications,
   limitPoints,
   matchOf,
   mergeMatches,
 } from '@lib/domain/calculator'
-import { Qualifications } from '@lib/domain/qualifications'
 import { FormConfig } from '@lib/domain/form'
 import { errorMessages } from './errors'
+import { z } from 'zod'
 
 export const formConfig: FormConfig = {
   sections: {},
   order: [],
 }
 
-export function calculatePointsForVisaA(qualifications: Qualifications) {
-  return calculatePoints(matchers, qualifications)
+// Comments indicate to what item/項目 they refer to in the official point sheet
+// New lines = dark border in point sheet
+// (n) = the index as indicated on the right of the point sheet (疎明資料)
+export const ResearcherQualificationsSchema = z.object({
+  // 学歴 (1)
+  degree: z.enum(['doctor', 'master', 'bachelor', 'none']).optional(),
+  dual_degree: z.boolean().optional(),
+
+  // 職歴 (2)
+  experience: z.number().optional(), // years of relevant prefessional experience
+
+  // 年収 (3)
+  salary: z.number().optional(), // in yen, only counting that from your main source of income
+
+  // 年齢
+  age: z.number().optional(), // in years
+
+  // 研究実績
+  patent_inventor: z.boolean().optional(), // (4)
+  conducted_financed_projects: z.boolean().optional(), // (5)
+  published_papers: z.boolean().optional(), // (6)
+  recognized_research: z.boolean().optional(), // (7)
+
+  // 特別加算
+  org_promotes_innovation: z.boolean().optional(), // (9)
+  org_smb: z.boolean().optional(), // (10)
+  org_promotes_highly_skilled: z.boolean().optional(), // (11)
+
+  high_rnd_expenses: z.boolean().optional(), // (10) (12)
+
+  // 特別加算（続き）
+  foreign_qualification: z.boolean().optional(), // (13)
+
+  jp_uni_grad: z.boolean().optional(), // (14)
+
+  n1: z.boolean().optional(), // (15)
+  n2: z.boolean().optional(), // (15)
+
+  growth_field: z.boolean().optional(), // (16)
+
+  uni_ranked: z.boolean().optional(), // (17)
+  uni_funded: z.boolean().optional(), // (17)
+  uni_partner: z.boolean().optional(), // (17)
+
+  training_jica: z.boolean().optional(), // 18
+})
+
+export type ResearcherQualifications = z.infer<
+  typeof ResearcherQualificationsSchema
+>
+
+export function calculatePoints(qualifications: ResearcherQualifications) {
+  return matchQualifications<ResearcherQualifications>(matchers, qualifications)
 }
 
-const matchers: Matcher[] = [
+const matchers: Matcher<ResearcherQualifications>[] = [
   function matchDegree(q) {
     switch (q.degree) {
       case 'doctor':

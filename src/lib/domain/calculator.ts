@@ -1,15 +1,18 @@
-import { Criteria } from '@lib/domain/criteria'
-import { Qualifications } from '@lib/domain/qualifications'
+// A Criteria is a row in the HSP points table.
+export interface Criteria {
+  id: string
+  points: number
+}
 
 export interface MatchResult {
   matches: Criteria[]
   points: number
 }
 
-export const calculatePoints = (
-  matchers: Matcher[],
-  qualifications: Qualifications,
-): MatchResult => {
+export function matchQualifications<Q>(
+  matchers: Matcher<Q>[],
+  qualifications: Q,
+) {
   const matches = matchers.map(match => match(qualifications))
 
   return matches.reduce(
@@ -26,7 +29,7 @@ export const calculatePoints = (
   )
 }
 
-export type Matcher = (q: Qualifications) => MatchResult
+export type Matcher<Q> = (q: Q) => MatchResult
 
 // Helpers for Matcher functions
 

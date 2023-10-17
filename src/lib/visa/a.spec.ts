@@ -1,9 +1,8 @@
-import { Qualifications } from '@lib/domain/qualifications'
-import { calculatePointsForVisaA } from '@lib/visa/a'
+import { ResearcherQualifications, calculatePoints } from '@lib/visa/a'
 import 'jest-extended'
 import { errorMessages } from './errors'
 
-type TestCase = [Qualifications, number, string[]]
+type TestCase = [ResearcherQualifications, number, string[]]
 
 describe('point calculation: researcher visa', () => {
   const testCases: TestCase[] = [
@@ -124,7 +123,7 @@ describe('point calculation: researcher visa', () => {
   test.each(testCases)(
     'calculate(%p) == %p points',
     (q, expectedPoints, expectedIds) => {
-      const { matches, points } = calculatePointsForVisaA(q)
+      const { matches, points } = calculatePoints(q)
 
       expect(matches.map(it => it.id)).toIncludeSameMembers(expectedIds)
       expect(points).toBe(expectedPoints)
@@ -133,7 +132,7 @@ describe('point calculation: researcher visa', () => {
 
   test('calculate({ salary: 2999999}) throws error', () => {
     expect(() => {
-      calculatePointsForVisaA({ salary: 2_999_999, age: 24 })
+      calculatePoints({ salary: 2_999_999, age: 24 })
     }).toThrowError(errorMessages.salaryTooLow)
   })
 })
