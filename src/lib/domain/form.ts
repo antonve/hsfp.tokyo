@@ -1,12 +1,30 @@
-import { Category } from '@lib/domain/qualifications'
+import { VisaType } from '@lib/domain/visa'
+import { z } from 'zod'
+
+// TODO: decide how to split the sections
+export const SectionNameSchema = z.enum([
+  'academic-background',
+  'job',
+  'research-achievements',
+  'licenses',
+  'bonus',
+  // 'contracting-organization',
+  // 'japanese',
+  // 'university',
+  // 'investor',
+])
+
+export type SectionName = z.infer<typeof SectionNameSchema>
 
 export interface FormConfig {
+  visaType: VisaType
+
   // Definitions of each form section
   // Prompts will be shown in the order as defined.
-  sections: Partial<Record<Category, Prompt[]>>
+  sections: Partial<Record<SectionName, Prompt[]>>
 
   // The order sections should be shown
-  order: Category[]
+  order: SectionName[]
 }
 
 export type Prompt = ChoicePrompt | NumberPrompt | BooleanPrompt
@@ -20,7 +38,6 @@ export interface ChoicePrompt {
 export interface NumberPrompt {
   id: string
   type: 'NUMBER'
-  qualificationValueFieldName: string
 }
 
 export interface BooleanPrompt {

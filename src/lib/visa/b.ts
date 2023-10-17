@@ -8,41 +8,36 @@ import {
   mergeMatches,
 } from '@lib/domain/calculator'
 import { FormConfig } from '@lib/domain/form'
+import { VisaType } from '@lib/domain/visa'
 import { errorMessages } from './errors'
 import { z } from 'zod'
 
 export const formConfig: FormConfig = {
+  visaType: VisaType.B,
   sections: {
     'academic-background': [
       {
-        id: 'highest_degree',
+        id: 'degree',
         type: 'CHOICE',
-        options: ['doctor', 'business_management', 'master', 'bachelor'],
+        options: ['doctor', 'mba_mot', 'master', 'bachelor', 'none'],
       },
       {
         id: 'dual_degree',
         type: 'BOOLEAN',
       },
     ],
-    career: [
+    job: [
       {
         id: 'experience',
         type: 'NUMBER',
-        qualificationValueFieldName: 'yearsOfExperience',
       },
-    ],
-    age: [
       {
         id: 'age',
         type: 'NUMBER',
-        qualificationValueFieldName: 'age',
       },
-    ],
-    compensation: [
       {
         id: 'salary',
         type: 'NUMBER',
-        qualificationValueFieldName: 'salary',
       },
     ],
     'research-achievements': [
@@ -64,7 +59,7 @@ export const formConfig: FormConfig = {
       },
     ],
   },
-  order: ['academic-background', 'career', 'age', 'compensation'],
+  order: ['academic-background', 'job'],
 }
 
 // Comments indicate to what item/項目 they refer to in the official point sheet
