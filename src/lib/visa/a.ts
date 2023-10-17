@@ -42,7 +42,7 @@ export const ResearcherQualificationsSchema = z.object({
   age: z.number().optional(), // in years
 
   // 研究実績
-  // Research
+  // Research achievements
   // 発明者として特許を受けた発明が１件以上
   // Have made at least one patented invention
   patent_inventor: z.boolean().optional(), // (4)
