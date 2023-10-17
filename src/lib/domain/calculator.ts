@@ -12,8 +12,6 @@ export const calculatePoints = (
 ): MatchResult => {
   const matches = matchers.map(match => match(qualifications))
 
-  console.log(matches)
-
   return matches.reduce(
     (accumulator, current) => {
       return {
