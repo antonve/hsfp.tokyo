@@ -72,25 +72,30 @@ export const formConfig: FormConfig = {
 // (n) = the index as indicated on the right of the point sheet (疎明資料)
 export const EngineerQualificationsSchema = z.object({
   // 学歴 (1)
+  // Academic background (1)
   degree: z
     .enum(['doctor', 'mba_mot', 'master', 'bachelor', 'none'])
     .optional(),
   dual_degree: z.boolean().optional(),
 
   // 職歴 (2)
+  // Professional career (2)
   // 従事しようとする業務に係る実務経験
   // Work experience related to the business in which the applicant intends to engage
   experience: z.number().optional(), // years of relevant prefessional experience
 
   // 年収 (3)
+  // Annual salary (3)
   salary: z.number().optional(), // in yen, only counting that from your main source of income
 
   // 年齢
+  // Age
   // 申請の時点の年齢
   // Age at the time of the filing of the application
   age: z.number().optional(), // in years
 
   // 研究実績
+  // Research achievements
   // 発明者として特許を受けた発明が１件以上
   // Have made at least one patented invention
   patent_inventor: z.boolean().optional(), // (4)
@@ -105,11 +110,13 @@ export const EngineerQualificationsSchema = z.object({
   recognized_research: z.boolean().optional(), // (7)
 
   // 資格
+  // License
   // 従事しようとする業務に関連する日本の国家資格（業務独占資格又は名称独占資格）を保有，又はIT告示に定める試験に合格し若しくは資格を保有
   // Either have a national license of Japan (a license that authorizes you to conduct the relevant operation or use the relevant name), or have passed an examination or have a license listed in the relevant IT notification
   certifications: z.number().optional(), // (8)
 
   // 特別加算
+  // Special additions
   // Ⅰ　イノベーション促進支援措置を受けている
   // I Work for an organization which receives financial support measures(measures provided for separately in a public notice) for the promotion of innovation
   org_promotes_innovation: z.boolean().optional(), // (9)
@@ -121,6 +128,7 @@ export const EngineerQualificationsSchema = z.object({
   org_promotes_highly_skilled: z.boolean().optional(), // (11)
 
   // 特別加算（続き）
+  // Special additions (continued)
   // 契約機関が中小企業基本法に規定する中小企業者で，試験研究費及び開発費の合計金額が，総収入金額から固定資産若しくは有価証券の譲渡による収入金額を控除した金額（売上高）の３％超
   // The applicant's organization is a small or medium-sized enterprise under the Small and Medium-sized Enterprise Basic Act and its total experiment and research costs and development costs exceed 3% of the amount remaining after deducting the amount of revenue from the transfer of fixed assets or securities from the total revenue (total sales)
   high_rnd_expenses: z.boolean().optional(), // (10) (12)

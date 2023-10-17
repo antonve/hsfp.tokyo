@@ -21,23 +21,28 @@ export const formConfig: FormConfig = {
 // (n) = the index as indicated on the right of the point sheet (疎明資料)
 export const ResearcherQualificationsSchema = z.object({
   // 学歴 (1)
+  // Academic background (1)
   degree: z.enum(['doctor', 'master', 'bachelor', 'none']).optional(),
   dual_degree: z.boolean().optional(),
 
   // 職歴 (2)
+  // Professional career (2)
   // 従事しようとする研究，研究の指導又は教育に係る実務経験
   // Experience related to the research, research guidance or education in which the applicant intends to engage
   experience: z.number().optional(), // years of relevant prefessional experience
 
   // 年収 (3)
+  // Annual salary (3)
   salary: z.number().optional(), // in yen, only counting that from your main source of income
 
   // 年齢
+  // Age
   // 申請の時点の年齢
   // Age at the time of the filing of the application
   age: z.number().optional(), // in years
 
   // 研究実績
+  // Research
   // 発明者として特許を受けた発明が１件以上
   // Have made at least one patented invention
   patent_inventor: z.boolean().optional(), // (4)
@@ -52,6 +57,7 @@ export const ResearcherQualificationsSchema = z.object({
   recognized_research: z.boolean().optional(), // (7)
 
   // 特別加算
+  // Special additions
   // Ⅰ　イノベーション促進支援措置を受けている
   // I Work for an organization which receives financial support measures(measures provided for separately in a public notice) for the promotion of innovation
   org_promotes_innovation: z.boolean().optional(), // (9)
@@ -67,6 +73,7 @@ export const ResearcherQualificationsSchema = z.object({
   high_rnd_expenses: z.boolean().optional(), // (10) (12)
 
   // 特別加算（続き）
+  // Special additions (continued)
   // 従事しようとする業務に関連する外国の資格，表彰等で法務大臣が認めるものを保有
   // Holders of foreign work-related qualifications,awards, etc., recognized by Japan's Minister of Justice
   foreign_qualification: z.boolean().optional(), // (13)
