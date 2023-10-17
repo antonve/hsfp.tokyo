@@ -1,311 +1,311 @@
-import { calculatePoints } from '@lib/domain/calculator'
-import { Criteria, mapCriteriaById } from '@lib/domain/criteria'
-import { CategoryMatcher } from '@lib/domain/calculator'
-import { errorMessages } from './errors'
 import {
-  matchMaxPoints,
-  matchAny,
-  matchQualificationsWithExtraPoints,
-} from '@lib/domain/matchers'
-import {
-  QualificationWithValue,
-  Qualification,
-} from '@lib/domain/qualifications'
+  MatchResult,
+  Matcher,
+  NO_MATCHES,
+  matchQualifications,
+  limitPoints,
+  matchOf,
+  mergeMatches,
+} from '@lib/domain/calculator'
 import { FormConfig } from '@lib/domain/form'
+import { VisaType } from '@lib/domain/visa'
+import { errorMessages } from './errors'
+import { z } from 'zod'
 
 export const formConfig: FormConfig = {
+  visaType: VisaType.A,
   sections: {},
   order: [],
 }
 
-export function calculatePointsForVisaA(qualifications: Qualification[]) {
-  return calculatePoints(Object.values(matchersForVisaA), qualifications)
+// Comments indicate to what item/項目 they refer to in the official point sheet
+// New lines = dark border in point sheet
+// (n) = the index as indicated on the right of the point sheet (疎明資料)
+export const ResearcherQualificationsSchema = z.object({
+  // 学歴 (1)
+  // Academic background (1)
+  degree: z.enum(['doctor', 'master', 'bachelor', 'none']).optional(),
+  dual_degree: z.boolean().optional(),
+
+  // 職歴 (2)
+  // Professional career (2)
+  // 従事しようとする研究，研究の指導又は教育に係る実務経験
+  // Experience related to the research, research guidance or education in which the applicant intends to engage
+  experience: z.number().optional(), // years of relevant prefessional experience
+
+  // 年収 (3)
+  // Annual salary (3)
+  salary: z.number().optional(), // in yen, only counting that from your main source of income
+
+  // 年齢
+  // Age
+  // 申請の時点の年齢
+  // Age at the time of the filing of the application
+  age: z.number().optional(), // in years
+
+  // 研究実績
+  // Research achievements
+  // 発明者として特許を受けた発明が１件以上
+  // Have made at least one patented invention
+  patent_inventor: z.boolean().optional(), // (4)
+  // 外国政府から補助金，競争的資金等を受けた研究に３回以上従事
+  // Have conducted projects financed by a competitive fund, etc. by a foreign national government at least three times
+  conducted_financed_projects: z.boolean().optional(), // (5)
+  // 学術論文データベースに登載されている学術雑誌に掲載された論文が３本以上 (責任著者であるものに限る)
+  // Have published at least three papers in academic journals listed in the academic journal database
+  published_papers: z.boolean().optional(), // (6)
+  // その他法務大臣が認める研究実績
+  // Have made other research achievements recognized by Japan's Minister of Justice
+  recognized_research: z.boolean().optional(), // (7)
+
+  // 特別加算
+  // Special additions
+  // Ⅰ　イノベーション促進支援措置を受けている
+  // I Work for an organization which receives financial support measures(measures provided for separately in a public notice) for the promotion of innovation
+  org_promotes_innovation: z.boolean().optional(), // (9)
+  // Ⅱ　Ⅰに該当する企業であって，中小企業基本法に規定する中小企業者
+  // Ⅱ The organization is a company that comes under I, and constitutes a small or medium-sized enterprise under the Small and Medium-Sized Enterprise Basic Act
+  org_smb: z.boolean().optional(), // (10)
+  // Ⅲ　産業の国際競争力の強化及び国際的な経済活動の拠点の形成を図るため、地方公共団体における高度人材外国人の受入れを促進するための支援として法務大臣が認めるものを受けている
+  // Ⅲ Work for an organization which receives support as a target organization (approved by the Minister of Justice) of  promoting the acceptance of highly skilled foreign workers in local governments in order to strengthen the international competitiveness of industry and form a base for international economic activities
+  org_promotes_highly_skilled: z.boolean().optional(), // (11)
+
+  // 契約機関が中小企業基本法に規定する中小企業者で，試験研究費及び開発費の合計金額が，総収入金額から固定資産若しくは有価証券の譲渡による収入金額を控除した金額（売上高）の３％超
+  // The applicant's organization is a small or medium-sized enterprise under the Small and Medium-sized Enterprise Basic Act and its total experiment and research costs and development costs exceed 3% of the amount remaining after deducting the amount of revenue from the transfer of fixed assets or securities from the total revenue (total sales)
+  high_rnd_expenses: z.boolean().optional(), // (10) (12)
+
+  // 特別加算（続き）
+  // Special additions (continued)
+  // 従事しようとする業務に関連する外国の資格，表彰等で法務大臣が認めるものを保有
+  // Holders of foreign work-related qualifications,awards, etc., recognized by Japan's Minister of Justice
+  foreign_qualification: z.boolean().optional(), // (13)
+
+  // 日本の大学を卒業又は大学院の課程を修了
+  // Either graduated from a Japanese university or completed a course of a Japanese graduate school
+  jp_uni_grad: z.boolean().optional(), // (14)
+
+  // Ⅰ　日本語専攻で外国の大学を卒業又は日本語能力試験Ｎ１合格相当
+  // I Either graduated from a foreign university with a major in Japanese-language, or have passed the N1 level of the Japanese-Language Proficiency Test or its equivalent.
+  n1: z.boolean().optional(), // (15)
+  // Ⅱ　日本語能力試験Ｎ２合格相当 (「日本の大学を卒業又は大学院の課程を修了」及びⅠに該当する者を除く)
+  // Ⅱ Have passed the N2 level of the Japanese-Language Proficiency Test or its equivalent (Excluding those who "graduated from a university or completed a course of a graduate school in Japan", and those who come under I)
+  n2: z.boolean().optional(), // (15)
+
+  // 各省が関与する成長分野の先端プロジェクトに従事
+  // Work on an advanced project in a growth field with the involvement of the relevant ministries and agencies
+  growth_field: z.boolean().optional(), // (16)
+
+  // Ⅰ　以下のランキング２つ以上において３００位以内の外国の大学又はいずれかにランクづけされている本邦の大学
+  // * QS・ワールド・ユニバーシティ・ランキングス　(クアクアレリ・シモンズ社（英国）)
+  // * THE・ワールド・ユニバーシティ・ランキングス (タイムズ社（英国）)
+  // * アカデミック・ランキング・オブ・ワールド・ユニバーシティズ (上海交通大学（中国）)
+  // I Foreign universities ranked in the top 300 in at least two of the following university rankings or Japanese universities ranked in one of them
+  // QS World University Rankings (QS Quacquarelli Symonds Limited (UK))
+  // THE World University Rankings (Times (UK))
+  // Academic Ranking of World Universities (of Shanghai Jiao Tong University (China))
+  uni_ranked: z.boolean().optional(), // (17)
+  // Ⅱ　文部科学省が実施するスーパーグローバル大学創成支援事業（トップ型 及びグローバル化牽引型）において，補助金の交付を受けている大学
+  // II Universities receiving subsidies through the Top Global Universities Project implemented by the Ministry of Education, Culture, Sports, Science and Technology
+  uni_funded: z.boolean().optional(), // (17)
+  // Ⅲ　外務省が実施するイノベーティブ・アジア事業において，「パートナー校」として指定を受けている大学
+  // III Universities designated as "partner schools" in the Innovative Asia Project implemented by the Ministry of Foreign Affairs
+  uni_partner: z.boolean().optional(), // (17)
+
+  // 外務省が実施するイノベーティブ・アジア事業の一環としてＪＩＣＡが実施する研修を修了したこと
+  // Have completed training conducted by JICA as part of the Innovative Asia Project implemented by the Ministry of Foreign Affairs
+  training_jica: z.boolean().optional(), // (18)
+})
+
+export type ResearcherQualifications = z.infer<
+  typeof ResearcherQualificationsSchema
+>
+
+export function calculatePoints(qualifications: ResearcherQualifications) {
+  return matchQualifications<ResearcherQualifications>(matchers, qualifications)
 }
 
-type CategoryVisaA =
-  | 'academic-background'
-  | 'career'
-  | 'compensation'
-  | 'age'
-  | 'research-achievements'
-  | 'bonus'
-  | 'contracting-organization'
-  | 'japanese'
-  | 'university'
-
-const matchersForVisaA: {
-  [category in CategoryVisaA]: CategoryMatcher
-} = {
-  'academic-background': {
-    criteria: [
-      { id: 'doctor', points: 30 },
-      { id: 'master', points: 20 },
-      { id: 'bachelor', points: 10 },
-      { id: 'dual_degree', points: 5 },
-    ],
-    match: (criteria, allQualifications) => {
-      const qualifications = allQualifications
-        .filter(q => q.category === 'academic-background')
-        .map(q => q.id)
-
-      const degrees = criteria.filter(c => qualifications.includes(c.id))
-      const bonus = degrees.find(d => d.id === 'dual_degree')
-      const [highestDegree] = degrees
-        .filter(d => d.id != 'dual_degree')
-        .sort((a, b) => b.points - a.points)
-
-      let points = 0
-      let matches: Criteria[] = []
-
-      if (highestDegree) {
-        points += highestDegree.points
-        matches.push(highestDegree)
-      }
-
-      if (bonus) {
-        points += bonus.points
-        matches.push(bonus)
-      }
-
-      return { matches, points }
-    },
+const matchers: Matcher<ResearcherQualifications>[] = [
+  function matchDegree(q) {
+    switch (q.degree) {
+      case 'doctor':
+        return matchOf('doctor', 30)
+      case 'master':
+        return matchOf('master', 20)
+      case 'bachelor':
+        return matchOf('bachelor', 10)
+      default:
+        return NO_MATCHES
+    }
   },
-  career: {
-    criteria: [
-      { id: '7_years_or_more', points: 15, match: exp => exp >= 7 },
-      { id: '5_years_or_more', points: 10, match: exp => exp >= 5 },
-      { id: '3_years_or_more', points: 5, match: exp => exp >= 3 },
-    ],
-    match: (criteria, qualifications) => {
-      const match = qualifications.find(q => q.category === 'career') as
-        | QualificationWithValue
-        | undefined
-      const yearsOfExperience = match?.value ?? 0
+  function matchDualDegree(q) {
+    // Dual degree does not apply if we have no degree
+    if (!q.degree || q.degree === 'none') {
+      return NO_MATCHES
+    }
 
-      return matchMaxPoints(criteria, yearsOfExperience)
-    },
+    if (!q.dual_degree) {
+      return NO_MATCHES
+    }
+
+    return matchOf('dual_degree', 5)
   },
-  compensation: {
-    criteria: [
-      {
-        id: '10m_or_more',
-        points: 40,
-        match: ({ salary }) => salary >= 10_000_000,
-      },
-      {
-        id: '9m_or_more',
-        points: 35,
-        match: ({ salary }) => salary >= 9_000_000,
-      },
-      {
-        id: '8m_or_more',
-        points: 30,
-        match: ({ salary }) => salary >= 8_000_000,
-      },
-      {
-        id: '7m_or_more',
-        points: 25,
-        match: ({ salary, age }) => salary >= 7_000_000 && age < 40,
-      },
-      {
-        id: '6m_or_more',
-        points: 20,
-        match: ({ salary, age }) => salary >= 6_000_000 && age < 40,
-      },
-      {
-        id: '5m_or_more',
-        points: 15,
-        match: ({ salary, age }) => salary >= 5_000_000 && age < 35,
-      },
-      {
-        id: '4m_or_more',
-        points: 10,
-        match: ({ salary, age }) => salary >= 4_000_000 && age < 30,
-      },
-    ],
-    match: (criteria, qualifications) => {
-      const matchSalary = qualifications.find(
-        q => q.category === 'compensation',
-      ) as QualificationWithValue | undefined
-      const matchAge = qualifications.find(q => q.category === 'age') as
-        | QualificationWithValue
-        | undefined
+  function matchWorkExperience(q) {
+    const experience = q.experience ?? 0
 
-      if (matchSalary === undefined || matchAge == undefined) {
-        return { matches: [], points: 0 }
-      }
+    if (experience >= 7) {
+      return matchOf('7y_plus', 15)
+    }
+    if (experience >= 5) {
+      return matchOf('5y_plus', 10)
+    }
+    if (experience >= 3) {
+      return matchOf('3y_plus', 5)
+    }
 
-      const age = matchAge.value
-      const salary = matchSalary.value
-      if (salary < 3_000_000) {
-        throw new Error(errorMessages.salaryTooLow)
-      }
-
-      return matchMaxPoints(criteria, { salary, age })
-    },
+    return NO_MATCHES
   },
-  age: {
-    criteria: [
-      { id: 'less_than_30', points: 15, match: age => age < 30 },
-      { id: 'less_than_35', points: 10, match: age => age < 35 },
-      { id: 'less_than_40', points: 5, match: age => age < 40 },
-    ],
-    match: (criteria, qualifications) => {
-      const match = qualifications.find(q => q.category === 'age') as
-        | QualificationWithValue
-        | undefined
+  function matchSalary(q) {
+    // We need to allow missing salary when we haven't completed the form yet
+    if (!q.salary) {
+      return NO_MATCHES
+    }
 
-      if (match === undefined) {
-        return { matches: [], points: 0 }
-      }
+    const salary = q.salary ?? 0
+    const age = q.age ?? 100
 
-      const age = match.value
-      return matchMaxPoints(criteria, age)
-    },
+    if (salary >= 10_000_000) {
+      return matchOf('10m_plus', 40)
+    }
+    if (salary >= 9_000_000) {
+      return matchOf('9m_plus', 35)
+    }
+    if (salary >= 8_000_000) {
+      return matchOf('8m_plus', 30)
+    }
+    if (salary >= 7_000_000 && age < 40) {
+      return matchOf('7m_plus', 25)
+    }
+    if (salary >= 6_000_000 && age < 40) {
+      return matchOf('6m_plus', 20)
+    }
+    if (salary >= 5_000_000 && age < 35) {
+      return matchOf('5m_plus', 15)
+    }
+    if (salary >= 4_000_000 && age < 30) {
+      return matchOf('4m_plus', 10)
+    }
+    if (salary >= 3_000_000) {
+      return NO_MATCHES
+    }
+
+    throw new Error(errorMessages.salaryTooLow)
   },
-  'research-achievements': {
-    // threshold: 2, bonus: 5
-    criteria: [
-      { id: 'patent_inventor', points: 20 },
-      { id: 'conducted_financed_projects_three_times', points: 20 },
-      { id: 'has_published_three_papers', points: 20 },
-      { id: 'research_recognized_by_japan', points: 20 },
-    ],
-    match: (criteria, allQualifications) => {
-      const qualifications = allQualifications.filter(
-        q => q.category === 'research-achievements',
-      )
-      const threshold = 2
-      const bonus = 5
-      return matchQualificationsWithExtraPoints(
-        criteria,
-        qualifications,
-        threshold,
-        bonus,
-      )
-    },
+  function matchAge(q) {
+    const age = q.age ?? 100
+
+    if (age < 30) {
+      return matchOf('under_30y', 15)
+    }
+    if (age < 35) {
+      return matchOf('under_35y', 10)
+    }
+    if (age < 40) {
+      return matchOf('under_40y', 5)
+    }
+
+    return NO_MATCHES
   },
-  bonus: {
-    criteria: [
-      { id: 'rnd_exceeds_three_percent', points: 5 },
-      { id: 'foreign_work_related_qualification', points: 5 },
-      { id: 'advanced_project_growth_field', points: 10 },
-      {
-        id: 'completed_training_conducted_by_jica_innovative_asia_project',
-        points: 5,
-      },
-    ],
-    match: (criteria, allQualifications) => {
-      const qualifications = allQualifications
-        .filter(q => q.category === 'bonus')
-        .map(q => q.id)
+  function matchResearchAchievements(q) {
+    const matches: MatchResult[] = []
 
-      const matches = criteria.filter(c => qualifications.includes(c.id))
-      const points = matches.reduce(
-        (accumulator, current) => accumulator + current.points,
-        0,
-      )
-      return { matches, points }
-    },
+    if (q.patent_inventor) {
+      matches.push(matchOf('patent_inventor', 20))
+    }
+    if (q.conducted_financed_projects) {
+      matches.push(matchOf('conducted_financed_projects', 20))
+    }
+    if (q.published_papers) {
+      matches.push(matchOf('published_papers', 20))
+    }
+    if (q.recognized_research) {
+      matches.push(matchOf('recognized_research', 20))
+    }
+
+    const merged = mergeMatches(matches)
+
+    return limitPoints(merged, 25)
   },
-  'contracting-organization': {
-    criteria: [
-      { id: 'contracting_organization_promotes_innovation', points: 10 },
-      { id: 'contracting_organization_small_medium_sized', points: 10 },
-      { id: 'contracting_organization_promotes_highly_skilled', points: 10 },
-    ],
-    match: (allCriteria, allQualifications) => {
-      let points = 0
-      let matches: Criteria[] = []
+  function matchBonus(q) {
+    const matches: MatchResult[] = []
 
-      const criteria = mapCriteriaById(allCriteria)
-      const qualifications = allQualifications
-        .filter(q => q.category === 'contracting-organization')
-        .map(q => q.id)
-      const isInnovative = qualifications.includes(
-        'contracting_organization_promotes_innovation',
-      )
-      const isSmallCompany = qualifications.includes(
-        'contracting_organization_small_medium_sized',
-      )
-      const isPromotingHighlySkilled = qualifications.includes(
-        'contracting_organization_promotes_highly_skilled',
-      )
+    if (q.high_rnd_expenses) {
+      matches.push(matchOf('high_rnd_expenses', 5))
+    }
+    if (q.foreign_qualification) {
+      matches.push(matchOf('foreign_qualification', 5))
+    }
+    if (q.growth_field) {
+      matches.push(matchOf('growth_field', 10))
+    }
+    if (q.training_jica) {
+      matches.push(matchOf('training_jica', 5))
+    }
 
-      if (isInnovative) {
-        matches.push(criteria['contracting_organization_promotes_innovation'])
-        points +=
-          criteria['contracting_organization_promotes_innovation'].points
-      }
-      if (isInnovative && isSmallCompany) {
-        matches.push(criteria['contracting_organization_small_medium_sized'])
-        points += criteria['contracting_organization_small_medium_sized'].points
-      }
-      if (isPromotingHighlySkilled) {
-        matches.push(
-          criteria['contracting_organization_promotes_highly_skilled'],
-        )
-        points +=
-          criteria['contracting_organization_promotes_highly_skilled'].points
-      }
-
-      return { matches, points }
-    },
+    return mergeMatches(matches)
   },
-  japanese: {
-    criteria: [
-      { id: 'graduated_japanese_uni_or_course', points: 10 },
-      { id: 'jlpt_n1_or_equivalent', points: 15 },
-      { id: 'jlpt_n2_or_equivalent', points: 10 },
-    ],
-    match: (allCriteria, allQualifications) => {
-      let points = 0
-      let matches: Criteria[] = []
+  function matchContractingOrganization(q) {
+    const isInnovative = q.org_promotes_innovation ?? false
+    const isSmallCompany = q.org_smb ?? false
+    const isPromotingHighlySkilled = q.org_promotes_highly_skilled ?? false
 
-      const criteria = mapCriteriaById(allCriteria)
-      const qualifications = allQualifications
-        .filter(q => q.category === 'japanese')
-        .map(q => q.id)
-      const isUniGraduate = qualifications.includes(
-        'graduated_japanese_uni_or_course',
-      )
-      const hasN1 = qualifications.includes('jlpt_n1_or_equivalent')
-      const hasN2 = qualifications.includes('jlpt_n2_or_equivalent')
+    const matches: MatchResult[] = []
 
-      if (hasN2 && !hasN1 && !isUniGraduate) {
-        matches.push(criteria['jlpt_n2_or_equivalent'])
-        points += criteria['jlpt_n2_or_equivalent'].points
-      }
-      if (hasN1) {
-        matches.push(criteria['jlpt_n1_or_equivalent'])
-        points += criteria['jlpt_n1_or_equivalent'].points
-      }
-      if (isUniGraduate) {
-        matches.push(criteria['graduated_japanese_uni_or_course'])
-        points += criteria['graduated_japanese_uni_or_course'].points
-      }
+    if (isInnovative) {
+      matches.push(matchOf('org_promotes_innovation', 10))
+    }
+    if (isInnovative && isSmallCompany) {
+      matches.push(matchOf('org_smb', 10))
+    }
+    if (isPromotingHighlySkilled) {
+      matches.push(matchOf('org_promotes_highly_skilled', 10))
+    }
 
-      return { matches, points }
-    },
+    return mergeMatches(matches)
   },
-  university: {
-    criteria: [
-      { id: 'top_ranked_university_graduate', points: 10 },
-      {
-        id: 'graduate_of_university_funded_by_top_global_universities_project',
-        points: 10,
-      },
-      {
-        id: 'graduate_of_university_partner_school',
-        points: 10,
-      },
-    ],
-    match: (criteria, allQualifications) => {
-      const qualifications = allQualifications.filter(
-        q => q.category === 'university',
-      )
+  function matchJapanese(q) {
+    const isJapaneseUniGraduate = q.jp_uni_grad ?? false
+    const hasN1 = q.n1 ?? false
+    const hasN2 = q.n2 ?? false
 
-      return matchAny(criteria, qualifications)
-    },
+    const matches: MatchResult[] = []
+
+    if (hasN2 && !hasN1 && !isJapaneseUniGraduate) {
+      matches.push(matchOf('n2', 10))
+    }
+    if (hasN1) {
+      matches.push(matchOf('n1', 15))
+    }
+    if (isJapaneseUniGraduate) {
+      matches.push(matchOf('jp_uni_grad', 10))
+    }
+
+    return mergeMatches(matches)
   },
-}
+  function matchUniversity(q) {
+    const matches: MatchResult[] = []
+
+    if (q.uni_ranked) {
+      matches.push(matchOf('uni_ranked', 10))
+    }
+    if (q.uni_funded) {
+      matches.push(matchOf('uni_funded', 10))
+    }
+    if (q.uni_partner) {
+      matches.push(matchOf('uni_partner', 10))
+    }
+
+    const merged = mergeMatches(matches)
+
+    return limitPoints(merged, 10)
+  },
+]

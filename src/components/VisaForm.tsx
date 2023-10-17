@@ -10,27 +10,34 @@ import {
   FormConfig,
   NumberPrompt,
   Prompt,
+  SectionName,
+  SectionNameSchema,
 } from '@lib/domain/form'
-import {
-  Category,
-  CategorySchema,
-  Qualification,
-  QualificationSchema,
-} from '@lib/domain/qualifications'
 import { useState } from 'react'
 import cn from 'classnames'
+import { ResearcherQualificationsSchema } from '@lib/visa/a'
+import { EngineerQualificationsSchema } from '@lib/visa/b'
+import { VisaType } from '@lib/domain/visa'
+
+// v = visa (A = researcher, B = engineer, C = business manager)
+// Kept short so the hash of the qualifications stays short
+const QualificationsSchema = z.union([
+  ResearcherQualificationsSchema.extend({ v: z.literal('A') }),
+  EngineerQualificationsSchema.extend({ v: z.literal('B') }),
+])
+type Qualifications = z.infer<typeof QualificationsSchema>
 
 interface Props {
   config: FormConfig
 }
 
 interface VisaProgress {
-  category: Category
+  section: SectionName
   promptIndex: number
 }
 
 export function VisaForm({ config }: Props) {
-  const qualifications = useQualifications()
+  const qualifications = useQualifications(config.visaType)
   const progress = useVisaFormProgress(config)
 
   return (
@@ -43,69 +50,63 @@ export function VisaForm({ config }: Props) {
 }
 
 const paramsSchema = z.object({
-  category: CategorySchema.optional().default('academic-background'),
+  section: SectionNameSchema.optional().default('academic-background'),
   prompt: z.coerce.number().optional().default(1),
 })
 
 function useVisaFormProgress(config: FormConfig) {
   const params = useParams()
-  const { category, prompt } = paramsSchema.parse(params)
+  const { section, prompt } = paramsSchema.parse(params)
 
-  if (config.sections[category] === undefined) {
-    throw Error(`invalid category ${category}`)
+  if (config.sections[section] === undefined) {
+    throw Error(`invalid section ${section}`)
   }
-  if (config.sections[category]!!.length < prompt) {
-    throw Error(`invalid prompt ${category}`)
+  if (config.sections[section]!!.length < prompt) {
+    throw Error(`invalid prompt ${section}`)
   }
 
-  return { category, promptIndex: prompt - 1 } as VisaProgress
+  return { section, promptIndex: prompt - 1 } as VisaProgress
 }
 
-function useQualifications() {
+function useQualifications(visaType: VisaType) {
   const searchParams = useSearchParams()
   const encodedQualifications = searchParams.get('q')
 
   if (!encodedQualifications) {
-    return []
+    return { v: visaType } as Qualifications
   }
 
   return decodeQualifications(encodedQualifications)
 }
 
 function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {
-  const currentSection = formConfig.sections[progress.category]!!
+  const currentSection = formConfig.sections[progress.section]!!
   const shouldUseNextCategory =
     currentSection.length <= progress.promptIndex + 1
   const promptIndex = shouldUseNextCategory ? 0 : progress.promptIndex + 1
   const currentCategoryIndex = formConfig.order.findIndex(
-    it => it === progress.category,
+    it => it === progress.section,
   )
-  const category = shouldUseNextCategory
+  const section = shouldUseNextCategory
     ? formConfig.order[currentCategoryIndex + 1]
-    : progress.category
+    : progress.section
 
   return {
-    category,
+    section,
     promptIndex,
   } as VisaProgress
 }
 
 function decodeQualifications(raw: string) {
   const qualifications = JSON.parse(atob(raw))
-  return z.array(QualificationSchema).parse(qualifications)
+  return QualificationsSchema.parse(qualifications)
 }
 
-function encodeQualifications(qualifications: Qualification[]) {
+function encodeQualifications(qualifications: Qualifications) {
   return btoa(JSON.stringify(qualifications))
 }
 
-function addQualification(currentQ: Qualification[], newQ: Qualification) {
-  const qualificationsWithDuplicatesRemoved = currentQ.filter(
-    q => !(q.category === newQ.category && q.id === newQ.id),
-  )
-
-  return [...qualificationsWithDuplicatesRemoved, newQ]
-}
+type QualificationUpdater = (qualifications: Qualifications) => Qualifications
 
 function VisaFormSection({
   config,
@@ -114,20 +115,20 @@ function VisaFormSection({
 }: {
   config: FormConfig
   progress: VisaProgress
-  qualifications: Qualification[]
+  qualifications: Qualifications
 }) {
   const router = useRouter()
   const params = useParams()
 
-  const prompts = config.sections[progress.category]!!
+  const prompts = config.sections[progress.section]!!
   const prompt = prompts[progress.promptIndex]
 
-  const submit = (newQualification: Qualification) => {
-    const { category, promptIndex } = nextStepOfForm(config, progress)
-    const newQualifications = addQualification(qualifications, newQualification)
+  const submit = (updateQualifications: QualificationUpdater) => {
+    const { section, promptIndex } = nextStepOfForm(config, progress)
+    const newQualifications = updateQualifications(qualifications)
 
     router.push(
-      `/calculator/${params['visa']}/${category}/${
+      `/calculator/${params['visa']}/${section}/${
         promptIndex + 1
       }?q=${encodeQualifications(newQualifications)}`,
     )
@@ -135,11 +136,11 @@ function VisaFormSection({
 
   return (
     <div className="pb-10">
-      <h2 className="font-bold text-xl mb-4">{progress.category}</h2>
+      <h2 className="font-bold text-xl mb-4">{progress.section}</h2>
       <VisaFormPrompt
         prompt={prompt}
         onSubmit={submit}
-        category={progress.category}
+        section={progress.section}
       />
     </div>
   )
@@ -147,22 +148,18 @@ function VisaFormSection({
 
 function VisaFormPrompt({
   prompt,
-  category,
+  section,
   onSubmit,
 }: {
   prompt: Prompt
-  category: Category
-  onSubmit: (newQualification: Qualification) => void
+  section: SectionName
+  onSubmit: (updateQualifications: QualificationUpdater) => void
 }) {
   switch (prompt.type) {
     case 'NUMBER':
       return (
         <div>
-          <NumberPrompt
-            prompt={prompt}
-            onSubmit={onSubmit}
-            category={category}
-          />
+          <NumberPrompt prompt={prompt} onSubmit={onSubmit} section={section} />
         </div>
       )
     case 'BOOLEAN':
@@ -171,18 +168,14 @@ function VisaFormPrompt({
           <BooleanPrompt
             prompt={prompt}
             onSubmit={onSubmit}
-            category={category}
+            section={section}
           />
         </div>
       )
     case 'CHOICE':
       return (
         <div>
-          <ChoicePrompt
-            prompt={prompt}
-            onSubmit={onSubmit}
-            category={category}
-          />
+          <ChoicePrompt prompt={prompt} onSubmit={onSubmit} section={section} />
         </div>
       )
   }
@@ -190,36 +183,36 @@ function VisaFormPrompt({
 
 function NumberPrompt({
   prompt,
-  category,
+  section,
   onSubmit,
 }: {
   prompt: NumberPrompt
-  category: Category
-  onSubmit: (newQualification: Qualification) => void
+  section: SectionName
+  onSubmit: (updateQualifications: QualificationUpdater) => void
 }) {
   return <div>number prompt: {prompt.id}</div>
 }
 
 function BooleanPrompt({
   prompt,
-  category,
+  section,
   onSubmit,
 }: {
   prompt: BooleanPrompt
-  category: Category
-  onSubmit: (newQualification: Qualification) => void
+  section: SectionName
+  onSubmit: (updateQualifications: QualificationUpdater) => void
 }) {
   return <div>boolean prompt: {prompt.id}</div>
 }
 
 function ChoicePrompt({
   prompt,
-  category,
+  section,
   onSubmit,
 }: {
   prompt: ChoicePrompt
-  category: Category
-  onSubmit: (newQualification: Qualification) => void
+  section: SectionName
+  onSubmit: (updateQualifications: QualificationUpdater) => void
 }) {
   const [value, setValue] = useState<string | undefined>(undefined)
 
@@ -233,12 +226,10 @@ function ChoicePrompt({
           return
         }
 
-        const qualification: Qualification = {
-          category,
-          id: value,
-        }
-
-        onSubmit(qualification)
+        onSubmit(q => ({
+          ...q,
+          [prompt.id]: value,
+        }))
       }}
     >
       <div className="space-y-4 mb-8">
