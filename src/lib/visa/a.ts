@@ -1,4 +1,12 @@
-import { MatchResult, Matcher, calculatePoints } from '@lib/domain/calculator'
+import {
+  MatchResult,
+  Matcher,
+  NO_MATCHES,
+  calculatePoints,
+  limitPoints,
+  matchOf,
+  mergeMatches,
+} from '@lib/domain/calculator'
 import { Qualifications } from '@lib/domain/qualifications'
 import { FormConfig } from '@lib/domain/form'
 import { errorMessages } from './errors'
@@ -10,37 +18,6 @@ export const formConfig: FormConfig = {
 
 export function calculatePointsForVisaA(qualifications: Qualifications) {
   return calculatePoints(matchers, qualifications)
-}
-
-const NO_MATCHES: MatchResult = { matches: [], points: 0 }
-
-function matchOf(id: string, points: number) {
-  return {
-    matches: [{ id, points }],
-    points: points,
-  }
-}
-
-function mergeMatches(matches: MatchResult[]) {
-  const mergedCriteria = matches
-    .map(it => it.matches)
-    .reduce((prev, current) => prev.concat(current), [])
-
-  const points = matches
-    .map(it => it.points)
-    .reduce((prev, current) => prev + current, 0)
-
-  return {
-    matches: mergedCriteria,
-    points,
-  } as MatchResult
-}
-
-function limitPoints(match: MatchResult, limit: number) {
-  return {
-    ...match,
-    points: Math.min(match.points, limit),
-  }
 }
 
 const matchers: Matcher[] = [
