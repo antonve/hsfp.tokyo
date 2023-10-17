@@ -120,6 +120,8 @@ describe('point calculation: researcher visa', () => {
       10,
       ['uni_ranked', 'uni_funded', 'uni_partner'],
     ],
+
+    // TODO: test real cases
   ]
 
   test.each(testCases)(

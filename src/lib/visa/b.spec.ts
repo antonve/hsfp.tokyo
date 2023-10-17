@@ -126,6 +126,8 @@ describe('point calculation: engineer visa', () => {
     // special additions (continued)
     [{ training_jica: true }, 5, ['training_jica']],
     [{ investment_management: true }, 10, ['investment_management']],
+
+    // TODO: test real cases
   ]
 
   test.each(testCases)(
