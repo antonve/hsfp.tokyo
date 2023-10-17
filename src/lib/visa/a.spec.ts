@@ -6,6 +6,8 @@ type TestCase = [ResearcherQualifications, number, string[]]
 
 describe('point calculation: researcher visa', () => {
   const testCases: TestCase[] = [
+    [{}, 0, []],
+
     // degrees
     [{ degree: 'doctor' }, 30, ['doctor']],
     [{ degree: 'master' }, 20, ['master']],

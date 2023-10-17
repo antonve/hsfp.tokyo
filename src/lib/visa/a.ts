@@ -60,7 +60,7 @@ export const ResearcherQualificationsSchema = z.object({
   uni_funded: z.boolean().optional(), // (17)
   uni_partner: z.boolean().optional(), // (17)
 
-  training_jica: z.boolean().optional(), // 18
+  training_jica: z.boolean().optional(), // (18)
 })
 
 export type ResearcherQualifications = z.infer<
