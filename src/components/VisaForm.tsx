@@ -12,28 +12,16 @@ import {
   Prompt,
   SectionName,
   SectionNameSchema,
+  VisaProgress,
+  nextStepOfForm,
 } from '@lib/domain/form'
 import { useState } from 'react'
 import cn from 'classnames'
-import { ResearcherQualificationsSchema } from '@lib/visa/a'
-import { EngineerQualificationsSchema } from '@lib/visa/b'
-import { VisaType } from '@lib/domain/visa'
-
-// v = visa (A = researcher, B = engineer, C = business manager)
-// Kept short so the hash of the qualifications stays short
-const QualificationsSchema = z.union([
-  ResearcherQualificationsSchema.extend({ v: z.literal('A') }),
-  EngineerQualificationsSchema.extend({ v: z.literal('B') }),
-])
-type Qualifications = z.infer<typeof QualificationsSchema>
+import { Qualifications, encodeQualifications } from '@lib/visa'
+import { useQualifications, useVisaFormProgress } from '@lib/hooks'
 
 interface Props {
   config: FormConfig
-}
-
-interface VisaProgress {
-  section: SectionName
-  promptIndex: number
 }
 
 export function VisaForm({ config }: Props) {
@@ -47,63 +35,6 @@ export function VisaForm({ config }: Props) {
       qualifications={qualifications}
     />
   )
-}
-
-const paramsSchema = z.object({
-  section: SectionNameSchema.optional().default('academic-background'),
-  prompt: z.coerce.number().optional().default(1),
-})
-
-function useVisaFormProgress(config: FormConfig) {
-  const params = useParams()
-  const { section, prompt } = paramsSchema.parse(params)
-
-  if (config.sections[section] === undefined) {
-    throw Error(`invalid section ${section}`)
-  }
-  if (config.sections[section]!!.length < prompt) {
-    throw Error(`invalid prompt ${section}`)
-  }
-
-  return { section, promptIndex: prompt - 1 } as VisaProgress
-}
-
-function useQualifications(visaType: VisaType) {
-  const searchParams = useSearchParams()
-  const encodedQualifications = searchParams.get('q')
-
-  if (!encodedQualifications) {
-    return { v: visaType } as Qualifications
-  }
-
-  return decodeQualifications(encodedQualifications)
-}
-
-function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {
-  const currentSection = formConfig.sections[progress.section]!!
-  const shouldUseNextCategory =
-    currentSection.length <= progress.promptIndex + 1
-  const promptIndex = shouldUseNextCategory ? 0 : progress.promptIndex + 1
-  const currentCategoryIndex = formConfig.order.findIndex(
-    it => it === progress.section,
-  )
-  const section = shouldUseNextCategory
-    ? formConfig.order[currentCategoryIndex + 1]
-    : progress.section
-
-  return {
-    section,
-    promptIndex,
-  } as VisaProgress
-}
-
-function decodeQualifications(raw: string) {
-  const qualifications = JSON.parse(atob(raw))
-  return QualificationsSchema.parse(qualifications)
-}
-
-function encodeQualifications(qualifications: Qualifications) {
-  return btoa(JSON.stringify(qualifications))
 }
 
 type QualificationUpdater = (qualifications: Qualifications) => Qualifications

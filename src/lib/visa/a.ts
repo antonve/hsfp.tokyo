@@ -6,9 +6,9 @@ import {
   limitPoints,
   matchOf,
   mergeMatches,
+  VisaType,
 } from '@lib/domain/calculator'
 import { FormConfig } from '@lib/domain/form'
-import { VisaType } from '@lib/domain/visa'
 import { errorMessages } from './errors'
 import { z } from 'zod'
 
