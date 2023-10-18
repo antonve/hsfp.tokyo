@@ -1,9 +1,5 @@
 'use client'
 
-import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import { z } from 'zod'
-import { ArrowRightIcon } from '@heroicons/react/20/solid'
-
 import {
   BooleanPrompt,
   ChoicePrompt,
@@ -11,14 +7,15 @@ import {
   NumberPrompt,
   Prompt,
   SectionName,
-  SectionNameSchema,
   VisaProgress,
   nextStepOfForm,
 } from '@lib/domain/form'
-import { useState } from 'react'
-import cn from 'classnames'
 import { Qualifications, encodeQualifications } from '@lib/visa'
 import { useQualifications, useVisaFormProgress } from '@lib/hooks'
+import { useParams, useRouter } from 'next/navigation'
+import { ArrowRightIcon } from '@heroicons/react/20/solid'
+import { useState } from 'react'
+import cn from 'classnames'
 
 interface Props {
   config: FormConfig

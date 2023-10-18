@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { VisaType } from '@lib/domain/calculator'
+import { VisaType } from '@lib/domain'
 
 // TODO: decide how to split the sections
 export const SectionNameSchema = z.enum([

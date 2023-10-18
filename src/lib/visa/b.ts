@@ -1,15 +1,13 @@
+import { FormConfig } from '@lib/domain/form'
+import { MatchResult, Matcher, VisaType } from '@lib/domain'
+import { matchQualifications } from '@lib/domain/matching'
 import {
-  MatchResult,
-  Matcher,
   NO_MATCHES,
-  matchQualifications,
   limitPoints,
   matchOf,
   mergeMatches,
-  VisaType,
-} from '@lib/domain/calculator'
-import { FormConfig } from '@lib/domain/form'
-import { errorMessages } from './errors'
+} from '@lib/domain/matching.helpers'
+import { errorMessages } from '@lib/visa/errors'
 import { z } from 'zod'
 
 export const formConfig: FormConfig = {

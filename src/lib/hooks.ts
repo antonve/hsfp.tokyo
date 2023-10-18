@@ -1,4 +1,4 @@
-import { VisaType } from '@lib/domain/calculator'
+import { VisaType } from '@lib/domain'
 import { FormConfig, SectionNameSchema, VisaProgress } from '@lib/domain/form'
 import {
   Qualifications,
