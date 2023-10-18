@@ -1,4 +1,4 @@
-import { useFormConfig } from '@lib/domain/hooks'
+import { useFormConfig } from '@lib/hooks'
 import { redirect } from 'next/navigation'
 
 interface Props {

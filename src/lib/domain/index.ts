@@ -8,3 +8,16 @@ export enum VisaType {
   // Advanced business management activities
   C = 'C',
 }
+
+// A Criteria is a row in the HSP points table.
+export interface Criteria {
+  id: string
+  points: number
+}
+
+export interface MatchResult {
+  matches: Criteria[]
+  points: number
+}
+
+export type Matcher<Q> = (q: Q) => MatchResult
