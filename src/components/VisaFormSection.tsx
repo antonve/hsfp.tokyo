@@ -37,11 +37,7 @@ export function VisaFormSection({
   return (
     <div className="pb-10">
       <h2 className="font-bold text-xl mb-4">{progress.section}</h2>
-      <VisaFormPrompt
-        prompt={prompt}
-        onSubmit={submit}
-        section={progress.section}
-      />
+      <VisaFormPrompt prompt={prompt} onSubmit={submit} />
     </div>
   )
 }

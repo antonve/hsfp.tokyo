@@ -7,12 +7,12 @@ import { QualificationUpdater } from './VisaFormSection'
 
 export function ChoicePrompt({
   prompt,
-  section,
   onSubmit,
+  qualificationUpdater = value => q => ({ ...q, [prompt.id]: value }),
 }: {
   prompt: ChoicePrompt
-  section: SectionName
   onSubmit: (updateQualifications: QualificationUpdater) => void
+  qualificationUpdater?: (value: string) => QualificationUpdater
 }) {
   const [value, setValue] = useState<string | undefined>(undefined)
 
@@ -26,10 +26,7 @@ export function ChoicePrompt({
           return
         }
 
-        onSubmit(q => ({
-          ...q,
-          [prompt.id]: value,
-        }))
+        onSubmit(qualificationUpdater(value))
       }}
     >
       <div className="space-y-4 mb-8">

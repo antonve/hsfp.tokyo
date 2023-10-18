@@ -2,15 +2,27 @@
 
 import { BooleanPrompt, SectionName } from '@lib/domain/form'
 import { QualificationUpdater } from '@components/VisaFormSection'
+import { ChoicePrompt } from './ChoicePrompt'
 
 export function BooleanPrompt({
   prompt,
-  section,
   onSubmit,
 }: {
   prompt: BooleanPrompt
-  section: SectionName
   onSubmit: (updateQualifications: QualificationUpdater) => void
 }) {
-  return <div>boolean prompt: {prompt.id}</div>
+  return (
+    <ChoicePrompt
+      prompt={{
+        id: prompt.id,
+        type: 'CHOICE',
+        options: ['true', 'false'],
+      }}
+      onSubmit={onSubmit}
+      qualificationUpdater={value => q => ({
+        ...q,
+        [prompt.id]: value === 'false' ? undefined : true,
+      })}
+    />
+  )
 }
