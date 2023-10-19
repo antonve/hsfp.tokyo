@@ -13,5 +13,10 @@
             "name": "Type C",
             "description": "Business management"
         }
+    },
+    "start": {
+        "A": "Start research point calculation",
+        "B": "Start engineer point calculation",
+        "C": "Start business manager point calculation"
     }
 }

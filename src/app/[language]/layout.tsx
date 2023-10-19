@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 
 export async function generateStaticParams() {
-  return languages.map((lng) => ({ lng }))
+  return languages.map((language) => ({ language }))
 }
 
 
@@ -25,16 +25,16 @@ export async function generateStaticParams() {
 export default function RootLayout({
   children,
   params: {
-    lng
+    language
   }
 }: {
   children: React.ReactNode
   params: {
-    lng: string
+    language: string
   }
 }) {
   return (
-    <html lang={lng} dir={dir(lng)}>
+    <html lang={language} dir={dir(language)}>
       <body
         className={cn(
           'bg-stone-950 text-gray-50 font-sans',
