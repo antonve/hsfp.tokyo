@@ -1,15 +1,18 @@
+'use client'
+
 import { useFormConfig } from '@lib/hooks'
-import { redirect } from 'next/navigation'
+import { RedirectType, redirect } from 'next/navigation'
 
 interface Props {
   params: {
-    visa: string
+    visa: string,
+    lng: string,
   }
 }
 
 export default function Page({ params }: Props) {
   const formConfig = useFormConfig(params.visa)
+  const lng = params?.lng
   const category = formConfig.order[0]
-
-  redirect(`/calculator/${params.visa}/${category}/1`)
+  redirect(`/${lng}/calculator/${params.visa}/${category}/1`, RedirectType.replace)
 }

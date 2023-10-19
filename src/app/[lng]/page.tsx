@@ -1,6 +1,14 @@
 import Link from 'next/link'
 
-export default function Page() {
+interface Props {
+  params: {
+    lng: string
+  }
+}
+
+
+export default function Page({ params }: Props) {
+  const lng = params?.lng
   return (
     <>
       <header className="py-6 px-4 flex justify-between space-x-8">
@@ -12,28 +20,28 @@ export default function Page() {
         <nav>
           <ul className="flex space-x-4">
             <li>
-              <Link href="/">Home</Link>
+              <Link href={`${lng}/`}>Home</Link>
             </li>
             <li>
-              <Link href="/start">Points calculator</Link>
+              <Link href={`${lng}/start`}> Points calculator</Link>
             </li>
             <li>
-              <Link href="/about">About</Link>
+              <Link href={`${lng}/about`}>About</Link>
             </li>
           </ul>
         </nav>
-      </header>
+      </header >
 
       <div>
-        <Link href="/calculator/researcher">
+        <Link href={`${lng}/calculator/researcher`}>
           Start research point calculation
         </Link>
         <br />
-        <Link href="/calculator/engineer">
+        <Link href={`${lng}/calculator/engineer`}>
           Start engineer point calculation
         </Link>
         <br />
-        <Link href="/calculator/business-manager">
+        <Link href={`${lng}/calculator/business-manager`}>
           Start business manager point calculation
         </Link>
       </div>
