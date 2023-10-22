@@ -6,7 +6,10 @@ import {
   EngineerQualificationsSchema,
   formConfig as formConfigB,
 } from '@lib/visa/b'
-// import { formConfig as formConfigC } from '@lib/visa/c'
+import {
+  BusinessManagerQualificationsSchema,
+  formConfig as formConfigC,
+} from '@lib/visa/c'
 import { z } from 'zod'
 
 export function formConfigForVisa(visa: string) {
@@ -15,8 +18,8 @@ export function formConfigForVisa(visa: string) {
       return formConfigA
     case 'engineer':
       return formConfigB
-    // case 'business-manager':
-    // return formConfigC
+    case 'business-manager':
+      return formConfigC
   }
 }
 
@@ -25,6 +28,7 @@ export function formConfigForVisa(visa: string) {
 export const QualificationsSchema = z.union([
   ResearcherQualificationsSchema.extend({ v: z.literal('A') }),
   EngineerQualificationsSchema.extend({ v: z.literal('B') }),
+  BusinessManagerQualificationsSchema.extend({ v: z.literal('C') }),
 ])
 export type Qualifications = z.infer<typeof QualificationsSchema>
 
