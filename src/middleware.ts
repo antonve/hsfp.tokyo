@@ -10,26 +10,52 @@ export const config = {
 }
 
 export function middleware(req: NextRequest) {
-  let language
-  if (req.cookies.has(cookieName)) language = acceptLanguage.get(req.cookies.get(cookieName)?.value)
-  if (!language) language = acceptLanguage.get(req.headers.get('Accept-Language'))
-  if (!language) language = fallbackLanguage
+  const language =
+    getLanguageFromCookies(req.cookies) ??
+    getLanguageFromHeaders(req.headers) ??
+    fallbackLanguage
 
-  if (
-    !languages.some(loc => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
-    !req.nextUrl.pathname.startsWith('/_next')
-  ) {
+  if (checkRedirectFromQueryParams(req.nextUrl, language)) {
     return NextResponse.redirect(new URL(`/${language}${req.nextUrl.pathname}`, req.url))
   }
-
-  if (req.headers.has('referer')) {
-    // 
-    const referer = String(req.headers.get('referer'))
-    const refererUrl = new URL(referer)
-    const lngInReferer = languages.find((l) => refererUrl.pathname.startsWith(`/${l}`))
-    const response = NextResponse.next()
-    if (lngInReferer) response.cookies.set(cookieName, lngInReferer)
-    return response
-  }
+  getLanguageFromReferer(req.headers)
   return NextResponse.next()
 }
+
+
+function getLanguageFromCookies(cookies: NextRequest['cookies']) {
+  // check i18next cookie
+  if (cookies.has(cookieName)) {
+    return acceptLanguage.get(cookies.get(cookieName)?.value)
+  }
+  return undefined
+}
+
+function getLanguageFromHeaders(headers: Headers) {
+  const language = headers.get('Accept-Language')
+  return acceptLanguage.get(language)
+
+}
+function getLanguageFromReferer(headers: Headers) {
+  const referer = headers.get('referer')
+  if (referer) {
+    const refererUrl = new URL(referer)
+    const languageInReferer = languages.find((language) => refererUrl.pathname.startsWith(`/${language}`))
+    const response = NextResponse.next()
+    if (languageInReferer) response.cookies.set(cookieName, languageInReferer)
+    return response
+  }
+}
+function checkRedirectFromQueryParams(nextURL: NextRequest["nextUrl"], language: string) {
+  const checkLanguageInParam = languages.some(language => nextURL.pathname.startsWith(`/${language}`))
+  const nextAssetPrefix = nextURL.pathname.startsWith('/_next')
+
+  if (!checkLanguageInParam && !nextAssetPrefix) {
+    languages.some((loc) => {
+      nextURL.pathname.startsWith(`/${loc}`)
+    })
+    return true
+  }
+  return undefined
+}
+
