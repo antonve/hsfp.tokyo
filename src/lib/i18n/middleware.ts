@@ -18,9 +18,9 @@ export function withI18n(middleware: Middleware) {
     }
 
     if (isLanguageRedirectRequired(req.nextUrl)) {
-      return NextResponse.redirect(
-        new URL(`/${language}${req.nextUrl.pathname}`, req.url),
-      )
+      const target = req.nextUrl.clone()
+      target.pathname = `/${language}${target.pathname}`
+      return NextResponse.redirect(target)
     }
 
     return response
