@@ -8,9 +8,9 @@ interface Props {
 }
 
 export default async function Page({ params }: Props) {
-  let language = params?.language
-  if (supportedLanguages.indexOf(language) < 0) language = fallbackLanguage
+  const { language } = params
   const { t } = await useTranslation(language, 'page')
+
   return (
     <>
       <header className="py-6 px-4 flex justify-between space-x-8">
