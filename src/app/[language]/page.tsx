@@ -1,7 +1,5 @@
 import Link from 'next/link'
-import { useTranslation } from '../i18n'
-
-import { languages, fallbackLanguage } from '../i18n/settings'
+import { fallbackLanguage, supportedLanguages, useTranslation } from '@app/i18n'
 
 interface Props {
   params: {
@@ -11,7 +9,7 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   let language = params?.language
-  if (languages.indexOf(language) < 0) language = fallbackLanguage
+  if (supportedLanguages.indexOf(language) < 0) language = fallbackLanguage
   const { t } = await useTranslation(language, 'page')
   return (
     <>

@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import acceptLanguage from 'accept-language'
-import { fallbackLanguage, languages, cookieName } from './app/i18n/settings'
+import { fallbackLanguage, i18nCookieName, supportedLanguages } from '@app/i18n'
 
-acceptLanguage.languages(languages)
+acceptLanguage.languages(supportedLanguages)
 
 export const config = {
   // matcher: '/:language*'
@@ -10,25 +10,32 @@ export const config = {
 }
 
 export function middleware(req: NextRequest) {
+  const response = NextResponse.next()
+
   const language =
     getLanguageFromCookies(req.cookies) ??
     getLanguageFromHeaders(req.headers) ??
+    getLanguageFromReferer(req.headers) ??
     fallbackLanguage
 
-  if (checkRedirectFromQueryParams(req.nextUrl, language)) {
+  if (!req.cookies.has(i18nCookieName)) {
+    response.cookies.set(i18nCookieName, language)
+  }
+
+  if (isLanguageRedirectRequired(req.nextUrl)) {
     return NextResponse.redirect(
       new URL(`/${language}${req.nextUrl.pathname}`, req.url),
     )
   }
-  getLanguageFromReferer(req.headers)
-  return NextResponse.next()
+
+  return response
 }
 
 function getLanguageFromCookies(cookies: NextRequest['cookies']) {
-  // check i18next cookie
-  if (cookies.has(cookieName)) {
-    return acceptLanguage.get(cookies.get(cookieName)?.value)
+  if (cookies.has(i18nCookieName)) {
+    return acceptLanguage.get(cookies.get(i18nCookieName)?.value)
   }
+
   return undefined
 }
 
@@ -36,32 +43,26 @@ function getLanguageFromHeaders(headers: Headers) {
   const language = headers.get('Accept-Language')
   return acceptLanguage.get(language)
 }
+
 function getLanguageFromReferer(headers: Headers) {
   const referer = headers.get('referer')
+
   if (referer) {
     const refererUrl = new URL(referer)
-    const languageInReferer = languages.find(language =>
+    const languageInReferer = supportedLanguages.find(language =>
       refererUrl.pathname.startsWith(`/${language}`),
     )
-    const response = NextResponse.next()
-    if (languageInReferer) response.cookies.set(cookieName, languageInReferer)
-    return response
+
+    return acceptLanguage.get(languageInReferer)
   }
 }
-function checkRedirectFromQueryParams(
-  nextURL: NextRequest['nextUrl'],
-  language: string,
-) {
-  const checkLanguageInParam = languages.some(language =>
+
+function isLanguageRedirectRequired(nextURL: NextRequest['nextUrl']) {
+  const pathStartsWithLanguage = supportedLanguages.some(language =>
     nextURL.pathname.startsWith(`/${language}`),
   )
-  const nextAssetPrefix = nextURL.pathname.startsWith('/_next')
+  const isNextAssetPrefix = nextURL.pathname.startsWith('/_next')
+  const requiresRedirect = !pathStartsWithLanguage && !isNextAssetPrefix
 
-  if (!checkLanguageInParam && !nextAssetPrefix) {
-    languages.some(loc => {
-      nextURL.pathname.startsWith(`/${loc}`)
-    })
-    return true
-  }
-  return undefined
+  return requiresRedirect
 }

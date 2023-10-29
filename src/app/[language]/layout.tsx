@@ -1,11 +1,10 @@
 import { dir } from 'i18next'
-import { languages } from '../i18n/settings'
-
 import { Metadata } from 'next'
 import cn from 'classnames'
-import { cormorantGaramond, inter } from './fonts'
+import { cormorantGaramond, inter } from '@app/fonts'
+import { supportedLanguages } from '@app/i18n'
 
-import './globals.css'
+import '@app/globals.css'
 
 export const metadata: Metadata = {
   title: 'HSFP.tokyo',
@@ -13,8 +12,9 @@ export const metadata: Metadata = {
     'Calculate if you are eligible for the Highly Skilled Foreign Professional visa in Japan!',
 }
 
+// This will generate the dynamic route segments for [language]
 export async function generateStaticParams() {
-  return languages.map(language => ({ language }))
+  return supportedLanguages.map(language => ({ language }))
 }
 
 export default function RootLayout({
