@@ -28,7 +28,8 @@ export function VisaFormSection({
     const newQualifications = updateQualifications(qualifications)
 
     router.push(
-      `/calculator/${params['visa']}/${section}/${promptIndex + 1
+      `/calculator/${params['visa']}/${section}/${
+        promptIndex + 1
       }?q=${encodeQualifications(newQualifications)}`,
     )
   }

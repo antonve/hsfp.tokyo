@@ -13,20 +13,13 @@ export const metadata: Metadata = {
     'Calculate if you are eligible for the Highly Skilled Foreign Professional visa in Japan!',
 }
 
-
-
 export async function generateStaticParams() {
-  return languages.map((language) => ({ language }))
+  return languages.map(language => ({ language }))
 }
-
-
-
 
 export default function RootLayout({
   children,
-  params: {
-    language
-  }
+  params: { language },
 }: {
   children: React.ReactNode
   params: {
