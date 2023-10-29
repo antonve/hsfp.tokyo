@@ -1,3 +1,3 @@
 export interface options {
-    keyPrefix: string
+  keyPrefix: string
 }

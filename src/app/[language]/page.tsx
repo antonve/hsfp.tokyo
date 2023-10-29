@@ -9,7 +9,6 @@ interface Props {
   }
 }
 
-
 export default async function Page({ params }: Props) {
   let language = params?.language
   if (languages.indexOf(language) < 0) language = fallbackLanguage
@@ -35,20 +34,14 @@ export default async function Page({ params }: Props) {
             </li>
           </ul>
         </nav>
-      </header >
+      </header>
 
       <div>
-        <Link href={`/${language}/calculator/researcher`}>
-          {t('A')}
-        </Link>
+        <Link href={`/${language}/calculator/researcher`}>{t('A')}</Link>
         <br />
-        <Link href={`/${language}/calculator/engineer`}>
-          {t('B')}
-        </Link>
+        <Link href={`/${language}/calculator/engineer`}>{t('B')}</Link>
         <br />
-        <Link href={`/${language}/calculator/business-manager`}>
-          {t('C')}
-        </Link>
+        <Link href={`/${language}/calculator/business-manager`}>{t('C')}</Link>
       </div>
     </>
   )

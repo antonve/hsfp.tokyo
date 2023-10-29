@@ -5,7 +5,7 @@ import { RedirectType, redirect } from 'next/navigation'
 
 interface Props {
   params: {
-    visa: string,
+    visa: string
   }
 }
 
