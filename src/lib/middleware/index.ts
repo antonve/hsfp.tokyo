@@ -3,7 +3,7 @@ import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
 type MiddlewareResult = NextResponse | null | undefined | void
 export type Middleware = (
   request: NextRequest,
-  event: NextFetchEvent,
+  event?: NextFetchEvent,
 ) => MiddlewareResult | Promise<MiddlewareResult>
 
 type MiddlewareFactory = (middleware: Middleware) => Middleware

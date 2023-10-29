@@ -4,7 +4,7 @@ import resourcesToBackend from 'i18next-resources-to-backend'
 import { initReactI18next } from 'react-i18next/initReactI18next'
 
 export const fallbackLanguage: string = 'en'
-export const supportedLanguages: string[] = [fallbackLanguage, 'vn']
+export const supportedLanguages: string[] = [fallbackLanguage, 'vi']
 export const i18nCookieName: string = 'i18next'
 
 const defaultNamespace: string = 'page'

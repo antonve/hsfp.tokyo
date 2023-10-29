@@ -4,7 +4,7 @@ import { fallbackLanguage, i18nCookieName, supportedLanguages } from '@lib/i18n'
 import { Middleware } from '@lib/middleware'
 
 export function withI18n(middleware: Middleware) {
-  return async (req: NextRequest, event: NextFetchEvent) => {
+  return async (req: NextRequest, event?: NextFetchEvent) => {
     const response = await middleware(req, event)
 
     const language =
@@ -31,22 +31,25 @@ function getLanguageFromCookies(cookies: NextRequest['cookies']) {
   if (cookies.has(i18nCookieName)) {
     return acceptLanguage.get(cookies.get(i18nCookieName)?.value)
   }
-
-  return undefined
 }
 
 function getLanguageFromHeaders(headers: Headers) {
   const language = headers.get('Accept-Language')
-  return acceptLanguage.get(language)
+
+  if (language) {
+    return acceptLanguage.get(language)
+  }
 }
 
 function getLanguageFromReferer(headers: Headers) {
-  const referer = headers.get('referer')
+  const referer = headers.get('Referer')
 
   if (referer) {
     const refererUrl = new URL(referer)
-    const languageInReferer = supportedLanguages.find(language =>
-      refererUrl.pathname.startsWith(`/${language}`),
+    const languageInReferer = supportedLanguages.find(
+      language =>
+        refererUrl.pathname.startsWith(`/${language}/`) ||
+        refererUrl.pathname === `/${language}`,
     )
 
     return acceptLanguage.get(languageInReferer)
