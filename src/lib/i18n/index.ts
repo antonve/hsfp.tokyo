@@ -1,3 +1,4 @@
+import acceptLanguage from 'accept-language'
 import { createInstance } from 'i18next'
 import resourcesToBackend from 'i18next-resources-to-backend'
 import { initReactI18next } from 'react-i18next/initReactI18next'
@@ -7,6 +8,8 @@ export const supportedLanguages: string[] = [fallbackLanguage, 'vn']
 export const i18nCookieName: string = 'i18next'
 
 const defaultNamespace: string = 'page'
+
+acceptLanguage.languages(supportedLanguages)
 
 const initI18next = async (language: string, namespace: string) => {
   const i18nInstance = createInstance()
