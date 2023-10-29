@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import acceptLanguage from 'accept-language'
-import { fallbackLanguage, i18nCookieName, supportedLanguages } from '@app/i18n'
+import { fallbackLanguage, i18nCookieName, supportedLanguages } from '@lib/i18n'
 
 acceptLanguage.languages(supportedLanguages)
 

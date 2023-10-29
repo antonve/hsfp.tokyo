@@ -2,7 +2,7 @@ import { dir } from 'i18next'
 import { Metadata } from 'next'
 import cn from 'classnames'
 import { cormorantGaramond, inter } from '@app/fonts'
-import { supportedLanguages } from '@app/i18n'
+import { supportedLanguages } from '@lib/i18n'
 
 import '@app/globals.css'
 

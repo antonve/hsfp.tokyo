@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { fallbackLanguage, supportedLanguages, useTranslation } from '@app/i18n'
+import { fallbackLanguage, supportedLanguages, useTranslation } from '@lib/i18n'
 
 interface Props {
   params: {
