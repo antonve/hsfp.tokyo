@@ -18,6 +18,7 @@ export function useFormConfig(visa: string) {
 }
 
 const paramsSchema = z.object({
+  language: z.coerce.string(),
   section: SectionNameSchema.optional().default('academic-background'),
   prompt: z.coerce.number().optional().default(1),
 })
@@ -45,4 +46,11 @@ export function useQualifications(visaType: VisaType) {
   }
 
   return decodeQualifications(encodedQualifications)
+}
+
+export function useLanguage() {
+  const params = useParams()
+  const { language } = paramsSchema.parse(params)
+
+  return language
 }

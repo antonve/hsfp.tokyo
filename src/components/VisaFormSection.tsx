@@ -4,6 +4,7 @@ import { FormConfig, VisaProgress, nextStepOfForm } from '@lib/domain/form'
 import { Qualifications, encodeQualifications } from '@lib/visa'
 import { VisaFormPrompt } from '@components/VisaFormPrompt'
 import { useParams, useRouter } from 'next/navigation'
+import { useLanguage } from '@lib/hooks'
 
 export type QualificationUpdater = (
   qualifications: Qualifications,
@@ -19,6 +20,7 @@ export function VisaFormSection({
 }) {
   const router = useRouter()
   const params = useParams()
+  const language = useLanguage()
 
   const prompts = config.sections[progress.section]!!
   const prompt = prompts[progress.promptIndex]
@@ -28,7 +30,7 @@ export function VisaFormSection({
     const newQualifications = updateQualifications(qualifications)
 
     router.push(
-      `/calculator/${params['visa']}/${section}/${
+      `/${language}/calculator/${params['visa']}/${section}/${
         promptIndex + 1
       }?q=${encodeQualifications(newQualifications)}`,
     )
