@@ -18,7 +18,7 @@ export function useFormConfig(visa: string) {
 }
 
 const paramsSchema = z.object({
-  language: z.coerce.string(),
+  locale: z.coerce.string(),
   section: SectionNameSchema.optional().default('academic-background'),
   prompt: z.coerce.number().optional().default(1),
 })
@@ -50,7 +50,7 @@ export function useQualifications(visaType: VisaType) {
 
 export function useLanguage() {
   const params = useParams()
-  const { language } = paramsSchema.parse(params)
+  const { locale } = paramsSchema.parse(params)
 
-  return language
+  return locale
 }

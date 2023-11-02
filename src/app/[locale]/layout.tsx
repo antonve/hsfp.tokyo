@@ -19,15 +19,15 @@ export async function generateStaticParams() {
 
 export default function RootLayout({
   children,
-  params: { language },
+  params: { locale },
 }: {
   children: React.ReactNode
   params: {
-    language: string
+    locale: string
   }
 }) {
   return (
-    <html lang={language} dir={dir(language)}>
+    <html lang={locale} dir={dir(locale)}>
       <body
         className={cn(
           'bg-stone-950 text-gray-50 font-sans',

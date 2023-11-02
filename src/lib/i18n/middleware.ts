@@ -7,19 +7,19 @@ export function withI18n(middleware: Middleware) {
   return async (req: NextRequest, event?: NextFetchEvent) => {
     const response = await middleware(req, event)
 
-    const language =
-      getLanguageFromCookies(req.cookies) ??
-      getLanguageFromHeaders(req.headers) ??
-      getLanguageFromReferer(req.headers) ??
+    const locale =
+      getLocaleFromCookies(req.cookies) ??
+      getLocaleFromHeaders(req.headers) ??
+      getLocaleFromReferer(req.headers) ??
       fallbackLanguage
 
     if (!req.cookies.has(i18nCookieName)) {
-      response?.cookies.set(i18nCookieName, language)
+      response?.cookies.set(i18nCookieName, locale)
     }
 
-    if (isLanguageRedirectRequired(req.nextUrl)) {
+    if (isLocaleRedirectRequired(req.nextUrl)) {
       const target = req.nextUrl.clone()
-      target.pathname = `/${language}${target.pathname}`
+      target.pathname = `/${locale}${target.pathname}`
       return NextResponse.redirect(target)
     }
 
@@ -27,13 +27,13 @@ export function withI18n(middleware: Middleware) {
   }
 }
 
-function getLanguageFromCookies(cookies: NextRequest['cookies']) {
+function getLocaleFromCookies(cookies: NextRequest['cookies']) {
   if (cookies.has(i18nCookieName)) {
     return acceptLanguage.get(cookies.get(i18nCookieName)?.value)
   }
 }
 
-function getLanguageFromHeaders(headers: Headers) {
+function getLocaleFromHeaders(headers: Headers) {
   const language = headers.get('Accept-Language')
 
   if (language) {
@@ -41,27 +41,27 @@ function getLanguageFromHeaders(headers: Headers) {
   }
 }
 
-function getLanguageFromReferer(headers: Headers) {
+function getLocaleFromReferer(headers: Headers) {
   const referer = headers.get('Referer')
 
   if (referer) {
     const refererUrl = new URL(referer)
-    const languageInReferer = supportedLanguages.find(
-      language =>
-        refererUrl.pathname.startsWith(`/${language}/`) ||
-        refererUrl.pathname === `/${language}`,
+    const localeInReferer = supportedLanguages.find(
+      locale =>
+        refererUrl.pathname.startsWith(`/${locale}/`) ||
+        refererUrl.pathname === `/${locale}`,
     )
 
-    return acceptLanguage.get(languageInReferer)
+    return acceptLanguage.get(localeInReferer)
   }
 }
 
-function isLanguageRedirectRequired(nextURL: NextRequest['nextUrl']) {
-  const pathStartsWithLanguage = supportedLanguages.some(language =>
+function isLocaleRedirectRequired(nextURL: NextRequest['nextUrl']) {
+  const pathStartsWithLocale = supportedLanguages.some(language =>
     nextURL.pathname.startsWith(`/${language}`),
   )
   const isNextAssetPrefix = nextURL.pathname.startsWith('/_next')
-  const requiresRedirect = !pathStartsWithLanguage && !isNextAssetPrefix
+  const requiresRedirect = !pathStartsWithLocale && !isNextAssetPrefix
 
   return requiresRedirect
 }

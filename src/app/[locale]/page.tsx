@@ -1,15 +1,15 @@
 import Link from 'next/link'
-import { fallbackLanguage, supportedLanguages, useTranslation } from '@lib/i18n'
+import { useTranslation } from '@lib/i18n'
 
 interface Props {
   params: {
-    language: string
+    locale: string
   }
 }
 
 export default async function Page({ params }: Props) {
-  const { language } = params
-  const { t } = await useTranslation(language, 'page')
+  const { locale } = params
+  const { t } = await useTranslation(locale, 'page')
 
   return (
     <>
@@ -22,24 +22,24 @@ export default async function Page({ params }: Props) {
         <nav>
           <ul className="flex space-x-4">
             <li>
-              <Link href={`/${language}/`}>{t('Home')}</Link>
+              <Link href={`/${locale}/`}>{t('Home')}</Link>
             </li>
             <li>
-              <Link href={`/${language}/start`}> {t('Calculator')}</Link>
+              <Link href={`/${locale}/start`}> {t('Calculator')}</Link>
             </li>
             <li>
-              <Link href={`/${language}/about`}>{t('About')}</Link>
+              <Link href={`/${locale}/about`}>{t('About')}</Link>
             </li>
           </ul>
         </nav>
       </header>
 
       <div>
-        <Link href={`/${language}/calculator/researcher`}>{t('A')}</Link>
+        <Link href={`/${locale}/calculator/researcher`}>{t('A')}</Link>
         <br />
-        <Link href={`/${language}/calculator/engineer`}>{t('B')}</Link>
+        <Link href={`/${locale}/calculator/engineer`}>{t('B')}</Link>
         <br />
-        <Link href={`/${language}/calculator/business-manager`}>{t('C')}</Link>
+        <Link href={`/${locale}/calculator/business-manager`}>{t('C')}</Link>
       </div>
     </>
   )
