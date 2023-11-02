@@ -1,5 +1,3 @@
-'use client'
-
 import { FormConfig, VisaProgress, nextStepOfForm } from '@lib/domain/form'
 import { Qualifications, encodeQualifications } from '@lib/visa'
 import { VisaFormPrompt } from '@components/VisaFormPrompt'
@@ -9,6 +7,7 @@ import { useLanguage } from '@lib/hooks'
 export type QualificationUpdater = (
   qualifications: Qualifications,
 ) => Qualifications
+
 export function VisaFormSection({
   config,
   progress,

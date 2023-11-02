@@ -1,5 +1,3 @@
-'use client'
-
 import { useFormConfig } from '@lib/hooks'
 import { RedirectType, redirect } from 'next/navigation'
 

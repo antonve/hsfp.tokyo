@@ -3,6 +3,9 @@ import cn from 'classnames'
 import { cormorantGaramond, inter } from '@app/fonts'
 import { SUPPORTED_LOCALES } from '@lib/i18n'
 
+import { notFound } from 'next/navigation'
+import { NextIntlClientProvider } from 'next-intl'
+
 import '@app/globals.css'
 
 export const metadata: Metadata = {
@@ -16,7 +19,7 @@ export async function generateStaticParams() {
   return SUPPORTED_LOCALES.map(language => ({ language }))
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: {
@@ -25,6 +28,13 @@ export default function RootLayout({
     locale: string
   }
 }) {
+  let messages
+  try {
+    messages = (await import(`../../lib/i18n/messages/${locale}.json`)).default
+  } catch (error) {
+    notFound()
+  }
+
   return (
     <html lang={locale} dir="ltr">
       <body
@@ -34,7 +44,9 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        <div className="max-w-7xl mx-auto p-2">{children}</div>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <div className="max-w-7xl mx-auto p-2">{children}</div>
+        </NextIntlClientProvider>
       </body>
     </html>
   )
