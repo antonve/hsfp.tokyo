@@ -14,9 +14,9 @@ export const metadata: Metadata = {
     'Calculate if you are eligible for the Highly Skilled Foreign Professional visa in Japan!',
 }
 
-// This will generate the dynamic route segments for [language]
+// This will generate the dynamic route segments for [locale]
 export async function generateStaticParams() {
-  return SUPPORTED_LOCALES.map(language => ({ language }))
+  return SUPPORTED_LOCALES.map(locale => ({ locale }))
 }
 
 export default async function RootLayout({
