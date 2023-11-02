@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import cn from 'classnames'
 import { cormorantGaramond, inter } from '@app/fonts'
-import { SUPPORTED_LOCALES } from '@lib/i18n'
 
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
@@ -14,10 +13,12 @@ export const metadata: Metadata = {
     'Calculate if you are eligible for the Highly Skilled Foreign Professional visa in Japan!',
 }
 
+// TODO: Re-enable static rendering once next-intl adds support for it.
+// Ref. https://next-intl-docs.vercel.app/docs/getting-started/app-router-server-components#static-rendering
 // This will generate the dynamic route segments for [locale]
-export async function generateStaticParams() {
-  return SUPPORTED_LOCALES.map(locale => ({ locale }))
-}
+// export async function generateStaticParams() {
+//   return SUPPORTED_LOCALES.map(locale => ({ locale }))
+// }
 
 export default async function RootLayout({
   children,
