@@ -1,0 +1,10 @@
+{
+    "index": {
+        "home": "Trang chủ",
+        "calculator": "Tính điểm",
+        "about": "Giới thiệu",
+        "start_researcher": "Bắt đầu tính điểm thuộc loại nhà nghiên cứu",
+        "start_engineer": "Bắt đầu tính điểm thuộc loại kỹ sư",
+        "start_business_manager": "Bắt đầu tính điểm thuộc loại nhà kinh doanh"
+    }
+}

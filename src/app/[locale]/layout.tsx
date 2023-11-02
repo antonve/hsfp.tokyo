@@ -1,4 +1,3 @@
-import { dir } from 'i18next'
 import { Metadata } from 'next'
 import cn from 'classnames'
 import { cormorantGaramond, inter } from '@app/fonts'
@@ -27,7 +26,7 @@ export default function RootLayout({
   }
 }) {
   return (
-    <html lang={locale} dir={dir(locale)}>
+    <html lang={locale} dir="ltr">
       <body
         className={cn(
           'bg-stone-950 text-gray-50 font-sans',
