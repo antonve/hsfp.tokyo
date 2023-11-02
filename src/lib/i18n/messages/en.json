@@ -1,0 +1,27 @@
+{
+    "index": {
+        "home": "Home",
+        "calculator": "Calculator",
+        "about": "About",
+        "start_researcher": "Start Researcher point calculation",
+        "start_engineer": "Start Engineer point calculation",
+        "start_business_manager": "Start Business Manager point calculation"
+    },
+    "visa_form": {
+        "B": {
+            "sections": {
+                "academic-background": {
+                    "degree": {
+                        "prompt": "What is your highest degree?",
+                        "options": {
+                            "doctor": {
+                                "label": "Doctorate degree",
+                                "hint": "test"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
