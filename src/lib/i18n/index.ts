@@ -3,13 +3,13 @@ import { createInstance } from 'i18next'
 import resourcesToBackend from 'i18next-resources-to-backend'
 import { initReactI18next } from 'react-i18next/initReactI18next'
 
-export const fallbackLanguage: string = 'en'
-export const supportedLanguages: string[] = [fallbackLanguage, 'vi']
-export const i18nCookieName: string = 'i18next'
+export const DEFAULT_LOCALE: string = 'en'
+export const SUPPORTED_LOCALES: string[] = [DEFAULT_LOCALE, 'vi']
+export const I18N_COOKIE_NAME: string = 'i18next'
 
-const defaultNamespace: string = 'page'
+const DEFAULT_NAMESPACE: string = 'page'
 
-acceptLanguage.languages(supportedLanguages)
+acceptLanguage.languages(SUPPORTED_LOCALES)
 
 const initI18next = async (language: string, namespace: string) => {
   const i18nInstance = createInstance()
@@ -24,11 +24,11 @@ const initI18next = async (language: string, namespace: string) => {
     )
     .init({
       // debug: true,
-      supportedLngs: supportedLanguages,
-      fallbackLng: fallbackLanguage,
+      supportedLngs: SUPPORTED_LOCALES,
+      fallbackLng: DEFAULT_LOCALE,
       lng: language,
-      fallbackNS: defaultNamespace,
-      defaultNS: defaultNamespace,
+      fallbackNS: DEFAULT_NAMESPACE,
+      defaultNS: DEFAULT_NAMESPACE,
       ns: namespace,
     })
 

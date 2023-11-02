@@ -2,7 +2,7 @@ import { dir } from 'i18next'
 import { Metadata } from 'next'
 import cn from 'classnames'
 import { cormorantGaramond, inter } from '@app/fonts'
-import { supportedLanguages } from '@lib/i18n'
+import { SUPPORTED_LOCALES } from '@lib/i18n'
 
 import '@app/globals.css'
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 // This will generate the dynamic route segments for [language]
 export async function generateStaticParams() {
-  return supportedLanguages.map(language => ({ language }))
+  return SUPPORTED_LOCALES.map(language => ({ language }))
 }
 
 export default function RootLayout({

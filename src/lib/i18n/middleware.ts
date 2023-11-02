@@ -1,6 +1,6 @@
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
 import acceptLanguage from 'accept-language'
-import { fallbackLanguage, i18nCookieName, supportedLanguages } from '@lib/i18n'
+import { DEFAULT_LOCALE, I18N_COOKIE_NAME, SUPPORTED_LOCALES } from '@lib/i18n'
 import { Middleware } from '@lib/middleware'
 
 export function withI18n(middleware: Middleware) {
@@ -11,10 +11,10 @@ export function withI18n(middleware: Middleware) {
       getLocaleFromCookies(req.cookies) ??
       getLocaleFromHeaders(req.headers) ??
       getLocaleFromReferer(req.headers) ??
-      fallbackLanguage
+      DEFAULT_LOCALE
 
-    if (!req.cookies.has(i18nCookieName)) {
-      response?.cookies.set(i18nCookieName, locale)
+    if (!req.cookies.has(I18N_COOKIE_NAME)) {
+      response?.cookies.set(I18N_COOKIE_NAME, locale)
     }
 
     if (isLocaleRedirectRequired(req.nextUrl)) {
@@ -28,8 +28,8 @@ export function withI18n(middleware: Middleware) {
 }
 
 function getLocaleFromCookies(cookies: NextRequest['cookies']) {
-  if (cookies.has(i18nCookieName)) {
-    return acceptLanguage.get(cookies.get(i18nCookieName)?.value)
+  if (cookies.has(I18N_COOKIE_NAME)) {
+    return acceptLanguage.get(cookies.get(I18N_COOKIE_NAME)?.value)
   }
 }
 
@@ -46,7 +46,7 @@ function getLocaleFromReferer(headers: Headers) {
 
   if (referer) {
     const refererUrl = new URL(referer)
-    const localeInReferer = supportedLanguages.find(
+    const localeInReferer = SUPPORTED_LOCALES.find(
       locale =>
         refererUrl.pathname.startsWith(`/${locale}/`) ||
         refererUrl.pathname === `/${locale}`,
@@ -57,7 +57,7 @@ function getLocaleFromReferer(headers: Headers) {
 }
 
 function isLocaleRedirectRequired(nextURL: NextRequest['nextUrl']) {
-  const pathStartsWithLocale = supportedLanguages.some(language =>
+  const pathStartsWithLocale = SUPPORTED_LOCALES.some(language =>
     nextURL.pathname.startsWith(`/${language}`),
   )
   const isNextAssetPrefix = nextURL.pathname.startsWith('/_next')
