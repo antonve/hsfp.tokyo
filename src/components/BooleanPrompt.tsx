@@ -1,13 +1,16 @@
-'use client'
-
 import { BooleanPrompt, SectionName } from '@lib/domain/form'
 import { QualificationUpdater } from '@components/VisaFormSection'
 import { ChoicePrompt } from './ChoicePrompt'
+import { VisaType } from '@lib/domain'
 
 export function BooleanPrompt({
+  visaType,
+  section,
   prompt,
   onSubmit,
 }: {
+  visaType: VisaType
+  section: SectionName
   prompt: BooleanPrompt
   onSubmit: (updateQualifications: QualificationUpdater) => void
 }) {
@@ -23,6 +26,8 @@ export function BooleanPrompt({
         ...q,
         [prompt.id]: value === 'false' ? undefined : true,
       })}
+      visaType={visaType}
+      section={section}
     />
   )
 }

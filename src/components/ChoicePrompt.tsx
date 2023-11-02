@@ -1,20 +1,28 @@
-'use client'
 import { ChoicePrompt, Prompt, SectionName } from '@lib/domain/form'
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import cn from 'classnames'
 import { QualificationUpdater } from './VisaFormSection'
+import { useTranslations } from 'next-intl'
+import { VisaType } from '@lib/domain'
 
 export function ChoicePrompt({
+  visaType,
+  section,
   prompt,
   onSubmit,
   qualificationUpdater = value => q => ({ ...q, [prompt.id]: value }),
 }: {
+  visaType: VisaType
+  section: SectionName
   prompt: ChoicePrompt
   onSubmit: (updateQualifications: QualificationUpdater) => void
   qualificationUpdater?: (value: string) => QualificationUpdater
 }) {
   const [value, setValue] = useState<string | undefined>(undefined)
+  const t = useTranslations(
+    `visa_form.${visaType}.sections.${section}.${prompt.id}`,
+  )
 
   return (
     <form
@@ -62,7 +70,7 @@ export function ChoicePrompt({
                   htmlFor={promptOptionId(prompt, option)}
                   className="pl-3 h-5 text-lg flex items-center"
                 >
-                  {option}
+                  {t(`options.${option}.label`)}
                 </label>
               </div>
             </div>
