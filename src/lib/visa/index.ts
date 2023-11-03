@@ -27,10 +27,17 @@ export function formConfigForVisa(visa: string) {
 // v = visa (A = researcher, B = engineer, C = business manager)
 // Kept short so the hash of the qualifications stays short
 export const QualificationsSchema = z.union([
-  ResearcherQualificationsSchema.extend({ v: z.literal(VisaType.Researcher) }),
-  EngineerQualificationsSchema.extend({ v: z.literal(VisaType.Engineer) }),
+  ResearcherQualificationsSchema.extend({
+    v: z.literal(VisaType.Researcher),
+    completed: z.number().optional().default(0),
+  }),
+  EngineerQualificationsSchema.extend({
+    v: z.literal(VisaType.Engineer),
+    completed: z.number().optional().default(0),
+  }),
   BusinessManagerQualificationsSchema.extend({
     v: z.literal(VisaType.BusinessManager),
+    completed: z.number().optional().default(0),
   }),
 ])
 export type Qualifications = z.infer<typeof QualificationsSchema>
