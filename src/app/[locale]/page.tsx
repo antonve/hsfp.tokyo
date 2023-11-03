@@ -1,3 +1,4 @@
+import { Logo } from '@components/Logo'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
 
@@ -7,11 +8,7 @@ export default function Page() {
   return (
     <>
       <header className="py-6 px-4 flex justify-between space-x-8">
-        <h1 className="font-bold font-sans">
-          <span className="text-red-500 text-2xl">HSFP</span>
-          <span className="text-white/40">.</span>
-          <span className="text-gray-50">tokyo</span>
-        </h1>
+        <Logo />
         <nav>
           <ul className="flex space-x-4">
             <li>
