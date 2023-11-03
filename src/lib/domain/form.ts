@@ -67,3 +67,28 @@ export function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {
     promptIndex,
   } as VisaProgress
 }
+
+export function getOverallPromptIndex(
+  formConfig: FormConfig,
+  section: SectionName,
+  promptIndex: number,
+) {
+  const promptCounts = formConfig.order.map(
+    sectionName => formConfig.sections[sectionName]?.length ?? 0,
+  )
+  const cumulativePromptCounts = [0, ...promptCounts].map(
+    (
+      sum => value =>
+        (sum += value)
+    )(0),
+  )
+
+  const promptsBeforeSection = Object.fromEntries(
+    formConfig.order.map((sectionName, i) => [
+      sectionName,
+      cumulativePromptCounts[i],
+    ]),
+  )
+
+  return promptsBeforeSection[section] + promptIndex
+}

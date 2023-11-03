@@ -1,21 +1,32 @@
-import { ChoicePrompt, Prompt, SectionName } from '@lib/domain/form'
+import {
+  ChoicePrompt,
+  Prompt,
+  SectionName,
+  getOverallPromptIndex,
+} from '@lib/domain/form'
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import cn from 'classnames'
 import { QualificationUpdater } from './VisaFormSection'
 import { useTranslations } from 'next-intl'
 import { VisaType } from '@lib/domain'
+import { withCompletedPrompt } from '@lib/visa/prompts'
 
 export function ChoicePrompt({
   visaType,
   section,
   prompt,
+  overallPromptIndex,
   onSubmit,
-  qualificationUpdater = value => q => ({ ...q, [prompt.id]: value }),
+  qualificationUpdater = value => q => ({
+    ...withCompletedPrompt(overallPromptIndex, q),
+    [prompt.id]: value,
+  }),
 }: {
   visaType: VisaType
   section: SectionName
   prompt: ChoicePrompt
+  overallPromptIndex: number
   onSubmit: (updateQualifications: QualificationUpdater) => void
   qualificationUpdater?: (value: string) => QualificationUpdater
 }) {

@@ -27,7 +27,11 @@ export function VisaForm({ config }: Props) {
           </div>
         </div>
         <div className="sidebar-content px-4">
-          <VisaFormNavigation config={config} progress={progress} />
+          <VisaFormNavigation
+            config={config}
+            progress={progress}
+            qualifications={qualifications}
+          />
         </div>
       </aside>
       <main className="px-4 py-4">

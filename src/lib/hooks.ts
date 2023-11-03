@@ -2,6 +2,7 @@ import { VisaType } from '@lib/domain'
 import { FormConfig, SectionNameSchema, VisaProgress } from '@lib/domain/form'
 import {
   Qualifications,
+  QualificationsSchema,
   decodeQualifications,
   formConfigForVisa,
 } from '@lib/visa'
@@ -42,7 +43,7 @@ export function useQualifications(visaType: VisaType) {
   const encodedQualifications = searchParams.get('q')
 
   if (!encodedQualifications) {
-    return { v: visaType } as Qualifications
+    return QualificationsSchema.parse({ v: visaType, completed: 0 })
   }
 
   return decodeQualifications(encodedQualifications)
