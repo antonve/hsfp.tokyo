@@ -1,3 +1,4 @@
+import { VisaType } from '@lib/domain'
 import {
   ResearcherQualificationsSchema,
   formConfig as formConfigA,
@@ -26,9 +27,11 @@ export function formConfigForVisa(visa: string) {
 // v = visa (A = researcher, B = engineer, C = business manager)
 // Kept short so the hash of the qualifications stays short
 export const QualificationsSchema = z.union([
-  ResearcherQualificationsSchema.extend({ v: z.literal('A') }),
-  EngineerQualificationsSchema.extend({ v: z.literal('B') }),
-  BusinessManagerQualificationsSchema.extend({ v: z.literal('C') }),
+  ResearcherQualificationsSchema.extend({ v: z.literal(VisaType.Researcher) }),
+  EngineerQualificationsSchema.extend({ v: z.literal(VisaType.Engineer) }),
+  BusinessManagerQualificationsSchema.extend({
+    v: z.literal(VisaType.BusinessManager),
+  }),
 ])
 export type Qualifications = z.infer<typeof QualificationsSchema>
 
