@@ -1,14 +1,18 @@
 import { VisaType } from '@lib/domain'
 import { FormConfig, SectionName, VisaProgress } from '@lib/domain/form'
+import { Qualifications } from '@lib/visa'
+import { didCompleteSection } from '@lib/visa/prompts'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
 
 export function VisaFormNavigation({
   config,
   progress,
+  qualifications,
 }: {
   config: FormConfig
   progress: VisaProgress
+  qualifications: Qualifications
 }) {
   return (
     <ul className="">
@@ -18,6 +22,7 @@ export function VisaFormNavigation({
           progress={progress}
           key={section}
           config={config}
+          qualifications={qualifications}
         />
       ))}
     </ul>
@@ -36,10 +41,12 @@ function Section({
   name,
   config,
   progress,
+  qualifications,
 }: {
   name: SectionName
   config: FormConfig
   progress: VisaProgress
+  qualifications: Qualifications
 }) {
   // const isDone = getTotalPromptCount(config)
   const t = useTranslations(`visa_form.${config.visaType}.sections.${name}`)
@@ -50,10 +57,11 @@ function Section({
   }
 
   const showPrompts = prompts.length >= 2
+  const isSectionComplete = didCompleteSection(qualifications, config, name)
 
   return (
     <>
-      <li className="">
+      <li className={`${isSectionComplete ? `bg-emerald-200` : ``}`}>
         <Link href={urlForPrompt(config.visaType, name, 0)}>{t('title')}</Link>
       </li>
       {showPrompts

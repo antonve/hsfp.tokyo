@@ -1,4 +1,9 @@
-import { FormConfig, VisaProgress, nextStepOfForm } from '@lib/domain/form'
+import {
+  FormConfig,
+  VisaProgress,
+  getOverallPromptIndex,
+  nextStepOfForm,
+} from '@lib/domain/form'
 import { Qualifications, encodeQualifications } from '@lib/visa'
 import { VisaFormPrompt } from '@components/VisaFormPrompt'
 import { useParams, useRouter } from 'next/navigation'
@@ -23,6 +28,11 @@ export function VisaFormSection({
 
   const prompts = config.sections[progress.section]!!
   const prompt = prompts[progress.promptIndex]
+  const overallPromptIndex = getOverallPromptIndex(
+    config,
+    progress.section,
+    progress.promptIndex,
+  )
 
   const submit = (updateQualifications: QualificationUpdater) => {
     const { section, promptIndex } = nextStepOfForm(config, progress)
@@ -43,6 +53,7 @@ export function VisaFormSection({
         onSubmit={submit}
         section={progress.section}
         visaType={config.visaType}
+        overallPromptIndex={overallPromptIndex}
       />
     </div>
   )

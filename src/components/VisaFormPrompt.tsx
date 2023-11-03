@@ -11,11 +11,13 @@ export function VisaFormPrompt({
   visaType,
   section,
   prompt,
+  overallPromptIndex,
   onSubmit,
 }: {
   visaType: VisaType
   section: SectionName
   prompt: Prompt
+  overallPromptIndex: number
   onSubmit: (updateQualifications: QualificationUpdater) => void
 }) {
   switch (prompt.type) {
@@ -27,6 +29,7 @@ export function VisaFormPrompt({
             onSubmit={onSubmit}
             visaType={visaType}
             section={section}
+            overallPromptIndex={overallPromptIndex}
           />
         </div>
       )
@@ -38,6 +41,7 @@ export function VisaFormPrompt({
             onSubmit={onSubmit}
             visaType={visaType}
             section={section}
+            overallPromptIndex={overallPromptIndex}
           />
         </div>
       )
@@ -49,6 +53,7 @@ export function VisaFormPrompt({
             onSubmit={onSubmit}
             visaType={visaType}
             section={section}
+            overallPromptIndex={overallPromptIndex}
           />
         </div>
       )
