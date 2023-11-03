@@ -16,7 +16,7 @@
         "form_title": "{visaType} visa",
         "engineer": {
             "sections": {
-                "academic-background": {
+                "education": {
                     "title": "Education",
                     "degree": {
                         "title": "Degree",

@@ -13,7 +13,7 @@ import { z } from 'zod'
 export const formConfig: FormConfig = {
   visaType: VisaType.BusinessManager,
   sections: {},
-  order: ['academic-background', 'job'],
+  order: ['education', 'job'],
 }
 
 // Comments indicate to what item/項目 they refer to in the official point sheet

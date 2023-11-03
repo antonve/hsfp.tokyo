@@ -19,7 +19,7 @@ export function useFormConfig(visa: string) {
 
 const paramsSchema = z.object({
   locale: z.coerce.string(),
-  section: SectionNameSchema.optional().default('academic-background'),
+  section: SectionNameSchema.optional().default('education'),
   prompt: z.coerce.number().optional().default(1),
 })
 
