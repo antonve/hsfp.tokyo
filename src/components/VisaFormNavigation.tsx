@@ -71,9 +71,11 @@ function Section({
         <Link href={urlForPrompt(config.visaType, name, 0)}>{t('title')}</Link>
       </li>
       {showPrompts
-        ? prompts.map(prompt => (
+        ? prompts.map((prompt, i) => (
             <li key={prompt.id} className="ml-4">
-              {t(`${prompt.id}.title`)}
+              <Link href={urlForPrompt(config.visaType, name, i)}>
+                {t(`${prompt.id}.title`)}
+              </Link>
             </li>
           ))
         : undefined}
