@@ -11,7 +11,7 @@ import { errorMessages } from '@lib/visa/errors'
 import { z } from 'zod'
 
 export const formConfig: FormConfig = {
-  visaType: VisaType.A,
+  visaType: VisaType.Researcher,
   sections: {},
   order: [],
 }

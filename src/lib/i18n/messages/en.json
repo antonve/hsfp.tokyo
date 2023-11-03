@@ -9,12 +9,12 @@
     },
     "visa_form": {
         "visa_type": {
-            "A": "Research",
-            "B": "Engineering / Technical",
-            "C": "Business Management"
+            "researcher": "Research",
+            "engineer": "Engineering / Technical",
+            "business-manager": "Business Management"
         },
         "form_title": "{visaType} visa",
-        "B": {
+        "engineer": {
             "sections": {
                 "academic-background": {
                     "title": "Education",
