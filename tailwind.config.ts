@@ -14,8 +14,8 @@ const config: Config = {
       },
       keyframes: {
         progress: {
-          '0%': { height: '0%' },
-          '100%': { height: '100%' },
+          '0%': { width: '0%' },
+          '100%': { width: '100%' },
         },
       },
       fontFamily: {

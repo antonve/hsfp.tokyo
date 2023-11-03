@@ -4,7 +4,6 @@ import { Qualifications } from '@lib/visa'
 import { didCompleteSection } from '@lib/visa/prompts'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
-import { VisaProgressBar } from './VisaProgressBar'
 
 export function VisaFormNavigation({
   config,
@@ -16,22 +15,17 @@ export function VisaFormNavigation({
   qualifications: Qualifications
 }) {
   return (
-    <div className='flex'>
-      <VisaProgressBar
-        progress={progress}
-      />
-      <ul className="">
-        {config.order.map(section => (
-          <Section
-            name={section}
-            progress={progress}
-            key={section}
-            config={config}
-            qualifications={qualifications}
-          />
-        ))}
-      </ul>
-    </div>
+    <ul className="">
+      {config.order.map(section => (
+        <Section
+          name={section}
+          progress={progress}
+          key={section}
+          config={config}
+          qualifications={qualifications}
+        />
+      ))}
+    </ul>
   )
 }
 
@@ -64,7 +58,7 @@ function Section({
 
   const showPrompts = prompts.length >= 2
   const isSectionComplete = didCompleteSection(qualifications, config, name)
-
+  console.log(didCompleteSection(qualifications, config, name), qualifications, config, name)
   return (
     <>
       <li className={`${isSectionComplete ? `bg-emerald-200` : ``}`}>
