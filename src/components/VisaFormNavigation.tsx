@@ -2,6 +2,7 @@ import { VisaType } from '@lib/domain'
 import { FormConfig, SectionName, VisaProgress } from '@lib/domain/form'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
+import { VisaProgressBar } from './VisaProgressBar'
 
 export function VisaFormNavigation({
   config,
@@ -11,16 +12,22 @@ export function VisaFormNavigation({
   progress: VisaProgress
 }) {
   return (
-    <ul className="">
-      {config.order.map(section => (
-        <Section
-          name={section}
-          progress={progress}
-          key={section}
-          config={config}
-        />
-      ))}
-    </ul>
+    <div className='flex'>
+      <VisaProgressBar
+        progress={progress}
+      />
+      <ul className="">
+        {config.order.map(section => (
+          <Section
+            name={section}
+            progress={progress}
+            key={section}
+            config={config}
+          />
+        ))}
+      </ul>
+    </div>
+
   )
 }
 
@@ -58,12 +65,12 @@ function Section({
       </li>
       {showPrompts
         ? prompts.map((prompt, i) => (
-            <li key={prompt.id} className="ml-4">
-              <Link href={urlForPrompt(config.visaType, name, i)}>
-                {t(`${prompt.id}.title`)}
-              </Link>
-            </li>
-          ))
+          <li key={prompt.id} className="ml-4">
+            <Link href={urlForPrompt(config.visaType, name, i)}>
+              {t(`${prompt.id}.title`)}
+            </Link>
+          </li>
+        ))
         : undefined}
     </>
   )
