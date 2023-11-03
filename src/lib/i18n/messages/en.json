@@ -17,7 +17,9 @@
         "B": {
             "sections": {
                 "academic-background": {
+                    "title": "Education",
                     "degree": {
+                        "title": "Degree",
                         "prompt": "What is your highest degree?",
                         "options": {
                             "doctor": {
@@ -25,6 +27,21 @@
                                 "hint": "test"
                             }
                         }
+                    },
+                    "dual_degree": {
+                        "title": "Multiple degrees"
+                    }
+                },
+                "job": {
+                    "title": "Job",
+                    "experience": {
+                        "title": "Professional experience"
+                    },
+                    "age": {
+                        "title": "Age"
+                    },
+                    "salary": {
+                        "title": "Salary"
                     }
                 }
             }
