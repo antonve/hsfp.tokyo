@@ -1,3 +1,8 @@
+import {
+  FormConfig,
+  SectionName,
+  getOverallPromptIndex,
+} from '@lib/domain/form'
 import { Qualifications } from '@lib/visa'
 
 // We keep track of completed prompts with bits set on a number.
@@ -22,4 +27,20 @@ export function isPromptCompleted(
   const isCompleted = (q.completed & mask) !== 0
 
   return isCompleted
+}
+
+export function didCompleteSection(
+  q: Qualifications,
+  config: FormConfig,
+  name: SectionName,
+) {
+  const startPromptId = getOverallPromptIndex(config, name, 0)
+  const prompts = config.sections[name]?.length ?? 0
+  const promptIdsToCheck = [...Array(prompts)].map((_, i) => i + startPromptId)
+
+  const didComplete = promptIdsToCheck
+    .map(promptId => isPromptCompleted(promptId, q))
+    .every(found => found === true)
+
+  return didComplete
 }
