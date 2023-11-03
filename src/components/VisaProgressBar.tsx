@@ -5,7 +5,6 @@ export function VisaProgressBar({
 }: {
     progress: VisaProgress
 }) {
-    console.log("hi mom", progress)
     const allSections: { [K in SectionName]: string } = {
         education: '20%',
         job: '40%',
