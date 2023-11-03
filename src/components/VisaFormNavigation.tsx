@@ -24,20 +24,6 @@ export function VisaFormNavigation({
   )
 }
 
-function getTotalPromptCount(config: FormConfig) {
-  return config.order.flatMap(sectionName => config.sections[sectionName] ?? [])
-    .length
-}
-
-function getCurrentPromptIndex(config: FormConfig, progress: VisaProgress) {
-  const sectionIndex = config.order.indexOf(progress.section)
-  const prevSectionsPromptCount = config.order
-    .filter((_, i) => i < sectionIndex)
-    .flatMap(sectionName => config.sections[sectionName] ?? []).length
-
-  return prevSectionsPromptCount + progress.promptIndex
-}
-
 function urlForPrompt(
   visaType: VisaType,
   sectionName: SectionName,
