@@ -8,6 +8,12 @@
         "start_business_manager": "Start Business Manager point calculation"
     },
     "visa_form": {
+        "visa_type": {
+            "A": "Research",
+            "B": "Engineering / Technical",
+            "C": "Business Management"
+        },
+        "form_title": "{visaType} visa",
         "B": {
             "sections": {
                 "academic-background": {

@@ -1,9 +1,9 @@
 export function Logo() {
   return (
     <h1 className="font-bold font-sans">
-      <span className="text-red-500 text-2xl">HSFP</span>
-      <span className="text-white/40">.</span>
-      <span className="text-gray-50">tokyo</span>
+      <span className="text-red-500 text-3xl">HSFP</span>
+      <span className="text-white/40 text-xl">.</span>
+      <span className="text-gray-50 text-xl">tokyo</span>
     </h1>
   )
 }
