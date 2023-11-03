@@ -43,7 +43,7 @@ function urlForPrompt(
   sectionName: SectionName,
   promptIndex: number,
 ) {
-  return `/calculator/${visaType}/TODO`
+  return `/calculator/${visaType}/${sectionName}/${promptIndex + 1}`
 }
 
 function Section({
