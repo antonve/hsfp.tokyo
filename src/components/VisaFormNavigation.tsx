@@ -5,7 +5,7 @@ import {
   VisaProgress,
   getOverallPromptIndex,
 } from '@lib/domain/form'
-import { Qualifications } from '@lib/visa'
+import { Qualifications, encodeQualifications } from '@lib/visa'
 import {
   didCompleteSection,
   getHighestCompletedOverallPromptIndex,
@@ -42,8 +42,11 @@ function urlForPrompt(
   visaType: VisaType,
   sectionName: SectionName,
   promptIndex: number,
+  q: Qualifications,
 ) {
-  return `/calculator/${visaType}/${sectionName}/${promptIndex + 1}`
+  return `/calculator/${visaType}/${sectionName}/${
+    promptIndex + 1
+  }?q=${encodeQualifications(q)}`
 }
 
 function Section({
@@ -79,7 +82,9 @@ function Section({
             maxActivePrompt < getOverallPromptIndex(config, name, 0),
         })}
       >
-        <Link href={urlForPrompt(config.visaType, name, 0)}>{t('title')}</Link>
+        <Link href={urlForPrompt(config.visaType, name, 0, qualifications)}>
+          {t('title')}
+        </Link>
       </li>
       {showPrompts
         ? prompts.map((prompt, i) => (
@@ -91,7 +96,9 @@ function Section({
                   maxActivePrompt < getOverallPromptIndex(config, name, i),
               })}
             >
-              <Link href={urlForPrompt(config.visaType, name, i)}>
+              <Link
+                href={urlForPrompt(config.visaType, name, i, qualifications)}
+              >
                 {t(`${prompt.id}.title`)}
               </Link>
             </li>
