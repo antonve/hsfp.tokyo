@@ -120,15 +120,7 @@ export const formConfig: FormConfig = {
       },
     ],
   },
-  order: [
-    'education',
-    'job',
-    'research',
-    'certification',
-    'employer',
-    'university',
-    'bonus',
-  ],
+  order: ['education', 'job', 'research', 'employer', 'university', 'bonus'],
 }
 
 // Comments indicate to what item/項目 they refer to in the official point sheet

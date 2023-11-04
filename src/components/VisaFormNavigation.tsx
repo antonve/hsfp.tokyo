@@ -16,6 +16,16 @@ import {
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
+import {
+  AcademicCapIcon,
+  BeakerIcon,
+  BookOpenIcon,
+  BriefcaseIcon,
+  BuildingOfficeIcon,
+  TagIcon,
+  UserIcon,
+} from '@heroicons/react/24/outline'
+import { SVGProps } from 'react'
 
 export function VisaFormNavigation({
   config,
@@ -27,7 +37,7 @@ export function VisaFormNavigation({
   qualifications: Qualifications
 }) {
   return (
-    <ul className="">
+    <ul className="space-y-4">
       {config.order.map(section => (
         <Section
           name={section}
@@ -52,6 +62,16 @@ function urlForPrompt(
   }?q=${encodeQualifications(q)}`
 }
 
+const icons = {
+  education: AcademicCapIcon,
+  job: BriefcaseIcon,
+  research: BeakerIcon, //DocumentMagnifyingGlassIcon
+  employer: BuildingOfficeIcon,
+  university: BookOpenIcon, //BuildingLibraryIcon
+  bonus: TagIcon,
+  position: UserIcon,
+}
+
 function Section({
   name,
   config,
@@ -74,31 +94,40 @@ function Section({
   const maxActivePrompt =
     getHighestCompletedOverallPromptIndex(qualifications) + 1
 
+  const Icon = icons[name]
+
   return (
     <>
-      <li
-        className={cn({
-          'bg-emerald-900': isSectionComplete,
-          'disabled opacity-60 pointer-events-none':
-            maxActivePrompt < getOverallPromptIndex(config, name, 0),
-        })}
-      >
-        {t('title')}
-      </li>
-      {prompts.map((prompt, i) => (
-        <li
-          key={prompt.id}
-          className={cn('ml-4', {
+      <li>
+        <div
+          className={cn('flex space-x-2', {
             'bg-emerald-900': isSectionComplete,
             'disabled opacity-60 pointer-events-none':
-              maxActivePrompt < getOverallPromptIndex(config, name, i),
+              maxActivePrompt < getOverallPromptIndex(config, name, 0),
           })}
         >
-          <Link href={urlForPrompt(config.visaType, name, i, qualifications)}>
-            {t(`${prompt.id}.title`)}
-          </Link>
-        </li>
-      ))}
+          <Icon className="w-5 h-5" />
+          <span className="font-bold"> {t('title')}</span>
+        </div>
+        <ul>
+          {prompts.map((prompt, i) => (
+            <li
+              key={prompt.id}
+              className={cn('ml-4', {
+                'bg-emerald-900': isSectionComplete,
+                'disabled opacity-60 pointer-events-none':
+                  maxActivePrompt < getOverallPromptIndex(config, name, i),
+              })}
+            >
+              <Link
+                href={urlForPrompt(config.visaType, name, i, qualifications)}
+              >
+                {t(`${prompt.id}.title`)}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </li>
     </>
   )
 }
