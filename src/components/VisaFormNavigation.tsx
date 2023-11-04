@@ -1,6 +1,7 @@
 import { VisaType } from '@lib/domain'
 import {
   FormConfig,
+  Prompt,
   SectionName,
   VisaProgress,
   getOverallPromptIndex,
@@ -12,6 +13,7 @@ import {
 import {
   didCompleteSection,
   getHighestCompletedOverallPromptIndex,
+  isPromptCompleted,
 } from '@lib/domain/prompts'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
@@ -26,6 +28,7 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline'
 import { SVGProps } from 'react'
+import { CheckIcon } from '@heroicons/react/20/solid'
 
 export function VisaFormNavigation({
   config,
@@ -100,34 +103,79 @@ function Section({
     <>
       <li>
         <div
-          className={cn('flex space-x-2', {
+          className={cn('flex space-x-2 align-middle items-center', {
             'bg-emerald-900': isSectionComplete,
             'disabled opacity-60 pointer-events-none':
               maxActivePrompt < getOverallPromptIndex(config, name, 0),
           })}
         >
           <Icon className="w-5 h-5" />
-          <span className="font-bold"> {t('title')}</span>
+          <span className="font-bold text-lg"> {t('title')}</span>
         </div>
-        <ul>
+        <ul className="border-l-2 border-stone-400 ml-2 mt-2 flex flex-col space-y-2">
           {prompts.map((prompt, i) => (
-            <li
-              key={prompt.id}
-              className={cn('ml-4', {
-                'bg-emerald-900': isSectionComplete,
-                'disabled opacity-60 pointer-events-none':
-                  maxActivePrompt < getOverallPromptIndex(config, name, i),
-              })}
-            >
-              <Link
-                href={urlForPrompt(config.visaType, name, i, qualifications)}
-              >
-                {t(`${prompt.id}.title`)}
-              </Link>
-            </li>
+            <Prompt
+              title={t(`${prompt.id}.title`)}
+              prompt={prompt}
+              promptIndex={i}
+              maxActivePrompt={maxActivePrompt}
+              name={name}
+              config={config}
+              qualifications={qualifications}
+              progress={progress}
+            />
           ))}
         </ul>
       </li>
     </>
+  )
+}
+
+function Prompt({
+  title,
+  prompt,
+  config,
+  promptIndex,
+  name,
+  maxActivePrompt,
+  progress,
+  qualifications,
+}: {
+  title: string
+  prompt: Prompt
+  promptIndex: number
+  maxActivePrompt: number
+  name: SectionName
+  config: FormConfig
+  progress: VisaProgress
+  qualifications: Qualifications
+}) {
+  const overallPromptIndex = getOverallPromptIndex(config, name, promptIndex)
+  const isCompleted = isPromptCompleted(overallPromptIndex, qualifications)
+  const isActive =
+    progress.promptIndex === promptIndex && progress.section === name
+
+  return (
+    <li
+      key={prompt.id}
+      className={cn('ml-4 rounded text-sm', {
+        'bg-stone-700': isActive,
+        'disabled opacity-60 pointer-events-none':
+          maxActivePrompt < overallPromptIndex,
+      })}
+    >
+      <Link
+        href={urlForPrompt(config.visaType, name, promptIndex, qualifications)}
+        className="no-underline flex justify-between items-center px-3 py-2"
+      >
+        {title}
+        {isActive && !isCompleted ? (
+          <div className="w-2 h-2 bg-stone-800 rounded" />
+        ) : null}
+        {isCompleted ? (
+          <CheckIcon className="w-4 h-4 text-emerald-600" />
+        ) : null}
+      </Link>
+    </li>
   )
 }
