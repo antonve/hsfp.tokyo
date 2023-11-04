@@ -84,10 +84,9 @@ export const ResearcherQualificationsSchema = z.object({
 
   // Ⅰ　日本語専攻で外国の大学を卒業又は日本語能力試験Ｎ１合格相当
   // I Either graduated from a foreign university with a major in Japanese-language, or have passed the N1 level of the Japanese-Language Proficiency Test or its equivalent.
-  n1: z.boolean().optional(), // (15)
   // Ⅱ　日本語能力試験Ｎ２合格相当 (「日本の大学を卒業又は大学院の課程を修了」及びⅠに該当する者を除く)
   // Ⅱ Have passed the N2 level of the Japanese-Language Proficiency Test or its equivalent (Excluding those who "graduated from a university or completed a course of a graduate school in Japan", and those who come under I)
-  n2: z.boolean().optional(), // (15)
+  jp: z.enum(['n1', 'n2', 'none']).optional(), // (15)
 
   // 各省が関与する成長分野の先端プロジェクトに従事
   // Work on an advanced project in a growth field with the involvement of the relevant ministries and agencies
@@ -272,8 +271,8 @@ const matchers: Matcher<ResearcherQualifications>[] = [
   },
   function matchJapanese(q) {
     const isJapaneseUniGraduate = q.jp_uni_grad ?? false
-    const hasN1 = q.n1 ?? false
-    const hasN2 = q.n2 ?? false
+    const hasN1 = q.jp === 'n1'
+    const hasN2 = q.jp === 'n2'
 
     const matches: MatchResult[] = []
 
