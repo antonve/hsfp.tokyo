@@ -1,33 +1,45 @@
-import { VisaProgress, SectionName, FormConfig } from '@lib/domain/form'
-import { didCompleteSection } from '@lib/visa/prompts'
-
-
+import {
+  VisaProgress,
+  FormConfig,
+  SectionName,
+  getOverallPromptIndex,
+} from '@lib/domain/form'
+import { Qualifications } from '@lib/domain/qualifications'
+import { isPromptCompleted } from '@lib/domain/prompts'
 export function VisaProgressBar({
-    progress,
-    config
+  config,
+  qualifications,
 }: {
-    progress: VisaProgress
-    config: FormConfig
+  config: FormConfig
+  qualifications: Qualifications
 }) {
-    const allSections: { [K in SectionName]: string } = {
-        education: '20%',
-        job: '40%',
-        'research-achievements': '60%',
-        licenses: '80%',
-        bonus: '100%',
-    };
-    const matchSections = (progress: VisaProgress) => {
-        if (allSections.hasOwnProperty(progress.section)) {
-            const value = allSections[progress.section];
-            return value
-        }
-    }
-    return (
-        < div className=" h-2 bg-gray-200 mx-auto" >
-            <div style={{ width: `${matchSections(progress)}` }}
-            >
-                <div className={`h-2 bg-red-500 animate-progress`} />
-            </div>
-        </div >
+  const totalPrompts = Object.values(config.sections).reduce(
+    (accumulator, value) => accumulator + value.length,
+    0,
+  )
+  const sections: SectionName[] = config.order
+  let progress: number = 0
+
+  sections.map(section => {
+    const startPromptId = getOverallPromptIndex(config, section, 0)
+    const prompts = config.sections[section]?.length ?? 0
+    const promptIdsToCheck = [...Array(prompts)].map(
+      (_, i) => i + startPromptId,
     )
+    promptIdsToCheck.map(promptId => {
+      if (isPromptCompleted(promptId, qualifications)) {
+        progress += 1
+      }
+    })
+  })
+
+  const completed = (progress / totalPrompts) * 100
+
+  return (
+    <div className=" h-2 bg-gray-200 w-full mx-auto">
+      <div style={{ width: `${completed}%` }}>
+        <div className={`h-2 bg-red-500 `} />
+      </div>
+    </div>
+  )
 }

@@ -92,7 +92,6 @@ function Section({
       </li>
       {showPrompts
         ? prompts.map((prompt, i) => (
-
             <li
               key={prompt.id}
               className={cn('ml-4', {

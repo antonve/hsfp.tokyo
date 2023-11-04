@@ -36,17 +36,13 @@ export function VisaForm({ config }: Props) {
       </aside>
 
       <main className="px-4 py-4 w-full">
-        <VisaProgressBar
-          progress={progress}
-          config={config}
-        />
+        <VisaProgressBar config={config} qualifications={qualifications} />
         <VisaFormSection
           config={config}
           progress={progress}
           qualifications={qualifications}
         />
       </main>
-
     </div>
   )
 }

@@ -9,15 +9,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      animation: {
-        progress: 'progress  0.5s',
-      },
-      keyframes: {
-        progress: {
-          '0%': { width: '0%' },
-          '100%': { width: '100%' },
-        },
-      },
       fontFamily: {
         sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
         serif: [
