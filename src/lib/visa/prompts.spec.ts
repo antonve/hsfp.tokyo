@@ -6,7 +6,7 @@ import {
 } from '@lib/visa/prompts'
 import { QualificationsSchema } from '@lib/visa/visa'
 import { VisaType } from '@lib/domain'
-import { formConfig } from '@lib/visa/b'
+import { formConfig } from '@lib/visa/visa.engineer'
 
 describe('prompt completion operations', () => {
   function createQualification(completed: number) {

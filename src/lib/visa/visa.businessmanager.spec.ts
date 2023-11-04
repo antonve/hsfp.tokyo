@@ -1,4 +1,7 @@
-import { BusinessManagerQualifications, calculatePoints } from '@lib/visa/c'
+import {
+  BusinessManagerQualifications,
+  calculatePoints,
+} from '@lib/visa/visa.businessmanager'
 import 'jest-extended'
 import { errorMessages } from './errors'
 
