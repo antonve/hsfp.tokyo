@@ -4,7 +4,7 @@ import {
   Qualifications,
   QualificationsSchema,
   decodeQualifications,
-} from '@lib/domain/visa'
+} from '@lib/domain/qualifications'
 import { formConfigForVisa } from './domain/form'
 import { notFound, useParams, useSearchParams } from 'next/navigation'
 import { z } from 'zod'

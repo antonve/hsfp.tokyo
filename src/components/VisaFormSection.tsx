@@ -4,7 +4,10 @@ import {
   getOverallPromptIndex,
   nextStepOfForm,
 } from '@lib/domain/form'
-import { Qualifications, encodeQualifications } from '@lib/domain/visa'
+import {
+  Qualifications,
+  encodeQualifications,
+} from '@lib/domain/qualifications'
 import { VisaFormPrompt } from '@components/VisaFormPrompt'
 import { useParams, useRouter } from 'next/navigation'
 import { useLanguage } from '@lib/hooks'
