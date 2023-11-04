@@ -24,10 +24,13 @@ import {
   BookOpenIcon,
   BriefcaseIcon,
   BuildingOfficeIcon,
+  PlusIcon,
+  MinusIcon,
   TagIcon,
   UserIcon,
 } from '@heroicons/react/24/outline'
 import { CheckIcon } from '@heroicons/react/20/solid'
+import { useState } from 'react'
 
 export function VisaFormNavigation({
   config,
@@ -85,6 +88,10 @@ function Section({
   progress: VisaProgress
   qualifications: Qualifications
 }) {
+  const [isExpandedManually, setIsExpandedManually] = useState(false)
+  const isActive = progress.section === name
+  const isExpanded = isExpandedManually || isActive
+
   const t = useTranslations(`visa_form.${config.visaType}.sections.${name}`)
   const prompts = config.sections[name]
 
@@ -95,35 +102,49 @@ function Section({
   const isSectionComplete = didCompleteSection(qualifications, config, name)
   const maxActivePrompt =
     getHighestCompletedOverallPromptIndex(qualifications) + 1
-  const isEnabled = maxActivePrompt < getOverallPromptIndex(config, name, 0)
+  const isEnabled = maxActivePrompt >= getOverallPromptIndex(config, name, 0)
 
   const Icon = icons[name]
 
   return (
     <>
       <li>
-        <div
-          className={cn('flex space-x-3 align-middle items-center', {
-            'disabled opacity-60 pointer-events-none': isEnabled,
-          })}
+        <a
+          className={cn(
+            'flex space-x-3 align-middle items-center no-underline pr-3',
+            {
+              'pointer-events-none': isActive,
+            },
+          )}
+          href="#"
+          onClick={() => setIsExpandedManually(!isExpandedManually)}
         >
           <Icon className="w-5 h-5" />
-          <span className="font-bold text-lg"> {t('title')}</span>
-        </div>
-        <ul className="border-l-2 border-stone-700 ml-2 mt-2 flex flex-col space-y-1">
-          {prompts.map((prompt, i) => (
-            <Prompt
-              title={t(`${prompt.id}.title`)}
-              prompt={prompt}
-              promptIndex={i}
-              maxActivePrompt={maxActivePrompt}
-              name={name}
-              config={config}
-              qualifications={qualifications}
-              progress={progress}
-            />
-          ))}
-        </ul>
+          <span className="font-bold text-lg flex-grow"> {t('title')}</span>
+          {!isActive ? (
+            isExpanded ? (
+              <MinusIcon className="w-4 h-4" />
+            ) : (
+              <PlusIcon className="w-4 h-4" />
+            )
+          ) : null}
+        </a>
+        {isExpanded ? (
+          <ul className="border-l-2 border-stone-700 ml-2 mt-2 flex flex-col space-y-1">
+            {prompts.map((prompt, i) => (
+              <Prompt
+                title={t(`${prompt.id}.title`)}
+                prompt={prompt}
+                promptIndex={i}
+                maxActivePrompt={maxActivePrompt}
+                name={name}
+                config={config}
+                qualifications={qualifications}
+                progress={progress}
+              />
+            ))}
+          </ul>
+        ) : null}
       </li>
     </>
   )
@@ -152,19 +173,22 @@ function Prompt({
   const isCompleted = isPromptCompleted(overallPromptIndex, qualifications)
   const isActive =
     progress.promptIndex === promptIndex && progress.section === name
-  const isEnabled = maxActivePrompt < overallPromptIndex
+  const isEnabled = maxActivePrompt >= overallPromptIndex
 
   return (
     <li
       key={prompt.id}
       className={cn('ml-4 rounded text-sm', {
         'bg-stone-700': isActive,
-        'disabled opacity-60 pointer-events-none': isEnabled,
+        'disabled opacity-60 cursor-not-allowed': !isEnabled,
       })}
     >
       <Link
         href={urlForPrompt(config.visaType, name, promptIndex, qualifications)}
-        className="no-underline flex justify-between items-center px-3 py-2"
+        className={cn(
+          'no-underline flex justify-between items-center px-3 py-2',
+          { 'pointer-events-none': !isEnabled },
+        )}
       >
         {title}
         {isActive && !isCompleted ? (
