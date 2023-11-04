@@ -79,9 +79,48 @@ export const formConfig: FormConfig = {
         id: 'high_rnd_expenses',
         type: 'BOOLEAN',
       },
+      {
+        id: 'growth_field',
+        type: 'BOOLEAN',
+      },
     ],
-    university: [],
-    bonus: [],
+    university: [
+      {
+        id: 'jp',
+        type: 'CHOICE',
+        options: ['n1', 'n2', 'none'],
+      },
+      {
+        id: 'jp_uni_grad',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'uni_ranked',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'uni_funded',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'uni_partner',
+        type: 'BOOLEAN',
+      },
+    ],
+    bonus: [
+      {
+        id: 'foreign_qualification',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'training_jica',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'investment_management',
+        type: 'BOOLEAN',
+      },
+    ],
   },
   order: [
     'education',
