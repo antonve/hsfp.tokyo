@@ -1,5 +1,8 @@
 import { z } from 'zod'
 import { VisaType } from '@lib/domain'
+import { formConfig as formConfigA } from '@lib/domain/visa.businessmanager'
+import { formConfig as formConfigB } from '@lib/domain/visa.engineer'
+import { formConfig as formConfigC } from '@lib/domain/visa.researcher'
 
 // TODO: decide how to split the sections
 export const SectionNameSchema = z.enum([
@@ -91,4 +94,15 @@ export function getOverallPromptIndex(
   )
 
   return promptsBeforeSection[section] + promptIndex
+}
+
+export function formConfigForVisa(visa: string) {
+  switch (visa) {
+    case 'researcher':
+      return formConfigA
+    case 'engineer':
+      return formConfigB
+    case 'business-manager':
+      return formConfigC
+  }
 }
