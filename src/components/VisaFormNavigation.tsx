@@ -27,7 +27,6 @@ import {
   TagIcon,
   UserIcon,
 } from '@heroicons/react/24/outline'
-import { SVGProps } from 'react'
 import { CheckIcon } from '@heroicons/react/20/solid'
 
 export function VisaFormNavigation({
@@ -96,6 +95,7 @@ function Section({
   const isSectionComplete = didCompleteSection(qualifications, config, name)
   const maxActivePrompt =
     getHighestCompletedOverallPromptIndex(qualifications) + 1
+  const isEnabled = maxActivePrompt < getOverallPromptIndex(config, name, 0)
 
   const Icon = icons[name]
 
@@ -103,16 +103,14 @@ function Section({
     <>
       <li>
         <div
-          className={cn('flex space-x-2 align-middle items-center', {
-            'bg-emerald-900': isSectionComplete,
-            'disabled opacity-60 pointer-events-none':
-              maxActivePrompt < getOverallPromptIndex(config, name, 0),
+          className={cn('flex space-x-3 align-middle items-center', {
+            'disabled opacity-60 pointer-events-none': isEnabled,
           })}
         >
           <Icon className="w-5 h-5" />
           <span className="font-bold text-lg"> {t('title')}</span>
         </div>
-        <ul className="border-l-2 border-stone-400 ml-2 mt-2 flex flex-col space-y-2">
+        <ul className="border-l-2 border-stone-700 ml-2 mt-2 flex flex-col space-y-1">
           {prompts.map((prompt, i) => (
             <Prompt
               title={t(`${prompt.id}.title`)}
@@ -154,14 +152,14 @@ function Prompt({
   const isCompleted = isPromptCompleted(overallPromptIndex, qualifications)
   const isActive =
     progress.promptIndex === promptIndex && progress.section === name
+  const isEnabled = maxActivePrompt < overallPromptIndex
 
   return (
     <li
       key={prompt.id}
       className={cn('ml-4 rounded text-sm', {
         'bg-stone-700': isActive,
-        'disabled opacity-60 pointer-events-none':
-          maxActivePrompt < overallPromptIndex,
+        'disabled opacity-60 pointer-events-none': isEnabled,
       })}
     >
       <Link
