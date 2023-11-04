@@ -56,12 +56,6 @@ export const formConfig: FormConfig = {
         type: 'BOOLEAN',
       },
     ],
-    certification: [
-      {
-        id: 'certification',
-        type: 'NUMBER',
-      },
-    ],
     employer: [
       {
         id: 'org_promotes_innovation',
@@ -85,6 +79,10 @@ export const formConfig: FormConfig = {
       },
     ],
     university: [
+      {
+        id: 'certification',
+        type: 'NUMBER',
+      },
       {
         id: 'jp',
         type: 'CHOICE',
