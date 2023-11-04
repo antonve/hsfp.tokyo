@@ -1,7 +1,16 @@
 import { VisaType } from '@lib/domain'
-import { FormConfig, SectionName, VisaProgress } from '@lib/domain/form'
+import {
+  FormConfig,
+  SectionName,
+  VisaProgress,
+  getOverallPromptIndex,
+} from '@lib/domain/form'
 import { Qualifications } from '@lib/visa'
-import { didCompleteSection } from '@lib/visa/prompts'
+import {
+  didCompleteSection,
+  getHighestCompletedOverallPromptIndex,
+} from '@lib/visa/prompts'
+import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
 
@@ -58,15 +67,30 @@ function Section({
 
   const showPrompts = prompts.length >= 2
   const isSectionComplete = didCompleteSection(qualifications, config, name)
+  const maxActivePrompt =
+    getHighestCompletedOverallPromptIndex(qualifications) + 1
 
   return (
     <>
-      <li className={`${isSectionComplete ? `bg-emerald-200` : ``}`}>
+      <li
+        className={cn({
+          'bg-emerald-900': isSectionComplete,
+          'disabled opacity-60 pointer-events-none':
+            maxActivePrompt < getOverallPromptIndex(config, name, 0),
+        })}
+      >
         <Link href={urlForPrompt(config.visaType, name, 0)}>{t('title')}</Link>
       </li>
       {showPrompts
         ? prompts.map((prompt, i) => (
-            <li key={prompt.id} className="ml-4">
+            <li
+              key={prompt.id}
+              className={cn('ml-4', {
+                'bg-emerald-900': isSectionComplete,
+                'disabled opacity-60 pointer-events-none':
+                  maxActivePrompt < getOverallPromptIndex(config, name, i),
+              })}
+            >
               <Link href={urlForPrompt(config.visaType, name, i)}>
                 {t(`${prompt.id}.title`)}
               </Link>
