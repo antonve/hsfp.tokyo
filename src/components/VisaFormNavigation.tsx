@@ -77,6 +77,24 @@ const icons = {
   position: UserIcon,
 }
 
+function getSectionIcon(
+  isSectionComplete: boolean,
+  isActive: boolean,
+  isExpanded: boolean,
+) {
+  if (isSectionComplete) {
+    return CheckIcon
+  }
+
+  if (!isActive && isExpanded) {
+    return MinusIcon
+  }
+
+  if (!isActive && !isExpanded) {
+    return PlusIcon
+  }
+}
+
 function Section({
   name,
   config,
@@ -105,6 +123,7 @@ function Section({
   const isEnabled = maxActivePrompt >= getOverallPromptIndex(config, name, 0)
 
   const Icon = icons[name]
+  const SectionIcon = getSectionIcon(isSectionComplete, isActive, isExpanded)
 
   return (
     <>
@@ -121,12 +140,12 @@ function Section({
         >
           <Icon className="w-5 h-5" />
           <span className="font-bold text-lg flex-grow"> {t('title')}</span>
-          {!isActive ? (
-            isExpanded ? (
-              <MinusIcon className="w-4 h-4" />
-            ) : (
-              <PlusIcon className="w-4 h-4" />
-            )
+          {SectionIcon !== undefined ? (
+            <SectionIcon
+              className={cn('w-4 h-4', {
+                'text-emerald-600': isSectionComplete,
+              })}
+            />
           ) : null}
         </a>
         {isExpanded ? (
