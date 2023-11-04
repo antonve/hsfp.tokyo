@@ -5,7 +5,7 @@ import {
   QualificationsSchema,
   decodeQualifications,
   formConfigForVisa,
-} from '@lib/visa'
+} from '@lib/visa/visa'
 import { notFound, useParams, useSearchParams } from 'next/navigation'
 import { z } from 'zod'
 

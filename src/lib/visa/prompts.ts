@@ -3,7 +3,7 @@ import {
   SectionName,
   getOverallPromptIndex,
 } from '@lib/domain/form'
-import { Qualifications } from '@lib/visa'
+import { Qualifications } from '@lib/visa/visa'
 
 // We keep track of completed prompts with bits set on a number.
 // This is to avoid blowing up the size of the encoded qualifications string.

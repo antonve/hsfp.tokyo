@@ -4,7 +4,7 @@ import {
   didCompleteSection,
   getHighestCompletedOverallPromptIndex,
 } from '@lib/visa/prompts'
-import { QualificationsSchema } from '@lib/visa'
+import { QualificationsSchema } from '@lib/visa/visa'
 import { VisaType } from '@lib/domain'
 import { formConfig } from '@lib/visa/b'
 

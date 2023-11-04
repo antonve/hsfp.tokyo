@@ -5,7 +5,7 @@ import {
   VisaProgress,
   getOverallPromptIndex,
 } from '@lib/domain/form'
-import { Qualifications, encodeQualifications } from '@lib/visa'
+import { Qualifications, encodeQualifications } from '@lib/visa/visa'
 import {
   didCompleteSection,
   getHighestCompletedOverallPromptIndex,
