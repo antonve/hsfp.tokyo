@@ -63,7 +63,6 @@ function Section({
   progress: VisaProgress
   qualifications: Qualifications
 }) {
-  // const isDone = getTotalPromptCount(config)
   const t = useTranslations(`visa_form.${config.visaType}.sections.${name}`)
   const prompts = config.sections[name]
 
@@ -71,7 +70,6 @@ function Section({
     return undefined
   }
 
-  const showPrompts = prompts.length >= 2
   const isSectionComplete = didCompleteSection(qualifications, config, name)
   const maxActivePrompt =
     getHighestCompletedOverallPromptIndex(qualifications) + 1
@@ -85,28 +83,22 @@ function Section({
             maxActivePrompt < getOverallPromptIndex(config, name, 0),
         })}
       >
-        <Link href={urlForPrompt(config.visaType, name, 0, qualifications)}>
-          {t('title')}
-        </Link>
+        {t('title')}
       </li>
-      {showPrompts
-        ? prompts.map((prompt, i) => (
-            <li
-              key={prompt.id}
-              className={cn('ml-4', {
-                'bg-emerald-900': isSectionComplete,
-                'disabled opacity-60 pointer-events-none':
-                  maxActivePrompt < getOverallPromptIndex(config, name, i),
-              })}
-            >
-              <Link
-                href={urlForPrompt(config.visaType, name, i, qualifications)}
-              >
-                {t(`${prompt.id}.title`)}
-              </Link>
-            </li>
-          ))
-        : undefined}
+      {prompts.map((prompt, i) => (
+        <li
+          key={prompt.id}
+          className={cn('ml-4', {
+            'bg-emerald-900': isSectionComplete,
+            'disabled opacity-60 pointer-events-none':
+              maxActivePrompt < getOverallPromptIndex(config, name, i),
+          })}
+        >
+          <Link href={urlForPrompt(config.visaType, name, i, qualifications)}>
+            {t(`${prompt.id}.title`)}
+          </Link>
+        </li>
+      ))}
     </>
   )
 }
