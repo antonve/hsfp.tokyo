@@ -44,3 +44,15 @@ export function didCompleteSection(
 
   return didComplete
 }
+
+export function getHighestCompletedOverallPromptIndex(q: Qualifications) {
+  const n = q.completed
+
+  if (n === 0) {
+    return -1
+  }
+
+  // Formula for most significant bit in a number
+  // Ref: https://workat.tech/problem-solving/approach/msb/most-significant-bit
+  return Math.floor(Math.log(n) / Math.log(2))
+}
