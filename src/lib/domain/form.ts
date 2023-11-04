@@ -11,7 +11,6 @@ export const SectionNameSchema = z.enum([
   'certification',
   'bonus',
   'employer',
-  'japanese',
   'university',
   'position',
 ])
