@@ -38,7 +38,7 @@ export const formConfig: FormConfig = {
         type: 'NUMBER',
       },
     ],
-    'research-achievements': [
+    research: [
       {
         id: 'patent_inventor',
         type: 'BOOLEAN',
@@ -56,8 +56,44 @@ export const formConfig: FormConfig = {
         type: 'BOOLEAN',
       },
     ],
+    certification: [
+      {
+        id: 'certification',
+        type: 'NUMBER',
+      },
+    ],
+    employer: [
+      {
+        id: 'org_promotes_innovation',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'org_smb',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'org_promotes_highly_skilled',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'high_rnd_expenses',
+        type: 'BOOLEAN',
+      },
+    ],
+    japanese: [],
+    university: [],
+    bonus: [],
   },
-  order: ['education', 'job'],
+  order: [
+    'education',
+    'job',
+    'research',
+    'certification',
+    'employer',
+    'japanese',
+    'university',
+    'bonus',
+  ],
 }
 
 // Comments indicate to what item/項目 they refer to in the official point sheet

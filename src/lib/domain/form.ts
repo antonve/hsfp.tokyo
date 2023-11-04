@@ -4,17 +4,16 @@ import { formConfig as formConfigA } from '@lib/domain/visa.businessmanager'
 import { formConfig as formConfigB } from '@lib/domain/visa.engineer'
 import { formConfig as formConfigC } from '@lib/domain/visa.researcher'
 
-// TODO: decide how to split the sections
 export const SectionNameSchema = z.enum([
   'education',
   'job',
-  'research-achievements',
-  'licenses',
+  'research',
+  'certification',
   'bonus',
-  // 'contracting-organization',
-  // 'japanese',
-  // 'university',
-  // 'investor',
+  'employer',
+  'japanese',
+  'university',
+  'position',
 ])
 
 export interface VisaProgress {
