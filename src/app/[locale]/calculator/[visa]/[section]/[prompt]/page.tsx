@@ -1,5 +1,5 @@
 import { VisaForm } from '@components/VisaForm'
-import { formConfigForVisa } from '@lib/visa/visa'
+import { formConfigForVisa } from '@lib/domain/visa'
 import { notFound } from 'next/navigation'
 
 interface Props {

@@ -1,4 +1,4 @@
-import { formConfig } from '@lib/visa/visa.engineer'
+import { formConfig } from '@lib/domain/visa.engineer'
 import { getOverallPromptIndex } from '@lib/domain/form'
 
 describe('getOverallPromptIndex', () => {

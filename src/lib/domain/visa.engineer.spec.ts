@@ -1,7 +1,7 @@
 import {
   EngineerQualifications,
   calculatePoints,
-} from '@lib/visa/visa.engineer'
+} from '@lib/domain/visa.engineer'
 import 'jest-extended'
 import { errorMessages } from './errors'
 

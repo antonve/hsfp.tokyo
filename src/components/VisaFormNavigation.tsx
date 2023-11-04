@@ -5,11 +5,11 @@ import {
   VisaProgress,
   getOverallPromptIndex,
 } from '@lib/domain/form'
-import { Qualifications, encodeQualifications } from '@lib/visa/visa'
+import { Qualifications, encodeQualifications } from '@lib/domain/visa'
 import {
   didCompleteSection,
   getHighestCompletedOverallPromptIndex,
-} from '@lib/visa/prompts'
+} from '@lib/domain/prompts'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'

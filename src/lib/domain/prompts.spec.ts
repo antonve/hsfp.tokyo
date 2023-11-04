@@ -3,10 +3,10 @@ import {
   isPromptCompleted,
   didCompleteSection,
   getHighestCompletedOverallPromptIndex,
-} from '@lib/visa/prompts'
-import { QualificationsSchema } from '@lib/visa/visa'
+} from '@lib/domain/prompts'
+import { QualificationsSchema } from '@lib/domain/visa'
 import { VisaType } from '@lib/domain'
-import { formConfig } from '@lib/visa/visa.engineer'
+import { formConfig } from '@lib/domain/visa.engineer'
 
 describe('prompt completion operations', () => {
   function createQualification(completed: number) {

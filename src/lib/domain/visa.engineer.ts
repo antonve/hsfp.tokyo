@@ -7,7 +7,7 @@ import {
   matchOf,
   mergeMatches,
 } from '@lib/domain/matching.helpers'
-import { errorMessages } from '@lib/visa/errors'
+import { errorMessages } from '@lib/domain/errors'
 import { z } from 'zod'
 
 export const formConfig: FormConfig = {

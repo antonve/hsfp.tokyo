@@ -2,15 +2,15 @@ import { VisaType } from '@lib/domain'
 import {
   ResearcherQualificationsSchema,
   formConfig as formConfigA,
-} from '@lib/visa/visa.researcher'
+} from '@lib/domain/visa.researcher'
 import {
   EngineerQualificationsSchema,
   formConfig as formConfigB,
-} from '@lib/visa/visa.engineer'
+} from '@lib/domain/visa.engineer'
 import {
   BusinessManagerQualificationsSchema,
   formConfig as formConfigC,
-} from '@lib/visa/visa.businessmanager'
+} from '@lib/domain/visa.businessmanager'
 import { z } from 'zod'
 
 export function formConfigForVisa(visa: string) {

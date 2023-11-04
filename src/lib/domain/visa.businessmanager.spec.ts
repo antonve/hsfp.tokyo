@@ -1,7 +1,7 @@
 import {
   BusinessManagerQualifications,
   calculatePoints,
-} from '@lib/visa/visa.businessmanager'
+} from '@lib/domain/visa.businessmanager'
 import 'jest-extended'
 import { errorMessages } from './errors'
 
