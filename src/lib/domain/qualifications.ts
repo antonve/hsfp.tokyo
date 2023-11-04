@@ -1,28 +1,8 @@
 import { VisaType } from '@lib/domain'
-import {
-  ResearcherQualificationsSchema,
-  formConfig as formConfigA,
-} from '@lib/visa/a'
-import {
-  EngineerQualificationsSchema,
-  formConfig as formConfigB,
-} from '@lib/visa/b'
-import {
-  BusinessManagerQualificationsSchema,
-  formConfig as formConfigC,
-} from '@lib/visa/c'
 import { z } from 'zod'
-
-export function formConfigForVisa(visa: string) {
-  switch (visa) {
-    case 'researcher':
-      return formConfigA
-    case 'engineer':
-      return formConfigB
-    case 'business-manager':
-      return formConfigC
-  }
-}
+import { ResearcherQualificationsSchema } from '@lib/domain/visa.researcher'
+import { EngineerQualificationsSchema } from '@lib/domain/visa.engineer'
+import { BusinessManagerQualificationsSchema } from '@lib/domain/visa.businessmanager'
 
 // v = visa (A = researcher, B = engineer, C = business manager)
 // Kept short so the hash of the qualifications stays short

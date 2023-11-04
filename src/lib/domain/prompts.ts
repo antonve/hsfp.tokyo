@@ -3,7 +3,7 @@ import {
   SectionName,
   getOverallPromptIndex,
 } from '@lib/domain/form'
-import { Qualifications } from '@lib/visa'
+import { Qualifications } from '@lib/domain/qualifications'
 
 // We keep track of completed prompts with bits set on a number.
 // This is to avoid blowing up the size of the encoded qualifications string.
@@ -43,4 +43,16 @@ export function didCompleteSection(
     .every(found => found === true)
 
   return didComplete
+}
+
+export function getHighestCompletedOverallPromptIndex(q: Qualifications) {
+  const n = q.completed
+
+  if (n === 0) {
+    return -1
+  }
+
+  // Formula for most significant bit in a number
+  // Ref: https://workat.tech/problem-solving/approach/msb/most-significant-bit
+  return Math.floor(Math.log(n) / Math.log(2))
 }

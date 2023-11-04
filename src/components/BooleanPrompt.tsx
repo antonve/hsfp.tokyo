@@ -2,7 +2,7 @@ import { BooleanPrompt, SectionName } from '@lib/domain/form'
 import { QualificationUpdater } from '@components/VisaFormSection'
 import { ChoicePrompt } from './ChoicePrompt'
 import { VisaType } from '@lib/domain'
-import { withCompletedPrompt } from '@lib/visa/prompts'
+import { withCompletedPrompt } from '@lib/domain/prompts'
 
 export function BooleanPrompt({
   visaType,

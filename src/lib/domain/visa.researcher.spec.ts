@@ -1,4 +1,7 @@
-import { ResearcherQualifications, calculatePoints } from '@lib/visa/a'
+import {
+  ResearcherQualifications,
+  calculatePoints,
+} from '@lib/domain/visa.researcher'
 import 'jest-extended'
 import { errorMessages } from './errors'
 
@@ -105,11 +108,10 @@ describe('point calculation: researcher visa', () => {
 
     // japanese ability
     [{ jp_uni_grad: true }, 10, ['jp_uni_grad']],
-    [{ n1: true }, 15, ['n1']],
-    [{ n2: true }, 10, ['n2']],
-    [{ jp_uni_grad: true, n2: true }, 10, ['jp_uni_grad']],
-    [{ n1: true, n2: true }, 15, ['n1']],
-    [{ jp_uni_grad: true, n1: true }, 25, ['jp_uni_grad', 'n1']],
+    [{ jp: 'n1' }, 15, ['n1']],
+    [{ jp: 'n2' }, 10, ['n2']],
+    [{ jp_uni_grad: true, jp: 'n2' }, 10, ['jp_uni_grad']],
+    [{ jp_uni_grad: true, jp: 'n1' }, 25, ['jp_uni_grad', 'n1']],
 
     // university
     [{ uni_ranked: true }, 10, ['uni_ranked']],

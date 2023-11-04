@@ -2,10 +2,11 @@ import {
   withCompletedPrompt,
   isPromptCompleted,
   didCompleteSection,
-} from '@lib/visa/prompts'
-import { QualificationsSchema } from '@lib/visa'
+  getHighestCompletedOverallPromptIndex,
+} from '@lib/domain/prompts'
+import { QualificationsSchema } from '@lib/domain/qualifications'
 import { VisaType } from '@lib/domain'
-import { formConfig } from '@lib/visa/b'
+import { formConfig } from '@lib/domain/visa.engineer'
 
 describe('prompt completion operations', () => {
   function createQualification(completed: number) {
@@ -60,6 +61,20 @@ describe('prompt completion operations', () => {
       const q = createQualification(0b101)
       const isCompleted = didCompleteSection(q, formConfig, 'job')
       expect(isCompleted).toBeFalse()
+    })
+  })
+
+  describe('getHighestCompletedOverallPromptIndex', () => {
+    it('should return -1 if no prompts are completed', () => {
+      const q = createQualification(0b0)
+      const highestIndex = getHighestCompletedOverallPromptIndex(q)
+      expect(highestIndex).toBe(-1)
+    })
+
+    it('should return correct overall prompt index when set', () => {
+      const q = createQualification(0b10100)
+      const highestIndex = getHighestCompletedOverallPromptIndex(q)
+      expect(highestIndex).toBe(4)
     })
   })
 })
