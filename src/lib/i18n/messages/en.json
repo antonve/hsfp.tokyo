@@ -43,6 +43,72 @@
                     "salary": {
                         "title": "Salary"
                     }
+                },
+                "research": {
+                    "title": "Research achievements",
+                    "patent_inventor": {
+                        "title": "Patents"
+                    },
+                    "conducted_financed_projects": {
+                        "title": "Financing"
+                    },
+                    "published_papers": {
+                        "title": "Published work"
+                    },
+                    "recognized_research": {
+                        "title": "Other achievements"
+                    }
+                },
+                "certification": {
+                    "title": "Certification"
+                },
+                "employer": {
+                    "title": "Bonus: employer",
+                    "org_promotes_innovation": {
+                        "title": "Innovation"
+                    },
+                    "org_smb": {
+                        "title": "SME act"
+                    },
+                    "org_promotes_highly_skilled": {
+                        "title": "Highly skilled"
+                    },
+                    "high_rnd_expenses": {
+                        "title": "R&D expenses"
+                    },
+                    "growth_field": {
+                        "title": "Growth field"
+                    }
+                },
+                "university": {
+                    "title": "Bonus: education",
+                    "jp": {
+                        "title": "Japanese ability"
+                    },
+                    "jp_uni_grad": {
+                        "title": "Japanese university"
+                    },
+                    "uni_ranked": {
+                        "title": "Ranked university"
+                    },
+                    "uni_funded": {
+                        "title": "Funded university"
+                    },
+                    "uni_partner": {
+                        "title": "Partner university"
+                    }
+                },
+                "bonus": {
+                    "title": "Bonus: others",
+                    "foreign_qualification": {
+                        "title": "Recognized qualifications"
+                    },
+                    "training_jica": {
+                        "title": "Training by JICA"
+                    },
+                    "investment_management": {
+                        "title": "Investment activities"
+                    }
                 }
             }
         }

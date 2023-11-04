@@ -44,15 +44,15 @@ export const formConfig: FormConfig = {
         type: 'BOOLEAN',
       },
       {
-        id: 'conducted_financed_projects_three_times',
+        id: 'conducted_financed_projects',
         type: 'BOOLEAN',
       },
       {
-        id: 'has_published_three_papers',
+        id: 'published_papers',
         type: 'BOOLEAN',
       },
       {
-        id: 'research_recognized_by_japan',
+        id: 'recognized_research',
         type: 'BOOLEAN',
       },
     ],
