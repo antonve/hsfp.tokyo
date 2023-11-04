@@ -10,7 +10,7 @@ import cn from 'classnames'
 import { QualificationUpdater } from './VisaFormSection'
 import { useTranslations } from 'next-intl'
 import { VisaType } from '@lib/domain'
-import { withCompletedPrompt } from '@lib/visa/prompts'
+import { withCompletedPrompt } from '@lib/domain/prompts'
 
 export function ChoicePrompt({
   visaType,

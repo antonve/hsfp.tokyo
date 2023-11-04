@@ -1,4 +1,7 @@
-import { ResearcherQualifications, calculatePoints } from '@lib/visa/a'
+import {
+  ResearcherQualifications,
+  calculatePoints,
+} from '@lib/domain/visa.researcher'
 import 'jest-extended'
 import { errorMessages } from './errors'
 
