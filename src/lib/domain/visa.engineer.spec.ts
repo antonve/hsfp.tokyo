@@ -101,7 +101,8 @@ describe('point calculation: engineer visa', () => {
 
     // 特別加算（続き）
     // special additions (continued)
-    [{ high_rnd_expenses: true }, 5, ['high_rnd_expenses']],
+    [{ high_rnd_expenses: true }, 0, []],
+    [{ high_rnd_expenses: true, org_smb: true }, 5, ['high_rnd_expenses']],
     [{ foreign_qualification: true }, 5, ['foreign_qualification']],
     [{ growth_field: true }, 10, ['growth_field']],
     [{ jp_uni_grad: true }, 10, ['jp_uni_grad']],

@@ -63,13 +63,15 @@ describe('point calculation: researcher visa', () => {
     ],
 
     // bonus
-    [{ high_rnd_expenses: true }, 5, ['high_rnd_expenses']],
+    [{ high_rnd_expenses: true }, 0, []],
+    [{ high_rnd_expenses: true, org_smb: true }, 5, ['high_rnd_expenses']],
     [{ foreign_qualification: true }, 5, ['foreign_qualification']],
     [{ growth_field: true }, 10, ['growth_field']],
     [{ training_jica: true }, 5, ['training_jica']],
     [
       {
         high_rnd_expenses: true,
+        org_smb: true,
         foreign_qualification: true,
         growth_field: true,
         training_jica: true,

@@ -371,7 +371,7 @@ const matchers: Matcher<EngineerQualifications>[] = [
   function matchBonus(q) {
     const matches: MatchResult[] = []
 
-    if (q.high_rnd_expenses) {
+    if (q.high_rnd_expenses && q.org_smb) {
       matches.push(matchOf('high_rnd_expenses', 5))
     }
     if (q.foreign_qualification) {
