@@ -34,7 +34,7 @@ export function VisaForm({ config }: Props) {
           />
         </div>
       </aside>
-      <main className="px-4 py-4">
+      <main className="p-8">
         <VisaFormSection
           config={config}
           progress={progress}

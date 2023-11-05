@@ -11,6 +11,7 @@ import {
 import { VisaFormPrompt } from '@components/VisaFormPrompt'
 import { useParams, useRouter } from 'next/navigation'
 import { useLanguage } from '@lib/hooks'
+import { useTranslations } from 'next-intl'
 
 export type QualificationUpdater = (
   qualifications: Qualifications,
@@ -28,6 +29,9 @@ export function VisaFormSection({
   const router = useRouter()
   const params = useParams()
   const language = useLanguage()
+  const t = useTranslations(
+    `visa_form.${config.visaType}.sections.${progress.section}`,
+  )
 
   const prompts = config.sections[progress.section]!!
   const prompt = prompts[progress.promptIndex]
@@ -50,7 +54,9 @@ export function VisaFormSection({
 
   return (
     <div className="pb-10">
-      <h2 className="font-bold text-xl mb-4">{progress.section}</h2>
+      <h2 className="font-semibold text-2xl mb-5">
+        {t(`${prompt.id}.prompt`)}
+      </h2>
       <VisaFormPrompt
         qualifications={qualifications}
         prompt={prompt}

@@ -63,7 +63,7 @@ export function ChoicePrompt({
         onSubmit(qualificationUpdater(value))
       }}
     >
-      <div className="space-y-4 mb-8">
+      <div className="space-y-3 mb-8">
         {prompt.options.map((option, i) => (
           <div className="w-full" key={option}>
             <div
@@ -96,7 +96,7 @@ export function ChoicePrompt({
                   htmlFor={promptOptionId(prompt, option)}
                   className="pl-3 h-5 text-lg flex items-center"
                 >
-                  {t(`options.${option}.label`)}
+                  {t(`options.${option}`)}
                 </label>
               </div>
             </div>
