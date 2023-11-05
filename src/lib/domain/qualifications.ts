@@ -1,8 +1,17 @@
 import { VisaType } from '@lib/domain'
 import { z } from 'zod'
-import { ResearcherQualificationsSchema } from '@lib/domain/visa.researcher'
-import { EngineerQualificationsSchema } from '@lib/domain/visa.engineer'
-import { BusinessManagerQualificationsSchema } from '@lib/domain/visa.businessmanager'
+import {
+  ResearcherQualificationsSchema,
+  calculatePoints as calculatePointsResearcher,
+} from '@lib/domain/visa.researcher'
+import {
+  EngineerQualificationsSchema,
+  calculatePoints as calculatePointsEngineer,
+} from '@lib/domain/visa.engineer'
+import {
+  BusinessManagerQualificationsSchema,
+  calculatePoints as calculatePointsBusinessManager,
+} from '@lib/domain/visa.businessmanager'
 
 // v = visa (A = researcher, B = engineer, C = business manager)
 // Kept short so the hash of the qualifications stays short
@@ -29,4 +38,15 @@ export function decodeQualifications(raw: string) {
 
 export function encodeQualifications(qualifications: Qualifications) {
   return btoa(JSON.stringify(qualifications))
+}
+
+export function calculatePoints(q: Qualifications) {
+  switch (q.v) {
+    case VisaType.Researcher:
+      return calculatePointsResearcher(q)
+    case VisaType.Engineer:
+      return calculatePointsEngineer(q)
+    case VisaType.BusinessManager:
+      return calculatePointsBusinessManager(q)
+  }
 }

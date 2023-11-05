@@ -6,6 +6,7 @@ import { VisaFormSection } from '@components/VisaFormSection'
 import { VisaFormNavigation } from './VisaFormNavigation'
 import { Logo } from './Logo'
 import { useTranslations } from 'next-intl'
+import { VisaFormResultsPreview } from './VisaFormResultsPreview'
 
 interface Props {
   config: FormConfig
@@ -37,6 +38,10 @@ export function VisaForm({ config }: Props) {
         <VisaFormSection
           config={config}
           progress={progress}
+          qualifications={qualifications}
+        />
+        <VisaFormResultsPreview
+          config={config}
           qualifications={qualifications}
         />
       </main>
