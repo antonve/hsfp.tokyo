@@ -10,9 +10,11 @@ import cn from 'classnames'
 import { QualificationUpdater } from './VisaFormSection'
 import { useTranslations } from 'next-intl'
 import { VisaType } from '@lib/domain'
-import { withCompletedPrompt } from '@lib/domain/prompts'
+import { isPromptCompleted, withCompletedPrompt } from '@lib/domain/prompts'
+import { Qualifications } from '@lib/domain/qualifications'
 
 export function ChoicePrompt({
+  qualifications,
   visaType,
   section,
   prompt,
@@ -23,6 +25,7 @@ export function ChoicePrompt({
     [prompt.id]: value,
   }),
 }: {
+  qualifications: Qualifications
   visaType: VisaType
   section: SectionName
   prompt: ChoicePrompt
@@ -30,7 +33,19 @@ export function ChoicePrompt({
   onSubmit: (updateQualifications: QualificationUpdater) => void
   qualificationUpdater?: (value: string) => QualificationUpdater
 }) {
-  const [value, setValue] = useState<string | undefined>(undefined)
+  const [value, setValue] = useState<string | undefined>(() => {
+    if (isPromptCompleted(overallPromptIndex, qualifications)) {
+      const result =
+        qualifications[prompt.id as keyof Qualifications]?.toString()
+      const fallback = prompt.options[prompt.options.length - 1]
+
+      // We need a fallback here because `false` values are not persisted
+      // in qualifications to reduce qualifications hash size.
+      return result ?? fallback
+    }
+
+    return undefined
+  })
   const t = useTranslations(
     `visa_form.${visaType}.sections.${section}.${prompt.id}`,
   )

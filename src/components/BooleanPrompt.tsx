@@ -3,14 +3,17 @@ import { QualificationUpdater } from '@components/VisaFormSection'
 import { ChoicePrompt } from './ChoicePrompt'
 import { VisaType } from '@lib/domain'
 import { withCompletedPrompt } from '@lib/domain/prompts'
+import { Qualifications } from '@lib/domain/qualifications'
 
 export function BooleanPrompt({
+  qualifications,
   visaType,
   section,
   prompt,
   overallPromptIndex,
   onSubmit,
 }: {
+  qualifications: Qualifications
   visaType: VisaType
   section: SectionName
   prompt: BooleanPrompt
@@ -19,6 +22,7 @@ export function BooleanPrompt({
 }) {
   return (
     <ChoicePrompt
+      qualifications={qualifications}
       prompt={{
         id: prompt.id,
         type: 'CHOICE',
