@@ -124,7 +124,7 @@ function Section({
           onClick={() => setIsExpandedManually(!isExpandedManually)}
         >
           <Icon className="w-5 h-5" />
-          <span className="font-bold text-lg flex-grow"> {t('title')}</span>
+          <span className="font-semibold text-lg flex-grow"> {t('title')}</span>
 
           {!isActive ? <ToggleIcon className="w-4 h-4 opacity-50" /> : null}
         </a>
