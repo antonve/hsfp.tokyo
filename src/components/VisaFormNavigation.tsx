@@ -24,10 +24,10 @@ import {
   BookOpenIcon,
   BriefcaseIcon,
   BuildingOfficeIcon,
-  PlusIcon,
-  MinusIcon,
   TagIcon,
   UserIcon,
+  BarsArrowDownIcon,
+  BarsArrowUpIcon,
 } from '@heroicons/react/24/outline'
 import { CheckIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
@@ -42,7 +42,7 @@ export function VisaFormNavigation({
   qualifications: Qualifications
 }) {
   return (
-    <ul className="space-y-4">
+    <ul>
       {config.order.map(section => (
         <Section
           name={section}
@@ -77,24 +77,6 @@ const icons = {
   position: UserIcon,
 }
 
-function getSectionIcon(
-  isSectionComplete: boolean,
-  isActive: boolean,
-  isExpanded: boolean,
-) {
-  if (isSectionComplete) {
-    return CheckIcon
-  }
-
-  if (!isActive && isExpanded) {
-    return MinusIcon
-  }
-
-  if (!isActive && !isExpanded) {
-    return PlusIcon
-  }
-}
-
 function Section({
   name,
   config,
@@ -120,14 +102,17 @@ function Section({
   const isSectionComplete = didCompleteSection(qualifications, config, name)
   const maxActivePrompt =
     getHighestCompletedOverallPromptIndex(qualifications) + 1
-  const isEnabled = maxActivePrompt >= getOverallPromptIndex(config, name, 0)
 
   const Icon = icons[name]
-  const SectionIcon = getSectionIcon(isSectionComplete, isActive, isExpanded)
+  const ToggleIcon = isExpanded ? BarsArrowUpIcon : BarsArrowDownIcon
 
   return (
     <>
-      <li>
+      <li
+        className={cn('px-2 py-2', {
+          'bg-stone-900/50 rounded': isActive,
+        })}
+      >
         <a
           className={cn(
             'flex space-x-3 align-middle items-center no-underline pr-3',
@@ -140,16 +125,11 @@ function Section({
         >
           <Icon className="w-5 h-5" />
           <span className="font-bold text-lg flex-grow"> {t('title')}</span>
-          {SectionIcon !== undefined ? (
-            <SectionIcon
-              className={cn('w-4 h-4', {
-                'text-emerald-600': isSectionComplete,
-              })}
-            />
-          ) : null}
+
+          {!isActive ? <ToggleIcon className="w-4 h-4 opacity-50" /> : null}
         </a>
         {isExpanded ? (
-          <ul className="border-l-2 border-stone-700 ml-2 mt-2 flex flex-col space-y-1">
+          <ul className="ml-2 mt-2">
             {prompts.map((prompt, i) => (
               <Prompt
                 title={t(`${prompt.id}.title`)}
@@ -197,22 +177,22 @@ function Prompt({
   return (
     <li
       key={prompt.id}
-      className={cn('ml-4 rounded text-sm', {
-        'bg-stone-700': isActive,
+      className={cn('text-sm border-l-2', {
+        'border-stone-100': isActive,
+        'border-stone-700': !isActive,
         'disabled opacity-60 cursor-not-allowed': !isEnabled,
       })}
     >
       <Link
         href={urlForPrompt(config.visaType, name, promptIndex, qualifications)}
         className={cn(
-          'no-underline flex justify-between items-center px-3 py-2',
-          { 'pointer-events-none': !isEnabled },
+          'no-underline pr-3 pl-6 py-2  flex items-center justify-between',
+          {
+            'pointer-events-none': !isEnabled,
+          },
         )}
       >
         {title}
-        {isActive && !isCompleted ? (
-          <div className="w-2 h-2 bg-stone-800 rounded" />
-        ) : null}
         {isCompleted ? (
           <CheckIcon className="w-4 h-4 text-emerald-600" />
         ) : null}
