@@ -110,10 +110,12 @@ describe('point calculation: researcher visa', () => {
 
     // japanese ability
     [{ jp_uni_grad: true }, 10, ['jp_uni_grad']],
+    [{ jp: 'jp_major' }, 15, ['jp_major']],
     [{ jp: 'n1' }, 15, ['n1']],
     [{ jp: 'n2' }, 10, ['n2']],
     [{ jp_uni_grad: true, jp: 'n2' }, 10, ['jp_uni_grad']],
     [{ jp_uni_grad: true, jp: 'n1' }, 25, ['jp_uni_grad', 'n1']],
+    [{ jp_uni_grad: true, jp: 'jp_major' }, 25, ['jp_uni_grad', 'jp_major']],
 
     // university
     [{ uni_ranked: true }, 10, ['uni_ranked']],

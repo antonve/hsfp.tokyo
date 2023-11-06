@@ -109,10 +109,12 @@ describe('point calculation: engineer visa', () => {
 
     // 特別加算（続き）: 日本語能力
     // special additions (continued): japanese ability
+    [{ jp: 'jp_major' }, 15, ['jp_major']],
     [{ jp: 'n1' }, 15, ['n1']],
     [{ jp: 'n2' }, 10, ['n2']],
     [{ jp_uni_grad: true, jp: 'n2' }, 10, ['jp_uni_grad']],
     [{ jp_uni_grad: true, jp: 'n1' }, 25, ['jp_uni_grad', 'n1']],
+    [{ jp_uni_grad: true, jp: 'jp_major' }, 25, ['jp_uni_grad', 'jp_major']],
 
     // 特別加算（続き）: 大学
     // special additions (continued): university

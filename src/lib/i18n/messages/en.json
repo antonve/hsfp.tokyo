@@ -141,8 +141,9 @@
                         "title": "Japanese ability",
                         "prompt": "What proof do you have for your Japanese ability?",
                         "options": {
-                            "n1": "Passed JLPT N1 (or equivalent) or have majored in Japanese in university",
-                            "n2": "Passed JLPT N2 (or equivalent)",
+                            "jp_major": "I have a major in Japanese",
+                            "n1": "JLPT N1 certificate (or equivalent)",
+                            "n2": "JLPT N2 certificate (or equivalent)",
                             "none": "I have no proof"
                         }
                     },
