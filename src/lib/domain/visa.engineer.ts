@@ -44,22 +44,16 @@ export const formConfig: FormConfig = {
         type: 'BOOLEAN',
       },
       {
-        id: 'conducted_financed_projects_three_times',
+        id: 'conducted_financed_projects',
         type: 'BOOLEAN',
       },
       {
-        id: 'has_published_three_papers',
+        id: 'published_papers',
         type: 'BOOLEAN',
       },
       {
-        id: 'research_recognized_by_japan',
+        id: 'recognized_research',
         type: 'BOOLEAN',
-      },
-    ],
-    certification: [
-      {
-        id: 'certification',
-        type: 'NUMBER',
       },
     ],
     employer: [
@@ -79,21 +73,54 @@ export const formConfig: FormConfig = {
         id: 'high_rnd_expenses',
         type: 'BOOLEAN',
       },
+      {
+        id: 'growth_field',
+        type: 'BOOLEAN',
+      },
     ],
-    japanese: [],
-    university: [],
-    bonus: [],
+    university: [
+      {
+        id: 'certification',
+        type: 'NUMBER',
+      },
+      {
+        id: 'jp',
+        type: 'CHOICE',
+        options: ['jp_major', 'n1', 'n2', 'none'],
+      },
+      {
+        id: 'jp_uni_grad',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'uni_ranked',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'uni_funded',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'uni_partner',
+        type: 'BOOLEAN',
+      },
+    ],
+    bonus: [
+      {
+        id: 'foreign_qualification',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'training_jica',
+        type: 'BOOLEAN',
+      },
+      {
+        id: 'investment_management',
+        type: 'BOOLEAN',
+      },
+    ],
   },
-  order: [
-    'education',
-    'job',
-    'research',
-    'certification',
-    'employer',
-    'japanese',
-    'university',
-    'bonus',
-  ],
+  order: ['education', 'job', 'research', 'employer', 'university', 'bonus'],
 }
 
 // Comments indicate to what item/項目 they refer to in the official point sheet
@@ -174,7 +201,7 @@ export const EngineerQualificationsSchema = z.object({
   // I Either graduated from a foreign university with a major in Japanese-language, or have passed the N1 level of the Japanese-Language Proficiency Test or its equivalent.
   // Ⅱ　日本語能力試験Ｎ２合格相当 (「日本の大学を卒業又は大学院の課程を修了」及びⅠに該当する者を除く)
   // Ⅱ Have passed the N2 level of the Japanese-Language Proficiency Test or its equivalent (Excluding those who "graduated from a university or completed a course of a graduate school in Japan", and those who come under I)
-  jp: z.enum(['n1', 'n2', 'none']).optional(), // (15)
+  jp: z.enum(['jp_major', 'n1', 'n2', 'none']).optional(), // (15)
 
   // 各省が関与する成長分野の先端プロジェクトに従事
   // Work on an advanced project in a growth field with the involvement of the relevant ministries and agencies
@@ -344,7 +371,7 @@ const matchers: Matcher<EngineerQualifications>[] = [
   function matchBonus(q) {
     const matches: MatchResult[] = []
 
-    if (q.high_rnd_expenses) {
+    if (q.high_rnd_expenses && q.org_smb) {
       matches.push(matchOf('high_rnd_expenses', 5))
     }
     if (q.foreign_qualification) {
@@ -383,16 +410,20 @@ const matchers: Matcher<EngineerQualifications>[] = [
   },
   function matchJapanese(q) {
     const isJapaneseUniGraduate = q.jp_uni_grad ?? false
+    const hasJapaneseMajor = q.jp === 'jp_major'
     const hasN1 = q.jp === 'n1'
     const hasN2 = q.jp === 'n2'
 
     const matches: MatchResult[] = []
 
-    if (hasN2 && !hasN1 && !isJapaneseUniGraduate) {
+    if (hasN2 && !isJapaneseUniGraduate) {
       matches.push(matchOf('n2', 10))
     }
     if (hasN1) {
       matches.push(matchOf('n1', 15))
+    }
+    if (hasJapaneseMajor) {
+      matches.push(matchOf('jp_major', 15))
     }
     if (isJapaneseUniGraduate) {
       matches.push(matchOf('jp_uni_grad', 10))

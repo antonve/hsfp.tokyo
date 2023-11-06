@@ -8,10 +8,8 @@ export const SectionNameSchema = z.enum([
   'education',
   'job',
   'research',
-  'certification',
   'bonus',
   'employer',
-  'japanese',
   'university',
   'position',
 ])

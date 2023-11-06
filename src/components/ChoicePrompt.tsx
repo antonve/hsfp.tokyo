@@ -10,9 +10,11 @@ import cn from 'classnames'
 import { QualificationUpdater } from './VisaFormSection'
 import { useTranslations } from 'next-intl'
 import { VisaType } from '@lib/domain'
-import { withCompletedPrompt } from '@lib/domain/prompts'
+import { isPromptCompleted, withCompletedPrompt } from '@lib/domain/prompts'
+import { Qualifications } from '@lib/domain/qualifications'
 
 export function ChoicePrompt({
+  qualifications,
   visaType,
   section,
   prompt,
@@ -23,6 +25,7 @@ export function ChoicePrompt({
     [prompt.id]: value,
   }),
 }: {
+  qualifications: Qualifications
   visaType: VisaType
   section: SectionName
   prompt: ChoicePrompt
@@ -30,7 +33,19 @@ export function ChoicePrompt({
   onSubmit: (updateQualifications: QualificationUpdater) => void
   qualificationUpdater?: (value: string) => QualificationUpdater
 }) {
-  const [value, setValue] = useState<string | undefined>(undefined)
+  const [value, setValue] = useState<string | undefined>(() => {
+    if (isPromptCompleted(overallPromptIndex, qualifications)) {
+      const result =
+        qualifications[prompt.id as keyof Qualifications]?.toString()
+      const fallback = prompt.options[prompt.options.length - 1]
+
+      // We need a fallback here because `false` values are not persisted
+      // in qualifications to reduce qualifications hash size.
+      return result ?? fallback
+    }
+
+    return undefined
+  })
   const t = useTranslations(
     `visa_form.${visaType}.sections.${section}.${prompt.id}`,
   )
@@ -48,14 +63,17 @@ export function ChoicePrompt({
         onSubmit(qualificationUpdater(value))
       }}
     >
-      <div className="space-y-4 mb-8">
+      <div className="space-y-3 mb-8">
         {prompt.options.map((option, i) => (
           <div className="w-full" key={option}>
             <div
-              className={cn('px-2 py-2  h-9 rounded relative inline-block', {
-                'ring-2 ring-emerald-400/80': value === option,
-                'shadow-border': value !== option,
-              })}
+              className={cn(
+                'px-2 py-2  min-h-9 rounded relative inline-block',
+                {
+                  'ring-2 ring-emerald-400/80': value === option,
+                  'shadow-border': value !== option,
+                },
+              )}
             >
               <div className="flex">
                 <input
@@ -68,7 +86,7 @@ export function ChoicePrompt({
                 />
                 <span
                   className={cn(
-                    'flex w-5 h-5 items-center justify-center rounded text-xs font-bold',
+                    'flex shrink-0 w-5 h-5 items-center justify-center rounded text-xs font-bold',
                     {
                       'bg-emerald-500': value === option,
                       'bg-stone-700/70': value !== option,
@@ -79,9 +97,9 @@ export function ChoicePrompt({
                 </span>
                 <label
                   htmlFor={promptOptionId(prompt, option)}
-                  className="pl-3 h-5 text-lg flex items-center"
+                  className="pl-3 -my-1 min-h-5 text-lg flex items-center"
                 >
-                  {t(`options.${option}.label`)}
+                  {t(`options.${option}`)}
                 </label>
               </div>
             </div>

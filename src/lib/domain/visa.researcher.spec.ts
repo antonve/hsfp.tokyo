@@ -63,13 +63,15 @@ describe('point calculation: researcher visa', () => {
     ],
 
     // bonus
-    [{ high_rnd_expenses: true }, 5, ['high_rnd_expenses']],
+    [{ high_rnd_expenses: true }, 0, []],
+    [{ high_rnd_expenses: true, org_smb: true }, 5, ['high_rnd_expenses']],
     [{ foreign_qualification: true }, 5, ['foreign_qualification']],
     [{ growth_field: true }, 10, ['growth_field']],
     [{ training_jica: true }, 5, ['training_jica']],
     [
       {
         high_rnd_expenses: true,
+        org_smb: true,
         foreign_qualification: true,
         growth_field: true,
         training_jica: true,
@@ -108,10 +110,12 @@ describe('point calculation: researcher visa', () => {
 
     // japanese ability
     [{ jp_uni_grad: true }, 10, ['jp_uni_grad']],
+    [{ jp: 'jp_major' }, 15, ['jp_major']],
     [{ jp: 'n1' }, 15, ['n1']],
     [{ jp: 'n2' }, 10, ['n2']],
     [{ jp_uni_grad: true, jp: 'n2' }, 10, ['jp_uni_grad']],
     [{ jp_uni_grad: true, jp: 'n1' }, 25, ['jp_uni_grad', 'n1']],
+    [{ jp_uni_grad: true, jp: 'jp_major' }, 25, ['jp_uni_grad', 'jp_major']],
 
     // university
     [{ uni_ranked: true }, 10, ['uni_ranked']],

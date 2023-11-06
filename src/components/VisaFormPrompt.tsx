@@ -6,14 +6,17 @@ import { ChoicePrompt } from './ChoicePrompt'
 import { BooleanPrompt } from './BooleanPrompt'
 import { NumberPrompt } from './NumberPrompt'
 import { VisaType } from '@lib/domain'
+import { Qualifications } from '@lib/domain/qualifications'
 
 export function VisaFormPrompt({
+  qualifications,
   visaType,
   section,
   prompt,
   overallPromptIndex,
   onSubmit,
 }: {
+  qualifications: Qualifications
   visaType: VisaType
   section: SectionName
   prompt: Prompt
@@ -25,6 +28,7 @@ export function VisaFormPrompt({
       return (
         <div>
           <NumberPrompt
+            qualifications={qualifications}
             prompt={prompt}
             onSubmit={onSubmit}
             visaType={visaType}
@@ -37,6 +41,7 @@ export function VisaFormPrompt({
       return (
         <div>
           <BooleanPrompt
+            qualifications={qualifications}
             prompt={prompt}
             onSubmit={onSubmit}
             visaType={visaType}
@@ -49,6 +54,7 @@ export function VisaFormPrompt({
       return (
         <div>
           <ChoicePrompt
+            qualifications={qualifications}
             prompt={prompt}
             onSubmit={onSubmit}
             visaType={visaType}
