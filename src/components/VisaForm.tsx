@@ -65,7 +65,7 @@ export function VisaForm({ config }: Props) {
       </aside>
 
       <main className="flex flex-col flex-grow -ml-72 mt-6 md:mt-0 md:ml-0 transition-all duration-150 ease-in">
-         <VisaProgressBar config={config} qualifications={qualifications} />
+        <VisaProgressBar config={config} qualifications={qualifications} />
         <div className="flex-grow h-full items-stretch p-8">
           <VisaFormSection
             config={config}
