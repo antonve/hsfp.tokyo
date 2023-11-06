@@ -57,42 +57,78 @@
                     "title": "Research",
                     "patent_inventor": {
                         "title": "Patents",
-                        "prompt": "Have you successfully patented any of your inventions?"
+                        "prompt": "Have you successfully patented any of your inventions?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "conducted_financed_projects": {
                         "title": "Financing",
-                        "prompt": "Have you engaged in foreign government funded research at least 3 times?"
+                        "prompt": "Have you engaged in foreign government funded research at least 3 times?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "published_papers": {
                         "title": "Published work",
-                        "prompt": "Have you published at least 3 papers in academic journals listed in academic databases as the corresponding author?"
+                        "prompt": "Have you published at least 3 papers in academic journals listed in academic databases as the corresponding author?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "recognized_research": {
                         "title": "Other achievements",
-                        "prompt": "Do you have any other research achievements which are recognized by Japan's Minister of Justice?"
+                        "prompt": "Do you have any other research achievements which are recognized by Japan's Minister of Justice?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     }
                 },
                 "employer": {
                     "title": "Bonus: employer",
                     "org_promotes_innovation": {
                         "title": "Innovation",
-                        "prompt": "Will you work for an organization which receives financial support measures for the promotion of innovation?"
+                        "prompt": "Will you work for an organization which receives financial support measures for the promotion of innovation?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "org_smb": {
                         "title": "SME act",
-                        "prompt": "Is your organization recognized as a small or medium-sized enterprise under the Small and Medium-Sized Enterprise Basic Act?"
+                        "prompt": "Is your organization recognized as a small or medium-sized enterprise under the Small and Medium-Sized Enterprise Basic Act?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "org_promotes_highly_skilled": {
                         "title": "Highly skilled",
-                        "prompt": "Does your organization receive support from local governments for promoting the acceptance of highly skilled foreign workers?"
+                        "prompt": "Does your organization receive support from local governments for promoting the acceptance of highly skilled foreign workers?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "high_rnd_expenses": {
                         "title": "R&D expenses",
-                        "prompt": "Does your organization's total research & development costs exceed 3% of their total revenue?"
+                        "prompt": "Does your organization's total research & development costs exceed 3% of their total revenue?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "growth_field": {
                         "title": "Growth field",
-                        "prompt": "Will you be involved in a project in a growth field with the involvement of the relevant ministries and agencies?"
+                        "prompt": "Will you be involved in a project in a growth field with the involvement of the relevant ministries and agencies?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     }
                 },
                 "university": {
@@ -112,35 +148,63 @@
                     },
                     "jp_uni_grad": {
                         "title": "Japanese university",
-                        "prompt": "Did you graduate from a Japanese university or have you completed a graduate program in Japan?"
+                        "prompt": "Did you graduate from a Japanese university or have you completed a graduate program in Japan?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "uni_ranked": {
                         "title": "Ranked university",
                         "prompt": "Did you graduate from a top 300 university?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        },
                         "explanation": "Foreign universities need to be listed in at least two rankings, Japanese universities only need to be listed once.<br /><br /><ul><li><a href=\"https://www.topuniversities.com/university-rankings/world-university-rankings/2024\" target=\"_blank\">QS World University Rankings</a></li><li><a href=\"https://www.timeshighereducation.com/world-university-rankings/2024/world-ranking\" target=\"_blank\">THE World University Rankings</a></li><li><a href=\"https://www.shanghairanking.com/rankings/arwu/2023\" target=\"_blank\">Academic Ranking of World Universities</a></li></ul>"
                     },
                     "uni_funded": {
                         "title": "Funded university",
-                        "prompt": "Did you graduate from a university which receives subsidies from the Top Global Universities Project implemented by the Ministry of Education, Culture, Sports, Science and Technology?"
+                        "prompt": "Did you graduate from a university which receives subsidies from the Top Global Universities Project implemented by the Ministry of Education, Culture, Sports, Science and Technology?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "uni_partner": {
                         "title": "Partner university",
-                        "prompt": "Did you graduate from a university which is designated as a partner school in the Innovative Asia Project implemented by the Ministry of Foreign Affairs?"
+                        "prompt": "Did you graduate from a university which is designated as a partner school in the Innovative Asia Project implemented by the Ministry of Foreign Affairs?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     }
                 },
                 "bonus": {
                     "title": "Bonus: others",
                     "foreign_qualification": {
                         "title": "Recognized qualifications",
-                        "prompt": "Do you have any foreign work-related qualifications or awards which are recognized by Japan's Minister of Justice?"
+                        "prompt": "Do you have any foreign work-related qualifications or awards which are recognized by Japan's Minister of Justice?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "training_jica": {
                         "title": "Training by JICA",
-                        "prompt": "Have you completed training conducted by JICA as part of the Innovative Asia Project by the Ministry of Foreign Affairs?"
+                        "prompt": "Have you completed training conducted by JICA as part of the Innovative Asia Project by the Ministry of Foreign Affairs?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     },
                     "investment_management": {
                         "title": "Investment activities",
-                        "prompt": "Will you engage in business related to investment management?"
+                        "prompt": "Will you engage in business related to investment management?",
+                        "options": {
+                            "true": "Yes",
+                            "false": "No"
+                        }
                     }
                 }
             }
