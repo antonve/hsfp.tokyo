@@ -67,10 +67,13 @@ export function ChoicePrompt({
         {prompt.options.map((option, i) => (
           <div className="w-full" key={option}>
             <div
-              className={cn('px-2 py-2  h-9 rounded relative inline-block', {
-                'ring-2 ring-emerald-400/80': value === option,
-                'shadow-border': value !== option,
-              })}
+              className={cn(
+                'px-2 py-2  min-h-9 rounded relative inline-block',
+                {
+                  'ring-2 ring-emerald-400/80': value === option,
+                  'shadow-border': value !== option,
+                },
+              )}
             >
               <div className="flex">
                 <input
@@ -83,7 +86,7 @@ export function ChoicePrompt({
                 />
                 <span
                   className={cn(
-                    'flex w-5 h-5 items-center justify-center rounded text-xs font-bold',
+                    'flex shrink-0 w-5 h-5 items-center justify-center rounded text-xs font-bold',
                     {
                       'bg-emerald-500': value === option,
                       'bg-stone-700/70': value !== option,
@@ -94,7 +97,7 @@ export function ChoicePrompt({
                 </span>
                 <label
                   htmlFor={promptOptionId(prompt, option)}
-                  className="pl-3 h-5 text-lg flex items-center"
+                  className="pl-3 -my-1 min-h-5 text-lg flex items-center"
                 >
                   {t(`options.${option}`)}
                 </label>
