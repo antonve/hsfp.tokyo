@@ -19,7 +19,7 @@ export function VisaForm({ config }: Props) {
 
   return (
     <div className="flex flex-row min-h-screen">
-      <aside className="sidebar w-72 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-stone-800">
+      <aside className="sidebar w-72 shrink-0 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-stone-800">
         <div className="sidebar-header p-4">
           <Logo />
           <div className="font-semibold text-sm mt-4 -mx-2 px-2 py-2 rounded bg-stone-900/50">
@@ -34,7 +34,7 @@ export function VisaForm({ config }: Props) {
           />
         </div>
       </aside>
-      <main className="p-8">
+      <main className="p-8 flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
         <VisaFormSection
           config={config}
           progress={progress}
