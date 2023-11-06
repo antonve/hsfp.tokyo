@@ -1,5 +1,6 @@
 import { FormConfig } from '@lib/domain/form'
 import { Qualifications, calculatePoints } from '@lib/domain/qualifications'
+import classNames from 'classnames'
 import { useMemo } from 'react'
 
 export function VisaFormResultsPreview({
@@ -13,6 +14,22 @@ export function VisaFormResultsPreview({
     () => calculatePoints(qualifications),
     [qualifications],
   )
+  const doesQualify = points >= 70
+  const label = doesQualify
+    ? 'Congrats, you qualify for the visa!'
+    : 'You need at least 70 points to qualify'
 
-  return <div className="">Points so far: {points}</div>
+  return (
+    <div
+      className={classNames(`px-8 py-4 flex items-center justify-between`, {
+        'bg-emerald-700': doesQualify,
+        'bg-red-800': !doesQualify,
+      })}
+    >
+      <div className="ont-semibold">{label}</div>
+      <span className="font-semibold">
+        <span className="text-2xl font-bold">{points}</span> points
+      </span>
+    </div>
+  )
 }

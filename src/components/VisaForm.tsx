@@ -62,16 +62,20 @@ export function VisaForm({ config }: Props) {
           />
         </div>
       </aside>
-      <main className="p-8 flex-grow -ml-64 md:ml-0 transition-all duration-150 ease-in">
-        <VisaFormSection
-          config={config}
-          progress={progress}
-          qualifications={qualifications}
-        />
-        <VisaFormResultsPreview
-          config={config}
-          qualifications={qualifications}
-        />
+      <main className="flex flex-col flex-grow -ml-72 mt-6 md:mt-0 md:ml-0 transition-all duration-150 ease-in">
+        <div className="flex-grow h-full items-stretch p-8">
+          <VisaFormSection
+            config={config}
+            progress={progress}
+            qualifications={qualifications}
+          />
+        </div>
+        <div className="flex-shrink">
+          <VisaFormResultsPreview
+            config={config}
+            qualifications={qualifications}
+          />
+        </div>
       </main>
     </div>
   )
