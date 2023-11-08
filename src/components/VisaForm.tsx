@@ -21,7 +21,6 @@ export function VisaForm({ config }: Props) {
   const progress = useVisaFormProgress(config)
   const t = useTranslations('visa_form')
   const [sidebarActive, setSidebarActive] = useState(false)
-
   return (
     <div className="flex flex-row min-h-screen relative">
       <button
