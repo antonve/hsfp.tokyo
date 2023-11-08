@@ -12,7 +12,7 @@
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "test-ct": "playwright test -c playwright-ct.config.ts",
+    "test-ct": "playwright test -c playwright-ct.config.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",

@@ -1,5 +1,5 @@
-import { defineConfig, devices } from '@playwright/experimental-ct-react';
-import { resolve } from 'path';
+import { defineConfig, devices } from '@playwright/experimental-ct-react'
+import { resolve } from 'path'
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -45,4 +45,4 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-});
+})
