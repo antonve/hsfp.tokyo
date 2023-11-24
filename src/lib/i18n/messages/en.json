@@ -42,15 +42,18 @@
                     "title": "Job",
                     "experience": {
                         "title": "Professional experience",
-                        "prompt": "How many years of relevant professional experience do you have?"
+                        "prompt": "How many years of relevant professional experience do you have?",
+                        "input_label": "years"
                     },
                     "age": {
                         "title": "Age",
-                        "prompt": "How old are you at the time of application?"
+                        "prompt": "How old are you at the time of application?",
+                        "input_label": "years old"
                     },
                     "salary": {
                         "title": "Salary",
-                        "prompt": "What is the expected yearly total compensation at your main activity?"
+                        "prompt": "What is the expected yearly total compensation at your main activity?",
+                        "input_label": "Yen"
                     }
                 },
                 "research": {
