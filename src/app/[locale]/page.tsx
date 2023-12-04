@@ -13,7 +13,7 @@ export default function Page() {
   return (
     <>
       <div className="max-w-7xl mx-auto">
-        <header className="py-6 px-4 flex justify-between space-x-8 border-b-4 border-stone-900/50">
+        <header className="py-6 px-4 flex justify-between space-x-8 border-b-4 border-zinc-900/50">
           <Logo />
           <nav>
             <ul className="flex space-x-4 items-center justify-center h-full font-semibold text-lg">

@@ -12,7 +12,7 @@ a {
   }
 
   .button {
-    @apply px-4 h-9 flex items-center rounded shadow-border bg-stone-100 text-stone-900 font-bold;
+    @apply px-4 h-9 flex items-center rounded shadow-border bg-zinc-100 text-zinc-900 font-bold;
   }
 }
 

@@ -110,7 +110,7 @@ function Section({
     <>
       <li
         className={cn('px-2 py-2', {
-          'bg-stone-900/50 rounded': isActive,
+          'bg-zinc-900/50 rounded': isActive,
         })}
       >
         <a
@@ -178,8 +178,8 @@ function Prompt({
     <li
       key={prompt.id}
       className={cn('text-sm border-l-2', {
-        'border-stone-100': isActive,
-        'border-stone-700': !isActive,
+        'border-zinc-100': isActive,
+        'border-zinc-700': !isActive,
         'disabled opacity-60 cursor-not-allowed': !isEnabled,
       })}
     >

@@ -40,7 +40,7 @@ export default async function RootLayout({
     <html lang={locale} dir="ltr">
       <body
         className={cn(
-          'bg-stone-950 text-gray-50 font-sans',
+          'bg-zinc-950 text-gray-50 font-sans',
           cormorantGaramond.variable,
           inter.variable,
         )}

@@ -84,7 +84,7 @@ export function ChoicePrompt({
                     'flex shrink-0 w-5 h-5 items-center justify-center rounded text-xs font-bold',
                     {
                       'bg-emerald-500': value === option,
-                      'bg-stone-700/70': value !== option,
+                      'bg-zinc-700/70': value !== option,
                     },
                   )}
                 >

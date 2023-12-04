@@ -23,7 +23,7 @@ export function VisaForm({ config }: Props) {
 
   return (
     <div className="flex flex-col min-h-screen relative">
-      <div className="flex p-4 border-b-4 border-stone-900/50">
+      <div className="flex p-4 border-b-4 border-zinc-900/50">
         <button
           onClick={() => setSidebarActive(!sidebarActive)}
           className={cn(`p-2 mr-2 rounded md:hidden`, {})}
@@ -39,7 +39,7 @@ export function VisaForm({ config }: Props) {
       <div className="flex flex-row flex-grow">
         <aside
           className={cn(
-            `sidebar w-72 shrink-0 transform md:shadow md:translate-x-0 transition-transform duration-150 ease-in bg-stone-950 z-50 border-r-4 border-stone-900/50`,
+            `sidebar w-72 shrink-0 transform md:shadow md:translate-x-0 transition-transform duration-150 ease-in bg-zinc-950 z-50 border-r-4 border-zinc-900/50`,
             {
               '-translate-x-full': !sidebarActive,
               shadow: sidebarActive,
@@ -47,7 +47,7 @@ export function VisaForm({ config }: Props) {
           )}
         >
           <div className="sidebar-header p-2">
-            <div className="font-semibold text-sm px-2 py-2 rounded bg-stone-900/50">
+            <div className="font-semibold text-sm px-2 py-2 rounded bg-zinc-900/50">
               {t('form_title', { visaType: t(`visa_type.${config.visaType}`) })}
             </div>
           </div>
