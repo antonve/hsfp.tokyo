@@ -4,6 +4,7 @@ import { FormConfig } from '@lib/domain/form'
 import { useQualifications, useVisaFormProgress } from '@lib/hooks'
 import { VisaFormSection } from '@components/VisaFormSection'
 import { VisaFormNavigation } from './VisaFormNavigation'
+import { VisaProgressBar } from './VisaProgressBar'
 import { Logo } from './Logo'
 import { useTranslations } from 'next-intl'
 import { VisaFormResultsPreview } from './VisaFormResultsPreview'
@@ -60,6 +61,7 @@ export function VisaForm({ config }: Props) {
           </div>
         </aside>
         <main className="flex flex-col flex-grow -ml-72 md:ml-0 transition-all duration-150 ease-in">
+          <VisaProgressBar config={config} qualifications={qualifications} />
           <div className="flex-grow h-full items-stretch p-4 md:p-8">
             <VisaFormSection
               config={config}

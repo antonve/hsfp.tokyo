@@ -44,7 +44,6 @@ export function VisaFormSection({
   const submit = (updateQualifications: QualificationUpdater) => {
     const { section, promptIndex } = nextStepOfForm(config, progress)
     const newQualifications = updateQualifications(qualifications)
-
     router.push(
       `/${language}/calculator/${params['visa']}/${section}/${
         promptIndex + 1

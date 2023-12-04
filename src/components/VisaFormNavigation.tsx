@@ -100,6 +100,7 @@ function Section({
   }
 
   const isSectionComplete = didCompleteSection(qualifications, config, name)
+
   const maxActivePrompt =
     getHighestCompletedOverallPromptIndex(qualifications) + 1
 
