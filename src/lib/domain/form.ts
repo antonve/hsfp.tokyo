@@ -43,11 +43,18 @@ export interface ChoicePrompt {
 export interface NumberPrompt {
   id: string
   type: 'NUMBER'
+  config: NumberPromptConfig
 }
 
 export interface BooleanPrompt {
   id: string
   type: 'BOOLEAN'
+}
+
+export interface NumberPromptConfig {
+  min?: number
+  max?: number
+  step?: number
 }
 
 export function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {

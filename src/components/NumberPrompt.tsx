@@ -64,8 +64,9 @@ export function NumberPrompt({
           <input
             type="number"
             className="pl-2 pr-16 py-2 bg-transparent rounded shadow-border absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-emerald-400/80 appearance-none"
-            min={0}
-            step={1}
+            min={prompt.config.min}
+            max={prompt.config.max}
+            step={prompt.config.step}
             onChange={e => setValue(e.currentTarget.valueAsNumber)}
             value={value}
             name={prompt.id}

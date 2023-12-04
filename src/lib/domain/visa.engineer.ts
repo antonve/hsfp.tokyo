@@ -28,14 +28,28 @@ export const formConfig: FormConfig = {
       {
         id: 'experience',
         type: 'NUMBER',
+        config: {
+          min: 0,
+          max: 50,
+          step: 1,
+        },
       },
       {
         id: 'age',
         type: 'NUMBER',
+        config: {
+          min: 18,
+          max: 120,
+          step: 1,
+        },
       },
       {
         id: 'salary',
         type: 'NUMBER',
+        config: {
+          min: 3_000_000,
+          step: 1,
+        },
       },
     ],
     research: [
@@ -82,6 +96,10 @@ export const formConfig: FormConfig = {
       {
         id: 'certification',
         type: 'NUMBER',
+        config: {
+          min: 0,
+          step: 1,
+        },
       },
       {
         id: 'jp',
