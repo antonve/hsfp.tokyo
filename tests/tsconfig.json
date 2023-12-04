@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "jsx": "preserve",
+        "baseUrl": ".", // This must be specified if "paths" is.
+        "paths": {
+            "@app/*": [
+                "../src/app/*"
+            ],
+            "@components/*": [
+                "../src/components/*"
+            ],
+            "@lib/*": [
+                "../src/lib/*"
+            ]
+        },
+    },
+}

@@ -1,8 +1,13 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["./**/*"],
+  "include": [
+    "./**/*"
+  ],
   "compilerOptions": {
     "jsx": "react-jsx"
   },
-  "moduleDirectories": ["node_modules", "./src"]
+  "moduleDirectories": [
+    "node_modules",
+    "./src"
+  ]
 }
