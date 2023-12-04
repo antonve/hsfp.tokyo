@@ -20,7 +20,7 @@ export default function Page() {
               <li>
                 <Link
                   href={`/`}
-                  className="no-underline border-b-2 border-red-500 hover:border-white/40"
+                  className="no-underline border-b-2 border-emerald-400/80 hover:border-white/40"
                 >
                   {t('home')}
                 </Link>
@@ -44,7 +44,7 @@ export default function Page() {
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 text-center">
             <Link
-              className="card bg-zinc-900 hover:bg-zinc-800 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline"
+              className="card bg-zinc-900 hover:bg-zinc-900/80 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80"
               href={`/calculator/researcher`}
             >
               <div className="card-body space-y-4">
@@ -62,7 +62,7 @@ export default function Page() {
             </Link>
 
             <Link
-              className="card bg-zinc-900 hover:bg-zinc-800 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline"
+              className="card bg-zinc-900 hover:bg-zinc-900/80 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80"
               href={`/calculator/engineer`}
             >
               <div className="card-body space-y-4">
@@ -80,7 +80,7 @@ export default function Page() {
             </Link>
 
             <Link
-              className="card bg-zinc-900 hover:bg-zinc-800 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline"
+              className="card bg-zinc-900 hover:bg-zinc-900/80 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80"
               href={`/calculator/business-manager`}
             >
               <div className="card-body space-y-4">
