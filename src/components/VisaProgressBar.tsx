@@ -21,7 +21,7 @@ export function VisaProgressBar({
   const completed = (progress / totalPrompts) * 100
 
   return (
-    <div className=" h-2 bg-gray-200 w-full mx-auto">
+    <div className=" h-2 bg-zinc-950 w-full mx-auto">
       <div style={{ width: `${completed}%` }}>
         <div className={`h-2 bg-red-500 `} />
       </div>
