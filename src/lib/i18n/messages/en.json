@@ -13,6 +13,10 @@
             "engineer": "Engineering / Technical",
             "business-manager": "Business Management"
         },
+        "actions": {
+            "continue": "Continue",
+            "skip": "Skip this question"
+        },
         "form_title": "{visaType} visa",
         "engineer": {
             "sections": {

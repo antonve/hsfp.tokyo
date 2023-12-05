@@ -1,5 +1,8 @@
 import { ChoicePrompt, Prompt, SectionName } from '@lib/domain/form'
-import { ArrowRightIcon } from '@heroicons/react/20/solid'
+import {
+  ArrowRightIcon,
+  ChevronDoubleRightIcon,
+} from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import cn from 'classnames'
 import { QualificationUpdater } from './VisaFormSection'
@@ -41,9 +44,9 @@ export function ChoicePrompt({
 
     return undefined
   })
-  const t = useTranslations(
-    `visa_form.${visaType}.sections.${section}.${prompt.id}`,
-  )
+
+  const promptKey = `${visaType}.sections.${section}.${prompt.id}`
+  const t = useTranslations(`visa_form`)
 
   return (
     <form
@@ -94,17 +97,31 @@ export function ChoicePrompt({
                   htmlFor={promptOptionId(prompt, option)}
                   className="pl-3 -my-1 min-h-5 text-lg flex items-center"
                 >
-                  {t(`options.${option}`)}
+                  {t(`${promptKey}.options.${option}`)}
                 </label>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <button type="submit" className="button">
-        Continue
-        <ArrowRightIcon className="h-5 w-5 ml-2" />
-      </button>
+      <div className="flex flex-wrap -m-2">
+        <button type="submit" className="button m-2">
+          {t(`actions.continue`)}
+          <ArrowRightIcon className="h-5 w-5 ml-2" />
+        </button>
+        <button
+          type="button"
+          className="button outline m-2"
+          onClick={() =>
+            onSubmit(q => ({
+              ...withCompletedPrompt(overallPromptIndex, q),
+            }))
+          }
+        >
+          {t(`actions.skip`)}
+          <ChevronDoubleRightIcon className="h-5 w-5 ml-2" />
+        </button>
+      </div>
     </form>
   )
 }
