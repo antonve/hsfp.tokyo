@@ -4,7 +4,10 @@ import { VisaType } from '@lib/domain'
 import { Qualifications } from '@lib/domain/qualifications'
 import { useState } from 'react'
 import { isPromptCompleted, withCompletedPrompt } from '@lib/domain/prompts'
-import { ArrowRightIcon } from '@heroicons/react/20/solid'
+import {
+  ArrowRightIcon,
+  ChevronDoubleRightIcon,
+} from '@heroicons/react/20/solid'
 import { useTranslations } from 'next-intl'
 
 export function NumberPrompt({
@@ -40,9 +43,8 @@ export function NumberPrompt({
     return undefined
   })
 
-  const t = useTranslations(
-    `visa_form.${visaType}.sections.${section}.${prompt.id}`,
-  )
+  const promptKey = `${visaType}.sections.${section}.${prompt.id}`
+  const t = useTranslations(`visa_form`)
 
   return (
     <form
@@ -72,14 +74,29 @@ export function NumberPrompt({
             name={prompt.id}
           />
           <span className="mx-1 absolute right-0 top-1 h-7 flex items-center font-bold text-xs bg-zinc-700/70 px-2 py-1 rounded-sm">
-            {t('input_label')}
+            {t(`${promptKey}.input_label`)}
           </span>
         </div>
       </div>
-      <button type="submit" className="button">
-        Continue
-        <ArrowRightIcon className="h-5 w-5 ml-2" />
-      </button>
+
+      <div className="flex flex-wrap -m-2">
+        <button type="submit" className="button m-2">
+          {t(`actions.continue`)}
+          <ArrowRightIcon className="h-5 w-5 ml-2" />
+        </button>
+        <button
+          type="button"
+          className="button outline m-2"
+          onClick={() =>
+            onSubmit(q => ({
+              ...withCompletedPrompt(overallPromptIndex, q),
+            }))
+          }
+        >
+          {t(`actions.skip`)}
+          <ChevronDoubleRightIcon className="h-5 w-5 ml-2" />
+        </button>
+      </div>
     </form>
   )
 }
