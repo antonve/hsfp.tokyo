@@ -12,11 +12,17 @@ a {
   }
 
   .button:not(.outline) {
-    @apply px-4 h-9 flex items-center rounded shadow-border bg-zinc-100 text-zinc-900 font-bold hover:ring-4 ring-emerald-400/80 transition-all duration-100 whitespace-nowrap;
+    @apply px-4 h-9 flex items-center rounded bg-zinc-100 text-zinc-900 font-bold whitespace-nowrap shadow-border relative;
+  }
+
+  .button:not(.outline)::after {
+    @apply absolute left-0 top-0 w-full h-full bg-emerald-400/80 transition-all duration-100 -z-10 rounded hover:left-[3px] hover:top-[3px];
+    content: ''
   }
 
   .button.outline {
-    @apply bg-transparent text-zinc-100 outline-zinc-100 px-4 h-9 flex items-center rounded hover:outline-emerald-400/80 hover:outline-4 hover:text-emerald-100 transition-all duration-100 whitespace-nowrap;
+    @apply bg-transparent text-zinc-100 border border-zinc-100 outline-transparent ring-0 px-4 h-9 flex items-center rounded whitespace-nowrap;
+    @apply hover:border-emerald-400 hover:outline-emerald-400 hover:outline-2 hover:text-emerald-100 transition-all duration-100;
   }
 }
 
