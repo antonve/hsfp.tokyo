@@ -118,7 +118,7 @@ export function getFormProgress(
   qualifications: Qualifications,
 ) {
   const totalPrompts = Object.values(config.order).reduce(
-    (accumulator, value) => accumulator + value.length,
+    (accumulator, value) => accumulator + (config.sections[value] ?? []).length,
     0,
   )
   let progress: number = 0
