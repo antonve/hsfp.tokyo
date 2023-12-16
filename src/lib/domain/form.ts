@@ -121,13 +121,11 @@ export function getFormProgress(
     (accumulator, value) => accumulator + (config.sections[value] ?? []).length,
     0,
   )
-  let progress: number = 0
-  for (let i = 0; i < totalPrompts; i++) {
-    if (isPromptCompleted(i, qualifications)) {
-      progress += 1
-    }
-  }
-  const completed = (progress / totalPrompts) * 100
+  const completedPrompts = [...Array(totalPrompts)]
+    .map((_, promptId) => isPromptCompleted(promptId, qualifications))
+    .filter(isCompleted => isCompleted)
 
-  return completed
+  const progressPercentage = (completedPrompts.length / totalPrompts) * 100
+
+  return progressPercentage
 }
