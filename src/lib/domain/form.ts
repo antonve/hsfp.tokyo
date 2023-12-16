@@ -3,6 +3,8 @@ import { VisaType } from '@lib/domain'
 import { formConfig as formConfigA } from '@lib/domain/visa.businessmanager'
 import { formConfig as formConfigB } from '@lib/domain/visa.engineer'
 import { formConfig as formConfigC } from '@lib/domain/visa.researcher'
+import { Qualifications } from '@lib/domain/qualifications'
+import { isPromptCompleted } from '@lib/domain/prompts'
 
 export const SectionNameSchema = z.enum([
   'education',
@@ -109,4 +111,21 @@ export function formConfigForVisa(visa: string) {
     case 'business-manager':
       return formConfigC
   }
+}
+
+export function getFormProgress(
+  config: FormConfig,
+  qualifications: Qualifications,
+) {
+  const totalPrompts = Object.values(config.order).reduce(
+    (accumulator, value) => accumulator + (config.sections[value] ?? []).length,
+    0,
+  )
+  const completedPrompts = [...Array(totalPrompts)]
+    .map((_, promptId) => isPromptCompleted(promptId, qualifications))
+    .filter(isCompleted => isCompleted)
+
+  const progressPercentage = (completedPrompts.length / totalPrompts) * 100
+
+  return progressPercentage
 }
