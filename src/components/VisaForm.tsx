@@ -23,7 +23,7 @@ export function VisaForm({ config }: Props) {
   const [sidebarActive, setSidebarActive] = useState(false)
 
   return (
-    <div className="flex flex-col min-h-screen relative">
+    <div className="flex flex-col min-h-[calc(100dvh)] min-h-screen relative">
       <div className="flex p-4 border-b-4 border-zinc-900/50">
         <button
           onClick={() => setSidebarActive(!sidebarActive)}
