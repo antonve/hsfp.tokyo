@@ -21,8 +21,13 @@ a {
   }
 
   .button.outline {
-    @apply bg-transparent text-zinc-100 border border-zinc-100 outline-transparent ring-0 px-4 h-9 flex items-center rounded whitespace-nowrap;
-    @apply hover:border-emerald-400 hover:outline-emerald-400 hover:outline-2 hover:text-emerald-100 transition-all duration-100;
+    @apply bg-zinc-950 text-zinc-100 border border-zinc-100 outline-transparent ring-0 px-4 h-9 flex items-center rounded whitespace-nowrap relative;
+    /* @apply hover:border-emerald-400 hover:outline-emerald-400 hover:outline-2 hover:text-emerald-100 transition-all duration-100; */
+  }
+
+  .button.outline::after {
+    @apply absolute left-0 top-0 w-full h-full bg-emerald-400/80 transition-all duration-100 -z-10 rounded hover:left-1 hover:top-1;
+    content: ''
   }
 }
 
