@@ -42,13 +42,14 @@ export function VisaFormSection({
   )
 
   const submit = (updateQualifications: QualificationUpdater) => {
-    const { section, promptIndex } = nextStepOfForm(config, progress)
+    const { section, promptIndex, finished } = nextStepOfForm(config, progress)
     const newQualifications = updateQualifications(qualifications)
-    router.push(
-      `/${language}/calculator/${params['visa']}/${section}/${
-        promptIndex + 1
-      }?q=${encodeQualifications(newQualifications)}`,
-    )
+
+    const nextPage = `/${language}/calculator/${params['visa']}/${
+      finished ? `results` : `/${section}/${promptIndex + 1}`
+    }?q=${encodeQualifications(newQualifications)}`
+
+    router.push(nextPage)
   }
 
   return (

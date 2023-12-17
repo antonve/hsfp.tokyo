@@ -71,10 +71,13 @@ export function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {
     ? formConfig.order[currentCategoryIndex + 1]
     : progress.section
 
+  const finished = promptIndex >= (formConfig.sections[section]?.length ?? 0)
+
   return {
     section,
     promptIndex,
-  } as VisaProgress
+    finished,
+  }
 }
 
 export function getOverallPromptIndex(
