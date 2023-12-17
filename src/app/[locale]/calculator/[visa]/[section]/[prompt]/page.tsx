@@ -1,3 +1,5 @@
+'use client'
+
 import { VisaForm } from '@components/VisaForm'
 import { formConfigForVisa } from '@lib/domain/form'
 import { notFound } from 'next/navigation'
