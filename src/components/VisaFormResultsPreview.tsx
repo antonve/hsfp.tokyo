@@ -4,17 +4,12 @@ import classNames from 'classnames'
 import { useMemo } from 'react'
 
 export function VisaFormResultsPreview({
-  config,
-  qualifications,
+  points,
+  doesQualify,
 }: {
-  config: FormConfig
-  qualifications: Qualifications
+  points: number
+  doesQualify: boolean
 }) {
-  const { points } = useMemo(
-    () => calculatePoints(qualifications),
-    [qualifications],
-  )
-  const doesQualify = points >= 70
   const label = doesQualify
     ? 'Congrats, you qualify for the visa!'
     : 'You need at least 70 points to qualify'

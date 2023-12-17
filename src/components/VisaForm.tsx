@@ -8,9 +8,10 @@ import { VisaProgressBar } from './VisaProgressBar'
 import { Logo } from './Logo'
 import { useTranslations } from 'next-intl'
 import { VisaFormResultsPreview } from './VisaFormResultsPreview'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import cn from 'classnames'
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/solid'
+import { calculatePoints } from '@lib/domain/qualifications'
 
 interface Props {
   config: FormConfig
@@ -21,6 +22,11 @@ export function VisaForm({ config }: Props) {
   const progress = useVisaFormProgress(config)
   const t = useTranslations('visa_form')
   const [sidebarActive, setSidebarActive] = useState(false)
+  const { points } = useMemo(
+    () => calculatePoints(qualifications),
+    [qualifications],
+  )
+  const doesQualify = points >= 70
 
   return (
     <div className="flex flex-col min-h-[calc(100dvh)] relative">
@@ -61,7 +67,11 @@ export function VisaForm({ config }: Props) {
           </div>
         </aside>
         <main className="flex flex-col flex-grow -ml-72 md:ml-0 transition-all duration-150 ease-in">
-          <VisaProgressBar config={config} qualifications={qualifications} />
+          <VisaProgressBar
+            config={config}
+            qualifications={qualifications}
+            doesQualify={doesQualify}
+          />
           <div className="flex-grow h-full items-stretch p-4 md:p-8">
             <VisaFormSection
               config={config}
@@ -70,10 +80,7 @@ export function VisaForm({ config }: Props) {
             />
           </div>
           <div className="flex-shrink">
-            <VisaFormResultsPreview
-              config={config}
-              qualifications={qualifications}
-            />
+            <VisaFormResultsPreview doesQualify={doesQualify} points={points} />
           </div>
         </main>
       </div>
