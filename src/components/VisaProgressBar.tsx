@@ -16,7 +16,7 @@ export function VisaProgressBar({
     <div className="h-1 bg-zinc-950 w-full mx-auto">
       <div
         style={{ width: `${completed}%` }}
-        className={`transition-all duration-300 h-1 ease-out ${
+        className={`transition-all duration-1000 h-1 ease-out ${
           doesQualify ? 'bg-emerald-500' : 'bg-white'
         }`}
       ></div>
