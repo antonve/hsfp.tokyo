@@ -12,6 +12,7 @@ import { useMemo, useState } from 'react'
 import cn from 'classnames'
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { calculatePoints } from '@lib/domain/qualifications'
+import Link from 'next-intl/link'
 
 interface Props {
   config: FormConfig
@@ -41,7 +42,12 @@ export function VisaForm({ config }: Props) {
             <Bars3BottomLeftIcon className="w-6 h-6" />
           )}
         </button>
-        <Logo />
+        <Link
+          href={`/`}
+          className="no-underline hover:opacity-60 transition-opacity"
+        >
+          <Logo />
+        </Link>
       </div>
       <div className="flex flex-row flex-grow">
         <aside
