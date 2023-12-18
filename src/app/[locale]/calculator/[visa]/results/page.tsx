@@ -5,7 +5,7 @@ export default function Page() {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto">todo: results page</div>
+      <div className="">todo: results page</div>
     </>
   )
 }

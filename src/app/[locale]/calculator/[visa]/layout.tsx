@@ -41,8 +41,18 @@ export default function Layout({ children, params }: Props) {
   const doesQualify = points >= 70
 
   return (
-    <div className="flex flex-col min-h-[calc(100dvh)] relative">
-      <div className="flex p-4 border-b-4 border-zinc-900/50">
+    <div
+      className={cn('flex flex-col relative', {
+        'min-h-[calc(100dvh)]': shouldRenderFormLayout,
+        'max-w-7xl mx-auto': !shouldRenderFormLayout,
+      })}
+    >
+      <div
+        className={cn('flex  px-4 border-b-4 border-zinc-900/50', {
+          'py-4': shouldRenderFormLayout,
+          'py-6': !shouldRenderFormLayout,
+        })}
+      >
         {shouldRenderFormLayout ? (
           <button
             onClick={() => setSidebarActive(!sidebarActive)}
@@ -104,12 +114,23 @@ export default function Layout({ children, params }: Props) {
               doesQualify={doesQualify}
             />
           ) : null}
-          <div className="flex-grow h-full items-stretch p-4 md:p-8">
+          <div
+            className={cn('flex-grow h-full items-stretch ', {
+              'p-4 md:p-8': shouldRenderFormLayout,
+              'px-4 py-6': !shouldRenderFormLayout,
+            })}
+          >
             {children}
           </div>
-          <div className="flex-shrink">
-            <VisaFormResultsPreview doesQualify={doesQualify} points={points} />
-          </div>
+
+          {shouldRenderFormLayout ? (
+            <div className="flex-shrink">
+              <VisaFormResultsPreview
+                doesQualify={doesQualify}
+                points={points}
+              />
+            </div>
+          ) : null}
         </main>
       </div>
     </div>
