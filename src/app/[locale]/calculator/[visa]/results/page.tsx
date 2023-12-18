@@ -23,13 +23,24 @@ export default function Page({ params }: Props) {
     [qualifications],
   )
 
+  // &#x1f389; tada
+  const visaType = t(`visa_type.${formConfig.visaType}`)
+
   return (
     <main className="space-y-8">
+      {points >= 70 ? (
+        <div className=" p-[2px] font-semibold rounded-lg bg-gradient-to-r from-emerald-300 from-10% to-emerald-500 to-90% relative">
+          <span className="absolute -top-3 -left-2 text-4xl"> &#x1f389;</span>
+          <span className="absolute -bottom-3 -right-3 text-4xl">
+            &#128640;
+          </span>
+          <div className="bg-zinc-950/80 px-6 py-4 rounded-lg">
+            {t('banner.qualified', { visaType })}
+          </div>
+        </div>
+      ) : null}
       <section className="space-y-4">
         <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
-        {points >= 70 ? (
-          <div>{t('overview.qualified_banner', { points })}</div>
-        ) : null}
         <MatchesOverview matches={matches} />
       </section>
 
@@ -37,7 +48,7 @@ export default function Page({ params }: Props) {
         <h3 className="font-semibold text-xl">{t('evidence.title')}</h3>
         <p className="text-zinc-300 max-w-2xl">
           {t('evidence.description', {
-            visaType: t(`visa_type.${formConfig.visaType}`),
+            visaType,
           })}
         </p>
       </section>

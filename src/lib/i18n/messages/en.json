@@ -13,9 +13,11 @@
             "engineer": "Engineering / Technical",
             "business-manager": "Business Management"
         },
+        "banner": {
+            "qualified": "Congrats, based on your answers you qualified for the Highly Skilled Foreign Professional ({visaType}) visa!"
+        },
         "overview": {
-            "title": "Results overview",
-            "qualified_banner": "Congrats, based on your answers you qualified for the Highly Skilled Foreign Professional ({visaType}) visa!"
+            "title": "Results overview"
         },
         "permanent_residency": {
             "title": "Fast track to Permanent Residency",
