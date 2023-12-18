@@ -7,6 +7,20 @@
         "start_engineer": "Start Engineer point calculation",
         "start_business_manager": "Start Business Manager point calculation"
     },
+    "results": {
+        "visa_type": {
+            "researcher": "Research",
+            "engineer": "Engineering / Technical",
+            "business-manager": "Business Management"
+        },
+        "overview": {
+            "title": "Results overview"
+        },
+        "evidence": {
+            "title": "Required evidence",
+            "description": "When applying for this visa you are required to submit evidence proving that you qualify for the visa. This sections lays out what documents are required to be submitted when applying for the Highly Skilled Foreign Professional ({visaType}) visa."
+        }
+    },
     "visa_form": {
         "visa_type": {
             "researcher": "Research",

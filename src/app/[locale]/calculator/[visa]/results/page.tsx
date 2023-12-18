@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function Page({ params }: Props) {
-  const t = useTranslations('visa_form.results')
+  const t = useTranslations('results')
 
   const formConfig = formConfigForVisa(params.visa)!
   const qualifications = useQualifications(formConfig.visaType)
@@ -24,15 +24,20 @@ export default function Page({ params }: Props) {
   )
 
   return (
-    <>
-      <h2>{t('overview.title')}</h2>
+    <main className="space-y-4">
+      <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
       {points >= 70 ? (
         <div>{t('overview.qualified_banner', { points })}</div>
       ) : null}
       <MatchesOverview matches={matches} />
-      <h3>{t('evidence.title')}</h3>
+      <h3 className="font-semibold text-xl">{t('evidence.title')}</h3>
+      <p className="text-zinc-300">
+        {t('evidence.description', {
+          visaType: t(`visa_type.${formConfig.visaType}`),
+        })}
+      </p>
       <EvidenceOverview matches={matches} />
-    </>
+    </main>
   )
 }
 
