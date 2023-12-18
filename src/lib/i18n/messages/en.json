@@ -14,7 +14,16 @@
             "business-manager": "Business Management"
         },
         "overview": {
-            "title": "Results overview"
+            "title": "Results overview",
+            "qualified_banner": "Congrats, based on your answers you qualified for the Highly Skilled Foreign Professional ({visaType}) visa!"
+        },
+        "permanent_residency": {
+            "title": "Fast track to Permanent Residency",
+            "intro": "Those who qualify for the HSFP visa are also eligible to fast-track their Permanent Residency application. You must meet one of the following conditions:",
+            "condition1": "Be able to prove 80+ points at the time of application and 1 year ago",
+            "condition2": "Be able to prove 70+ points at the time of application and 3 years ago",
+            "visa_note": "You don't necessarily need to be on the HSFP visa already to take advantage of this fast-track to Permanent Residency. Just being able to prove you have the points in the past and currently is enough.",
+            "length_warning": "However, just like any other Permanent Residency route you must already be on a valid visa with a length of stay of three years or longer."
         },
         "evidence": {
             "title": "Required evidence",
