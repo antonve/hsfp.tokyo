@@ -22,6 +22,7 @@ export const formConfig: FormConfig = {
       {
         id: 'dual_degree',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
     ],
     job: [

@@ -5,6 +5,7 @@ import { formConfig as formConfigB } from '@lib/domain/visa.engineer'
 import { formConfig as formConfigC } from '@lib/domain/visa.researcher'
 import { Qualifications } from '@lib/domain/qualifications'
 import { isPromptCompleted } from '@lib/domain/prompts'
+import { ReactElement } from 'react'
 
 export const SectionNameSchema = z.enum([
   'education',
@@ -40,17 +41,20 @@ export interface ChoicePrompt {
   id: string
   type: 'CHOICE'
   options: string[]
+  faqCount?: number
 }
 
 export interface NumberPrompt {
   id: string
   type: 'NUMBER'
   config: NumberPromptConfig
+  faqCount?: number
 }
 
 export interface BooleanPrompt {
   id: string
   type: 'BOOLEAN'
+  faqCount?: number
 }
 
 export interface NumberPromptConfig {

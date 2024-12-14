@@ -41,8 +41,9 @@
         "actions": {
             "continue": "Continue",
             "skip": "Skip this question",
-            "go-to-results": "Skip all & view result"
+            "go_to_results": "Skip all & view result"
         },
+        "test": "<a href=\"#lol\">test</a>",
         "form_title": "{visaType} visa",
         "engineer": {
             "sections": {
@@ -65,6 +66,10 @@
                         "options": {
                             "true": "Yes",
                             "false": "No"
+                        },
+                        "faq": {
+                            "q0": "Does multiple majors count as different degrees?",
+                            "a0": "TODO"
                         }
                     }
                 },
