@@ -59,13 +59,40 @@ export function NumberPrompt({
   const promptKey = `${visaType}.sections.${section}.${prompt.id}`
   const t = useTranslations(`visa_form`)
   const showLabel = (prompt.config.hideLabel ?? false) === false
+  const [validationError, setValidationError] = useState(
+    undefined as string | undefined,
+  )
+  const hasError = validationError !== undefined
+
+  function validate() {
+    if (value === undefined) {
+      setValidationError(`A value is required`)
+      return false
+    }
+
+    if (prompt.config.min !== undefined && prompt.config.min > value) {
+      setValidationError(
+        `Should be more than ${formatWithCommas(prompt.config.min)}`,
+      )
+      return false
+    }
+
+    if (prompt.config.max !== undefined && prompt.config.max < value) {
+      setValidationError(
+        `Should be less than ${formatWithCommas(prompt.config.max)}`,
+      )
+      return false
+    }
+
+    setValidationError(undefined)
+    return true
+  }
 
   return (
     <form
       onSubmit={e => {
         e.preventDefault()
-        if (!value) {
-          // TODO: handle validation
+        if (!validate()) {
           return
         }
 
@@ -84,17 +111,17 @@ export function NumberPrompt({
               {
                 'pr-16': showLabel,
                 'pr-2': !showLabel,
+                '!ring-2 !ring-red-400/80': hasError,
               },
             )}
             min={prompt.config.min}
             max={prompt.config.max}
-            step={prompt.config.step}
-            pattern="[0-9]*"
+            pattern="[0-9,]*"
             inputMode="numeric"
             onChange={e => {
               const { value } = e.target
-              const numberValue = value.replace(/,/g, '')
-              setValue(Number(numberValue))
+              const numberValue = Number(value.replace(/,/g, ''))
+              setValue(numberValue)
             }}
             onKeyDown={e => {
               const okKey = [
@@ -118,6 +145,9 @@ export function NumberPrompt({
             </span>
           ) : null}
         </div>
+        {hasError ? (
+          <span className="text-red-400 text-xs">{validationError}</span>
+        ) : null}
       </div>
 
       <div className="flex flex-wrap -m-2">

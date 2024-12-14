@@ -60,7 +60,6 @@ export interface BooleanPrompt {
 export interface NumberPromptConfig {
   min?: number
   max?: number
-  step?: number
   hideLabel?: boolean
 }
 

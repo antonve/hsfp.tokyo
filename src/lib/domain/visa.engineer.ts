@@ -32,7 +32,6 @@ export const formConfig: FormConfig = {
         config: {
           min: 0,
           max: 50,
-          step: 1,
         },
       },
       {
@@ -41,7 +40,6 @@ export const formConfig: FormConfig = {
         config: {
           min: 18,
           max: 120,
-          step: 1,
         },
       },
       {
@@ -49,7 +47,6 @@ export const formConfig: FormConfig = {
         type: 'NUMBER',
         config: {
           min: 3_000_000,
-          step: 1,
         },
       },
     ],
@@ -99,7 +96,6 @@ export const formConfig: FormConfig = {
         type: 'NUMBER',
         config: {
           min: 0,
-          step: 1,
           hideLabel: true,
         },
       },
