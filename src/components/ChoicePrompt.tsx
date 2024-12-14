@@ -1,4 +1,8 @@
-import { ChoicePrompt, Prompt, SectionName } from '@lib/domain/form'
+import {
+  ChoicePrompt as ChoicePromptType,
+  Prompt,
+  SectionName,
+} from '@lib/domain/form'
 import {
   ArrowRightIcon,
   ChevronDoubleRightIcon,
@@ -26,7 +30,7 @@ export function ChoicePrompt({
   qualifications: Qualifications
   visaType: VisaType
   section: SectionName
-  prompt: ChoicePrompt
+  prompt: ChoicePromptType
   overallPromptIndex: number
   onSubmit: (updateQualifications: QualificationUpdater) => void
   qualificationUpdater?: (value: string) => QualificationUpdater

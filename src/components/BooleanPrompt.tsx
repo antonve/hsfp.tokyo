@@ -1,4 +1,7 @@
-import { BooleanPrompt, SectionName } from '@lib/domain/form'
+import {
+  BooleanPrompt as BooleanPromptType,
+  SectionName,
+} from '@lib/domain/form'
 import { QualificationUpdater } from '@components/VisaFormSection'
 import { ChoicePrompt } from './ChoicePrompt'
 import { VisaType } from '@lib/domain'
@@ -16,7 +19,7 @@ export function BooleanPrompt({
   qualifications: Qualifications
   visaType: VisaType
   section: SectionName
-  prompt: BooleanPrompt
+  prompt: BooleanPromptType
   overallPromptIndex: number
   onSubmit: (updateQualifications: QualificationUpdater) => void
 }) {
