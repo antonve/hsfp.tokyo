@@ -1,4 +1,4 @@
-import { NumberPrompt, SectionName } from '@lib/domain/form'
+import { NumberPrompt as NumberPromptType, SectionName } from '@lib/domain/form'
 import { QualificationUpdater } from './VisaFormSection'
 import { VisaType } from '@lib/domain'
 import { Qualifications } from '@lib/domain/qualifications'
@@ -22,7 +22,7 @@ export function NumberPrompt({
   qualifications: Qualifications
   visaType: VisaType
   section: SectionName
-  prompt: NumberPrompt
+  prompt: NumberPromptType
   overallPromptIndex: number
   onSubmit: (updateQualifications: QualificationUpdater) => void
 }) {
