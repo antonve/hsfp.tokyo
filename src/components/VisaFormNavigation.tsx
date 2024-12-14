@@ -133,6 +133,7 @@ function Section({
           <ul className="ml-2 mt-2">
             {prompts.map((prompt, i) => (
               <Prompt
+                key={i}
                 title={t(`${prompt.id}.title`)}
                 prompt={prompt}
                 promptIndex={i}
