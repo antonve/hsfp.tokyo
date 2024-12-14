@@ -99,6 +99,7 @@ export const formConfig: FormConfig = {
         config: {
           min: 0,
           step: 1,
+          hideLabel: true,
         },
       },
       {

@@ -57,6 +57,7 @@ export interface NumberPromptConfig {
   min?: number
   max?: number
   step?: number
+  hideLabel?: boolean
 }
 
 export function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {

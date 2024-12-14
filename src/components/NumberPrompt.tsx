@@ -9,6 +9,7 @@ import {
   ChevronDoubleRightIcon,
 } from '@heroicons/react/20/solid'
 import { useTranslations } from 'next-intl'
+import classNames from 'classnames'
 
 export function NumberPrompt({
   prompt,
@@ -45,6 +46,7 @@ export function NumberPrompt({
 
   const promptKey = `${visaType}.sections.${section}.${prompt.id}`
   const t = useTranslations(`visa_form`)
+  const showLabel = (prompt.config.hideLabel ?? false) === false
 
   return (
     <form
@@ -65,7 +67,13 @@ export function NumberPrompt({
         <div className="relative h-9 w-full md:max-w-[200px]">
           <input
             type="number"
-            className="pl-2 pr-16 py-2 bg-transparent rounded shadow-border absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-emerald-400/80 appearance-none"
+            className={classNames(
+              'pl-2 py-2 bg-transparent rounded shadow-border absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-emerald-400/80 appearance-none',
+              {
+                'pr-16': showLabel,
+                'pr-2': !showLabel,
+              },
+            )}
             min={prompt.config.min}
             max={prompt.config.max}
             step={prompt.config.step}
@@ -73,9 +81,11 @@ export function NumberPrompt({
             value={value}
             name={prompt.id}
           />
-          <span className="mx-1 absolute right-0 top-1 h-7 flex items-center font-bold text-xs bg-zinc-700/70 px-2 py-1 rounded-sm">
-            {t(`${promptKey}.input_label`)}
-          </span>
+          {showLabel ? (
+            <span className="mx-1 absolute right-0 top-1 h-7 flex items-center font-bold text-xs bg-zinc-700/70 px-2 py-1 rounded-sm">
+              {t(`${promptKey}.input_label`)}
+            </span>
+          ) : null}
         </div>
       </div>
 

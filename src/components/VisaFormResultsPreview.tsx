@@ -1,7 +1,4 @@
-import { FormConfig } from '@lib/domain/form'
-import { Qualifications, calculatePoints } from '@lib/domain/qualifications'
 import classNames from 'classnames'
-import { useMemo } from 'react'
 
 export function VisaFormResultsPreview({
   points,

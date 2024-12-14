@@ -167,8 +167,7 @@
                     "title": "Bonus: education",
                     "certification": {
                         "title": "Certificates",
-                        "prompt": "How many relevant national or IT certifications do you hold?",
-                        "input_label": "certificates"
+                        "prompt": "How many relevant national or IT certifications do you hold?"
                     },
                     "jp": {
                         "title": "Japanese ability",
