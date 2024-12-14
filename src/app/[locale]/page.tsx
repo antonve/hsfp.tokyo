@@ -45,24 +45,6 @@ export default function Page() {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 text-center">
             <Link
               className="card bg-zinc-900 hover:bg-zinc-900/80 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80"
-              href={`/calculator/researcher`}
-            >
-              <div className="card-body space-y-4">
-                <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
-                  <BeakerIcon className="w-5 h-5" />
-                  <span>Researcher</span>
-                </h3>
-                <p className="text-zinc-400">
-                  Visa for academic research activities.
-                </p>
-                <div className="mt-10 rounded-md bg-zinc-600/50 py-2 px-4">
-                  Start points calculation
-                </div>
-              </div>
-            </Link>
-
-            <Link
-              className="card bg-zinc-900 hover:bg-zinc-900/80 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80"
               href={`/calculator/engineer`}
             >
               <div className="card-body space-y-4">
@@ -80,7 +62,27 @@ export default function Page() {
             </Link>
 
             <Link
-              className="card bg-zinc-900 hover:bg-zinc-900/80 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80"
+              className="card bg-zinc-900 hover:bg-zinc-900/80 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80 pointer-events-none opacity-30"
+              aria-disabled="true"
+              href={`/calculator/researcher`}
+            >
+              <div className="card-body space-y-4">
+                <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
+                  <BeakerIcon className="w-5 h-5" />
+                  <span>Researcher</span>
+                </h3>
+                <p className="text-zinc-400">
+                  Visa for academic research activities.
+                </p>
+                <div className="mt-10 rounded-md bg-zinc-600/50 py-2 px-4">
+                  Coming soon
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              className="card bg-zinc-900 hover:bg-zinc-900/80 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80 pointer-events-none opacity-30"
+              aria-disabled="true"
               href={`/calculator/business-manager`}
             >
               <div className="card-body space-y-4">
@@ -92,7 +94,7 @@ export default function Page() {
                   Visa for managerial positions in business.{' '}
                 </p>
                 <div className="mt-10 rounded-md bg-zinc-600/50 py-2 px-4">
-                  Start points calculation
+                  Coming soon
                 </div>
               </div>
             </Link>
