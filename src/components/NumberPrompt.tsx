@@ -68,7 +68,7 @@ export function NumberPrompt({
           <input
             type="number"
             className={classNames(
-              'pl-2 py-2 bg-transparent rounded shadow-border absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-emerald-400/80 appearance-none',
+              'box-border h-full w-full pl-2 py-2 bg-transparent rounded shadow-border absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-emerald-400/80 appearance-none',
               {
                 'pr-16': showLabel,
                 'pr-2': !showLabel,
