@@ -44,6 +44,18 @@ export function NumberPrompt({
     return undefined
   })
 
+  function formatWithCommas(value: number | undefined) {
+    if (value === undefined) {
+      return
+    }
+
+    if (isNaN(value)) {
+      return 0
+    }
+
+    return Number(value).toLocaleString('en-US')
+  }
+
   const promptKey = `${visaType}.sections.${section}.${prompt.id}`
   const t = useTranslations(`visa_form`)
   const showLabel = (prompt.config.hideLabel ?? false) === false
@@ -66,7 +78,7 @@ export function NumberPrompt({
       <div className="space-y-3 mb-8">
         <div className="relative h-9 w-full md:max-w-[200px]">
           <input
-            type="number"
+            type="text"
             className={classNames(
               'box-border h-full w-full pl-2 py-2 bg-transparent rounded shadow-border absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-emerald-400/80 appearance-none',
               {
@@ -77,8 +89,27 @@ export function NumberPrompt({
             min={prompt.config.min}
             max={prompt.config.max}
             step={prompt.config.step}
-            onChange={e => setValue(e.currentTarget.valueAsNumber)}
-            value={value}
+            pattern="[0-9]*"
+            inputMode="numeric"
+            onChange={e => {
+              const { value } = e.target
+              const numberValue = value.replace(/,/g, '')
+              setValue(Number(numberValue))
+            }}
+            onKeyDown={e => {
+              const okKey = [
+                'Tab',
+                'Backspace',
+                'ArrowLeft',
+                'ArrowRight',
+              ].some(key => e.key === key)
+
+              // This prevents NaN from proceeding with onChange
+              if (!okKey && Number.isNaN(Number(e.key))) {
+                e.preventDefault()
+              }
+            }}
+            value={formatWithCommas(value)}
             name={prompt.id}
           />
           {showLabel ? (
