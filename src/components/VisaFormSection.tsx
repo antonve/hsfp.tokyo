@@ -29,9 +29,8 @@ export function VisaFormSection({
   const router = useRouter()
   const params = useParams()
   const language = useLanguage()
-  const t = useTranslations(
-    `visa_form.${config.visaType}.sections.${progress.section}`,
-  )
+  const t = useTranslations('visa_form')
+  const urlPrefix = `/${language}/calculator/${params['visa']}`
 
   const prompts = config.sections[progress.section]!!
   const prompt = prompts[progress.promptIndex]
@@ -45,7 +44,7 @@ export function VisaFormSection({
     const { section, promptIndex, finished } = nextStepOfForm(config, progress)
     const newQualifications = updateQualifications(qualifications)
 
-    const nextPage = `/${language}/calculator/${params['visa']}/${
+    const nextPage = `${urlPrefix}/${
       finished ? `results` : `/${section}/${promptIndex + 1}`
     }?q=${encodeQualifications(newQualifications)}`
 
@@ -53,18 +52,36 @@ export function VisaFormSection({
   }
 
   return (
-    <div className="pb-10">
+    <div className="flex flex-col min-h-full">
       <h2 className="font-semibold text-2xl mb-5">
-        {t(`${prompt.id}.prompt`)}
+        {t(
+          `${config.visaType}.sections.${progress.section}.${prompt.id}.prompt`,
+        )}
       </h2>
-      <VisaFormPrompt
-        qualifications={qualifications}
-        prompt={prompt}
-        onSubmit={submit}
-        section={progress.section}
-        visaType={config.visaType}
-        overallPromptIndex={overallPromptIndex}
-      />
+      <div className="flex-1 mb-10">
+        <VisaFormPrompt
+          qualifications={qualifications}
+          prompt={prompt}
+          onSubmit={submit}
+          section={progress.section}
+          visaType={config.visaType}
+          overallPromptIndex={overallPromptIndex}
+        />
+      </div>
+      <div className="">
+        <button
+          type="button"
+          className="button outline w-full box-border justify-center"
+          onClick={() => {
+            const resultsUrl = `${urlPrefix}/results?q=${encodeQualifications(
+              qualifications,
+            )}`
+            router.push(resultsUrl)
+          }}
+        >
+          {t(`actions.go-to-results`)}
+        </button>
+      </div>
     </div>
   )
 }

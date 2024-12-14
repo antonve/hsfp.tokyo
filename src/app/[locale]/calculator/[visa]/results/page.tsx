@@ -23,7 +23,6 @@ export default function Page({ params }: Props) {
     [qualifications],
   )
 
-  // &#x1f389; tada
   const visaType = t(`visa_type.${formConfig.visaType}`)
 
   return (

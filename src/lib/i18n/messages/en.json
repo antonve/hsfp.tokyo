@@ -40,7 +40,8 @@
         },
         "actions": {
             "continue": "Continue",
-            "skip": "Skip this question"
+            "skip": "Skip this question",
+            "go-to-results": "Skip all & view result"
         },
         "form_title": "{visaType} visa",
         "engineer": {

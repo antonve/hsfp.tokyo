@@ -20,7 +20,7 @@ a {
   }
 
   .button:not(.outline) {
-    @apply px-4 h-9 flex items-center rounded bg-zinc-100 text-zinc-900 font-bold whitespace-nowrap shadow-border relative;
+    @apply px-4 h-12 md:h-9 flex items-center rounded bg-zinc-100 text-zinc-900 font-bold whitespace-nowrap shadow-border relative;
   }
 
   .button:not(.outline)::after {
@@ -29,7 +29,7 @@ a {
   }
 
   .button.outline {
-    @apply bg-zinc-950 text-zinc-100 border border-zinc-100 outline-transparent ring-0 px-4 h-9 flex items-center rounded whitespace-nowrap backdrop;
+    @apply bg-zinc-950 text-zinc-100 border border-zinc-100 outline-transparent ring-0 px-4 h-12 md:h-9 flex items-center rounded whitespace-nowrap backdrop;
   }
 }
 

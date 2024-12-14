@@ -1,7 +1,7 @@
 import { VisaType } from '@lib/domain'
 import {
   FormConfig,
-  Prompt,
+  Prompt as PromptType,
   SectionName,
   VisaProgress,
   getOverallPromptIndex,
@@ -162,7 +162,7 @@ function Prompt({
   qualifications,
 }: {
   title: string
-  prompt: Prompt
+  prompt: PromptType
   promptIndex: number
   maxActivePrompt: number
   name: SectionName
