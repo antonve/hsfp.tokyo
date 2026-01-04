@@ -1,6 +1,7 @@
 'use client'
 
 import { Criteria } from '@lib/domain'
+import { criteriaMetadata } from '@lib/domain/criteria.metadata'
 import { formConfigForVisa } from '@lib/domain/form'
 import { calculatePoints } from '@lib/domain/qualifications'
 import { useQualifications } from '@lib/hooks'
@@ -71,7 +72,60 @@ export default function Page({ params }: Props) {
 }
 
 function MatchesOverview({ matches }: { matches: Criteria[] }) {
-  return 'todo'
+  const totalPoints = matches.reduce((sum, match) => sum + match.points, 0)
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full border-collapse">
+        <thead>
+          <tr className="border-b border-zinc-700">
+            <th className="text-left py-3 px-4 font-semibold text-zinc-300">
+              Category
+            </th>
+            <th className="text-left py-3 px-4 font-semibold text-zinc-300">
+              Explanation
+            </th>
+            <th className="text-right py-3 px-4 font-semibold text-zinc-300">
+              Points
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {matches.map((match, index) => {
+            const metadata = criteriaMetadata[match.id]
+            return (
+              <tr
+                key={match.id}
+                className={`border-b border-zinc-800 ${
+                  index % 2 === 0 ? 'bg-zinc-900/30' : ''
+                }`}
+              >
+                <td className="py-3 px-4 text-zinc-300">
+                  {metadata?.category || match.id}
+                </td>
+                <td className="py-3 px-4 text-zinc-400">
+                  {metadata?.explanation || match.id}
+                </td>
+                <td className="py-3 px-4 text-right font-mono text-zinc-300">
+                  {match.points}
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+        <tfoot>
+          <tr className="border-t-2 border-zinc-600 font-semibold">
+            <td className="py-3 px-4 text-zinc-200" colSpan={2}>
+              Total
+            </td>
+            <td className="py-3 px-4 text-right font-mono text-zinc-200">
+              {totalPoints}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  )
 }
 
 function EvidenceOverview({ matches }: { matches: Criteria[] }) {
