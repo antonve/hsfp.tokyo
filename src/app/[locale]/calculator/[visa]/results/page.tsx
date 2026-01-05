@@ -153,7 +153,7 @@ function EvidenceOverview({ matches }: { matches: Criteria[] }) {
 
   return (
     <div className="space-y-4">
-      {categories.map((category) => (
+      {categories.map(category => (
         <EvidenceCategorySection
           key={category}
           category={category}
@@ -194,7 +194,7 @@ function EvidenceCategorySection({
 
       {isExpanded && (
         <div className="divide-y divide-zinc-800">
-          {items.map((item) => (
+          {items.map(item => (
             <EvidenceItemCard key={item.id} item={item} />
           ))}
         </div>

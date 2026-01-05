@@ -159,8 +159,7 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
       'Offer letter with salary details',
       'For renewals: withholding tax statement (源泉徴収票) or tax certificate',
     ],
-    notes:
-      'Only applicable if under 40 years old at time of application.',
+    notes: 'Only applicable if under 40 years old at time of application.',
   },
   '6m_plus': {
     id: '6m_plus',
@@ -171,8 +170,7 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
       'Offer letter with salary details',
       'For renewals: withholding tax statement (源泉徴収票) or tax certificate',
     ],
-    notes:
-      'Only applicable if under 40 years old at time of application.',
+    notes: 'Only applicable if under 40 years old at time of application.',
   },
   '5m_plus': {
     id: '5m_plus',
@@ -183,8 +181,7 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
       'Offer letter with salary details',
       'For renewals: withholding tax statement (源泉徴収票) or tax certificate',
     ],
-    notes:
-      'Only applicable if under 35 years old at time of application.',
+    notes: 'Only applicable if under 35 years old at time of application.',
   },
   '4m_plus': {
     id: '4m_plus',
@@ -195,8 +192,7 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
       'Offer letter with salary details',
       'For renewals: withholding tax statement (源泉徴収票) or tax certificate',
     ],
-    notes:
-      'Only applicable if under 30 years old at time of application.',
+    notes: 'Only applicable if under 30 years old at time of application.',
   },
 
   // Age - No evidence required (calculated from passport/residence card)
@@ -204,21 +200,30 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
     id: 'under_30y',
     category: 'Age',
     description: 'Under 30 years old',
-    documents: ['Passport (copy of bio-data page)', 'Residence card (if applicable)'],
+    documents: [
+      'Passport (copy of bio-data page)',
+      'Residence card (if applicable)',
+    ],
     notes: 'Age is verified from your passport at time of application.',
   },
   under_35y: {
     id: 'under_35y',
     category: 'Age',
     description: 'Under 35 years old',
-    documents: ['Passport (copy of bio-data page)', 'Residence card (if applicable)'],
+    documents: [
+      'Passport (copy of bio-data page)',
+      'Residence card (if applicable)',
+    ],
     notes: 'Age is verified from your passport at time of application.',
   },
   under_40y: {
     id: 'under_40y',
     category: 'Age',
     description: 'Under 40 years old',
-    documents: ['Passport (copy of bio-data page)', 'Residence card (if applicable)'],
+    documents: [
+      'Passport (copy of bio-data page)',
+      'Residence card (if applicable)',
+    ],
     notes: 'Age is verified from your passport at time of application.',
   },
 
@@ -242,12 +247,14 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
       'Research funding decision documents',
       'Documents proving participation in government-funded research projects',
     ],
-    notes: 'Must have received competitive research funding from a foreign government at least 3 times.',
+    notes:
+      'Must have received competitive research funding from a foreign government at least 3 times.',
   },
   published_papers: {
     id: 'published_papers',
     category: 'Research Achievements',
-    description: 'Published papers in academic journals (3+ as corresponding author)',
+    description:
+      'Published papers in academic journals (3+ as corresponding author)',
     documents: [
       'List of publications including: title, author names, journal name, issue number, volume, pages, publication year',
       'Copies of published papers or links to the publications',
@@ -258,7 +265,8 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
   recognized_research: {
     id: 'recognized_research',
     category: 'Research Achievements',
-    description: 'Other research achievements recognized by Minister of Justice',
+    description:
+      'Other research achievements recognized by Minister of Justice',
     documents: [
       'Documentation proving the research achievement',
       'Recognition or certification from relevant authorities',
@@ -359,7 +367,8 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
       'JLPT N1 certificate (日本語能力試験N1合格証明書)',
       'Or equivalent certification (BJT Business Japanese Test J1+, etc.)',
     ],
-    notes: 'Cannot claim both N1/N2 and Japanese university graduation points together (except for those listed in ① above).',
+    notes:
+      'Cannot claim both N1/N2 and Japanese university graduation points together (except for those listed in ① above).',
   },
   n2: {
     id: 'n2',
@@ -389,21 +398,16 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
     id: 'uni_ranked',
     category: 'University',
     description: 'Graduated from top 300 ranked university',
-    documents: [
-      'Graduation certificate',
-      'Degree certificate',
-    ],
+    documents: ['Graduation certificate', 'Degree certificate'],
     notes:
       'Foreign universities must appear in top 300 of at least 2 of the 3 rankings (QS, THE, ARWU). Japanese universities only need to appear in 1 ranking. Can be claimed together with "Graduated from Japanese university" bonus.',
   },
   uni_funded: {
     id: 'uni_funded',
     category: 'University',
-    description: 'Graduated from university funded by Top Global Universities Project',
-    documents: [
-      'Graduation certificate',
-      'Degree certificate',
-    ],
+    description:
+      'Graduated from university funded by Top Global Universities Project',
+    documents: ['Graduation certificate', 'Degree certificate'],
     notes:
       'University must receive subsidies under the Top Global Universities Project (スーパーグローバル大学創成支援事業) implemented by MEXT. Can be claimed together with "Graduated from Japanese university" bonus.',
   },
@@ -411,10 +415,7 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
     id: 'uni_partner',
     category: 'University',
     description: 'Graduated from Innovative Asia Project partner school',
-    documents: [
-      'Graduation certificate',
-      'Degree certificate',
-    ],
+    documents: ['Graduation certificate', 'Degree certificate'],
     notes:
       'University must be designated as a "Partner School" in the Innovative Asia Project (イノベーティブ・アジア事業) implemented by Ministry of Foreign Affairs. Can be claimed together with "Graduated from Japanese university" bonus.',
   },
@@ -423,7 +424,8 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
   foreign_qualification: {
     id: 'foreign_qualification',
     category: 'Bonus',
-    description: 'Foreign work-related qualifications recognized by Minister of Justice',
+    description:
+      'Foreign work-related qualifications recognized by Minister of Justice',
     documents: [
       'Certificate or license document',
       'Documentation proving the qualification is work-related',
@@ -446,9 +448,7 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
     id: 'training_jica',
     category: 'Bonus',
     description: 'Completed JICA training (Innovative Asia Project)',
-    documents: [
-      'JICA training completion certificate (JICA研修修了証明書)',
-    ],
+    documents: ['JICA training completion certificate (JICA研修修了証明書)'],
     notes:
       'Training must be conducted by JICA as part of the Innovative Asia Project, with a training period of at least 1 year. If submitting JICA completion certificate, academic and employment documents are generally not required unless claiming work experience points.',
   },
@@ -471,7 +471,7 @@ export function getEvidenceForMatches(
   matches: { id: string; points: number }[],
 ): EvidenceItem[] {
   return matches
-    .map((match) => evidenceMetadata[match.id])
+    .map(match => evidenceMetadata[match.id])
     .filter((evidence): evidence is EvidenceItem => evidence !== undefined)
 }
 
