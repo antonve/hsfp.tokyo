@@ -101,11 +101,13 @@ export const criteriaMetadata: Record<string, CriteriaMetadata> = {
   },
   published_papers: {
     category: 'Research Achievements',
-    explanation: 'Published papers in academic journals (3+ as corresponding author)',
+    explanation:
+      'Published papers in academic journals (3+ as corresponding author)',
   },
   recognized_research: {
     category: 'Research Achievements',
-    explanation: 'Other research achievements recognized by Minister of Justice',
+    explanation:
+      'Other research achievements recognized by Minister of Justice',
   },
 
   // Certifications
@@ -161,7 +163,8 @@ export const criteriaMetadata: Record<string, CriteriaMetadata> = {
   },
   uni_funded: {
     category: 'University',
-    explanation: 'Graduated from university funded by Top Global Universities Project',
+    explanation:
+      'Graduated from university funded by Top Global Universities Project',
   },
   uni_partner: {
     category: 'University',
@@ -171,7 +174,8 @@ export const criteriaMetadata: Record<string, CriteriaMetadata> = {
   // Other Bonuses
   foreign_qualification: {
     category: 'Bonus',
-    explanation: 'Foreign work-related qualifications recognized by Minister of Justice',
+    explanation:
+      'Foreign work-related qualifications recognized by Minister of Justice',
   },
   growth_field: {
     category: 'Bonus',
