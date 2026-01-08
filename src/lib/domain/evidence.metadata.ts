@@ -73,44 +73,40 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
     category: 'Professional Experience',
     description: '10+ years of relevant experience',
     documents: [
-      'Employment certificates from previous employers stating job title, duties, and employment period',
-      'Documents proving work content and duration (e.g., employment contract, appointment letter)',
+      'Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)',
     ],
     notes:
-      'Experience must be related to the activities you will engage in under the HSFP visa.',
+      'Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period.',
   },
   '7y_plus': {
     id: '7y_plus',
     category: 'Professional Experience',
     description: '7+ years of relevant experience',
     documents: [
-      'Employment certificates from previous employers stating job title, duties, and employment period',
-      'Documents proving work content and duration (e.g., employment contract, appointment letter)',
+      'Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)',
     ],
     notes:
-      'Experience must be related to the activities you will engage in under the HSFP visa.',
+      'Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period.',
   },
   '5y_plus': {
     id: '5y_plus',
     category: 'Professional Experience',
     description: '5+ years of relevant experience',
     documents: [
-      'Employment certificates from previous employers stating job title, duties, and employment period',
-      'Documents proving work content and duration (e.g., employment contract, appointment letter)',
+      'Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)',
     ],
     notes:
-      'Experience must be related to the activities you will engage in under the HSFP visa.',
+      'Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period.',
   },
   '3y_plus': {
     id: '3y_plus',
     category: 'Professional Experience',
     description: '3+ years of relevant experience',
     documents: [
-      'Employment certificates from previous employers stating job title, duties, and employment period',
-      'Documents proving work content and duration (e.g., employment contract, appointment letter)',
+      'Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)',
     ],
     notes:
-      'Experience must be related to the activities you will engage in under the HSFP visa.',
+      'Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period.',
   },
 
   // Annual Salary (③)
@@ -195,35 +191,26 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
     notes: 'Only applicable if under 30 years old at time of application.',
   },
 
-  // Age - No evidence required (calculated from passport/residence card)
+  // Age - Verified from passport
   under_30y: {
     id: 'under_30y',
     category: 'Age',
     description: 'Under 30 years old',
-    documents: [
-      'Passport (copy of bio-data page)',
-      'Residence card (if applicable)',
-    ],
+    documents: ['Passport (copy of bio-data page)'],
     notes: 'Age is verified from your passport at time of application.',
   },
   under_35y: {
     id: 'under_35y',
     category: 'Age',
     description: 'Under 35 years old',
-    documents: [
-      'Passport (copy of bio-data page)',
-      'Residence card (if applicable)',
-    ],
+    documents: ['Passport (copy of bio-data page)'],
     notes: 'Age is verified from your passport at time of application.',
   },
   under_40y: {
     id: 'under_40y',
     category: 'Age',
     description: 'Under 40 years old',
-    documents: [
-      'Passport (copy of bio-data page)',
-      'Residence card (if applicable)',
-    ],
+    documents: ['Passport (copy of bio-data page)'],
     notes: 'Age is verified from your passport at time of application.',
   },
 
@@ -233,19 +220,17 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
     category: 'Research Achievements',
     description: 'Inventor of patented invention',
     documents: [
-      "Copy of patent certificate with applicant's name clearly shown",
-      'Patent registration document',
+      "Copy of patent certificate with applicant's name clearly shown as inventor",
     ],
-    notes: 'At least one patent where you are listed as an inventor.',
+    notes:
+      'You must be listed as an inventor on the patent(s) you are claiming.',
   },
   conducted_financed_projects: {
     id: 'conducted_financed_projects',
     category: 'Research Achievements',
     description: 'Conducted foreign government funded research (3+ times)',
     documents: [
-      "Grant award notification letters with applicant's name",
-      'Research funding decision documents',
-      'Documents proving participation in government-funded research projects',
+      "Grant award notification or funding decision documents with applicant's name",
     ],
     notes:
       'Must have received competitive research funding from a foreign government at least 3 times.',
@@ -256,22 +241,19 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
     description:
       'Published papers in academic journals (3+ as corresponding author)',
     documents: [
-      'List of publications including: title, author names, journal name, issue number, volume, pages, publication year',
-      'Copies of published papers or links to the publications',
+      'List of publications with: title, author names, journal name, issue number, volume, pages, publication year',
     ],
     notes:
-      'Papers must be published in journals indexed in academic databases (e.g., Web of Science, Scopus). You must be the responsible/corresponding author. Thomson Reuters and Elsevier databases are specifically mentioned.',
+      'Papers must be in journals indexed in academic databases such as Web of Science (Clarivate/Thomson Reuters) or Scopus (Elsevier). You must be the responsible/corresponding author.',
   },
   recognized_research: {
     id: 'recognized_research',
     category: 'Research Achievements',
     description:
       'Other research achievements recognized by Minister of Justice',
-    documents: [
-      'Documentation proving the research achievement',
-      'Recognition or certification from relevant authorities',
-    ],
-    notes: 'Contact immigration for guidance on what qualifies.',
+    documents: ['Documentation proving the research achievement'],
+    notes:
+      'This is a catch-all category for research achievements not covered by other criteria. Consult with immigration for guidance on what qualifies and required documentation.',
   },
 
   // Certifications (⑧)
@@ -340,11 +322,10 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
     description: 'SME with R&D costs exceeding 3% of revenue',
     documents: [
       'Financial statements (決算書) showing R&D expenses and total revenue',
-      'Tax documents (財務諸表, 確定申告書) proving the R&D expense ratio',
-      'Accountant or tax accountant certification (税理士, 公認会計士, 中小企業診断士による証明書)',
+      'Or: certification letter from a certified tax accountant (税理士), CPA (公認会計士), or SME consultant (中小企業診断士)',
     ],
     notes:
-      'R&D expenses must exceed 3% of total revenue (gross revenue minus income from securities transactions). Must be an SME.',
+      'R&D expenses must exceed 3% of total revenue (gross revenue minus income from securities transactions). Must be an SME. The professional certification is a letter issued by the accountant/consultant certifying the R&D ratio.',
   },
 
   // Japanese Language (⑭⑮)
@@ -426,12 +407,9 @@ export const evidenceMetadata: Record<string, EvidenceItem> = {
     category: 'Bonus',
     description:
       'Foreign work-related qualifications recognized by Minister of Justice',
-    documents: [
-      'Certificate or license document',
-      'Documentation proving the qualification is work-related',
-    ],
+    documents: ['Certificate or license document for the qualification'],
     notes:
-      'For enterprise-related products/services, proof must show the applicant obtained the qualification through employment (not as purchaser).',
+      'Must be a qualification from the designated list published by the Ministry of Justice. For awards related to enterprise products/services, you must have been professionally involved in creating/developing them (not just as a purchaser).',
   },
   growth_field: {
     id: 'growth_field',
