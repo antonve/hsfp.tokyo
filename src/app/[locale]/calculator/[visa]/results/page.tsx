@@ -214,10 +214,6 @@ function EvidenceItemCard({ item }: { item: EvidenceItem }) {
       >
         <div className="flex-1">
           <h4 className="font-medium text-zinc-300">{item.description}</h4>
-          <p className="text-sm text-zinc-500 mt-1">
-            {item.documents.length} required{' '}
-            {item.documents.length === 1 ? 'document' : 'documents'}
-          </p>
         </div>
         {isExpanded ? (
           <ChevronDownIcon className="w-4 h-4 text-zinc-400 mt-1 flex-shrink-0" />
@@ -230,7 +226,7 @@ function EvidenceItemCard({ item }: { item: EvidenceItem }) {
         <div className="mt-3 space-y-3">
           <div>
             <h5 className="text-sm font-medium text-zinc-400 mb-2">
-              Required Documents:
+              Documents:
             </h5>
             <ul className="list-disc list-inside space-y-1 text-sm text-zinc-300 pl-2">
               {item.documents.map((doc, index) => (
