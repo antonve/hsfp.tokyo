@@ -76,6 +76,7 @@ export default function Page({ params }: Props) {
 }
 
 function MatchesOverview({ matches }: { matches: Criteria[] }) {
+  const t = useTranslations('results')
   const totalPoints = matches.reduce((sum, match) => sum + match.points, 0)
 
   return (
@@ -84,13 +85,13 @@ function MatchesOverview({ matches }: { matches: Criteria[] }) {
         <thead>
           <tr className="border-b border-zinc-700">
             <th className="text-left py-3 px-4 font-semibold text-zinc-300">
-              Category
+              {t('overview.category')}
             </th>
             <th className="text-left py-3 px-4 font-semibold text-zinc-300">
-              Explanation
+              {t('overview.explanation')}
             </th>
             <th className="text-right py-3 px-4 font-semibold text-zinc-300">
-              Points
+              {t('overview.points')}
             </th>
           </tr>
         </thead>
@@ -120,7 +121,7 @@ function MatchesOverview({ matches }: { matches: Criteria[] }) {
         <tfoot>
           <tr className="border-t-2 border-zinc-600 font-semibold">
             <td className="py-3 px-4 text-zinc-200" colSpan={2}>
-              Total
+              {t('overview.total')}
             </td>
             <td className="py-3 px-4 text-right font-mono text-zinc-200">
               {totalPoints}
@@ -133,6 +134,7 @@ function MatchesOverview({ matches }: { matches: Criteria[] }) {
 }
 
 function EvidenceOverview({ matches }: { matches: Criteria[] }) {
+  const t = useTranslations('results')
   const evidenceItems = useMemo(() => getEvidenceForMatches(matches), [matches])
   const groupedEvidence = useMemo(
     () => groupEvidenceByCategory(evidenceItems),
@@ -142,11 +144,7 @@ function EvidenceOverview({ matches }: { matches: Criteria[] }) {
   const categories = Object.keys(groupedEvidence)
 
   if (categories.length === 0) {
-    return (
-      <p className="text-zinc-400 italic">
-        No specific evidence requirements based on your selections.
-      </p>
-    )
+    return <p className="text-zinc-400 italic">{t('evidence.empty')}</p>
   }
 
   return (

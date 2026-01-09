@@ -17,7 +17,11 @@
             "qualified": "Congrats, based on your answers you qualify for the Highly Skilled Foreign Professional ({visaType}) visa!"
         },
         "overview": {
-            "title": "Results overview"
+            "title": "Results overview",
+            "category": "Category",
+            "explanation": "Explanation",
+            "points": "Points",
+            "total": "Total"
         },
         "permanent_residency": {
             "title": "Fast track to Permanent Residency",
@@ -29,7 +33,8 @@
         },
         "evidence": {
             "title": "Required evidence",
-            "description": "When applying for this visa you need to submit evidence proving your qualifications. The documents listed below are for reference - depending on your situation, you may need all listed documents or only some. If you have significantly more than 80 points (e.g., 100+), you don't need to provide evidence for every single point category. For the most accurate guidance, consider consulting a licensed administrative scrivener (行政書士) to prepare your application."
+            "description": "When applying for this visa you need to submit evidence proving your qualifications. The documents listed below are for reference - depending on your situation, you may need all listed documents or only some. If you have significantly more than 80 points (e.g., 100+), you don't need to provide evidence for every single point category. For the most accurate guidance, consider consulting a licensed administrative scrivener (行政書士) to prepare your application.",
+            "empty": "No specific evidence requirements based on your selections."
         }
     },
     "visa_form": {
