@@ -2,8 +2,9 @@
 
 import { Criteria } from '@lib/domain'
 import {
+  EvidenceItem,
   getEvidenceForMatches,
-  groupEvidenceByCategory,
+  groupEvidenceByCategoryKey,
 } from '@lib/domain/evidence.metadata'
 import { formConfigForVisa } from '@lib/domain/form'
 import { calculatePoints } from '@lib/domain/qualifications'
@@ -44,16 +45,12 @@ export default function Page({ params }: Props) {
       ) : null}
       <section className="space-y-4">
         <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
-        <MatchesOverview matches={matches} />
+        <MatchesOverview matches={matches} totalPoints={points} />
       </section>
 
       <section className="space-y-4">
         <h3 className="font-semibold text-xl">{t('evidence.title')}</h3>
-        <p className="text-zinc-300 max-w-2xl">
-          {t('evidence.description', {
-            visaType,
-          })}
-        </p>
+        <p className="text-zinc-300 max-w-2xl">{t('evidence.description')}</p>
       </section>
       <EvidenceOverview matches={matches} />
       <section className="space-y-4 max-w-2xl">
@@ -74,9 +71,14 @@ export default function Page({ params }: Props) {
   )
 }
 
-function MatchesOverview({ matches }: { matches: Criteria[] }) {
+function MatchesOverview({
+  matches,
+  totalPoints,
+}: {
+  matches: Criteria[]
+  totalPoints: number
+}) {
   const t = useTranslations('results')
-  const totalPoints = matches.reduce((sum, match) => sum + match.points, 0)
 
   return (
     <div className="overflow-x-auto">
@@ -131,10 +133,14 @@ function MatchesOverview({ matches }: { matches: Criteria[] }) {
 
 function EvidenceOverview({ matches }: { matches: Criteria[] }) {
   const t = useTranslations('results')
+
   const evidenceItems = useMemo(() => getEvidenceForMatches(matches), [matches])
+
+  const getCategoryKey = (id: string) => t(`criteria.${id}.category`)
+
   const groupedEvidence = useMemo(
-    () => groupEvidenceByCategory(evidenceItems),
-    [evidenceItems],
+    () => groupEvidenceByCategoryKey(evidenceItems, getCategoryKey),
+    [evidenceItems, getCategoryKey],
   )
 
   const categories = Object.keys(groupedEvidence)
@@ -150,28 +156,32 @@ function EvidenceOverview({ matches }: { matches: Criteria[] }) {
           <h4 className="font-semibold text-zinc-200 mb-3">{category}</h4>
           <div className="space-y-3">
             {groupedEvidence[category].map(item => (
-              <div
-                key={item.id}
-                className="border border-zinc-800 rounded-lg p-4"
-              >
-                <h5 className="font-medium text-zinc-300 mb-2">
-                  {item.description}
-                </h5>
-                <ul className="list-disc list-inside space-y-1 text-sm text-zinc-400 pl-2">
-                  {item.documents.map((doc, index) => (
-                    <li key={index}>{doc}</li>
-                  ))}
-                </ul>
-                {item.notes && (
-                  <p className="text-sm text-zinc-500 mt-2 italic">
-                    {item.notes}
-                  </p>
-                )}
-              </div>
+              <EvidenceItemCard key={item.id} item={item} />
             ))}
           </div>
         </div>
       ))}
+    </div>
+  )
+}
+
+function EvidenceItemCard({ item }: { item: EvidenceItem }) {
+  const t = useTranslations('results')
+
+  const description = t(`criteria.${item.id}.explanation`)
+  const documentsString = t(`evidence.items.${item.documentsKey}`)
+  const documents = documentsString.split(' | ')
+  const notes = item.notesKey ? t(`evidence.items.${item.notesKey}`) : undefined
+
+  return (
+    <div className="border border-zinc-800 rounded-lg p-4">
+      <h5 className="font-medium text-zinc-300 mb-2">{description}</h5>
+      <ul className="list-disc list-inside space-y-1 text-sm text-zinc-400 pl-2">
+        {documents.map((doc, index) => (
+          <li key={index}>{doc}</li>
+        ))}
+      </ul>
+      {notes && <p className="text-sm text-zinc-500 mt-2 italic">{notes}</p>}
     </div>
   )
 }
