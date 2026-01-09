@@ -54,24 +54,59 @@
                     "documents": "Graduation certificates for each degree | Academic transcripts showing different major fields | Degree certificates for each qualification",
                     "notes": "Degrees must be in different academic fields (e.g., Engineering + Business). Both a master and doctorate count as 30 points total."
                 },
-                "experience": {
+                "10y_plus": {
                     "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
                     "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
                 },
-                "salary": {
+                "7y_plus": {
+                    "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
+                    "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
+                },
+                "5y_plus": {
+                    "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
+                    "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
+                },
+                "3y_plus": {
+                    "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
+                    "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
+                },
+                "10m_plus": {
                     "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
                     "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
                 },
-                "salary_under40": {
-                    "notes": "Only applicable if under 40 years old at time of application."
+                "9m_plus": {
+                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+                    "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
                 },
-                "salary_under35": {
-                    "notes": "Only applicable if under 35 years old at time of application."
+                "8m_plus": {
+                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+                    "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
                 },
-                "salary_under30": {
-                    "notes": "Only applicable if under 30 years old at time of application."
+                "7m_plus": {
+                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+                    "notes": "Only applicable if under 40 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
                 },
-                "age": {
+                "6m_plus": {
+                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+                    "notes": "Only applicable if under 40 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
+                },
+                "5m_plus": {
+                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+                    "notes": "Only applicable if under 35 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
+                },
+                "4m_plus": {
+                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+                    "notes": "Only applicable if under 30 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
+                },
+                "under_30y": {
+                    "documents": "Passport (copy of bio-data page)",
+                    "notes": "Age is verified from your passport at time of application."
+                },
+                "under_35y": {
+                    "documents": "Passport (copy of bio-data page)",
+                    "notes": "Age is verified from your passport at time of application."
+                },
+                "under_40y": {
                     "documents": "Passport (copy of bio-data page)",
                     "notes": "Age is verified from your passport at time of application."
                 },
@@ -91,13 +126,12 @@
                     "documents": "Documentation proving the research achievement",
                     "notes": "This is a catch-all category for research achievements not covered by other criteria. Consult with immigration for guidance on what qualifies and required documentation."
                 },
-                "certs": {
-                    "documents": "Certificate copies for each qualification | Proof of passing examination (合格証明書)"
-                },
                 "many_certs": {
+                    "documents": "Certificate copies for each qualification | Proof of passing examination (合格証明書)",
                     "notes": "Qualifications must be Japanese national certifications (国家資格) or IT certifications listed in the IT certification announcement (IT告示). Business-exclusive qualifications (業務独占資格) or name-exclusive qualifications (名称独占資格) qualify."
                 },
                 "single_cert": {
+                    "documents": "Certificate copies for each qualification | Proof of passing examination (合格証明書)",
                     "notes": "Must be a Japanese national certification (国家資格) or IT certification listed in the IT certification announcement (IT告示)."
                 },
                 "org_promotes_innovation": {
@@ -132,16 +166,16 @@
                     "documents": "Graduation certificate from Japanese university | Degree certificate from Japanese institution",
                     "notes": "Includes completion of graduate programs (master or doctorate) at Japanese universities."
                 },
-                "uni": {
-                    "documents": "Graduation certificate | Degree certificate"
-                },
                 "uni_ranked": {
+                    "documents": "Graduation certificate | Degree certificate",
                     "notes": "Foreign universities must appear in top 300 of at least 2 of the 3 rankings (QS, THE, ARWU). Japanese universities only need to appear in 1 ranking. Can be claimed together with \"Graduated from Japanese university\" bonus."
                 },
                 "uni_funded": {
+                    "documents": "Graduation certificate | Degree certificate",
                     "notes": "University must receive subsidies under the Top Global Universities Project (スーパーグローバル大学創成支援事業) implemented by MEXT. Can be claimed together with \"Graduated from Japanese university\" bonus."
                 },
                 "uni_partner": {
+                    "documents": "Graduation certificate | Degree certificate",
                     "notes": "University must be designated as a \"Partner School\" in the Innovative Asia Project (イノベーティブ・アジア事業) implemented by Ministry of Foreign Affairs. Can be claimed together with \"Graduated from Japanese university\" bonus."
                 },
                 "foreign_qualification": {

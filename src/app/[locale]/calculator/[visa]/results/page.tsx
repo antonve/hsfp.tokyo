@@ -1,11 +1,6 @@
 'use client'
 
 import { Criteria } from '@lib/domain'
-import {
-  EvidenceItem,
-  getEvidenceForMatches,
-  groupEvidenceByCategoryKey,
-} from '@lib/domain/evidence.metadata'
 import { formConfigForVisa } from '@lib/domain/form'
 import { calculatePoints } from '@lib/domain/qualifications'
 import { useQualifications } from '@lib/hooks'
@@ -134,16 +129,19 @@ function MatchesOverview({
 function EvidenceOverview({ matches }: { matches: Criteria[] }) {
   const t = useTranslations('results')
 
-  const evidenceItems = useMemo(() => getEvidenceForMatches(matches), [matches])
+  const groupedByCategory = useMemo(() => {
+    const groups: Record<string, Criteria[]> = {}
+    for (const match of matches) {
+      const category = t(`criteria.${match.id}.category`)
+      if (!groups[category]) {
+        groups[category] = []
+      }
+      groups[category].push(match)
+    }
+    return groups
+  }, [matches, t])
 
-  const getCategoryKey = (id: string) => t(`criteria.${id}.category`)
-
-  const groupedEvidence = useMemo(
-    () => groupEvidenceByCategoryKey(evidenceItems, getCategoryKey),
-    [evidenceItems, getCategoryKey],
-  )
-
-  const categories = Object.keys(groupedEvidence)
+  const categories = Object.keys(groupedByCategory)
 
   if (categories.length === 0) {
     return <p className="text-zinc-400 italic">{t('evidence.empty')}</p>
@@ -155,8 +153,8 @@ function EvidenceOverview({ matches }: { matches: Criteria[] }) {
         <div key={category}>
           <h4 className="font-semibold text-zinc-200 mb-3">{category}</h4>
           <div className="space-y-3">
-            {groupedEvidence[category].map(item => (
-              <EvidenceItemCard key={item.id} item={item} />
+            {groupedByCategory[category].map(match => (
+              <EvidenceItemCard key={match.id} id={match.id} />
             ))}
           </div>
         </div>
@@ -165,22 +163,35 @@ function EvidenceOverview({ matches }: { matches: Criteria[] }) {
   )
 }
 
-function EvidenceItemCard({ item }: { item: EvidenceItem }) {
+function EvidenceItemCard({ id }: { id: string }) {
   const t = useTranslations('results')
 
-  const description = t(`criteria.${item.id}.explanation`)
-  const documentsString = t(`evidence.items.${item.documentsKey}`)
-  const documents = documentsString.split(' | ')
-  const notes = item.notesKey ? t(`evidence.items.${item.notesKey}`) : undefined
+  const description = t(`criteria.${id}.explanation`)
+  const documentsKey = `evidence.items.${id}.documents`
+  const notesKey = `evidence.items.${id}.notes`
+
+  // Check if the translation exists (next-intl returns the key if not found)
+  const documentsString = t(documentsKey)
+  const hasDocuments = documentsString !== documentsKey
+  const documents = hasDocuments ? documentsString.split(' | ') : []
+
+  const notesString = t(notesKey)
+  const notes = notesString !== notesKey ? notesString : undefined
+
+  if (!hasDocuments && !notes) {
+    return null
+  }
 
   return (
     <div className="border border-zinc-800 rounded-lg p-4">
       <h5 className="font-medium text-zinc-300 mb-2">{description}</h5>
-      <ul className="list-disc list-inside space-y-1 text-sm text-zinc-400 pl-2">
-        {documents.map((doc, index) => (
-          <li key={index}>{doc}</li>
-        ))}
-      </ul>
+      {documents.length > 0 && (
+        <ul className="list-disc list-inside space-y-1 text-sm text-zinc-400 pl-2">
+          {documents.map((doc, index) => (
+            <li key={index}>{doc}</li>
+          ))}
+        </ul>
+      )}
       {notes && <p className="text-sm text-zinc-500 mt-2 italic">{notes}</p>}
     </div>
   )
