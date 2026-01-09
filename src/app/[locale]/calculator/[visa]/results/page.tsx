@@ -1,7 +1,6 @@
 'use client'
 
 import { Criteria } from '@lib/domain'
-import { criteriaMetadata } from '@lib/domain/criteria.metadata'
 import {
   getEvidenceForMatches,
   groupEvidenceByCategory,
@@ -96,27 +95,24 @@ function MatchesOverview({ matches }: { matches: Criteria[] }) {
           </tr>
         </thead>
         <tbody>
-          {matches.map((match, index) => {
-            const metadata = criteriaMetadata[match.id]
-            return (
-              <tr
-                key={match.id}
-                className={`border-b border-zinc-800 ${
-                  index % 2 === 0 ? 'bg-zinc-900/30' : ''
-                }`}
-              >
-                <td className="py-3 px-4 text-zinc-300">
-                  {metadata?.category || match.id}
-                </td>
-                <td className="py-3 px-4 text-zinc-400">
-                  {metadata?.explanation || match.id}
-                </td>
-                <td className="py-3 px-4 text-right font-mono text-zinc-300">
-                  {match.points}
-                </td>
-              </tr>
-            )
-          })}
+          {matches.map((match, index) => (
+            <tr
+              key={match.id}
+              className={`border-b border-zinc-800 ${
+                index % 2 === 0 ? 'bg-zinc-900/30' : ''
+              }`}
+            >
+              <td className="py-3 px-4 text-zinc-300">
+                {t(`criteria.${match.id}.category`)}
+              </td>
+              <td className="py-3 px-4 text-zinc-400">
+                {t(`criteria.${match.id}.explanation`)}
+              </td>
+              <td className="py-3 px-4 text-right font-mono text-zinc-300">
+                {match.points}
+              </td>
+            </tr>
+          ))}
         </tbody>
         <tfoot>
           <tr className="border-t-2 border-zinc-600 font-semibold">
