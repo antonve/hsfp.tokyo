@@ -37,7 +37,16 @@ export default function Page({ params }: Props) {
             {t('banner.qualified', { visaType })}
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div className="p-[2px] font-semibold rounded-lg bg-gradient-to-r from-amber-400 from-10% to-orange-500 to-90% relative">
+          <div className="bg-zinc-950/80 px-6 py-4 rounded-lg space-y-2">
+            <p>{t('banner.not_qualified', { pointsNeeded: 70 - points })}</p>
+            <p className="text-sm font-normal text-zinc-400">
+              {t('banner.not_qualified_hint')}
+            </p>
+          </div>
+        </div>
+      )}
       <section className="space-y-4">
         <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
         <MatchesOverview matches={matches} totalPoints={points} />

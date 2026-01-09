@@ -6,5 +6,11 @@
         "start_researcher": "Bắt đầu tính điểm thuộc loại nhà nghiên cứu",
         "start_engineer": "Bắt đầu tính điểm thuộc loại kỹ sư",
         "start_business_manager": "Bắt đầu tính điểm thuộc loại nhà kinh doanh"
+    },
+    "results": {
+        "banner": {
+            "not_qualified": "Bạn cần thêm {pointsNeeded} điểm để đủ điều kiện xin visa HSFP.",
+            "not_qualified_hint": "Các hạng mục thường mang lại nhiều điểm bao gồm: Học vấn (tối đa 30 điểm), Kinh nghiệm làm việc (tối đa 20 điểm), Lương hàng năm (tối đa 40 điểm), và Khả năng tiếng Nhật (tối đa 15 điểm)."
+        }
     }
 }

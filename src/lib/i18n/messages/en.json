@@ -14,7 +14,9 @@
             "business-manager": "Business Management"
         },
         "banner": {
-            "qualified": "Congrats, based on your answers you qualify for the Highly Skilled Foreign Professional ({visaType}) visa!"
+            "qualified": "Congrats, based on your answers you qualify for the Highly Skilled Foreign Professional ({visaType}) visa!",
+            "not_qualified": "You need {pointsNeeded} more points to qualify for the HSFP visa.",
+            "not_qualified_hint": "Categories that often provide significant points include: Education (up to 30 pts), Professional Experience (up to 20 pts), Annual Salary (up to 40 pts), and Japanese Language ability (up to 15 pts)."
         },
         "overview": {
             "title": "Results overview",
