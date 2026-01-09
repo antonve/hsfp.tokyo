@@ -1,7 +1,6 @@
 'use client'
 
 import { Criteria } from '@lib/domain'
-import { criteriaMetadata } from '@lib/domain/criteria.metadata'
 import { formConfigForVisa } from '@lib/domain/form'
 import { calculatePoints } from '@lib/domain/qualifications'
 import { useQualifications } from '@lib/hooks'
@@ -41,16 +40,12 @@ export default function Page({ params }: Props) {
       ) : null}
       <section className="space-y-4">
         <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
-        <MatchesOverview matches={matches} />
+        <MatchesOverview matches={matches} totalPoints={points} />
       </section>
 
       <section className="space-y-4">
         <h3 className="font-semibold text-xl">{t('evidence.title')}</h3>
-        <p className="text-zinc-300 max-w-2xl">
-          {t('evidence.description', {
-            visaType,
-          })}
-        </p>
+        <p className="text-zinc-300 max-w-2xl">{t('evidence.description')}</p>
       </section>
       <EvidenceOverview matches={matches} />
       <section className="space-y-4 max-w-2xl">
@@ -71,8 +66,14 @@ export default function Page({ params }: Props) {
   )
 }
 
-function MatchesOverview({ matches }: { matches: Criteria[] }) {
-  const totalPoints = matches.reduce((sum, match) => sum + match.points, 0)
+function MatchesOverview({
+  matches,
+  totalPoints,
+}: {
+  matches: Criteria[]
+  totalPoints: number
+}) {
+  const t = useTranslations('results')
 
   return (
     <div className="overflow-x-auto">
@@ -80,43 +81,40 @@ function MatchesOverview({ matches }: { matches: Criteria[] }) {
         <thead>
           <tr className="border-b border-zinc-700">
             <th className="text-left py-3 px-4 font-semibold text-zinc-300">
-              Category
+              {t('overview.category')}
             </th>
             <th className="text-left py-3 px-4 font-semibold text-zinc-300">
-              Explanation
+              {t('overview.explanation')}
             </th>
             <th className="text-right py-3 px-4 font-semibold text-zinc-300">
-              Points
+              {t('overview.points')}
             </th>
           </tr>
         </thead>
         <tbody>
-          {matches.map((match, index) => {
-            const metadata = criteriaMetadata[match.id]
-            return (
-              <tr
-                key={match.id}
-                className={`border-b border-zinc-800 ${
-                  index % 2 === 0 ? 'bg-zinc-900/30' : ''
-                }`}
-              >
-                <td className="py-3 px-4 text-zinc-300">
-                  {metadata?.category || match.id}
-                </td>
-                <td className="py-3 px-4 text-zinc-400">
-                  {metadata?.explanation || match.id}
-                </td>
-                <td className="py-3 px-4 text-right font-mono text-zinc-300">
-                  {match.points}
-                </td>
-              </tr>
-            )
-          })}
+          {matches.map((match, index) => (
+            <tr
+              key={match.id}
+              className={`border-b border-zinc-800 ${
+                index % 2 === 0 ? 'bg-zinc-900/30' : ''
+              }`}
+            >
+              <td className="py-3 px-4 text-zinc-300">
+                {t(`criteria.${match.id}.category`)}
+              </td>
+              <td className="py-3 px-4 text-zinc-400">
+                {t(`criteria.${match.id}.explanation`)}
+              </td>
+              <td className="py-3 px-4 text-right font-mono text-zinc-300">
+                {match.points}
+              </td>
+            </tr>
+          ))}
         </tbody>
         <tfoot>
           <tr className="border-t-2 border-zinc-600 font-semibold">
             <td className="py-3 px-4 text-zinc-200" colSpan={2}>
-              Total
+              {t('overview.total')}
             </td>
             <td className="py-3 px-4 text-right font-mono text-zinc-200">
               {totalPoints}
@@ -129,5 +127,72 @@ function MatchesOverview({ matches }: { matches: Criteria[] }) {
 }
 
 function EvidenceOverview({ matches }: { matches: Criteria[] }) {
-  return 'todo'
+  const t = useTranslations('results')
+
+  const groupedByCategory = useMemo(() => {
+    const groups: Record<string, Criteria[]> = {}
+    for (const match of matches) {
+      const category = t(`criteria.${match.id}.category`)
+      if (!groups[category]) {
+        groups[category] = []
+      }
+      groups[category].push(match)
+    }
+    return groups
+  }, [matches, t])
+
+  const categories = Object.keys(groupedByCategory)
+
+  if (categories.length === 0) {
+    return <p className="text-zinc-400 italic">{t('evidence.empty')}</p>
+  }
+
+  return (
+    <div className="space-y-6">
+      {categories.map(category => (
+        <div key={category}>
+          <h4 className="font-semibold text-zinc-200 mb-3">{category}</h4>
+          <div className="space-y-3">
+            {groupedByCategory[category].map(match => (
+              <EvidenceItemCard key={match.id} id={match.id} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function EvidenceItemCard({ id }: { id: string }) {
+  const t = useTranslations('results')
+
+  const description = t(`criteria.${id}.explanation`)
+  const documentsKey = `evidence.items.${id}.documents`
+  const notesKey = `evidence.items.${id}.notes`
+
+  // Check if the translation exists (next-intl returns the key if not found)
+  const documentsString = t(documentsKey)
+  const hasDocuments = documentsString !== documentsKey
+  const documents = hasDocuments ? documentsString.split(' | ') : []
+
+  const notesString = t(notesKey)
+  const notes = notesString !== notesKey ? notesString : undefined
+
+  if (!hasDocuments && !notes) {
+    return null
+  }
+
+  return (
+    <div className="border border-zinc-800 rounded-lg p-4">
+      <h5 className="font-medium text-zinc-300 mb-2">{description}</h5>
+      {documents.length > 0 && (
+        <ul className="list-disc list-inside space-y-1 text-sm text-zinc-400 pl-2">
+          {documents.map((doc, index) => (
+            <li key={index}>{doc}</li>
+          ))}
+        </ul>
+      )}
+      {notes && <p className="text-sm text-zinc-500 mt-2 italic">{notes}</p>}
+    </div>
+  )
 }
