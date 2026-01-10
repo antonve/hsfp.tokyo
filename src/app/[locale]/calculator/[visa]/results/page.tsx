@@ -4,10 +4,7 @@ import { Criteria } from '@lib/domain'
 import { formConfigForVisa } from '@lib/domain/form'
 import { calculatePoints } from '@lib/domain/qualifications'
 import { useQualifications } from '@lib/hooks'
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from '@heroicons/react/24/outline'
+import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import { useTranslations } from 'next-intl'
 import { useMemo, useState, useCallback, useEffect } from 'react'
 
@@ -35,7 +32,7 @@ function useEvidenceChecklist() {
   }, [])
 
   const toggleItem = useCallback((itemId: string) => {
-    setCheckedItems((prev) => {
+    setCheckedItems(prev => {
       const newChecked = new Set(prev)
       if (newChecked.has(itemId)) {
         newChecked.delete(itemId)
@@ -44,7 +41,10 @@ function useEvidenceChecklist() {
       }
 
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(newChecked)))
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(Array.from(newChecked)),
+        )
       } catch {
         // Ignore localStorage errors
       }
