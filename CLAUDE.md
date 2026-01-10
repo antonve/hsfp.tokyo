@@ -13,7 +13,7 @@ HSFP.tokyo is a web-based points calculator for Japan's Highly Skilled Foreign P
 - **Next.js 13.5** with App Router
 - **React 18** + TypeScript
 - **Tailwind CSS** for styling
-- **next-intl** for i18n (currently EN only, VI being removed)
+- **next-intl** for i18n (currently EN only)
 - **Zod** for schema validation
 - **Jest** + Testing Library for tests
 - **pnpm** as package manager (enforced)
@@ -224,6 +224,5 @@ Key test files:
 
 ## Notes
 
-- Vietnamese translations (`vi.json`) are being phased out
 - All form state lives in URL params - no server state needed
 - Calculator pages are client components; layouts are server components
