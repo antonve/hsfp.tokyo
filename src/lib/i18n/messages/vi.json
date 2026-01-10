@@ -9,8 +9,35 @@
     },
     "results": {
         "banner": {
-            "not_qualified": "Bạn cần thêm {pointsNeeded} điểm để đủ điều kiện xin visa HSFP.",
-            "not_qualified_hint": "Các hạng mục thường mang lại nhiều điểm bao gồm: Học vấn (tối đa 30 điểm), Kinh nghiệm làm việc (tối đa 20 điểm), Lương hàng năm (tối đa 40 điểm), và Khả năng tiếng Nhật (tối đa 15 điểm)."
+            "not_qualified": "Bạn cần thêm {pointsNeeded} điểm để đủ điều kiện xin visa HSFP."
+        },
+        "how_to_improve": {
+            "title": "Cách tăng điểm số",
+            "intro": "Visa HSFP yêu cầu tối thiểu 70 điểm. Dưới đây là các hạng mục bạn có thể kiếm thêm điểm:",
+            "education": {
+                "title": "Học vấn (tối đa 30 điểm)",
+                "description": "Bằng tiến sĩ được 30 điểm, bằng thạc sĩ 20 điểm, bằng cử nhân 10 điểm. Có bằng ở nhiều lĩnh vực khác nhau cộng thêm 5 điểm. Bằng MBA hoặc MOT cộng thêm 5 điểm ngoài điểm thạc sĩ."
+            },
+            "experience": {
+                "title": "Kinh nghiệm làm việc (tối đa 20 điểm)",
+                "description": "Kinh nghiệm trong lĩnh vực của bạn: 10+ năm được 20 điểm, 7+ năm 15 điểm, 5+ năm 10 điểm, 3+ năm 5 điểm. Chỉ tính kinh nghiệm liên quan đến loại visa của bạn."
+            },
+            "salary": {
+                "title": "Lương hàng năm (tối đa 40 điểm)",
+                "description": "Mức lương dự kiến tại Nhật ảnh hưởng đáng kể đến điểm số. ¥10M+ được 40 điểm, ¥9M+ được 35 điểm, ¥8M+ được 30 điểm. Các mức lương thấp hơn (¥4M-7M) cũng được điểm nhưng có giới hạn độ tuổi."
+            },
+            "age": {
+                "title": "Độ tuổi (tối đa 15 điểm)",
+                "description": "Ứng viên trẻ hơn nhận được điểm thưởng: dưới 30 tuổi được 15 điểm, dưới 35 được 10 điểm, dưới 40 được 5 điểm."
+            },
+            "japanese": {
+                "title": "Tiếng Nhật (tối đa 15 điểm)",
+                "description": "JLPT N1 hoặc tương đương được 15 điểm, N2 được 10 điểm. Tốt nghiệp đại học Nhật Bản hoặc chuyên ngành tiếng Nhật cũng được tính điểm. Lưu ý: không thể cộng cả điểm N1/N2 và điểm tốt nghiệp đại học Nhật."
+            },
+            "bonus": {
+                "title": "Điểm thưởng",
+                "description": "Điểm bổ sung cho: tốt nghiệp đại học xếp hạng cao (10 điểm), thành tựu nghiên cứu như bằng sáng chế hoặc bài báo (15-25 điểm), chứng chỉ Nhật Bản (5-10 điểm), và làm việc cho tổ chức thúc đẩy đổi mới hoặc lao động tay nghề cao (10-20 điểm)."
+            }
         }
     }
 }

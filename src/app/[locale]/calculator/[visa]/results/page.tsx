@@ -39,14 +39,12 @@ export default function Page({ params }: Props) {
         </div>
       ) : (
         <div className="p-[2px] font-semibold rounded-lg bg-gradient-to-r from-amber-400 from-10% to-orange-500 to-90% relative">
-          <div className="bg-zinc-950/80 px-6 py-4 rounded-lg space-y-2">
+          <div className="bg-zinc-950/80 px-6 py-4 rounded-lg">
             <p>{t('banner.not_qualified', { pointsNeeded: 70 - points })}</p>
-            <p className="text-sm font-normal text-zinc-400">
-              {t('banner.not_qualified_hint')}
-            </p>
           </div>
         </div>
       )}
+      {points < 70 && <HowToImprove />}
       {points > 0 && (
         <section className="space-y-4">
           <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
@@ -60,22 +58,22 @@ export default function Page({ params }: Props) {
             <p className="text-zinc-300 max-w-2xl">{t('evidence.description')}</p>
           </section>
           <EvidenceOverview matches={matches} />
+          <section className="space-y-4 max-w-2xl">
+            <h3 className="font-semibold text-xl">
+              {t('permanent_residency.title')}
+            </h3>
+            <p className="text-zinc-300">{t('permanent_residency.intro')}</p>
+            <ul className="text-zinc-300 list-disc list-inside pl-4 space-y-2">
+              <li> {t('permanent_residency.condition1')}</li>
+              <li> {t('permanent_residency.condition2')}</li>
+            </ul>
+            <p className="text-zinc-300">{t('permanent_residency.visa_note')}</p>{' '}
+            <p className="text-zinc-300">
+              {t('permanent_residency.length_warning')}
+            </p>
+          </section>
         </>
       )}
-      <section className="space-y-4 max-w-2xl">
-        <h3 className="font-semibold text-xl">
-          {t('permanent_residency.title')}
-        </h3>
-        <p className="text-zinc-300">{t('permanent_residency.intro')}</p>
-        <ul className="text-zinc-300 list-disc list-inside pl-4 space-y-2">
-          <li> {t('permanent_residency.condition1')}</li>
-          <li> {t('permanent_residency.condition2')}</li>
-        </ul>
-        <p className="text-zinc-300">{t('permanent_residency.visa_note')}</p>{' '}
-        <p className="text-zinc-300">
-          {t('permanent_residency.length_warning')}
-        </p>
-      </section>
     </main>
   )
 }
@@ -208,5 +206,37 @@ function EvidenceItemCard({ id }: { id: string }) {
       )}
       {notes && <p className="text-sm text-zinc-500 mt-2 italic">{notes}</p>}
     </div>
+  )
+}
+
+function HowToImprove() {
+  const t = useTranslations('results')
+
+  const categories = [
+    'education',
+    'experience',
+    'salary',
+    'age',
+    'japanese',
+    'bonus',
+  ] as const
+
+  return (
+    <section className="space-y-4 max-w-2xl">
+      <h2 className="font-semibold text-2xl">{t('how_to_improve.title')}</h2>
+      <p className="text-zinc-300">{t('how_to_improve.intro')}</p>
+      <div className="space-y-4">
+        {categories.map(category => (
+          <div key={category} className="border border-zinc-800 rounded-lg p-4">
+            <h3 className="font-semibold text-zinc-200 mb-2">
+              {t(`how_to_improve.${category}.title`)}
+            </h3>
+            <p className="text-sm text-zinc-400">
+              {t(`how_to_improve.${category}.description`)}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
   )
 }
