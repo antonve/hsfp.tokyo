@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
+import { useTranslations } from 'next-intl'
 
 export function VisaFormResultsPreview({
   points,
@@ -8,9 +9,10 @@ export function VisaFormResultsPreview({
   points: number
   doesQualify: boolean
 }) {
+  const t = useTranslations('results.preview')
   const label = doesQualify
-    ? 'Congrats, you qualify for the visa!'
-    : `You need at least ${HSFP_QUALIFICATION_THRESHOLD} points to qualify`
+    ? t('qualified')
+    : t('not_qualified', { threshold: HSFP_QUALIFICATION_THRESHOLD })
 
   return (
     <div

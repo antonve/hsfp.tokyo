@@ -4,6 +4,7 @@ import { cormorantGaramond, inter } from '@app/fonts'
 
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
+import { SiteHeader } from '@components/SiteHeader'
 
 import '@app/globals.css'
 
@@ -46,6 +47,7 @@ export default async function RootLayout({
         )}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <SiteHeader />
           {children}
         </NextIntlClientProvider>
       </body>

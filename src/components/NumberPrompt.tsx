@@ -66,20 +66,20 @@ export function NumberPrompt({
 
   function validate() {
     if (value === undefined) {
-      setValidationError(`A value is required`)
+      setValidationError(t('validation.required'))
       return false
     }
 
     if (prompt.config.min !== undefined && prompt.config.min > value) {
       setValidationError(
-        `Should be more than ${formatWithCommas(prompt.config.min)}`,
+        t('validation.min', { min: formatWithCommas(prompt.config.min) }),
       )
       return false
     }
 
     if (prompt.config.max !== undefined && prompt.config.max < value) {
       setValidationError(
-        `Should be less than ${formatWithCommas(prompt.config.max)}`,
+        t('validation.max', { max: formatWithCommas(prompt.config.max) }),
       )
       return false
     }

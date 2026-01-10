@@ -1,11 +1,28 @@
 {
-  "index": {
+  "nav": {
     "home": "Home",
-    "calculator": "Calculator",
-    "about": "About",
-    "start_researcher": "Start Researcher point calculation",
-    "start_engineer": "Start Engineer point calculation",
-    "start_business_manager": "Start Business Manager point calculation"
+    "about": "About"
+  },
+  "home": {
+    "title": "Japan Highly Skilled Foreign Professional Visa Points Calculator",
+    "subtitle": "Choose your visa category to start the points calculation.",
+    "visa_cards": {
+      "engineer": {
+        "title": "Engineer",
+        "description": "Visa for various engineering roles.",
+        "cta": "Start points calculation"
+      },
+      "researcher": {
+        "title": "Researcher",
+        "description": "Visa for academic research activities.",
+        "cta": "Coming soon"
+      },
+      "business_manager": {
+        "title": "Business Manager",
+        "description": "Visa for managerial positions in business.",
+        "cta": "Coming soon"
+      }
+    }
   },
   "results": {
     "visa_type": {
@@ -16,6 +33,10 @@
     "banner": {
       "qualified": "Congrats, based on your answers you qualify for the Highly Skilled Foreign Professional ({visaType}) visa!",
       "not_qualified": "You need {pointsNeeded} more points to qualify for the HSFP visa."
+    },
+    "preview": {
+      "qualified": "Congrats, you qualify for the visa!",
+      "not_qualified": "You need at least {threshold} points to qualify"
     },
     "how_to_improve": {
       "title": "How to increase your points",
@@ -392,6 +413,12 @@
       "go_to_results": "Skip all & view result",
       "edit_answers": "Edit Answers"
     },
+    "faq_heading": "Frequently Asked Questions",
+    "validation": {
+      "required": "A value is required",
+      "min": "Should be more than {min}",
+      "max": "Should be less than {max}"
+    },
     "test": "<a href=\"#lol\">test</a>",
     "form_title": "{visaType} visa",
     "engineer": {
@@ -416,6 +443,7 @@
               "true": "Yes",
               "false": "No"
             },
+            "faq_heading": "Frequently Asked Questions",
             "faq": {
               "q0": "Does multiple majors count as different degrees?",
               "a0": "TODO"

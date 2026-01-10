@@ -30,7 +30,7 @@ export function FrequentlyAskedQuestions({
 
   return (
     <div className="mt-10">
-      <h2 className="font-semibold text-lg mb-4">Frequently Asked Questions</h2>
+      <h2 className="font-semibold text-lg mb-4">{t('faq_heading')}</h2>
       <ol className="space-y-4">
         {Array.from(Array(count).keys()).map((_, i) => (
           <li key={i} className="rounded bg-zinc-900 px-4 py-2">

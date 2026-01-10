@@ -1,4 +1,3 @@
-import { Logo } from '@components/Logo'
 import {
   BeakerIcon,
   BriefcaseIcon,
@@ -8,38 +7,16 @@ import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
 
 export default function Page() {
-  const t = useTranslations('index')
+  const t = useTranslations('home')
 
   return (
-    <>
-      <div className="max-w-7xl mx-auto">
-        <header className="py-6 px-4 flex justify-between space-x-8 border-b-4 border-zinc-900/50">
-          <Logo />
-          <nav>
-            <ul className="flex space-x-4 items-center justify-center h-full font-semibold text-lg">
-              <li>
-                <Link
-                  href={`/`}
-                  className="no-underline border-b-2 border-emerald-400/80 hover:border-white/40"
-                >
-                  {t('home')}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/about`} className="no-underline">
-                  {t('about')}
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </header>
-
-        <section className="max-w-7xl px-4">
+    <div className="max-w-7xl mx-auto">
+      <section className="max-w-7xl px-4">
           <h1 className="mt-16 text-center text-5xl leading-normal font-bold tracking-tighter sm:text-6xl/normal md:text-7xl/normal">
-            Japan Highly Skilled Foreign Professional Visa Points Calculator
+            {t('title')}
           </h1>
           <p className="text-center my-8 text-zinc-400 text-xl/relaxed lg:text-2xl/relaxed xl:text-3xl/relaxed">
-            Choose your visa category to start the points calculation.
+            {t('subtitle')}
           </p>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 text-center">
@@ -50,13 +27,13 @@ export default function Page() {
               <div className="card-body space-y-4">
                 <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
                   <WrenchScrewdriverIcon className="w-5 h-5" />
-                  <span>Engineer</span>
+                  <span>{t('visa_cards.engineer.title')}</span>
                 </h3>
                 <p className="text-zinc-400">
-                  Visa for various engineering roles.
+                  {t('visa_cards.engineer.description')}
                 </p>
                 <div className="mt-10 rounded-md bg-zinc-600/50 py-2 px-4">
-                  Start points calculation
+                  {t('visa_cards.engineer.cta')}
                 </div>
               </div>
             </Link>
@@ -69,13 +46,13 @@ export default function Page() {
               <div className="card-body space-y-4">
                 <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
                   <BeakerIcon className="w-5 h-5" />
-                  <span>Researcher</span>
+                  <span>{t('visa_cards.researcher.title')}</span>
                 </h3>
                 <p className="text-zinc-400">
-                  Visa for academic research activities.
+                  {t('visa_cards.researcher.description')}
                 </p>
                 <div className="mt-10 rounded-md bg-zinc-600/50 py-2 px-4">
-                  Coming soon
+                  {t('visa_cards.researcher.cta')}
                 </div>
               </div>
             </Link>
@@ -88,19 +65,18 @@ export default function Page() {
               <div className="card-body space-y-4">
                 <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
                   <BriefcaseIcon className="w-5 h-5" />
-                  <span>Business Manager</span>
+                  <span>{t('visa_cards.business_manager.title')}</span>
                 </h3>
                 <p className="text-zinc-400">
-                  Visa for managerial positions in business.{' '}
+                  {t('visa_cards.business_manager.description')}
                 </p>
                 <div className="mt-10 rounded-md bg-zinc-600/50 py-2 px-4">
-                  Coming soon
+                  {t('visa_cards.business_manager.cta')}
                 </div>
               </div>
             </Link>
           </div>
         </section>
       </div>
-    </>
   )
 }
