@@ -389,7 +389,8 @@
     "actions": {
       "continue": "Continue",
       "skip": "Skip this question",
-      "go_to_results": "Skip all & view result"
+      "go_to_results": "Skip all & view result",
+      "edit_answers": "Edit Answers"
     },
     "test": "<a href=\"#lol\">test</a>",
     "form_title": "{visaType} visa",
