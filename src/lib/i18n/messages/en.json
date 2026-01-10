@@ -19,30 +19,22 @@
         },
         "how_to_improve": {
             "title": "How to increase your points",
-            "intro": "The HSFP visa requires a minimum of 70 points. Here are the categories where you can potentially earn more points:",
-            "education": {
-                "title": "Education (up to 30 points)",
-                "description": "A doctorate degree awards 30 points, a master's degree 20 points, and a bachelor's degree 10 points. Having degrees in multiple fields adds 5 bonus points. An MBA or MOT degree adds an additional 5 points on top of your master's degree."
-            },
+            "intro": "The HSFP visa requires a minimum of 70 points. Here are some ways you can potentially earn more points:",
             "experience": {
                 "title": "Professional Experience (up to 20 points)",
                 "description": "Work experience in your field counts: 10+ years awards 20 points, 7+ years 15 points, 5+ years 10 points, and 3+ years 5 points. Only experience relevant to your visa category is counted."
             },
             "salary": {
                 "title": "Annual Salary (up to 40 points)",
-                "description": "Your expected annual salary in Japan significantly impacts your score. ¥10M+ earns 40 points, ¥9M+ earns 35 points, ¥8M+ earns 30 points. Lower salary brackets (¥4M-7M) also award points but have age restrictions."
-            },
-            "age": {
-                "title": "Age (up to 15 points)",
-                "description": "Younger applicants receive bonus points: under 30 years old earns 15 points, under 35 earns 10 points, and under 40 earns 5 points."
+                "description": "Your expected annual salary in Japan significantly impacts your score. ¥10M+ earns 40 points, ¥9M+ earns 35 points, ¥8M+ earns 30 points. Lower salary brackets (¥4M-7M) also award points but have age restrictions. Consider negotiating your salary or exploring higher-paying opportunities."
             },
             "japanese": {
                 "title": "Japanese Language (up to 15 points)",
-                "description": "JLPT N1 or equivalent awards 15 points, N2 awards 10 points. Graduating from a Japanese university or majoring in Japanese language also qualifies for points. Note: you cannot claim both N1/N2 and Japanese university graduation points together."
+                "description": "JLPT N1 or equivalent awards 15 points, N2 awards 10 points. Studying Japanese and obtaining certification is one of the most actionable ways to gain additional points."
             },
-            "bonus": {
-                "title": "Bonus Points",
-                "description": "Additional points are available for: graduating from a top-ranked university (10 pts), research achievements like patents or published papers (15-25 pts), Japanese certifications (5-10 pts), and working for organizations that promote innovation or highly-skilled workers (10-20 pts)."
+            "certifications": {
+                "title": "Professional Certifications (up to 10 points)",
+                "description": "Holding Japanese national certifications (国家資格) or IT certifications from the official IT certification list awards 5 points for one certification or 10 points for two or more. Examples include IT Passport, Information Security Management, and various engineering certifications."
             }
         },
         "overview": {

@@ -212,14 +212,7 @@ function EvidenceItemCard({ id }: { id: string }) {
 function HowToImprove() {
   const t = useTranslations('results')
 
-  const categories = [
-    'education',
-    'experience',
-    'salary',
-    'age',
-    'japanese',
-    'bonus',
-  ] as const
+  const categories = ['experience', 'salary', 'japanese', 'certifications'] as const
 
   return (
     <section className="space-y-4 max-w-2xl">
