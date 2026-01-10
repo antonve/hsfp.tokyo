@@ -295,11 +295,13 @@ function EvidenceItemCard({
 
   // Check if the translation exists (next-intl returns the key if not found)
   const documentsString = t(documentsKey)
-  const hasDocuments = documentsString !== documentsKey
+  const hasDocuments = documentsString && documentsString !== documentsKey && !documentsString.includes('evidence.items')
   const documents = hasDocuments ? documentsString.split(' | ') : []
 
   const notesString = t(notesKey)
-  const notes = notesString !== notesKey ? notesString : undefined
+  // Only use notes if translation exists (not a key pattern)
+  const hasNotes = notesString && notesString !== notesKey && !notesString.includes('evidence.items')
+  const notes = hasNotes ? notesString : undefined
 
   if (!hasDocuments && !notes) {
     return null
