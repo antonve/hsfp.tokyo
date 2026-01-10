@@ -4,10 +4,12 @@ import { Criteria } from '@lib/domain'
 import { formConfigForVisa } from '@lib/domain/form'
 import { calculatePoints } from '@lib/domain/qualifications'
 import { useQualifications } from '@lib/hooks'
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+} from '@heroicons/react/24/outline'
 import { useTranslations } from 'next-intl'
-import { useSearchParams, useRouter, usePathname } from 'next/navigation'
-import { useMemo, useState, useCallback } from 'react'
+import { useMemo, useState, useCallback, useEffect } from 'react'
 
 interface Props {
   params: {
@@ -15,42 +17,41 @@ interface Props {
   }
 }
 
+const STORAGE_KEY = 'hsfp-evidence-checklist'
+
 function useEvidenceChecklist() {
-  const searchParams = useSearchParams()
-  const router = useRouter()
-  const pathname = usePathname()
+  const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set())
 
-  const checkedItems = useMemo(() => {
-    const encoded = searchParams.get('e')
-    if (!encoded) return new Set<string>()
+  useEffect(() => {
     try {
-      const decoded = JSON.parse(atob(encoded)) as string[]
-      return new Set(decoded)
+      const stored = localStorage.getItem(STORAGE_KEY)
+      if (stored) {
+        const parsed = JSON.parse(stored) as string[]
+        setCheckedItems(new Set(parsed))
+      }
     } catch {
-      return new Set<string>()
+      // Ignore localStorage errors
     }
-  }, [searchParams])
+  }, [])
 
-  const toggleItem = useCallback(
-    (itemId: string) => {
-      const newChecked = new Set(checkedItems)
+  const toggleItem = useCallback((itemId: string) => {
+    setCheckedItems((prev) => {
+      const newChecked = new Set(prev)
       if (newChecked.has(itemId)) {
         newChecked.delete(itemId)
       } else {
         newChecked.add(itemId)
       }
 
-      const params = new URLSearchParams(searchParams.toString())
-      if (newChecked.size === 0) {
-        params.delete('e')
-      } else {
-        params.set('e', btoa(JSON.stringify(Array.from(newChecked))))
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(newChecked)))
+      } catch {
+        // Ignore localStorage errors
       }
 
-      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-    },
-    [checkedItems, searchParams, router, pathname],
-  )
+      return newChecked
+    })
+  }, [])
 
   return { checkedItems, toggleItem }
 }
@@ -111,7 +112,9 @@ export default function Page({ params }: Props) {
               <li> {t('permanent_residency.condition1')}</li>
               <li> {t('permanent_residency.condition2')}</li>
             </ul>
-            <p className="text-zinc-300">{t('permanent_residency.visa_note')}</p>{' '}
+            <p className="text-zinc-300">
+              {t('permanent_residency.visa_note')}
+            </p>{' '}
             <p className="text-zinc-300">
               {t('permanent_residency.length_warning')}
             </p>
@@ -348,7 +351,12 @@ function EvidenceItemCard({
 function HowToImprove() {
   const t = useTranslations('results')
 
-  const categories = ['experience', 'salary', 'japanese', 'certifications'] as const
+  const categories = [
+    'experience',
+    'salary',
+    'japanese',
+    'certifications',
+  ] as const
 
   return (
     <section className="space-y-4 max-w-2xl">

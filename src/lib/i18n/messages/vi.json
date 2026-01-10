@@ -1,35 +1,35 @@
 {
-    "index": {
-        "home": "Trang chủ",
-        "calculator": "Tính điểm",
-        "about": "Giới thiệu",
-        "start_researcher": "Bắt đầu tính điểm thuộc loại nhà nghiên cứu",
-        "start_engineer": "Bắt đầu tính điểm thuộc loại kỹ sư",
-        "start_business_manager": "Bắt đầu tính điểm thuộc loại nhà kinh doanh"
+  "index": {
+    "home": "Trang chủ",
+    "calculator": "Tính điểm",
+    "about": "Giới thiệu",
+    "start_researcher": "Bắt đầu tính điểm thuộc loại nhà nghiên cứu",
+    "start_engineer": "Bắt đầu tính điểm thuộc loại kỹ sư",
+    "start_business_manager": "Bắt đầu tính điểm thuộc loại nhà kinh doanh"
+  },
+  "results": {
+    "banner": {
+      "not_qualified": "Bạn cần thêm {pointsNeeded} điểm để đủ điều kiện xin visa HSFP."
     },
-    "results": {
-        "banner": {
-            "not_qualified": "Bạn cần thêm {pointsNeeded} điểm để đủ điều kiện xin visa HSFP."
-        },
-        "how_to_improve": {
-            "title": "Cách tăng điểm số",
-            "intro": "Visa HSFP yêu cầu tối thiểu 70 điểm. Dưới đây là một số cách bạn có thể kiếm thêm điểm:",
-            "experience": {
-                "title": "Kinh nghiệm làm việc (tối đa 20 điểm)",
-                "description": "Kinh nghiệm trong lĩnh vực của bạn: 10+ năm được 20 điểm, 7+ năm 15 điểm, 5+ năm 10 điểm, 3+ năm 5 điểm. Chỉ tính kinh nghiệm liên quan đến loại visa của bạn."
-            },
-            "salary": {
-                "title": "Lương hàng năm (tối đa 40 điểm)",
-                "description": "Mức lương dự kiến tại Nhật ảnh hưởng đáng kể đến điểm số. ¥10M+ được 40 điểm, ¥9M+ được 35 điểm, ¥8M+ được 30 điểm. Các mức lương thấp hơn (¥4M-7M) cũng được điểm nhưng có giới hạn độ tuổi. Hãy cân nhắc đàm phán lương hoặc tìm kiếm cơ hội lương cao hơn."
-            },
-            "japanese": {
-                "title": "Tiếng Nhật (tối đa 15 điểm)",
-                "description": "JLPT N1 hoặc tương đương được 15 điểm, N2 được 10 điểm. Học tiếng Nhật và lấy chứng chỉ là một trong những cách thiết thực nhất để kiếm thêm điểm."
-            },
-            "certifications": {
-                "title": "Chứng chỉ chuyên môn (tối đa 10 điểm)",
-                "description": "Có chứng chỉ quốc gia Nhật Bản (国家資格) hoặc chứng chỉ CNTT trong danh sách chính thức được 5 điểm cho một chứng chỉ hoặc 10 điểm cho hai chứng chỉ trở lên. Ví dụ: IT Passport, Information Security Management, và các chứng chỉ kỹ thuật khác."
-            }
-        }
+    "how_to_improve": {
+      "title": "Cách tăng điểm số",
+      "intro": "Visa HSFP yêu cầu tối thiểu 70 điểm. Dưới đây là một số cách bạn có thể kiếm thêm điểm:",
+      "experience": {
+        "title": "Kinh nghiệm làm việc (tối đa 20 điểm)",
+        "description": "Kinh nghiệm trong lĩnh vực của bạn: 10+ năm được 20 điểm, 7+ năm 15 điểm, 5+ năm 10 điểm, 3+ năm 5 điểm. Chỉ tính kinh nghiệm liên quan đến loại visa của bạn."
+      },
+      "salary": {
+        "title": "Lương hàng năm (tối đa 40 điểm)",
+        "description": "Mức lương dự kiến tại Nhật ảnh hưởng đáng kể đến điểm số. ¥10M+ được 40 điểm, ¥9M+ được 35 điểm, ¥8M+ được 30 điểm. Các mức lương thấp hơn (¥4M-7M) cũng được điểm nhưng có giới hạn độ tuổi. Hãy cân nhắc đàm phán lương hoặc tìm kiếm cơ hội lương cao hơn."
+      },
+      "japanese": {
+        "title": "Tiếng Nhật (tối đa 15 điểm)",
+        "description": "JLPT N1 hoặc tương đương được 15 điểm, N2 được 10 điểm. Học tiếng Nhật và lấy chứng chỉ là một trong những cách thiết thực nhất để kiếm thêm điểm."
+      },
+      "certifications": {
+        "title": "Chứng chỉ chuyên môn (tối đa 10 điểm)",
+        "description": "Có chứng chỉ quốc gia Nhật Bản (国家資格) hoặc chứng chỉ CNTT trong danh sách chính thức được 5 điểm cho một chứng chỉ hoặc 10 điểm cho hai chứng chỉ trở lên. Ví dụ: IT Passport, Information Security Management, và các chứng chỉ kỹ thuật khác."
+      }
     }
+  }
 }
