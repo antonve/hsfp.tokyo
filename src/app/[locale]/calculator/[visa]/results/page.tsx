@@ -3,6 +3,7 @@
 import { Criteria } from '@lib/domain'
 import { formConfigForVisa } from '@lib/domain/form'
 import { calculatePoints } from '@lib/domain/qualifications'
+import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 import { useQualifications } from '@lib/hooks'
 import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import { useTranslations } from 'next-intl'
@@ -70,7 +71,7 @@ export default function Page({ params }: Props) {
 
   return (
     <main className="space-y-8">
-      {points >= 70 ? (
+      {points >= HSFP_QUALIFICATION_THRESHOLD ? (
         <div className=" p-[2px] font-semibold rounded-lg bg-gradient-to-r from-emerald-300 from-10% to-emerald-500 to-90% relative">
           <span className="absolute -top-3 -left-2 text-4xl"> &#x1f389;</span>
           <span className="absolute -bottom-3 -right-3 text-4xl">
@@ -83,12 +84,12 @@ export default function Page({ params }: Props) {
       ) : (
         <div className="p-[2px] font-semibold rounded-lg bg-gradient-to-r from-amber-400 from-10% to-orange-500 to-90% relative">
           <div className="bg-zinc-950/80 px-6 py-4 rounded-lg">
-            <p>{t('banner.not_qualified', { pointsNeeded: 70 - points })}</p>
+            <p>{t('banner.not_qualified', { pointsNeeded: HSFP_QUALIFICATION_THRESHOLD - points })}</p>
           </div>
         </div>
       )}
-      {points < 70 && <HowToImprove />}
-      {points >= 70 && (
+      {points < HSFP_QUALIFICATION_THRESHOLD && <HowToImprove />}
+      {points >= HSFP_QUALIFICATION_THRESHOLD && (
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <section className="space-y-4">
@@ -121,7 +122,7 @@ export default function Page({ params }: Props) {
           </section>
         </>
       )}
-      {points > 0 && points < 70 && (
+      {points > 0 && points < HSFP_QUALIFICATION_THRESHOLD && (
         <section className="space-y-4">
           <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
           <MatchesOverview matches={matches} totalPoints={points} />

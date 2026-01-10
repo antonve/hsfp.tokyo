@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 
 export function VisaFormResultsPreview({
   points,
@@ -9,7 +10,7 @@ export function VisaFormResultsPreview({
 }) {
   const label = doesQualify
     ? 'Congrats, you qualify for the visa!'
-    : 'You need at least 70 points to qualify'
+    : `You need at least ${HSFP_QUALIFICATION_THRESHOLD} points to qualify`
 
   return (
     <div

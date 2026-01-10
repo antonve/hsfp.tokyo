@@ -2,6 +2,7 @@
 
 import { formConfigForVisa } from '@lib/domain/form'
 import { calculatePoints, encodeQualifications } from '@lib/domain/qualifications'
+import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 import { useQualifications, useVisaFormProgress } from '@lib/hooks'
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
@@ -39,7 +40,7 @@ export default function Layout({ children, params }: Props) {
     () => calculatePoints(qualifications),
     [qualifications],
   )
-  const doesQualify = points >= 70
+  const doesQualify = points >= HSFP_QUALIFICATION_THRESHOLD
 
   const firstSection = formConfig.order[0]
   const editUrl = `/calculator/${params.visa}/${firstSection}/1?q=${encodeQualifications(qualifications)}`
