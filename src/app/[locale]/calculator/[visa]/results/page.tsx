@@ -47,16 +47,21 @@ export default function Page({ params }: Props) {
           </div>
         </div>
       )}
-      <section className="space-y-4">
-        <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
-        <MatchesOverview matches={matches} totalPoints={points} />
-      </section>
-
-      <section className="space-y-4">
-        <h3 className="font-semibold text-xl">{t('evidence.title')}</h3>
-        <p className="text-zinc-300 max-w-2xl">{t('evidence.description')}</p>
-      </section>
-      <EvidenceOverview matches={matches} />
+      {points > 0 && (
+        <section className="space-y-4">
+          <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
+          <MatchesOverview matches={matches} totalPoints={points} />
+        </section>
+      )}
+      {points >= 70 && (
+        <>
+          <section className="space-y-4">
+            <h3 className="font-semibold text-xl">{t('evidence.title')}</h3>
+            <p className="text-zinc-300 max-w-2xl">{t('evidence.description')}</p>
+          </section>
+          <EvidenceOverview matches={matches} />
+        </>
+      )}
       <section className="space-y-4 max-w-2xl">
         <h3 className="font-semibold text-xl">
           {t('permanent_residency.title')}
