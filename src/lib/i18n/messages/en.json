@@ -1,579 +1,600 @@
 {
-    "index": {
-        "home": "Home",
-        "calculator": "Calculator",
-        "about": "About",
-        "start_researcher": "Start Researcher point calculation",
-        "start_engineer": "Start Engineer point calculation",
-        "start_business_manager": "Start Business Manager point calculation"
+  "index": {
+    "home": "Home",
+    "calculator": "Calculator",
+    "about": "About",
+    "start_researcher": "Start Researcher point calculation",
+    "start_engineer": "Start Engineer point calculation",
+    "start_business_manager": "Start Business Manager point calculation"
+  },
+  "results": {
+    "visa_type": {
+      "researcher": "Research",
+      "engineer": "Engineering / Technical",
+      "business-manager": "Business Management"
     },
-    "results": {
-        "visa_type": {
-            "researcher": "Research",
-            "engineer": "Engineering / Technical",
-            "business-manager": "Business Management"
-        },
-        "banner": {
-            "qualified": "Congrats, based on your answers you qualify for the Highly Skilled Foreign Professional ({visaType}) visa!"
-        },
-        "overview": {
-            "title": "Results overview",
-            "category": "Category",
-            "explanation": "Explanation",
-            "points": "Points",
-            "total": "Total"
-        },
-        "permanent_residency": {
-            "title": "Fast track to Permanent Residency",
-            "intro": "Those who qualify for the HSFP visa are also eligible to fast-track their Permanent Residency application. You must meet one of the following conditions:",
-            "condition1": "Be able to prove 80+ points at the time of application and 1 year ago",
-            "condition2": "Be able to prove 70+ points at the time of application and 3 years ago",
-            "visa_note": "You don't necessarily need to be on the HSFP visa already to take advantage of this fast-track to Permanent Residency. Just being able to prove you have the points in the past and currently is enough.",
-            "length_warning": "However, just like any other Permanent Residency route you must already be on a valid visa with a length of stay of three years or longer."
-        },
-        "evidence": {
-            "title": "Required evidence",
-            "description": "When applying for this visa you need to submit evidence proving your qualifications. The documents listed below are for reference - depending on your situation, you may need all listed documents or only some. If you have significantly more than 80 points (e.g., 100+), you don't need to provide evidence for every single point category. For the most accurate guidance, consider consulting a licensed administrative scrivener (行政書士) to prepare your application.",
-            "empty": "No specific evidence requirements based on your selections.",
-            "items": {
-                "doctor": {
-                    "documents": "Graduation certificate or diploma | Degree certificate (showing doctorate was conferred) | Academic transcript (if degree type is unclear from certificate)",
-                    "notes": "Documents must clearly show the type of degree obtained. If original documents are not in Japanese or English, a certified translation is required."
-                },
-                "mba_mot": {
-                    "documents": "Graduation certificate or diploma | Degree certificate (showing MBA or MOT was conferred) | Academic transcript (if degree type is unclear from certificate)",
-                    "notes": "Only MBA (Master of Business Administration) or MOT (Master of Technology Management) degrees qualify. Must have graduated from university before obtaining MBA/MOT for bonus points."
-                },
-                "master": {
-                    "documents": "Graduation certificate or diploma | Degree certificate (showing master degree was conferred)"
-                },
-                "bachelor": {
-                    "documents": "Graduation certificate or diploma | Degree certificate (showing bachelor degree was conferred)"
-                },
-                "dual_degree": {
-                    "documents": "Graduation certificates for each degree | Academic transcripts showing different major fields | Degree certificates for each qualification",
-                    "notes": "Degrees must be in different academic fields (e.g., Engineering + Business). Both a master and doctorate count as 30 points total."
-                },
-                "10y_plus": {
-                    "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
-                    "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
-                },
-                "7y_plus": {
-                    "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
-                    "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
-                },
-                "5y_plus": {
-                    "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
-                    "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
-                },
-                "3y_plus": {
-                    "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
-                    "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
-                },
-                "10m_plus": {
-                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
-                    "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
-                },
-                "9m_plus": {
-                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
-                    "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
-                },
-                "8m_plus": {
-                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
-                    "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
-                },
-                "7m_plus": {
-                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
-                    "notes": "Only applicable if under 40 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
-                },
-                "6m_plus": {
-                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
-                    "notes": "Only applicable if under 40 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
-                },
-                "5m_plus": {
-                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
-                    "notes": "Only applicable if under 35 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
-                },
-                "4m_plus": {
-                    "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
-                    "notes": "Only applicable if under 30 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
-                },
-                "under_30y": {
-                    "documents": "Passport (copy of bio-data page)",
-                    "notes": "Age is verified from your passport at time of application."
-                },
-                "under_35y": {
-                    "documents": "Passport (copy of bio-data page)",
-                    "notes": "Age is verified from your passport at time of application."
-                },
-                "under_40y": {
-                    "documents": "Passport (copy of bio-data page)",
-                    "notes": "Age is verified from your passport at time of application."
-                },
-                "patent_inventor": {
-                    "documents": "Copy of patent certificate with applicant's name clearly shown as inventor",
-                    "notes": "You must be listed as an inventor on the patent(s) you are claiming."
-                },
-                "conducted_financed_projects": {
-                    "documents": "Grant award notification or funding decision documents with applicant's name",
-                    "notes": "Must have received competitive research funding from a foreign government at least 3 times."
-                },
-                "published_papers": {
-                    "documents": "List of publications with: title, author names, journal name, issue number, volume, pages, publication year",
-                    "notes": "Papers must be in journals indexed in academic databases such as Web of Science (Clarivate/Thomson Reuters) or Scopus (Elsevier). You must be the responsible/corresponding author."
-                },
-                "recognized_research": {
-                    "documents": "Documentation proving the research achievement",
-                    "notes": "This is a catch-all category for research achievements not covered by other criteria. Consult with immigration for guidance on what qualifies and required documentation."
-                },
-                "many_certs": {
-                    "documents": "Certificate copies for each qualification | Proof of passing examination (合格証明書)",
-                    "notes": "Qualifications must be Japanese national certifications (国家資格) or IT certifications listed in the IT certification announcement (IT告示). Business-exclusive qualifications (業務独占資格) or name-exclusive qualifications (名称独占資格) qualify."
-                },
-                "single_cert": {
-                    "documents": "Certificate copies for each qualification | Proof of passing examination (合格証明書)",
-                    "notes": "Must be a Japanese national certification (国家資格) or IT certification listed in the IT certification announcement (IT告示)."
-                },
-                "org_promotes_innovation": {
-                    "documents": "Copy of subsidy/grant award decision notification (補助金交付決定通知書の写し) | Company documentation proving innovation support status",
-                    "notes": "Organization must be receiving financial support measures for promotion of innovation."
-                },
-                "org_smb": {
-                    "documents": "Company brochure or website showing company size | Corporate registration certificate (法人の登記事項証明書) | Documents showing capital amount and number of employees | Financial statements showing revenue and employee count",
-                    "notes": "Must meet SME criteria under the Small and Medium-Sized Enterprise Basic Act: Manufacturing: capital ≤¥300M or employees ≤300; Wholesale: capital ≤¥100M or employees ≤100; Retail: capital ≤¥50M or employees ≤50; Service: capital ≤¥50M or employees ≤100."
-                },
-                "org_promotes_highly_skilled": {
-                    "documents": "Copy of subsidy/grant award decision notification (補助金交付決定通知書の写し) | Documentation from local government showing support for highly skilled worker acceptance",
-                    "notes": "Organization receives support from local public entities for promoting acceptance of highly skilled foreign workers."
-                },
-                "high_rnd_expenses": {
-                    "documents": "Financial statements (決算書) showing R&D expenses and total revenue | Or: certification letter from a certified tax accountant (税理士), CPA (公認会計士), or SME consultant (中小企業診断士)",
-                    "notes": "R&D expenses must exceed 3% of total revenue (gross revenue minus income from securities transactions). Must be an SME. The professional certification is a letter issued by the accountant/consultant certifying the R&D ratio."
-                },
-                "jp_major": {
-                    "documents": "Graduation certificate showing Japanese language major | Academic transcript showing Japanese language as major field of study",
-                    "notes": "Must have majored in Japanese language at a foreign university or graduated from a foreign university where instruction was primarily in Japanese."
-                },
-                "n1": {
-                    "documents": "JLPT N1 certificate (日本語能力試験N1合格証明書) | Or equivalent certification (BJT Business Japanese Test J1+, etc.)",
-                    "notes": "Cannot claim both N1/N2 and Japanese university graduation points together (except for those listed in ① above)."
-                },
-                "n2": {
-                    "documents": "JLPT N2 certificate (日本語能力試験N2合格証明書) | Or equivalent certification",
-                    "notes": "Cannot be claimed if you graduated from a Japanese university or completed a graduate program in Japan. Cannot claim both N1/N2 and Japanese university graduation points (except for those listed in ① above)."
-                },
-                "jp_uni_grad": {
-                    "documents": "Graduation certificate from Japanese university | Degree certificate from Japanese institution",
-                    "notes": "Includes completion of graduate programs (master or doctorate) at Japanese universities."
-                },
-                "uni_ranked": {
-                    "documents": "Graduation certificate | Degree certificate",
-                    "notes": "Foreign universities must appear in top 300 of at least 2 of the 3 rankings (QS, THE, ARWU). Japanese universities only need to appear in 1 ranking. Can be claimed together with \"Graduated from Japanese university\" bonus."
-                },
-                "uni_funded": {
-                    "documents": "Graduation certificate | Degree certificate",
-                    "notes": "University must receive subsidies under the Top Global Universities Project (スーパーグローバル大学創成支援事業) implemented by MEXT. Can be claimed together with \"Graduated from Japanese university\" bonus."
-                },
-                "uni_partner": {
-                    "documents": "Graduation certificate | Degree certificate",
-                    "notes": "University must be designated as a \"Partner School\" in the Innovative Asia Project (イノベーティブ・アジア事業) implemented by Ministry of Foreign Affairs. Can be claimed together with \"Graduated from Japanese university\" bonus."
-                },
-                "foreign_qualification": {
-                    "documents": "Certificate or license document for the qualification",
-                    "notes": "Must be a qualification from the designated list published by the Ministry of Justice. For awards related to enterprise products/services, you must have been professionally involved in creating/developing them (not just as a purchaser)."
-                },
-                "growth_field": {
-                    "documents": "Documentation from employer about the project | Notification or certification from relevant ministry showing project is in designated growth field",
-                    "notes": "Project must be in a growth field with involvement of relevant government ministries and agencies."
-                },
-                "training_jica": {
-                    "documents": "JICA training completion certificate (JICA研修修了証明書)",
-                    "notes": "Training must be conducted by JICA as part of the Innovative Asia Project, with a training period of at least 1 year. If submitting JICA completion certificate, academic and employment documents are generally not required unless claiming work experience points."
-                },
-                "investment_management": {
-                    "documents": "Employment contract describing investment management duties | Documentation of investment fund management activities | Evidence of managing assets exceeding ¥100M in trades/investments for third parties",
-                    "notes": "Applies to those engaged in investment fund management or discretionary investment business. Must be managing substantial third-party investments."
-                }
-            }
-        },
-        "criteria": {
-            "doctor": {
-                "category": "Education",
-                "explanation": "Doctorate degree"
-            },
-            "mba_mot": {
-                "category": "Education",
-                "explanation": "Management degree (MBA/MOT)"
-            },
-            "master": {
-                "category": "Education",
-                "explanation": "Master degree"
-            },
-            "bachelor": {
-                "category": "Education",
-                "explanation": "Bachelor degree"
-            },
-            "dual_degree": {
-                "category": "Education",
-                "explanation": "Multiple degrees in different fields"
-            },
-            "10y_plus": {
-                "category": "Professional Experience",
-                "explanation": "10+ years of relevant experience"
-            },
-            "7y_plus": {
-                "category": "Professional Experience",
-                "explanation": "7+ years of relevant experience"
-            },
-            "5y_plus": {
-                "category": "Professional Experience",
-                "explanation": "5+ years of relevant experience"
-            },
-            "3y_plus": {
-                "category": "Professional Experience",
-                "explanation": "3+ years of relevant experience"
-            },
-            "10m_plus": {
-                "category": "Annual Salary",
-                "explanation": "¥10,000,000+ annual salary"
-            },
-            "9m_plus": {
-                "category": "Annual Salary",
-                "explanation": "¥9,000,000+ annual salary"
-            },
-            "8m_plus": {
-                "category": "Annual Salary",
-                "explanation": "¥8,000,000+ annual salary"
-            },
-            "7m_plus": {
-                "category": "Annual Salary",
-                "explanation": "¥7,000,000+ annual salary (under 40)"
-            },
-            "6m_plus": {
-                "category": "Annual Salary",
-                "explanation": "¥6,000,000+ annual salary (under 40)"
-            },
-            "5m_plus": {
-                "category": "Annual Salary",
-                "explanation": "¥5,000,000+ annual salary (under 35)"
-            },
-            "4m_plus": {
-                "category": "Annual Salary",
-                "explanation": "¥4,000,000+ annual salary (under 30)"
-            },
-            "under_30y": {
-                "category": "Age",
-                "explanation": "Under 30 years old"
-            },
-            "under_35y": {
-                "category": "Age",
-                "explanation": "Under 35 years old"
-            },
-            "under_40y": {
-                "category": "Age",
-                "explanation": "Under 40 years old"
-            },
-            "patent_inventor": {
-                "category": "Research Achievements",
-                "explanation": "Inventor of patented invention"
-            },
-            "conducted_financed_projects": {
-                "category": "Research Achievements",
-                "explanation": "Conducted foreign government funded research (3+ times)"
-            },
-            "published_papers": {
-                "category": "Research Achievements",
-                "explanation": "Published papers in academic journals (3+ as corresponding author)"
-            },
-            "recognized_research": {
-                "category": "Research Achievements",
-                "explanation": "Other research achievements recognized by Minister of Justice"
-            },
-            "many_certs": {
-                "category": "Certifications",
-                "explanation": "2+ national or IT certifications"
-            },
-            "single_cert": {
-                "category": "Certifications",
-                "explanation": "1 national or IT certification"
-            },
-            "org_promotes_innovation": {
-                "category": "Organization",
-                "explanation": "Works for organization receiving innovation support"
-            },
-            "org_smb": {
-                "category": "Organization",
-                "explanation": "Small/medium enterprise receiving innovation support"
-            },
-            "org_promotes_highly_skilled": {
-                "category": "Organization",
-                "explanation": "Organization supported for accepting highly skilled workers"
-            },
-            "high_rnd_expenses": {
-                "category": "Organization",
-                "explanation": "SME with R&D costs exceeding 3% of revenue"
-            },
-            "jp_major": {
-                "category": "Japanese Language",
-                "explanation": "Major in Japanese language"
-            },
-            "n1": {
-                "category": "Japanese Language",
-                "explanation": "JLPT N1 or equivalent"
-            },
-            "n2": {
-                "category": "Japanese Language",
-                "explanation": "JLPT N2 or equivalent"
-            },
-            "jp_uni_grad": {
-                "category": "Japanese Language",
-                "explanation": "Graduated from Japanese university"
-            },
-            "uni_ranked": {
-                "category": "University",
-                "explanation": "Graduated from top 300 ranked university"
-            },
-            "uni_funded": {
-                "category": "University",
-                "explanation": "Graduated from university funded by Top Global Universities Project"
-            },
-            "uni_partner": {
-                "category": "University",
-                "explanation": "Graduated from Innovative Asia Project partner school"
-            },
-            "foreign_qualification": {
-                "category": "Bonus",
-                "explanation": "Foreign work-related qualifications recognized by Minister of Justice"
-            },
-            "growth_field": {
-                "category": "Bonus",
-                "explanation": "Working on advanced project in growth field"
-            },
-            "training_jica": {
-                "category": "Bonus",
-                "explanation": "Completed JICA training (Innovative Asia Project)"
-            },
-            "investment_management": {
-                "category": "Bonus",
-                "explanation": "Engaged in investment management business"
-            }
-        }
+    "banner": {
+      "qualified": "Congrats, based on your answers you qualify for the Highly Skilled Foreign Professional ({visaType}) visa!",
+      "not_qualified": "You need {pointsNeeded} more points to qualify for the HSFP visa."
     },
-    "visa_form": {
-        "visa_type": {
-            "researcher": "Research",
-            "engineer": "Engineering / Technical",
-            "business-manager": "Business Management"
+    "how_to_improve": {
+      "title": "How to increase your points",
+      "intro": "The HSFP visa requires a minimum of 70 points. Here are some ways you can potentially earn more points:",
+      "experience": {
+        "title": "Professional Experience (up to 20 points)",
+        "description": "Work experience in your field counts: 10+ years awards 20 points, 7+ years 15 points, 5+ years 10 points, and 3+ years 5 points. Only experience relevant to your visa category is counted."
+      },
+      "salary": {
+        "title": "Annual Salary (up to 40 points)",
+        "description": "Your expected annual salary in Japan significantly impacts your score. ¥10M+ earns 40 points, ¥9M+ earns 35 points, ¥8M+ earns 30 points. Lower salary brackets (¥4M-7M) also award points but have age restrictions. Consider negotiating your salary or exploring higher-paying opportunities."
+      },
+      "japanese": {
+        "title": "Japanese Language (up to 15 points)",
+        "description": "JLPT N1 or equivalent awards 15 points, N2 awards 10 points. Studying Japanese and obtaining certification is one of the most actionable ways to gain additional points."
+      },
+      "certifications": {
+        "title": "Professional Certifications (up to 10 points)",
+        "description": "Holding Japanese national certifications (国家資格) or IT certifications from the official IT certification list awards 5 points for one certification or 10 points for two or more. Examples include IT Passport, Information Security Management, and various engineering certifications."
+      }
+    },
+    "overview": {
+      "title": "Results overview",
+      "category": "Category",
+      "explanation": "Explanation",
+      "points": "Points",
+      "total": "Total"
+    },
+    "permanent_residency": {
+      "title": "Fast track to Permanent Residency",
+      "intro": "Those who qualify for the HSFP visa are also eligible to fast-track their Permanent Residency application. You must meet one of the following conditions:",
+      "condition1": "Be able to prove 80+ points at the time of application and 1 year ago",
+      "condition2": "Be able to prove 70+ points at the time of application and 3 years ago",
+      "visa_note": "You don't necessarily need to be on the HSFP visa already to take advantage of this fast-track to Permanent Residency. Just being able to prove you have the points in the past and currently is enough.",
+      "length_warning": "However, just like any other Permanent Residency route you must already be on a valid visa with a length of stay of three years or longer."
+    },
+    "evidence": {
+      "title": "Required evidence",
+      "description": "When applying for this visa you need to submit evidence proving your qualifications. The documents listed below are for reference - depending on your situation, you may need all listed documents or only some. If you have significantly more than 80 points (e.g., 100+), you don't need to provide evidence for every single point category. For the most accurate guidance, consider consulting a licensed administrative scrivener (行政書士) to prepare your application.",
+      "empty": "No specific evidence requirements based on your selections.",
+      "items": {
+        "doctor": {
+          "documents": "Graduation certificate or diploma | Degree certificate (showing doctorate was conferred) | Academic transcript (if degree type is unclear from certificate)",
+          "notes": "Documents must clearly show the type of degree obtained. If original documents are not in Japanese or English, a certified translation is required."
         },
-        "actions": {
-            "continue": "Continue",
-            "skip": "Skip this question",
-            "go_to_results": "Skip all & view result"
+        "mba_mot": {
+          "documents": "Graduation certificate or diploma | Degree certificate (showing MBA or MOT was conferred) | Academic transcript (if degree type is unclear from certificate)",
+          "notes": "Only MBA (Master of Business Administration) or MOT (Master of Technology Management) degrees qualify. Must have graduated from university before obtaining MBA/MOT for bonus points."
         },
-        "test": "<a href=\"#lol\">test</a>",
-        "form_title": "{visaType} visa",
-        "engineer": {
-            "sections": {
-                "education": {
-                    "title": "Education",
-                    "degree": {
-                        "title": "Degree",
-                        "prompt": "What is your highest degree?",
-                        "options": {
-                            "doctor": "Doctorate degree",
-                            "mba_mot": "Management degree",
-                            "master": "Master degree",
-                            "bachelor": "Bachelor degree",
-                            "none": "I have no higher education degree"
-                        }
-                    },
-                    "dual_degree": {
-                        "title": "Multiple degrees",
-                        "prompt": "Do you hold degrees in multiple fields?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        },
-                        "faq": {
-                            "q0": "Does multiple majors count as different degrees?",
-                            "a0": "TODO"
-                        }
-                    }
-                },
-                "job": {
-                    "title": "Job",
-                    "experience": {
-                        "title": "Professional experience",
-                        "prompt": "How many years of relevant professional experience do you have?",
-                        "input_label": "years"
-                    },
-                    "age": {
-                        "title": "Age",
-                        "prompt": "How old are you at the time of application?",
-                        "input_label": "years old"
-                    },
-                    "salary": {
-                        "title": "Salary",
-                        "prompt": "What is the expected yearly total compensation at your main activity?",
-                        "input_label": "Yen"
-                    }
-                },
-                "research": {
-                    "title": "Research",
-                    "patent_inventor": {
-                        "title": "Patents",
-                        "prompt": "Have you successfully patented any of your inventions?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "conducted_financed_projects": {
-                        "title": "Financing",
-                        "prompt": "Have you engaged in foreign government funded research at least 3 times?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "published_papers": {
-                        "title": "Published work",
-                        "prompt": "Have you published at least 3 papers in academic journals listed in academic databases as the corresponding author?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "recognized_research": {
-                        "title": "Other achievements",
-                        "prompt": "Do you have any other research achievements which are recognized by Japan's Minister of Justice?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    }
-                },
-                "employer": {
-                    "title": "Bonus: employer",
-                    "org_promotes_innovation": {
-                        "title": "Innovation",
-                        "prompt": "Will you work for an organization which receives financial support measures for the promotion of innovation?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "org_smb": {
-                        "title": "SME act",
-                        "prompt": "Is your organization recognized as a small or medium-sized enterprise under the Small and Medium-Sized Enterprise Basic Act?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "org_promotes_highly_skilled": {
-                        "title": "Highly skilled",
-                        "prompt": "Does your organization receive support from local governments for promoting the acceptance of highly skilled foreign workers?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "high_rnd_expenses": {
-                        "title": "R&D expenses",
-                        "prompt": "Does your organization's total research & development costs exceed 3% of their total revenue?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "growth_field": {
-                        "title": "Growth field",
-                        "prompt": "Will you be involved in a project in a growth field with the involvement of the relevant ministries and agencies?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    }
-                },
-                "university": {
-                    "title": "Bonus: education",
-                    "certification": {
-                        "title": "Certificates",
-                        "prompt": "How many relevant national or IT certifications do you hold?"
-                    },
-                    "jp": {
-                        "title": "Japanese ability",
-                        "prompt": "What proof do you have for your Japanese ability?",
-                        "options": {
-                            "jp_major": "I have a major in Japanese",
-                            "n1": "JLPT N1 certificate (or equivalent)",
-                            "n2": "JLPT N2 certificate (or equivalent)",
-                            "none": "I have no proof"
-                        }
-                    },
-                    "jp_uni_grad": {
-                        "title": "Japanese university",
-                        "prompt": "Did you graduate from a Japanese university or have you completed a graduate program in Japan?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "uni_ranked": {
-                        "title": "Ranked university",
-                        "prompt": "Did you graduate from a top 300 university?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        },
-                        "explanation": "Foreign universities need to be listed in at least two rankings, Japanese universities only need to be listed once.<br /><br /><ul><li><a href=\"https://www.topuniversities.com/university-rankings/world-university-rankings/2024\" target=\"_blank\">QS World University Rankings</a></li><li><a href=\"https://www.timeshighereducation.com/world-university-rankings/2024/world-ranking\" target=\"_blank\">THE World University Rankings</a></li><li><a href=\"https://www.shanghairanking.com/rankings/arwu/2023\" target=\"_blank\">Academic Ranking of World Universities</a></li></ul>"
-                    },
-                    "uni_funded": {
-                        "title": "Funded university",
-                        "prompt": "Did you graduate from a university which receives subsidies from the Top Global Universities Project implemented by the Ministry of Education, Culture, Sports, Science and Technology?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "uni_partner": {
-                        "title": "Partner university",
-                        "prompt": "Did you graduate from a university which is designated as a partner school in the Innovative Asia Project implemented by the Ministry of Foreign Affairs?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    }
-                },
-                "bonus": {
-                    "title": "Bonus: others",
-                    "foreign_qualification": {
-                        "title": "Recognized qualifications",
-                        "prompt": "Do you have any foreign work-related qualifications or awards which are recognized by Japan's Minister of Justice?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "training_jica": {
-                        "title": "Training by JICA",
-                        "prompt": "Have you completed training conducted by JICA as part of the Innovative Asia Project by the Ministry of Foreign Affairs?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    },
-                    "investment_management": {
-                        "title": "Investment activities",
-                        "prompt": "Will you engage in business related to investment management?",
-                        "options": {
-                            "true": "Yes",
-                            "false": "No"
-                        }
-                    }
-                }
-            }
+        "master": {
+          "documents": "Graduation certificate or diploma | Degree certificate (showing master degree was conferred)"
+        },
+        "bachelor": {
+          "documents": "Graduation certificate or diploma | Degree certificate (showing bachelor degree was conferred)"
+        },
+        "dual_degree": {
+          "documents": "Graduation certificates for each degree | Academic transcripts showing different major fields | Degree certificates for each qualification",
+          "notes": "Degrees must be in different academic fields (e.g., Engineering + Business). Both a master and doctorate count as 30 points total."
+        },
+        "10y_plus": {
+          "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
+          "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
+        },
+        "7y_plus": {
+          "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
+          "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
+        },
+        "5y_plus": {
+          "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
+          "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
+        },
+        "3y_plus": {
+          "documents": "Documents proving work content and duration (e.g., employment certificate, contract, appointment letter)",
+          "notes": "Experience must be related to the activities you will engage in under the HSFP visa. Documents should show job title, duties, and employment period."
+        },
+        "10m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
+        },
+        "9m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
+        },
+        "8m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
+        },
+        "7m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Only applicable if under 40 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
+        },
+        "6m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Only applicable if under 40 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
+        },
+        "5m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Only applicable if under 35 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
+        },
+        "4m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Only applicable if under 30 years old at time of application. Salary must be the expected annual compensation from your contracting organization in Japan."
+        },
+        "under_30y": {
+          "documents": "Passport (copy of bio-data page)",
+          "notes": "Age is verified from your passport at time of application."
+        },
+        "under_35y": {
+          "documents": "Passport (copy of bio-data page)",
+          "notes": "Age is verified from your passport at time of application."
+        },
+        "under_40y": {
+          "documents": "Passport (copy of bio-data page)",
+          "notes": "Age is verified from your passport at time of application."
+        },
+        "patent_inventor": {
+          "documents": "Copy of patent certificate with applicant's name clearly shown as inventor",
+          "notes": "You must be listed as an inventor on the patent(s) you are claiming."
+        },
+        "conducted_financed_projects": {
+          "documents": "Grant award notification or funding decision documents with applicant's name",
+          "notes": "Must have received competitive research funding from a foreign government at least 3 times."
+        },
+        "published_papers": {
+          "documents": "List of publications with: title, author names, journal name, issue number, volume, pages, publication year",
+          "notes": "Papers must be in journals indexed in academic databases such as Web of Science (Clarivate/Thomson Reuters) or Scopus (Elsevier). You must be the responsible/corresponding author."
+        },
+        "recognized_research": {
+          "documents": "Documentation proving the research achievement",
+          "notes": "This is a catch-all category for research achievements not covered by other criteria. Consult with immigration for guidance on what qualifies and required documentation."
+        },
+        "many_certs": {
+          "documents": "Certificate copies for each qualification | Proof of passing examination (合格証明書)",
+          "notes": "Qualifications must be Japanese national certifications (国家資格) or IT certifications listed in the IT certification announcement (IT告示). Business-exclusive qualifications (業務独占資格) or name-exclusive qualifications (名称独占資格) qualify."
+        },
+        "single_cert": {
+          "documents": "Certificate copies for each qualification | Proof of passing examination (合格証明書)",
+          "notes": "Must be a Japanese national certification (国家資格) or IT certification listed in the IT certification announcement (IT告示)."
+        },
+        "org_promotes_innovation": {
+          "documents": "Copy of subsidy/grant award decision notification (補助金交付決定通知書の写し) | Company documentation proving innovation support status",
+          "notes": "Organization must be receiving financial support measures for promotion of innovation."
+        },
+        "org_smb": {
+          "documents": "Company brochure or website showing company size | Corporate registration certificate (法人の登記事項証明書) | Documents showing capital amount and number of employees | Financial statements showing revenue and employee count",
+          "notes": "Must meet SME criteria under the Small and Medium-Sized Enterprise Basic Act: Manufacturing: capital ≤¥300M or employees ≤300; Wholesale: capital ≤¥100M or employees ≤100; Retail: capital ≤¥50M or employees ≤50; Service: capital ≤¥50M or employees ≤100."
+        },
+        "org_promotes_highly_skilled": {
+          "documents": "Copy of subsidy/grant award decision notification (補助金交付決定通知書の写し) | Documentation from local government showing support for highly skilled worker acceptance",
+          "notes": "Organization receives support from local public entities for promoting acceptance of highly skilled foreign workers."
+        },
+        "high_rnd_expenses": {
+          "documents": "Financial statements (決算書) showing R&D expenses and total revenue | Or: certification letter from a certified tax accountant (税理士), CPA (公認会計士), or SME consultant (中小企業診断士)",
+          "notes": "R&D expenses must exceed 3% of total revenue (gross revenue minus income from securities transactions). Must be an SME. The professional certification is a letter issued by the accountant/consultant certifying the R&D ratio."
+        },
+        "jp_major": {
+          "documents": "Graduation certificate showing Japanese language major | Academic transcript showing Japanese language as major field of study",
+          "notes": "Must have majored in Japanese language at a foreign university or graduated from a foreign university where instruction was primarily in Japanese."
+        },
+        "n1": {
+          "documents": "JLPT N1 certificate (日本語能力試験N1合格証明書) | Or equivalent certification (BJT Business Japanese Test J1+, etc.)",
+          "notes": "Cannot claim both N1/N2 and Japanese university graduation points together (except for those listed in ① above)."
+        },
+        "n2": {
+          "documents": "JLPT N2 certificate (日本語能力試験N2合格証明書) | Or equivalent certification",
+          "notes": "Cannot be claimed if you graduated from a Japanese university or completed a graduate program in Japan. Cannot claim both N1/N2 and Japanese university graduation points (except for those listed in ① above)."
+        },
+        "jp_uni_grad": {
+          "documents": "Graduation certificate from Japanese university | Degree certificate from Japanese institution",
+          "notes": "Includes completion of graduate programs (master or doctorate) at Japanese universities."
+        },
+        "uni_ranked": {
+          "documents": "Graduation certificate | Degree certificate",
+          "notes": "Foreign universities must appear in top 300 of at least 2 of the 3 rankings (QS, THE, ARWU). Japanese universities only need to appear in 1 ranking. Can be claimed together with \"Graduated from Japanese university\" bonus."
+        },
+        "uni_funded": {
+          "documents": "Graduation certificate | Degree certificate",
+          "notes": "University must receive subsidies under the Top Global Universities Project (スーパーグローバル大学創成支援事業) implemented by MEXT. Can be claimed together with \"Graduated from Japanese university\" bonus."
+        },
+        "uni_partner": {
+          "documents": "Graduation certificate | Degree certificate",
+          "notes": "University must be designated as a \"Partner School\" in the Innovative Asia Project (イノベーティブ・アジア事業) implemented by Ministry of Foreign Affairs. Can be claimed together with \"Graduated from Japanese university\" bonus."
+        },
+        "foreign_qualification": {
+          "documents": "Certificate or license document for the qualification",
+          "notes": "Must be a qualification from the designated list published by the Ministry of Justice. For awards related to enterprise products/services, you must have been professionally involved in creating/developing them (not just as a purchaser)."
+        },
+        "growth_field": {
+          "documents": "Documentation from employer about the project | Notification or certification from relevant ministry showing project is in designated growth field",
+          "notes": "Project must be in a growth field with involvement of relevant government ministries and agencies."
+        },
+        "training_jica": {
+          "documents": "JICA training completion certificate (JICA研修修了証明書)",
+          "notes": "Training must be conducted by JICA as part of the Innovative Asia Project, with a training period of at least 1 year. If submitting JICA completion certificate, academic and employment documents are generally not required unless claiming work experience points."
+        },
+        "investment_management": {
+          "documents": "Employment contract describing investment management duties | Documentation of investment fund management activities | Evidence of managing assets exceeding ¥100M in trades/investments for third parties",
+          "notes": "Applies to those engaged in investment fund management or discretionary investment business. Must be managing substantial third-party investments."
         }
+      }
+    },
+    "criteria": {
+      "doctor": {
+        "category": "Education",
+        "explanation": "Doctorate degree"
+      },
+      "mba_mot": {
+        "category": "Education",
+        "explanation": "Management degree (MBA/MOT)"
+      },
+      "master": {
+        "category": "Education",
+        "explanation": "Master degree"
+      },
+      "bachelor": {
+        "category": "Education",
+        "explanation": "Bachelor degree"
+      },
+      "dual_degree": {
+        "category": "Education",
+        "explanation": "Multiple degrees in different fields"
+      },
+      "10y_plus": {
+        "category": "Professional Experience",
+        "explanation": "10+ years of relevant experience"
+      },
+      "7y_plus": {
+        "category": "Professional Experience",
+        "explanation": "7+ years of relevant experience"
+      },
+      "5y_plus": {
+        "category": "Professional Experience",
+        "explanation": "5+ years of relevant experience"
+      },
+      "3y_plus": {
+        "category": "Professional Experience",
+        "explanation": "3+ years of relevant experience"
+      },
+      "10m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥10,000,000+ annual salary"
+      },
+      "9m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥9,000,000+ annual salary"
+      },
+      "8m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥8,000,000+ annual salary"
+      },
+      "7m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥7,000,000+ annual salary (under 40)"
+      },
+      "6m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥6,000,000+ annual salary (under 40)"
+      },
+      "5m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥5,000,000+ annual salary (under 35)"
+      },
+      "4m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥4,000,000+ annual salary (under 30)"
+      },
+      "under_30y": {
+        "category": "Age",
+        "explanation": "Under 30 years old"
+      },
+      "under_35y": {
+        "category": "Age",
+        "explanation": "Under 35 years old"
+      },
+      "under_40y": {
+        "category": "Age",
+        "explanation": "Under 40 years old"
+      },
+      "patent_inventor": {
+        "category": "Research Achievements",
+        "explanation": "Inventor of patented invention"
+      },
+      "conducted_financed_projects": {
+        "category": "Research Achievements",
+        "explanation": "Conducted foreign government funded research (3+ times)"
+      },
+      "published_papers": {
+        "category": "Research Achievements",
+        "explanation": "Published papers in academic journals (3+ as corresponding author)"
+      },
+      "recognized_research": {
+        "category": "Research Achievements",
+        "explanation": "Other research achievements recognized by Minister of Justice"
+      },
+      "many_certs": {
+        "category": "Certifications",
+        "explanation": "2+ national or IT certifications"
+      },
+      "single_cert": {
+        "category": "Certifications",
+        "explanation": "1 national or IT certification"
+      },
+      "org_promotes_innovation": {
+        "category": "Organization",
+        "explanation": "Works for organization receiving innovation support"
+      },
+      "org_smb": {
+        "category": "Organization",
+        "explanation": "Small/medium enterprise receiving innovation support"
+      },
+      "org_promotes_highly_skilled": {
+        "category": "Organization",
+        "explanation": "Organization supported for accepting highly skilled workers"
+      },
+      "high_rnd_expenses": {
+        "category": "Organization",
+        "explanation": "SME with R&D costs exceeding 3% of revenue"
+      },
+      "jp_major": {
+        "category": "Japanese Language",
+        "explanation": "Major in Japanese language"
+      },
+      "n1": {
+        "category": "Japanese Language",
+        "explanation": "JLPT N1 or equivalent"
+      },
+      "n2": {
+        "category": "Japanese Language",
+        "explanation": "JLPT N2 or equivalent"
+      },
+      "jp_uni_grad": {
+        "category": "Japanese Language",
+        "explanation": "Graduated from Japanese university"
+      },
+      "uni_ranked": {
+        "category": "University",
+        "explanation": "Graduated from top 300 ranked university"
+      },
+      "uni_funded": {
+        "category": "University",
+        "explanation": "Graduated from university funded by Top Global Universities Project"
+      },
+      "uni_partner": {
+        "category": "University",
+        "explanation": "Graduated from Innovative Asia Project partner school"
+      },
+      "foreign_qualification": {
+        "category": "Bonus",
+        "explanation": "Foreign work-related qualifications recognized by Minister of Justice"
+      },
+      "growth_field": {
+        "category": "Bonus",
+        "explanation": "Working on advanced project in growth field"
+      },
+      "training_jica": {
+        "category": "Bonus",
+        "explanation": "Completed JICA training (Innovative Asia Project)"
+      },
+      "investment_management": {
+        "category": "Bonus",
+        "explanation": "Engaged in investment management business"
+      }
     }
+  },
+  "visa_form": {
+    "visa_type": {
+      "researcher": "Research",
+      "engineer": "Engineering / Technical",
+      "business-manager": "Business Management"
+    },
+    "actions": {
+      "continue": "Continue",
+      "skip": "Skip this question",
+      "go_to_results": "Skip all & view result"
+    },
+    "test": "<a href=\"#lol\">test</a>",
+    "form_title": "{visaType} visa",
+    "engineer": {
+      "sections": {
+        "education": {
+          "title": "Education",
+          "degree": {
+            "title": "Degree",
+            "prompt": "What is your highest degree?",
+            "options": {
+              "doctor": "Doctorate degree",
+              "mba_mot": "Management degree",
+              "master": "Master degree",
+              "bachelor": "Bachelor degree",
+              "none": "I have no higher education degree"
+            }
+          },
+          "dual_degree": {
+            "title": "Multiple degrees",
+            "prompt": "Do you hold degrees in multiple fields?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq": {
+              "q0": "Does multiple majors count as different degrees?",
+              "a0": "TODO"
+            }
+          }
+        },
+        "job": {
+          "title": "Job",
+          "experience": {
+            "title": "Professional experience",
+            "prompt": "How many years of relevant professional experience do you have?",
+            "input_label": "years"
+          },
+          "age": {
+            "title": "Age",
+            "prompt": "How old are you at the time of application?",
+            "input_label": "years old"
+          },
+          "salary": {
+            "title": "Salary",
+            "prompt": "What is the expected yearly total compensation at your main activity?",
+            "input_label": "Yen"
+          }
+        },
+        "research": {
+          "title": "Research",
+          "patent_inventor": {
+            "title": "Patents",
+            "prompt": "Have you successfully patented any of your inventions?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "conducted_financed_projects": {
+            "title": "Financing",
+            "prompt": "Have you engaged in foreign government funded research at least 3 times?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "published_papers": {
+            "title": "Published work",
+            "prompt": "Have you published at least 3 papers in academic journals listed in academic databases as the corresponding author?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "recognized_research": {
+            "title": "Other achievements",
+            "prompt": "Do you have any other research achievements which are recognized by Japan's Minister of Justice?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          }
+        },
+        "employer": {
+          "title": "Bonus: employer",
+          "org_promotes_innovation": {
+            "title": "Innovation",
+            "prompt": "Will you work for an organization which receives financial support measures for the promotion of innovation?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "org_smb": {
+            "title": "SME act",
+            "prompt": "Is your organization recognized as a small or medium-sized enterprise under the Small and Medium-Sized Enterprise Basic Act?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "org_promotes_highly_skilled": {
+            "title": "Highly skilled",
+            "prompt": "Does your organization receive support from local governments for promoting the acceptance of highly skilled foreign workers?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "high_rnd_expenses": {
+            "title": "R&D expenses",
+            "prompt": "Does your organization's total research & development costs exceed 3% of their total revenue?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "growth_field": {
+            "title": "Growth field",
+            "prompt": "Will you be involved in a project in a growth field with the involvement of the relevant ministries and agencies?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          }
+        },
+        "university": {
+          "title": "Bonus: education",
+          "certification": {
+            "title": "Certificates",
+            "prompt": "How many relevant national or IT certifications do you hold?"
+          },
+          "jp": {
+            "title": "Japanese ability",
+            "prompt": "What proof do you have for your Japanese ability?",
+            "options": {
+              "jp_major": "I have a major in Japanese",
+              "n1": "JLPT N1 certificate (or equivalent)",
+              "n2": "JLPT N2 certificate (or equivalent)",
+              "none": "I have no proof"
+            }
+          },
+          "jp_uni_grad": {
+            "title": "Japanese university",
+            "prompt": "Did you graduate from a Japanese university or have you completed a graduate program in Japan?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "uni_ranked": {
+            "title": "Ranked university",
+            "prompt": "Did you graduate from a top 300 university?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "explanation": "Foreign universities need to be listed in at least two rankings, Japanese universities only need to be listed once.<br /><br /><ul><li><a href=\"https://www.topuniversities.com/university-rankings/world-university-rankings/2024\" target=\"_blank\">QS World University Rankings</a></li><li><a href=\"https://www.timeshighereducation.com/world-university-rankings/2024/world-ranking\" target=\"_blank\">THE World University Rankings</a></li><li><a href=\"https://www.shanghairanking.com/rankings/arwu/2023\" target=\"_blank\">Academic Ranking of World Universities</a></li></ul>"
+          },
+          "uni_funded": {
+            "title": "Funded university",
+            "prompt": "Did you graduate from a university which receives subsidies from the Top Global Universities Project implemented by the Ministry of Education, Culture, Sports, Science and Technology?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "uni_partner": {
+            "title": "Partner university",
+            "prompt": "Did you graduate from a university which is designated as a partner school in the Innovative Asia Project implemented by the Ministry of Foreign Affairs?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          }
+        },
+        "bonus": {
+          "title": "Bonus: others",
+          "foreign_qualification": {
+            "title": "Recognized qualifications",
+            "prompt": "Do you have any foreign work-related qualifications or awards which are recognized by Japan's Minister of Justice?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "training_jica": {
+            "title": "Training by JICA",
+            "prompt": "Have you completed training conducted by JICA as part of the Innovative Asia Project by the Ministry of Foreign Affairs?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "investment_management": {
+            "title": "Investment activities",
+            "prompt": "Will you engage in business related to investment management?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          }
+        }
+      }
+    }
+  }
 }
