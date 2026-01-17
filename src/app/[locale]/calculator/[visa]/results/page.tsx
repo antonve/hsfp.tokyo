@@ -152,9 +152,11 @@ export default function Page({ params }: Props) {
             </section>
             <section className="space-y-4">
               <h3 className="font-semibold text-2xl">{t('evidence.title')}</h3>
-              <p className="text-zinc-300 text-sm">
-                {t('evidence.description')}
-              </p>
+              <div className="text-zinc-300 text-sm space-y-3">
+                <p>{t('evidence.description1')}</p>
+                <p>{t('evidence.description2')}</p>
+                <p>{t('evidence.description3')}</p>
+              </div>
               <EvidenceOverview matches={matches} sessionId={sessionId} />
             </section>
           </div>
