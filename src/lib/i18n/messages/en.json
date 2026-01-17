@@ -460,17 +460,40 @@
           "experience": {
             "title": "Professional experience",
             "prompt": "How many years of relevant professional experience do you have?",
-            "input_label": "years"
+            "input_label": "years",
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What counts as \"practical experience\" (実務経験)?",
+              "a0": "For engineers: Experience in research, research guidance, or education in your field. The experience must be directly related to your intended technical/specialized activities in Japan.",
+              "q1": "Does my experience outside my home country count?",
+              "a1": "Yes, all qualifying work experience counts regardless of the country where it was obtained, as long as it's relevant to engineering/technical work."
+            }
           },
           "age": {
             "title": "Age",
             "prompt": "How old are you at the time of application?",
-            "input_label": "years old"
+            "input_label": "years old",
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Why does age matter for points?",
+              "a0": "Younger applicants receive bonus points (15 points for under 30, 10 points for 30-34, 5 points for 35-39) to encourage long-term contribution to Japan's economy and innovation.",
+              "q1": "Which age is used for calculation?",
+              "a1": "Your age at the time of application (or visa status determination) is used for the points calculation."
+            }
           },
           "salary": {
             "title": "Salary",
             "prompt": "What is the expected yearly total compensation at your main activity?",
-            "input_label": "Yen"
+            "input_label": "Yen",
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What income sources are included?",
+              "a0": "Your total annual income includes compensation from both your contracting organization in Japan AND any foreign affiliated organization (if you're being transferred from an overseas branch).",
+              "q1": "Do I need to provide my exact salary?",
+              "a1": "Round down to the nearest million yen (e.g., ¥8.7M becomes ¥8M). Points max out at ¥10 million, so there's no benefit to entering higher amounts. Your salary information is not stored on our servers—all data stays in your browser.",
+              "q2": "What if my salary changes?",
+              "a2": "Your points are calculated based on your expected annual salary at the time of application. If your salary increases later, you may be able to recalculate points for visa renewal."
+            }
           }
         },
         "research": {
@@ -489,6 +512,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What counts as \"research funded by foreign governments\"?",
+              "a0": "Participation in research projects that received grants, competitive funding, or other financial support from foreign government agencies. You need 3 or more such experiences."
             }
           },
           "published_papers": {
@@ -497,6 +525,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What qualifies as a \"responsible author\" (責任著者) for publications?",
+              "a0": "A responsible author is the corresponding author who can respond to inquiries about the paper. You need at least 3 such publications in academic journals registered in databases used by Japanese government agencies."
             }
           },
           "recognized_research": {
@@ -505,6 +538,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What other research achievements might qualify?",
+              "a0": "This includes research achievements not covered by patents, government-funded projects, or publications, but deemed equivalent by the Minister of Justice after consulting with relevant administrative agencies."
             }
           }
         },
@@ -532,6 +570,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What support programs qualify?",
+              "a0": "Organizations receiving government support or subsidies specifically for accepting highly skilled foreign professionals may qualify for bonus points."
             }
           },
           "high_rnd_expenses": {
@@ -540,6 +583,13 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What is the \"R&D expense ratio\" bonus?",
+              "a0": "SME employers can qualify for 5 bonus points if their research and development expenses exceed 3% of their revenue in the fiscal year before your application.",
+              "q1": "How is the R&D ratio calculated?",
+              "a1": "It's calculated by dividing the total of research/development expenses and costs for starting new businesses by the total revenue (excluding income from fixed asset sales or securities transfers) in the previous fiscal year."
             }
           },
           "growth_field": {
@@ -548,6 +598,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What are \"growth fields with expected future development\"?",
+              "a0": "These are cutting-edge business sectors recognized by the Minister of Justice after consulting with relevant government agencies. This typically includes emerging technologies and strategic industries."
             }
           }
         },
@@ -555,7 +610,14 @@
           "title": "Bonus: education",
           "certification": {
             "title": "Certificates",
-            "prompt": "How many relevant national or IT certifications do you hold?"
+            "prompt": "How many relevant national or IT certifications do you hold?",
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What qualifications count for points?",
+              "a0": "IT-related qualifications and exams designated by the Minister of Justice. You can earn 10 points for having 2+ certifications, or 5 points for 1 certification.",
+              "q1": "Do international IT certifications count?",
+              "a1": "They may count if they're officially recognized under the bonus points system. Check the official Ministry of Justice list of accepted IT certifications."
+            }
           },
           "jp": {
             "title": "Japanese ability",
@@ -565,6 +627,11 @@
               "n1": "JLPT N1 certificate (or equivalent)",
               "n2": "JLPT N2 certificate (or equivalent)",
               "none": "I have no proof"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Can I combine Japanese language points with Japanese university graduation?",
+              "a0": "If you graduated from a Japanese university (10 points), you cannot also claim the N2 bonus (10 points), as your degree already demonstrates Japanese proficiency. However, you CAN combine Japanese university graduation with N1 (15 points) or a Japanese language major from a foreign university (15 points) for a total of 25 points."
             }
           },
           "jp_uni_grad": {
@@ -582,7 +649,14 @@
               "true": "Yes",
               "false": "No"
             },
-            "explanation": "Foreign universities need to be listed in at least two rankings, Japanese universities only need to be listed once.<br /><br /><ul><li><a href=\"https://www.topuniversities.com/university-rankings/world-university-rankings/2024\" target=\"_blank\">QS World University Rankings</a></li><li><a href=\"https://www.timeshighereducation.com/world-university-rankings/2024/world-ranking\" target=\"_blank\">THE World University Rankings</a></li><li><a href=\"https://www.shanghairanking.com/rankings/arwu/2023\" target=\"_blank\">Academic Ranking of World Universities</a></li></ul>"
+            "explanation": "Foreign universities need to be listed in at least two rankings, Japanese universities only need to be listed once.<br /><br /><ul><li><a href=\"https://www.topuniversities.com/university-rankings/world-university-rankings/2024\" target=\"_blank\">QS World University Rankings</a></li><li><a href=\"https://www.timeshighereducation.com/world-university-rankings/2024/world-ranking\" target=\"_blank\">THE World University Rankings</a></li><li><a href=\"https://www.shanghairanking.com/rankings/arwu/2023\" target=\"_blank\">Academic Ranking of World Universities</a></li></ul>",
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Which university rankings are used?",
+              "a0": "Japan recognizes three rankings: QS World University Rankings, THE World University Rankings, and Academic Ranking of World Universities (ARWU/Shanghai Rankings). Foreign universities must rank in the top 300 in at least 2 of these 3 lists. Japanese universities only need to appear in at least 1 of the 3 rankings.",
+              "q1": "When are the rankings checked?",
+              "a1": "The Ministry of Justice updates the qualifying university list periodically. The current list is based on rankings as of September 2023 (last updated January 2025)."
+            }
           },
           "uni_funded": {
             "title": "Funded university",
@@ -609,6 +683,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Do international certifications count?",
+              "a0": "They may count under the bonus points system for foreign qualifications that demonstrate advanced expertise related to innovation. These must be officially recognized by the Minister of Justice."
             }
           },
           "training_jica": {
@@ -617,6 +696,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What JICA training programs qualify?",
+              "a0": "Training programs designated by the Minister of Justice, particularly those conducted as part of university courses through the Innovative Asia Project or similar government-supported programs."
             }
           },
           "investment_management": {
@@ -625,6 +709,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What investment management activities qualify?",
+              "a0": "Activities that strengthen financial functions, as designated by the Minister of Justice after consulting with relevant administrative agencies. This typically includes specialized financial services roles."
             }
           }
         }

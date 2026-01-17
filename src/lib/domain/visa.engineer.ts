@@ -33,6 +33,7 @@ export const formConfig: FormConfig = {
           min: 0,
           max: 50,
         },
+        faqCount: 2,
       },
       {
         id: 'age',
@@ -41,6 +42,7 @@ export const formConfig: FormConfig = {
           min: 18,
           max: 120,
         },
+        faqCount: 2,
       },
       {
         id: 'salary',
@@ -48,6 +50,7 @@ export const formConfig: FormConfig = {
         config: {
           min: 3_000_000,
         },
+        faqCount: 3,
       },
     ],
     research: [
@@ -58,14 +61,17 @@ export const formConfig: FormConfig = {
       {
         id: 'conducted_financed_projects',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
       {
         id: 'published_papers',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
       {
         id: 'recognized_research',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
     ],
     employer: [
@@ -80,14 +86,17 @@ export const formConfig: FormConfig = {
       {
         id: 'org_promotes_highly_skilled',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
       {
         id: 'high_rnd_expenses',
         type: 'BOOLEAN',
+        faqCount: 2,
       },
       {
         id: 'growth_field',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
     ],
     university: [
@@ -98,11 +107,13 @@ export const formConfig: FormConfig = {
           min: 0,
           hideLabel: true,
         },
+        faqCount: 2,
       },
       {
         id: 'jp',
         type: 'CHOICE',
         options: ['jp_major', 'n1', 'n2', 'none'],
+        faqCount: 1,
       },
       {
         id: 'jp_uni_grad',
@@ -111,6 +122,7 @@ export const formConfig: FormConfig = {
       {
         id: 'uni_ranked',
         type: 'BOOLEAN',
+        faqCount: 2,
       },
       {
         id: 'uni_funded',
@@ -125,14 +137,17 @@ export const formConfig: FormConfig = {
       {
         id: 'foreign_qualification',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
       {
         id: 'training_jica',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
       {
         id: 'investment_management',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
     ],
   },
