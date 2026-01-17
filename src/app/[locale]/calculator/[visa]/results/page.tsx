@@ -4,7 +4,7 @@ import { Criteria } from '@lib/domain'
 import { formConfigForVisa } from '@lib/domain/form'
 import { calculatePoints, encodeQualifications } from '@lib/domain/qualifications'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
-import { useQualifications } from '@lib/hooks'
+import { useQualifications, useSessionId } from '@lib/hooks'
 import { ChevronDownIcon, ChevronRightIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -16,14 +16,19 @@ interface Props {
   }
 }
 
-const STORAGE_KEY = 'hsfp-evidence-checklist'
+const STORAGE_KEY_PREFIX = 'hsfp-evidence'
 
-function useEvidenceChecklist() {
+function useEvidenceChecklist(sessionId: string | undefined) {
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set())
 
+  // Generate storage key based on sessionId
+  const storageKey = sessionId ? `${STORAGE_KEY_PREFIX}-${sessionId}` : null
+
   useEffect(() => {
+    if (!storageKey) return
+
     try {
-      const stored = localStorage.getItem(STORAGE_KEY)
+      const stored = localStorage.getItem(storageKey)
       if (stored) {
         const parsed = JSON.parse(stored) as string[]
         setCheckedItems(new Set(parsed))
@@ -31,29 +36,34 @@ function useEvidenceChecklist() {
     } catch {
       // Ignore localStorage errors
     }
-  }, [])
+  }, [storageKey])
 
-  const toggleItem = useCallback((itemId: string) => {
-    setCheckedItems(prev => {
-      const newChecked = new Set(prev)
-      if (newChecked.has(itemId)) {
-        newChecked.delete(itemId)
-      } else {
-        newChecked.add(itemId)
-      }
+  const toggleItem = useCallback(
+    (itemId: string) => {
+      if (!storageKey) return
 
-      try {
-        localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify(Array.from(newChecked)),
-        )
-      } catch {
-        // Ignore localStorage errors
-      }
+      setCheckedItems(prev => {
+        const newChecked = new Set(prev)
+        if (newChecked.has(itemId)) {
+          newChecked.delete(itemId)
+        } else {
+          newChecked.add(itemId)
+        }
 
-      return newChecked
-    })
-  }, [])
+        try {
+          localStorage.setItem(
+            storageKey,
+            JSON.stringify(Array.from(newChecked)),
+          )
+        } catch {
+          // Ignore localStorage errors
+        }
+
+        return newChecked
+      })
+    },
+    [storageKey],
+  )
 
   return { checkedItems, toggleItem }
 }
@@ -63,6 +73,7 @@ export default function Page({ params }: Props) {
 
   const formConfig = formConfigForVisa(params.visa)!
   const qualifications = useQualifications(formConfig.visaType)
+  const sessionId = useSessionId()
   const { points, matches } = useMemo(
     () => calculatePoints(qualifications),
     [qualifications],
@@ -113,7 +124,7 @@ export default function Page({ params }: Props) {
               <p className="text-zinc-300 text-sm">
                 {t('evidence.description')}
               </p>
-              <EvidenceOverview matches={matches} />
+              <EvidenceOverview matches={matches} sessionId={sessionId} />
             </section>
           </div>
           <section className="space-y-4 max-w-2xl">
@@ -134,7 +145,7 @@ export default function Page({ params }: Props) {
           </section>
         </>
       )}
-      {points > 0 && points < HSFP_QUALIFICATION_THRESHOLD && (
+      {points < HSFP_QUALIFICATION_THRESHOLD && (
         <section className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
@@ -213,9 +224,15 @@ function MatchesOverview({
   )
 }
 
-function EvidenceOverview({ matches }: { matches: Criteria[] }) {
+function EvidenceOverview({
+  matches,
+  sessionId,
+}: {
+  matches: Criteria[]
+  sessionId: string | undefined
+}) {
   const t = useTranslations('results')
-  const { checkedItems, toggleItem } = useEvidenceChecklist()
+  const { checkedItems, toggleItem } = useEvidenceChecklist(sessionId)
 
   const groupedByCategory = useMemo(() => {
     const groups: Record<string, Criteria[]> = {}

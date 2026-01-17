@@ -4,6 +4,7 @@ import {
   Qualifications,
   QualificationsSchema,
   decodeQualifications,
+  generateSessionId,
 } from '@lib/domain/qualifications'
 import { formConfigForVisa } from './domain/form'
 import { notFound, useParams, useSearchParams } from 'next/navigation'
@@ -43,10 +44,34 @@ export function useQualifications(visaType: VisaType) {
   const encodedQualifications = searchParams.get('q')
 
   if (!encodedQualifications) {
-    return QualificationsSchema.parse({ v: visaType, completed: 0 })
+    return QualificationsSchema.parse({
+      v: visaType,
+      completed: 0,
+      s: generateSessionId(),
+    })
   }
 
   return decodeQualifications(encodedQualifications)
+}
+
+/**
+ * Extracts the session ID from the current qualifications in the URL.
+ * Returns the session ID or undefined if not present.
+ */
+export function useSessionId(): string | undefined {
+  const searchParams = useSearchParams()
+  const encodedQualifications = searchParams.get('q')
+
+  if (!encodedQualifications) {
+    return undefined
+  }
+
+  try {
+    const qualifications = decodeQualifications(encodedQualifications)
+    return qualifications.s
+  } catch {
+    return undefined
+  }
 }
 
 export function useLanguage() {
