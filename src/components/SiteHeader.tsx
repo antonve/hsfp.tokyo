@@ -20,7 +20,12 @@ export function SiteHeader() {
   return (
     <div className="max-w-7xl mx-auto">
       <header className="py-6 px-4 flex justify-between space-x-8 border-b-4 border-zinc-900/50">
-        <Logo />
+        <Link
+          href={`/`}
+          className="no-underline hover:opacity-60 transition-opacity"
+        >
+          <Logo />
+        </Link>
         <nav>
           <ul className="flex space-x-4 items-center justify-center h-full font-semibold text-lg">
             <li>
