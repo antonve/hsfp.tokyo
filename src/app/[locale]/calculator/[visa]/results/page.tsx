@@ -2,11 +2,12 @@
 
 import { Criteria } from '@lib/domain'
 import { formConfigForVisa } from '@lib/domain/form'
-import { calculatePoints } from '@lib/domain/qualifications'
+import { calculatePoints, encodeQualifications } from '@lib/domain/qualifications'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 import { useQualifications } from '@lib/hooks'
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { ChevronDownIcon, ChevronRightIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 import { useTranslations } from 'next-intl'
+import Link from 'next/link'
 import { useMemo, useState, useCallback, useEffect } from 'react'
 
 interface Props {
@@ -68,6 +69,8 @@ export default function Page({ params }: Props) {
   )
 
   const visaType = t(`visa_type.${formConfig.visaType}`)
+  const firstSection = formConfig.order[0]
+  const editUrl = `/calculator/${params.visa}/${firstSection}/1?q=${encodeQualifications(qualifications)}`
 
   return (
     <main className="space-y-8">
@@ -93,7 +96,16 @@ export default function Page({ params }: Props) {
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <section className="space-y-4">
-              <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
+                <Link
+                  href={editUrl}
+                  className="button outline flex items-center gap-2 text-sm no-underline"
+                >
+                  <PencilSquareIcon className="w-4 h-4" />
+                  Edit Answers
+                </Link>
+              </div>
               <MatchesOverview matches={matches} totalPoints={points} />
             </section>
             <section className="space-y-4">
@@ -124,7 +136,16 @@ export default function Page({ params }: Props) {
       )}
       {points > 0 && points < HSFP_QUALIFICATION_THRESHOLD && (
         <section className="space-y-4">
-          <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
+            <Link
+              href={editUrl}
+              className="button outline flex items-center gap-2 text-sm no-underline"
+            >
+              <PencilSquareIcon className="w-4 h-4" />
+              Edit Answers
+            </Link>
+          </div>
           <MatchesOverview matches={matches} totalPoints={points} />
         </section>
       )}

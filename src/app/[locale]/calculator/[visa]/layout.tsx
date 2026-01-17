@@ -1,11 +1,10 @@
 'use client'
 
 import { formConfigForVisa } from '@lib/domain/form'
-import { calculatePoints, encodeQualifications } from '@lib/domain/qualifications'
+import { calculatePoints } from '@lib/domain/qualifications'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 import { useQualifications, useVisaFormProgress } from '@lib/hooks'
 import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/solid'
-import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import { notFound, usePathname } from 'next/navigation'
 import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
@@ -42,9 +41,6 @@ export default function Layout({ children, params }: Props) {
   )
   const doesQualify = points >= HSFP_QUALIFICATION_THRESHOLD
 
-  const firstSection = formConfig.order[0]
-  const editUrl = `/calculator/${params.visa}/${firstSection}/1?q=${encodeQualifications(qualifications)}`
-
   return (
     <div
       className={cn('flex flex-col relative', {
@@ -52,13 +48,8 @@ export default function Layout({ children, params }: Props) {
         'max-w-7xl mx-auto': !shouldRenderFormLayout,
       })}
     >
-      <div
-        className={cn('flex items-center px-4 border-b-4 border-zinc-900/50', {
-          'py-4': shouldRenderFormLayout,
-          'py-6': !shouldRenderFormLayout,
-        })}
-      >
-        {shouldRenderFormLayout ? (
+      {shouldRenderFormLayout ? (
+        <div className="flex items-center px-4 py-4 border-b-4 border-zinc-900/50">
           <button
             onClick={() => setSidebarActive(!sidebarActive)}
             className={cn(`p-2 mr-2 rounded md:hidden`, {})}
@@ -69,25 +60,14 @@ export default function Layout({ children, params }: Props) {
               <Bars3BottomLeftIcon className="w-6 h-6" />
             )}
           </button>
-        ) : null}
-        <Link
-          href={`/`}
-          className="no-underline hover:opacity-60 transition-opacity"
-        >
-          <Logo />
-        </Link>
-        {!shouldRenderFormLayout ? (
-          <div className="ml-auto">
-            <Link
-              href={editUrl}
-              className="button outline flex items-center gap-2 text-sm no-underline"
-            >
-              <PencilSquareIcon className="w-4 h-4" />
-              {t('actions.edit_answers')}
-            </Link>
-          </div>
-        ) : null}
-      </div>
+          <Link
+            href={`/`}
+            className="no-underline hover:opacity-60 transition-opacity"
+          >
+            <Logo />
+          </Link>
+        </div>
+      ) : null}
       <div className="flex flex-row flex-grow">
         {shouldRenderFormLayout ? (
           <aside
