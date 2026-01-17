@@ -441,15 +441,17 @@
           },
           "dual_degree": {
             "title": "Multiple degrees",
-            "prompt": "Do you hold degrees in multiple fields?",
+            "prompt": "Do you hold multiple master's or doctorate degrees in different fields?",
             "options": {
               "true": "Yes",
               "false": "No"
             },
             "faq_heading": "Frequently Asked Questions",
             "faq": {
-              "q0": "Does multiple majors count as different degrees?",
-              "a0": "TODO"
+              "q0": "Do multiple majors count as different degrees?",
+              "a0": "No. The regulation requires separate degrees (学位) in different fields (複数の分野), not just multiple majors within a single degree program. A double major or dual major within a single bachelor's or master's degree program does not qualify for the 5 bonus points.",
+              "q1": "What if I have multiple bachelor's degrees or a bachelor's + master's?",
+              "a1": "The 5 bonus points are only awarded for having multiple degrees at the master's, doctorate, or professional degree level. For example: two master's degrees in different fields = 25 points (20 + 5 bonus), but a bachelor's + master's in different fields = only 20 points (no bonus). Multiple bachelor's degrees also do not qualify for the bonus."
             }
           }
         },
