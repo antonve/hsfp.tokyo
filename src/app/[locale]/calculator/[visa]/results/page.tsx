@@ -18,6 +18,18 @@ interface Props {
 
 const STORAGE_KEY_PREFIX = 'hsfp-evidence'
 
+function EditAnswersButton({ editUrl }: { editUrl: string }) {
+  return (
+    <Link
+      href={editUrl}
+      className="button outline flex items-center gap-2 text-sm no-underline"
+    >
+      <PencilSquareIcon className="w-4 h-4" />
+      Edit Answers
+    </Link>
+  )
+}
+
 function useEvidenceChecklist(sessionId: string | undefined) {
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set())
 
@@ -102,20 +114,26 @@ export default function Page({ params }: Props) {
           </div>
         </div>
       )}
-      {points < HSFP_QUALIFICATION_THRESHOLD && <HowToImprove />}
+      {points === 0 && <HowToImprove showEditButton editUrl={editUrl} />}
+      {points > 0 && points < HSFP_QUALIFICATION_THRESHOLD && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <section className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
+              <EditAnswersButton editUrl={editUrl} />
+            </div>
+            <MatchesOverview matches={matches} totalPoints={points} />
+          </section>
+          <HowToImprove showEditButton={false} editUrl={editUrl} />
+        </div>
+      )}
       {points >= HSFP_QUALIFICATION_THRESHOLD && (
         <>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <section className="space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
-                <Link
-                  href={editUrl}
-                  className="button outline flex items-center gap-2 text-sm no-underline"
-                >
-                  <PencilSquareIcon className="w-4 h-4" />
-                  Edit Answers
-                </Link>
+                <EditAnswersButton editUrl={editUrl} />
               </div>
               <MatchesOverview matches={matches} totalPoints={points} />
             </section>
@@ -144,21 +162,6 @@ export default function Page({ params }: Props) {
             </p>
           </section>
         </>
-      )}
-      {points < HSFP_QUALIFICATION_THRESHOLD && (
-        <section className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
-            <Link
-              href={editUrl}
-              className="button outline flex items-center gap-2 text-sm no-underline"
-            >
-              <PencilSquareIcon className="w-4 h-4" />
-              Edit Answers
-            </Link>
-          </div>
-          <MatchesOverview matches={matches} totalPoints={points} />
-        </section>
       )}
     </main>
   )
@@ -389,7 +392,13 @@ function EvidenceItemCard({
   )
 }
 
-function HowToImprove() {
+function HowToImprove({
+  showEditButton,
+  editUrl,
+}: {
+  showEditButton: boolean
+  editUrl: string
+}) {
   const t = useTranslations('results')
 
   const categories = [
@@ -400,8 +409,15 @@ function HowToImprove() {
   ] as const
 
   return (
-    <section className="space-y-4 max-w-2xl">
-      <h2 className="font-semibold text-2xl">{t('how_to_improve.title')}</h2>
+    <section className="space-y-4">
+      {showEditButton ? (
+        <div className="flex items-center justify-between">
+          <h2 className="font-semibold text-2xl">{t('how_to_improve.title')}</h2>
+          <EditAnswersButton editUrl={editUrl} />
+        </div>
+      ) : (
+        <h2 className="font-semibold text-2xl">{t('how_to_improve.title')}</h2>
+      )}
       <p className="text-zinc-300">{t('how_to_improve.intro')}</p>
       <div className="space-y-4">
         {categories.map(category => (
