@@ -175,6 +175,9 @@ export default function Page({ params }: Props) {
             <p className="text-zinc-300">
               {t('permanent_residency.length_warning')}
             </p>
+            <p className="text-amber-400/90 text-sm italic mt-4">
+              {t('permanent_residency.political_caveat')}
+            </p>
           </section>
         </>
       )}
