@@ -189,6 +189,23 @@ Create `src/app/[locale]/your-path/page.tsx`. Access translations with:
 const t = useTranslations('namespace')
 ```
 
+## Development Workflow
+
+### Before Completing Changes
+
+**ALWAYS run `pnpm fmt` before finishing any changes.** This ensures consistent code formatting across the codebase using Prettier.
+
+```bash
+pnpm fmt          # Format all code
+pnpm fmt:check    # Verify formatting (useful in CI)
+```
+
+This should be done:
+- Before committing code
+- Before creating pull requests
+- After making any code changes
+- Before marking work as complete
+
 ## Path Aliases
 
 - `@app/*` → `./src/app/*`
