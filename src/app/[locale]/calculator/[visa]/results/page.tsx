@@ -2,10 +2,17 @@
 
 import { Criteria } from '@lib/domain'
 import { formConfigForVisa } from '@lib/domain/form'
-import { calculatePoints, encodeQualifications } from '@lib/domain/qualifications'
+import {
+  calculatePoints,
+  encodeQualifications,
+} from '@lib/domain/qualifications'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 import { useQualifications, useSessionId } from '@lib/hooks'
-import { ChevronDownIcon, ChevronRightIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
+import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  PencilSquareIcon,
+} from '@heroicons/react/24/outline'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useMemo, useState, useCallback, useEffect } from 'react'
@@ -110,7 +117,11 @@ export default function Page({ params }: Props) {
       ) : (
         <div className="p-[2px] font-semibold rounded-lg bg-gradient-to-r from-amber-400 from-10% to-orange-500 to-90% relative">
           <div className="bg-zinc-950/80 px-6 py-4 rounded-lg">
-            <p>{t('banner.not_qualified', { pointsNeeded: HSFP_QUALIFICATION_THRESHOLD - points })}</p>
+            <p>
+              {t('banner.not_qualified', {
+                pointsNeeded: HSFP_QUALIFICATION_THRESHOLD - points,
+              })}
+            </p>
           </div>
         </div>
       )}
@@ -132,7 +143,9 @@ export default function Page({ params }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <section className="space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
+                <h2 className="font-semibold text-2xl">
+                  {t('overview.title')}
+                </h2>
                 <EditAnswersButton editUrl={editUrl} />
               </div>
               <MatchesOverview matches={matches} totalPoints={points} />
@@ -337,12 +350,18 @@ function EvidenceItemCard({
 
   // Check if the translation exists (next-intl returns the key if not found)
   const documentsString = t(documentsKey)
-  const hasDocuments = documentsString && documentsString !== documentsKey && !documentsString.includes('evidence.items')
+  const hasDocuments =
+    documentsString &&
+    documentsString !== documentsKey &&
+    !documentsString.includes('evidence.items')
   const documents = hasDocuments ? documentsString.split(' | ') : []
 
   const notesString = t(notesKey)
   // Only use notes if translation exists (not a key pattern)
-  const hasNotes = notesString && notesString !== notesKey && !notesString.includes('evidence.items')
+  const hasNotes =
+    notesString &&
+    notesString !== notesKey &&
+    !notesString.includes('evidence.items')
   const notes = hasNotes ? notesString : undefined
 
   if (!hasDocuments && !notes) {
@@ -412,7 +431,9 @@ function HowToImprove({
     <section className="space-y-4">
       {showEditButton ? (
         <div className="flex items-center justify-between">
-          <h2 className="font-semibold text-2xl">{t('how_to_improve.title')}</h2>
+          <h2 className="font-semibold text-2xl">
+            {t('how_to_improve.title')}
+          </h2>
           <EditAnswersButton editUrl={editUrl} />
         </div>
       ) : (

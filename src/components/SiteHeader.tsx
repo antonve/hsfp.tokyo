@@ -10,7 +10,8 @@ export function SiteHeader() {
   const t = useTranslations('nav')
 
   // Hide header only on calculator form pages, not on results page
-  const shouldHideHeader = pathname.includes('/calculator/') && !pathname.endsWith('/results')
+  const shouldHideHeader =
+    pathname.includes('/calculator/') && !pathname.endsWith('/results')
 
   if (shouldHideHeader) {
     return null
