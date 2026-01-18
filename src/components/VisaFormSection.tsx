@@ -16,6 +16,7 @@ import { useLanguage } from '@lib/hooks'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef } from 'react'
 import { withCompletedPrompt } from '@lib/domain/prompts'
+import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid'
 
 export type QualificationUpdater = (
   qualifications: Qualifications,
@@ -125,10 +126,10 @@ export function VisaFormSection({
           translationPrefix={translationPrefix}
         />
       </div>
-      <div className="">
+      <div className="flex justify-end">
         <button
           type="button"
-          className="button outline w-full box-border justify-center"
+          className="button outline w-full md:w-auto box-border justify-center"
           onClick={() => {
             const resultsUrl = `${urlPrefix}/results?q=${encodeQualifications(
               qualifications,
@@ -137,6 +138,7 @@ export function VisaFormSection({
           }}
         >
           {t(`visa_form.actions.go_to_results`)}
+          <ChevronDoubleRightIcon className="h-5 w-5 ml-2" />
         </button>
       </div>
     </div>
