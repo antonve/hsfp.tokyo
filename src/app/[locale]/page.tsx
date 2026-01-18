@@ -31,7 +31,7 @@ export default function Page() {
         <div className="text-center">
           <a
             href="#calculator"
-            className="group inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-zinc-900 font-bold py-4 px-10 rounded-full shadow-lg shadow-emerald-500/25 hover:shadow-emerald-400/40 hover:scale-105 transition-all duration-300"
+            className="group inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-400 hover:from-emerald-400 hover:to-emerald-300 text-zinc-900 font-bold py-4 px-10 hover:scale-105 transition-all duration-300"
           >
             {t('hero_cta')}
             <ArrowDownIcon className="w-5 h-5 group-hover:translate-y-0.5 transition-transform duration-300" />
