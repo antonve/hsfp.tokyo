@@ -1,7 +1,18 @@
 {
   "nav": {
     "home": "Home",
-    "about": "About"
+    "about": "About",
+    "settings": "Settings"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "dark": "Dark",
+    "light": "Light",
+    "data": "Local Data",
+    "clear_description": "Clear your evidence checklist progress. This cannot be undone.",
+    "clear_data": "Clear All Local Data",
+    "clear_confirm": "Click again to confirm"
   },
   "home": {
     "title": "Japan Highly Skilled Foreign Professional Visa Points Calculator",

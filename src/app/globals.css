@@ -6,6 +6,101 @@ a {
   text-decoration: underline;
 }
 
+/* Theme variables */
+:root {
+  --bg-primary: theme('colors.zinc.950');
+  --bg-secondary: theme('colors.zinc.900');
+  --bg-tertiary: theme('colors.zinc.800');
+  --text-primary: theme('colors.gray.50');
+  --text-secondary: theme('colors.zinc.300');
+  --text-muted: theme('colors.zinc.400');
+  --border-color: theme('colors.zinc.700');
+  --border-subtle: theme('colors.zinc.800');
+}
+
+.light-theme {
+  --bg-primary: theme('colors.gray.50');
+  --bg-secondary: theme('colors.white');
+  --bg-tertiary: theme('colors.gray.100');
+  --text-primary: theme('colors.zinc.900');
+  --text-secondary: theme('colors.zinc.700');
+  --text-muted: theme('colors.zinc.500');
+  --border-color: theme('colors.zinc.300');
+  --border-subtle: theme('colors.zinc.200');
+}
+
+/* Apply theme to body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Light theme overrides for specific components */
+.light-theme .bg-zinc-950 {
+  background-color: var(--bg-primary);
+}
+
+.light-theme .bg-zinc-900 {
+  background-color: var(--bg-secondary);
+}
+
+.light-theme .bg-zinc-900\/30 {
+  background-color: rgb(243 244 246 / 0.3);
+}
+
+.light-theme .bg-zinc-800 {
+  background-color: var(--bg-tertiary);
+}
+
+.light-theme .bg-zinc-800\/50 {
+  background-color: rgb(243 244 246 / 0.5);
+}
+
+.light-theme .text-gray-50 {
+  color: var(--text-primary);
+}
+
+.light-theme .text-zinc-100 {
+  color: var(--text-primary);
+}
+
+.light-theme .text-zinc-200 {
+  color: theme('colors.zinc.800');
+}
+
+.light-theme .text-zinc-300 {
+  color: var(--text-secondary);
+}
+
+.light-theme .text-zinc-400 {
+  color: var(--text-muted);
+}
+
+.light-theme .text-zinc-500 {
+  color: theme('colors.zinc.600');
+}
+
+.light-theme .border-zinc-700 {
+  border-color: var(--border-color);
+}
+
+.light-theme .border-zinc-800 {
+  border-color: var(--border-subtle);
+}
+
+.light-theme .border-zinc-900\/50 {
+  border-color: rgb(228 228 231 / 0.5);
+}
+
+.light-theme .hover\:bg-zinc-800\/50:hover {
+  background-color: rgb(243 244 246 / 0.5);
+}
+
+.light-theme .shadow-border {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 1px 0px, rgba(0, 0, 0, 0.16) 0px 0px 0px 1px;
+}
+
 @layer utilities {
   .shadow-border {
     box-shadow: rgba(255, 255, 255, 0.05) 0px 1px 1px 0px, rgba(235, 235, 234, 0.16) 0px 0px 0px 1px;
