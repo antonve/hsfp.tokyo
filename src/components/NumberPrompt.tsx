@@ -2,7 +2,7 @@ import { NumberPrompt as NumberPromptType, SectionName } from '@lib/domain/form'
 import { QualificationUpdater } from './VisaFormSection'
 import { VisaType } from '@lib/domain'
 import { Qualifications } from '@lib/domain/qualifications'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { isPromptCompleted, withCompletedPrompt } from '@lib/domain/prompts'
 import {
   ArrowRightIcon,
@@ -43,6 +43,12 @@ export function NumberPrompt({
 
     return undefined
   })
+
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
 
   function formatWithCommas(value: number | undefined) {
     if (value === undefined) {
@@ -105,6 +111,7 @@ export function NumberPrompt({
       <div className="space-y-3 mb-8">
         <div className="relative h-9 w-full md:max-w-[200px]">
           <input
+            ref={inputRef}
             type="text"
             className={classNames(
               'box-border h-full w-full pl-2 py-2 bg-transparent rounded shadow-border absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-emerald-400/80 appearance-none',

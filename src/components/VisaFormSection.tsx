@@ -3,6 +3,7 @@ import {
   VisaProgress,
   getOverallPromptIndex,
   nextStepOfForm,
+  previousStepOfForm,
 } from '@lib/domain/form'
 import {
   Qualifications,
@@ -13,6 +14,8 @@ import { FrequentlyAskedQuestions } from '@components/FrequentlyAskedQuestions'
 import { useParams, useRouter } from 'next/navigation'
 import { useLanguage } from '@lib/hooks'
 import { useTranslations } from 'next-intl'
+import { useEffect, useRef } from 'react'
+import { withCompletedPrompt } from '@lib/domain/prompts'
 
 export type QualificationUpdater = (
   qualifications: Qualifications,
@@ -42,6 +45,8 @@ export function VisaFormSection({
   )
   const translationPrefix = `visa_form.${config.visaType}.sections.${progress.section}.${prompt.id}`
 
+  const formRef = useRef<HTMLDivElement>(null)
+
   const submit = (updateQualifications: QualificationUpdater) => {
     const { section, promptIndex, finished } = nextStepOfForm(config, progress)
     const newQualifications = updateQualifications(qualifications)
@@ -53,8 +58,56 @@ export function VisaFormSection({
     router.push(nextPage)
   }
 
+  const goToPreviousQuestion = () => {
+    const { section, promptIndex, isFirst } = previousStepOfForm(
+      config,
+      progress,
+    )
+    if (isFirst) return
+
+    const prevPage = `${urlPrefix}/${section}/${promptIndex + 1}?q=${encodeQualifications(qualifications)}`
+    router.push(prevPage)
+  }
+
+  const skipAndGoNext = () => {
+    submit(q => ({
+      ...withCompletedPrompt(overallPromptIndex, q),
+    }))
+  }
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Skip if user is typing in an input field (for NumberPrompt)
+      const target = e.target as HTMLElement
+      const isTextInput =
+        target.tagName === 'INPUT' &&
+        (target as HTMLInputElement).type === 'text'
+
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        goToPreviousQuestion()
+      }
+
+      if (e.key === 'ArrowRight' && !isTextInput) {
+        e.preventDefault()
+        skipAndGoNext()
+      }
+
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        const form = formRef.current?.querySelector('form')
+        if (form) {
+          form.requestSubmit()
+        }
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  })
+
   return (
-    <div className="flex flex-col min-h-full">
+    <div ref={formRef} className="flex flex-col min-h-full">
       <h2 className="font-semibold text-2xl mb-5">
         {t(`${translationPrefix}.prompt`)}
       </h2>

@@ -7,7 +7,7 @@ import {
   ArrowRightIcon,
   ChevronDoubleRightIcon,
 } from '@heroicons/react/20/solid'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import cn from 'classnames'
 import { QualificationUpdater } from './VisaFormSection'
 import { useTranslations } from 'next-intl'
@@ -49,6 +49,35 @@ export function ChoicePrompt({
     return undefined
   })
 
+  const firstInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    firstInputRef.current?.focus()
+  }, [])
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Number keys 1-9
+      if (e.key >= '1' && e.key <= '9') {
+        const index = parseInt(e.key) - 1
+        if (index < prompt.options.length) {
+          setValue(prompt.options[index])
+        }
+      }
+      // Arrow up/down
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault()
+        const currentIndex = value ? prompt.options.indexOf(value) : -1
+        const delta = e.key === 'ArrowDown' ? 1 : -1
+        const newIndex =
+          (currentIndex + delta + prompt.options.length) % prompt.options.length
+        setValue(prompt.options[newIndex])
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [value, prompt.options])
+
   const promptKey = `${visaType}.sections.${section}.${prompt.id}`
   const t = useTranslations(`visa_form`)
 
@@ -79,6 +108,7 @@ export function ChoicePrompt({
             >
               <div className="flex">
                 <input
+                  ref={i === 0 ? firstInputRef : undefined}
                   id={promptOptionId(prompt, option)}
                   type="radio"
                   onChange={() => setValue(option)}

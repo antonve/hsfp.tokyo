@@ -84,6 +84,37 @@ export function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {
   }
 }
 
+export function previousStepOfForm(
+  formConfig: FormConfig,
+  progress: VisaProgress,
+) {
+  const sectionIndex = formConfig.order.indexOf(progress.section)
+
+  if (progress.promptIndex > 0) {
+    return {
+      section: progress.section,
+      promptIndex: progress.promptIndex - 1,
+      isFirst: false,
+    }
+  }
+
+  if (sectionIndex > 0) {
+    const prevSection = formConfig.order[sectionIndex - 1]
+    const prevSectionPrompts = formConfig.sections[prevSection]?.length ?? 0
+    return {
+      section: prevSection,
+      promptIndex: prevSectionPrompts - 1,
+      isFirst: false,
+    }
+  }
+
+  return {
+    section: progress.section,
+    promptIndex: progress.promptIndex,
+    isFirst: true,
+  }
+}
+
 export function getOverallPromptIndex(
   formConfig: FormConfig,
   section: SectionName,
