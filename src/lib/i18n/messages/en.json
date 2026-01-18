@@ -16,21 +16,83 @@
   },
   "home": {
     "title": "Japan Highly Skilled Foreign Professional Visa Points Calculator",
-    "subtitle": "Choose your visa category to start the points calculation.",
+    "subtitle": "Discover if you qualify for Japan's most advantageous work visa. Calculate your points instantly and unlock a faster path to permanent residency.",
+    "why_hsfp": {
+      "title": "Why the HSFP Visa?",
+      "description": "The Highly Skilled Foreign Professional visa offers significant advantages over standard work visas, making it the preferred choice for qualified professionals looking to build a long-term future in Japan.",
+      "benefits": {
+        "pr_fast_track": {
+          "title": "Fast-Track to Permanent Residency",
+          "description": "Apply for PR in just 1 year with 80+ points, or 3 years with 70+ points. Standard visas require 10 years of residence."
+        },
+        "five_year_visa": {
+          "title": "5-Year Visa Duration",
+          "description": "Receive a 5-year visa from the start, providing stability without frequent renewals."
+        },
+        "family": {
+          "title": "Family Benefits",
+          "description": "Your spouse can work full-time. With sufficient income, you may also bring your parents to help with childcare."
+        },
+        "priority_processing": {
+          "title": "Priority Processing",
+          "description": "Enjoy faster processing times for visa applications, renewals, and status changes."
+        },
+        "multiple_activities": {
+          "title": "Multiple Activities",
+          "description": "Run a side business or engage in additional professional activities while maintaining your primary role."
+        },
+        "indefinite_stay": {
+          "title": "Path to Indefinite Stay",
+          "description": "After 3 years on HSFP (i), you can apply for HSFP (ii) status with indefinite stay period."
+        }
+      }
+    },
+    "how_app_helps": {
+      "title": "How This Calculator Helps",
+      "description": "Preparing for the HSFP visa can be complex. Our calculator simplifies the process so you can focus on what matters.",
+      "features": {
+        "calculate": {
+          "title": "Instant Calculation",
+          "description": "Answer simple questions about your qualifications and get your points total immediately."
+        },
+        "improve": {
+          "title": "Improvement Tips",
+          "description": "See exactly how many points you need and get actionable suggestions to increase your score."
+        },
+        "evidence": {
+          "title": "Evidence Checklist",
+          "description": "Know exactly which documents you'll need to prepare for your application."
+        },
+        "share": {
+          "title": "Shareable Results",
+          "description": "Results are stored in the URL. Share with immigration lawyers or save for later - no account needed."
+        }
+      }
+    },
+    "points_info": {
+      "title": "The Points System",
+      "qualify": "Points to qualify for HSFP",
+      "pr_1_year": "Points for 1-year PR fast-track",
+      "description": "Points are awarded based on your education, work experience, salary, age, Japanese language ability, and other factors. Most professionals with a master's degree and relevant experience can reach the threshold."
+    },
+    "calculator": {
+      "title": "Calculate Your Points",
+      "subtitle": "Select your visa category to begin the assessment."
+    },
     "visa_cards": {
       "engineer": {
         "title": "Engineer",
-        "description": "Visa for various engineering roles.",
+        "description": "For software engineers, data scientists, IT professionals, and other technical specialists.",
         "cta": "Start points calculation"
       },
       "researcher": {
         "title": "Researcher",
-        "description": "Visa for academic research activities.",
+        "description": "For professors, scientists, and those in academic research roles.",
         "cta": "Coming soon"
       },
       "business_manager": {
         "title": "Business Manager",
-        "description": "Visa for managerial positions in business.",
+        "description": "For executives, managers, and business operation leaders.",
         "cta": "Coming soon"
       }
     }
