@@ -49,7 +49,9 @@ export function FrequentlyAskedQuestions({
               )}
             </h3>
             <div
-              className={classNames('text-sm mt-2', { hidden: !isToggled(i) })}
+              className={classNames('faq-answer text-sm mt-2', {
+                hidden: !isToggled(i),
+              })}
               dangerouslySetInnerHTML={{ __html: t.raw(`faq.a${i}`) }}
             />
           </li>
