@@ -95,7 +95,7 @@ export function ChoicePrompt({
                     },
                   )}
                 >
-                  {getLetterForPosition(i)}
+                  {i + 1}
                 </span>
                 <label
                   htmlFor={promptOptionId(prompt, option)}
@@ -132,8 +132,4 @@ export function ChoicePrompt({
 
 function promptOptionId(prompt: Prompt, option: string) {
   return `${prompt.id}-${option}`
-}
-
-function getLetterForPosition(i: number) {
-  return String.fromCharCode(65 + i)
 }
