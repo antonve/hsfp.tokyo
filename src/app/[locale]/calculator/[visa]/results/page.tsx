@@ -175,7 +175,7 @@ export default function Page({ params }: Props) {
             <p className="text-zinc-300">
               {t('permanent_residency.length_warning')}
             </p>
-            <p className="text-amber-400/90 text-sm italic mt-4">
+            <p className="text-sm text-zinc-500 italic">
               {t('permanent_residency.political_caveat')}
             </p>
           </section>
@@ -195,52 +195,55 @@ function MatchesOverview({
   const t = useTranslations('results')
 
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="border-b border-zinc-700">
-            <th className="text-left py-3 px-4 font-semibold text-zinc-300">
-              {t('overview.category')}
-            </th>
-            <th className="text-left py-3 px-4 font-semibold text-zinc-300">
-              {t('overview.explanation')}
-            </th>
-            <th className="text-right py-3 px-4 font-semibold text-zinc-300">
-              {t('overview.points')}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {matches.map((match, index) => (
-            <tr
-              key={match.id}
-              className={`border-b border-zinc-800 ${
-                index % 2 === 0 ? 'bg-zinc-900/30' : ''
-              }`}
-            >
-              <td className="py-3 px-4 text-zinc-300">
-                {t(`criteria.${match.id}.category`)}
+    <div className="space-y-3">
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="border-b border-zinc-700">
+              <th className="text-left py-3 px-4 font-semibold text-zinc-300">
+                {t('overview.category')}
+              </th>
+              <th className="text-left py-3 px-4 font-semibold text-zinc-300">
+                {t('overview.explanation')}
+              </th>
+              <th className="text-right py-3 px-4 font-semibold text-zinc-300">
+                {t('overview.points')}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {matches.map((match, index) => (
+              <tr
+                key={match.id}
+                className={`border-b border-zinc-800 ${
+                  index % 2 === 0 ? 'bg-zinc-900/30' : ''
+                }`}
+              >
+                <td className="py-3 px-4 text-zinc-300">
+                  {t(`criteria.${match.id}.category`)}
+                </td>
+                <td className="py-3 px-4 text-zinc-400">
+                  {t(`criteria.${match.id}.explanation`)}
+                </td>
+                <td className="py-3 px-4 text-right font-mono text-zinc-300">
+                  {match.points}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr className="border-t-2 border-zinc-600 font-semibold">
+              <td className="py-3 px-4 text-zinc-200" colSpan={2}>
+                {t('overview.total')}
               </td>
-              <td className="py-3 px-4 text-zinc-400">
-                {t(`criteria.${match.id}.explanation`)}
-              </td>
-              <td className="py-3 px-4 text-right font-mono text-zinc-300">
-                {match.points}
+              <td className="py-3 px-4 text-right font-mono text-zinc-200">
+                {totalPoints}
               </td>
             </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr className="border-t-2 border-zinc-600 font-semibold">
-            <td className="py-3 px-4 text-zinc-200" colSpan={2}>
-              {t('overview.total')}
-            </td>
-            <td className="py-3 px-4 text-right font-mono text-zinc-200">
-              {totalPoints}
-            </td>
-          </tr>
-        </tfoot>
-      </table>
+          </tfoot>
+        </table>
+      </div>
+      <p className="text-sm text-zinc-500 italic">{t('overview.disclaimer')}</p>
     </div>
   )
 }
