@@ -27,6 +27,14 @@ export default function Page() {
         <p className="text-center my-8 text-zinc-400 text-xl/relaxed lg:text-2xl/relaxed xl:text-3xl/relaxed max-w-4xl mx-auto">
           {t('subtitle')}
         </p>
+        <div className="text-center">
+          <a
+            href="#calculator"
+            className="inline-block bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200"
+          >
+            {t('hero_cta')}
+          </a>
+        </div>
       </section>
 
       {/* Why HSFP Section */}
@@ -194,7 +202,10 @@ export default function Page() {
       </section>
 
       {/* Calculator Section */}
-      <section className="max-w-7xl px-4 mt-20 mb-16">
+      <section
+        id="calculator"
+        className="max-w-7xl px-4 mt-20 mb-16 scroll-mt-8"
+      >
         <h2 className="text-3xl font-bold text-center mb-4">
           {t('calculator.title')}
         </h2>
