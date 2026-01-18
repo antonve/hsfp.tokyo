@@ -78,6 +78,7 @@ export const formConfig: FormConfig = {
       {
         id: 'org_promotes_innovation',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
       {
         id: 'org_smb',
@@ -127,6 +128,7 @@ export const formConfig: FormConfig = {
       {
         id: 'uni_funded',
         type: 'BOOLEAN',
+        faqCount: 1,
       },
       {
         id: 'uni_partner',

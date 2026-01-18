@@ -89,7 +89,7 @@
       "researcher": {
         "title": "Researcher",
         "description": "For professors, scientists, and those in academic research roles.",
-        "cta": "Coming soon"
+        "cta": "Start points calculation"
       },
       "business_manager": {
         "title": "Business Manager",
@@ -628,6 +628,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What qualifies as 'innovation support measures'?",
+              "a0": "This refers to organizations receiving government subsidies or grants for innovation-related projects. Examples include:<br /><ul><li>Companies with an approved Management Innovation Plan (経営革新計画) from their prefectural government</li><li>Organizations receiving Grants-in-Aid for Scientific Research</li><li>J-Startup designated companies</li></ul>You don't need to be personally involved in the innovation project—just employed by a qualifying organization. Ask your employer's HR department if they have received any qualifying subsidies. The official list is maintained by the <a href=\"https://www.moj.go.jp/isa/content/930001665.pdf\" target=\"_blank\">Immigration Services Agency</a>."
             }
           },
           "org_smb": {
@@ -653,7 +658,7 @@
           },
           "high_rnd_expenses": {
             "title": "R&D expenses",
-            "prompt": "Does your organization's total research & development costs exceed 3% of their total revenue?",
+            "prompt": "Is your organization an SME with research & development costs exceeding 3% of total revenue?",
             "options": {
               "true": "Yes",
               "false": "No"
@@ -676,7 +681,7 @@
             "faq_heading": "Frequently Asked Questions",
             "faq": {
               "q0": "What are \"growth fields with expected future development\"?",
-              "a0": "These are cutting-edge business sectors recognized by the Minister of Justice after consulting with relevant government agencies. This typically includes emerging technologies and strategic industries."
+              "a0": "These are cutting-edge business sectors recognized by the Minister of Justice after consulting with relevant government agencies. This typically includes emerging technologies and strategic industries. See the <a href=\"https://www.moj.go.jp/isa/content/930001664.pdf\" target=\"_blank\">official list of growth fields (PDF)</a>."
             }
           }
         },
@@ -737,6 +742,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What is the Top Global Universities Project?",
+              "a0": "The Top Global Universities Project (スーパーグローバル大学創成支援事業) was a MEXT initiative from 2014-2024 to enhance internationalization of Japanese universities. It designated 37 universities in two categories:<br /><br /><strong>Type A (Top Type) - 13 universities:</strong> Hokkaido, Tohoku, Tsukuba, Tokyo, Tokyo Medical and Dental, Tokyo Institute of Technology, Nagoya, Kyoto, Osaka, Hiroshima, Kyushu, Keio, Waseda<br /><br /><strong>Type B (Global Traction Type) - 24 universities:</strong> Including Chiba, Kanazawa, Okayama, Kumamoto, ICU, Sophia, Meiji, Ritsumeikan, and others.<br /><br />For the full list, see the <a href=\"https://www.mext.go.jp/en/policy/education/highered/title02/detail02/sdetail02/1395420.htm\" target=\"_blank\">official MEXT website</a>."
             }
           },
           "uni_partner": {
@@ -773,7 +783,7 @@
             "faq_heading": "Frequently Asked Questions",
             "faq": {
               "q0": "What JICA training programs qualify?",
-              "a0": "Training programs designated by the Minister of Justice, particularly those conducted as part of university courses through the Innovative Asia Project or similar government-supported programs."
+              "a0": "Training programs designated by the Minister of Justice, particularly those conducted as part of university courses through the Innovative Asia Project. See the <a href=\"https://www.mofa.go.jp/mofaj/ic/ap_m/page22_002808.html\" target=\"_blank\">official Innovative Asia Project page</a> for more details."
             }
           },
           "investment_management": {
@@ -787,6 +797,285 @@
             "faq": {
               "q0": "What investment management activities qualify?",
               "a0": "Activities that strengthen financial functions, as designated by the Minister of Justice after consulting with relevant administrative agencies. This typically includes specialized financial services roles."
+            }
+          }
+        }
+      }
+    },
+    "researcher": {
+      "sections": {
+        "education": {
+          "title": "Education",
+          "degree": {
+            "title": "Degree",
+            "prompt": "What is your highest degree?",
+            "options": {
+              "doctor": "Doctorate degree",
+              "master": "Master degree",
+              "bachelor": "Bachelor degree",
+              "none": "I have no higher education degree"
+            }
+          },
+          "dual_degree": {
+            "title": "Multiple degrees",
+            "prompt": "Do you hold multiple master's or doctorate degrees in different fields?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Do multiple majors count as different degrees?",
+              "a0": "No. The regulation requires separate degrees (学位) in different fields (複数の分野), not just multiple majors within a single degree program. A double major or dual major within a single bachelor's or master's degree program does not qualify for the 5 bonus points.",
+              "q1": "What if I have multiple bachelor's degrees or a bachelor's + master's?",
+              "a1": "The 5 bonus points are only awarded for having multiple degrees at the master's, doctorate, or professional degree level. For example: two master's degrees in different fields = 25 points (20 + 5 bonus), but a bachelor's + master's in different fields = only 20 points (no bonus). Multiple bachelor's degrees also do not qualify for the bonus."
+            }
+          }
+        },
+        "job": {
+          "title": "Job",
+          "experience": {
+            "title": "Research experience",
+            "prompt": "How many years of experience in research, research guidance, or education do you have?",
+            "input_label": "years",
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What counts as \"practical experience\" (実務経験)?",
+              "a0": "For researchers: Experience in research, research guidance, or education related to your field. This includes academic positions, research roles at institutions, and teaching positions at universities.",
+              "q1": "Does my experience outside my home country count?",
+              "a1": "Yes, all qualifying work experience counts regardless of the country where it was obtained, as long as it's relevant to research, research guidance, or education."
+            }
+          },
+          "age": {
+            "title": "Age",
+            "prompt": "How old are you at the time of application?",
+            "input_label": "years old",
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Why does age matter for points?",
+              "a0": "Younger applicants receive bonus points (15 points for under 30, 10 points for 30-34, 5 points for 35-39) to encourage long-term contribution to Japan's academic and research sectors.",
+              "q1": "Which age is used for calculation?",
+              "a1": "Your age at the time of application (or visa status determination) is used for the points calculation."
+            }
+          },
+          "salary": {
+            "title": "Salary",
+            "prompt": "What is the expected yearly total compensation at your main activity?",
+            "input_label": "Yen",
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What income sources are included?",
+              "a0": "Your total annual income includes compensation from both your contracting organization in Japan AND any foreign affiliated organization (if you're being transferred from an overseas institution).",
+              "q1": "Do I need to provide my exact salary?",
+              "a1": "Round down to the nearest million yen (e.g., ¥8.7M becomes ¥8M). Points max out at ¥10 million, so there's no benefit to entering higher amounts. Your salary information is not stored on our servers—all data stays in your browser.",
+              "q2": "What if my salary changes?",
+              "a2": "Your points are calculated based on your expected annual salary at the time of application. If your salary increases later, you may be able to recalculate points for visa renewal."
+            }
+          }
+        },
+        "research": {
+          "title": "Research",
+          "patent_inventor": {
+            "title": "Patents",
+            "prompt": "Have you successfully patented any of your inventions?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "conducted_financed_projects": {
+            "title": "Financing",
+            "prompt": "Have you engaged in foreign government funded research at least 3 times?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What counts as \"research funded by foreign governments\"?",
+              "a0": "Participation in research projects that received grants, competitive funding, or other financial support from foreign government agencies. You need 3 or more such experiences."
+            }
+          },
+          "published_papers": {
+            "title": "Published work",
+            "prompt": "Have you published at least 3 papers in academic journals listed in academic databases as the corresponding author?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What qualifies as a \"responsible author\" (責任著者) for publications?",
+              "a0": "A responsible author is the corresponding author who can respond to inquiries about the paper. You need at least 3 such publications in academic journals registered in databases used by Japanese government agencies."
+            }
+          },
+          "recognized_research": {
+            "title": "Other achievements",
+            "prompt": "Do you have any other research achievements which are recognized by Japan's Minister of Justice?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What other research achievements might qualify?",
+              "a0": "This includes research achievements not covered by patents, government-funded projects, or publications, but deemed equivalent by the Minister of Justice after consulting with relevant administrative agencies."
+            }
+          }
+        },
+        "employer": {
+          "title": "Bonus: employer",
+          "org_promotes_innovation": {
+            "title": "Innovation",
+            "prompt": "Will you work for an organization which receives financial support measures for the promotion of innovation?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What qualifies as 'innovation support measures'?",
+              "a0": "This refers to organizations receiving government subsidies or grants for innovation-related projects. Examples include:<br /><ul><li>Companies with an approved Management Innovation Plan (経営革新計画) from their prefectural government</li><li>Organizations receiving Grants-in-Aid for Scientific Research</li><li>J-Startup designated companies</li></ul>You don't need to be personally involved in the innovation project—just employed by a qualifying organization. Ask your employer's HR department if they have received any qualifying subsidies. The official list is maintained by the <a href=\"https://www.moj.go.jp/isa/content/930001665.pdf\" target=\"_blank\">Immigration Services Agency</a>."
+            }
+          },
+          "org_smb": {
+            "title": "SME act",
+            "prompt": "Is your organization recognized as a small or medium-sized enterprise under the Small and Medium-Sized Enterprise Basic Act?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "org_promotes_highly_skilled": {
+            "title": "Highly skilled",
+            "prompt": "Does your organization receive support from local governments for promoting the acceptance of highly skilled foreign workers?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What support programs qualify?",
+              "a0": "Organizations receiving government support or subsidies specifically for accepting highly skilled foreign professionals may qualify for bonus points."
+            }
+          },
+          "high_rnd_expenses": {
+            "title": "R&D expenses",
+            "prompt": "Is your organization an SME with research & development costs exceeding 3% of total revenue?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What is the \"R&D expense ratio\" bonus?",
+              "a0": "SME employers can qualify for 5 bonus points if their research and development expenses exceed 3% of their revenue in the fiscal year before your application.",
+              "q1": "How is the R&D ratio calculated?",
+              "a1": "It's calculated by dividing the total of research/development expenses and costs for starting new businesses by the total revenue (excluding income from fixed asset sales or securities transfers) in the previous fiscal year."
+            }
+          },
+          "growth_field": {
+            "title": "Growth field",
+            "prompt": "Will you be involved in a project in a growth field with the involvement of the relevant ministries and agencies?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What are \"growth fields with expected future development\"?",
+              "a0": "These are cutting-edge business sectors recognized by the Minister of Justice after consulting with relevant government agencies. This typically includes emerging technologies and strategic industries. See the <a href=\"https://www.moj.go.jp/isa/content/930001664.pdf\" target=\"_blank\">official list of growth fields (PDF)</a>."
+            }
+          }
+        },
+        "university": {
+          "title": "Bonus: education",
+          "jp": {
+            "title": "Japanese ability",
+            "prompt": "What proof do you have for your Japanese ability?",
+            "options": {
+              "jp_major": "I have a major in Japanese",
+              "n1": "JLPT N1 certificate (or equivalent)",
+              "n2": "JLPT N2 certificate (or equivalent)",
+              "none": "I have no proof"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Can I combine Japanese language points with Japanese university graduation?",
+              "a0": "If you graduated from a Japanese university (10 points), you cannot also claim the N2 bonus (10 points), as your degree already demonstrates Japanese proficiency. However, you CAN combine Japanese university graduation with N1 (15 points) or a Japanese language major from a foreign university (15 points) for a total of 25 points."
+            }
+          },
+          "jp_uni_grad": {
+            "title": "Japanese university",
+            "prompt": "Did you graduate from a Japanese university or have you completed a graduate program in Japan?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "uni_ranked": {
+            "title": "Ranked university",
+            "prompt": "Did you graduate from a top 300 university?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Which university rankings are used?",
+              "a0": "Foreign universities need to be listed in at least two rankings, Japanese universities only need to be listed once.<br /><ul><li><a href=\"https://www.topuniversities.com/university-rankings/world-university-rankings/2024\" target=\"_blank\">QS World University Rankings</a></li><li><a href=\"https://www.timeshighereducation.com/world-university-rankings/2024/world-ranking\" target=\"_blank\">THE World University Rankings</a></li><li><a href=\"https://www.shanghairanking.com/rankings/arwu/2023\" target=\"_blank\">Academic Ranking of World Universities</a></li></ul>",
+              "q1": "When are the rankings checked?",
+              "a1": "The Ministry of Justice updates the qualifying university list periodically. The current list is based on rankings as of September 2023 (last updated January 2025)."
+            }
+          },
+          "uni_funded": {
+            "title": "Funded university",
+            "prompt": "Did you graduate from a university which receives subsidies from the Top Global Universities Project implemented by the Ministry of Education, Culture, Sports, Science and Technology?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What is the Top Global Universities Project?",
+              "a0": "The Top Global Universities Project (スーパーグローバル大学創成支援事業) was a MEXT initiative from 2014-2024 to enhance internationalization of Japanese universities. It designated 37 universities in two categories:<br /><br /><strong>Type A (Top Type) - 13 universities:</strong> Hokkaido, Tohoku, Tsukuba, Tokyo, Tokyo Medical and Dental, Tokyo Institute of Technology, Nagoya, Kyoto, Osaka, Hiroshima, Kyushu, Keio, Waseda<br /><br /><strong>Type B (Global Traction Type) - 24 universities:</strong> Including Chiba, Kanazawa, Okayama, Kumamoto, ICU, Sophia, Meiji, Ritsumeikan, and others.<br /><br />For the full list, see the <a href=\"https://www.mext.go.jp/en/policy/education/highered/title02/detail02/sdetail02/1395420.htm\" target=\"_blank\">official MEXT website</a>."
+            }
+          },
+          "uni_partner": {
+            "title": "Partner university",
+            "prompt": "Did you graduate from a university which is designated as a partner school in the Innovative Asia Project implemented by the Ministry of Foreign Affairs?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          }
+        },
+        "bonus": {
+          "title": "Bonus: others",
+          "foreign_qualification": {
+            "title": "Recognized qualifications",
+            "prompt": "Do you have any foreign work-related qualifications or awards which are recognized by Japan's Minister of Justice?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Do international certifications count?",
+              "a0": "They may count under the bonus points system for foreign qualifications that demonstrate advanced expertise related to research or academic achievements. These must be officially recognized by the Minister of Justice."
+            }
+          },
+          "training_jica": {
+            "title": "Training by JICA",
+            "prompt": "Have you completed training conducted by JICA as part of the Innovative Asia Project by the Ministry of Foreign Affairs?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What JICA training programs qualify?",
+              "a0": "Training programs designated by the Minister of Justice, particularly those conducted as part of university courses through the Innovative Asia Project. See the <a href=\"https://www.mofa.go.jp/mofaj/ic/ap_m/page22_002808.html\" target=\"_blank\">official Innovative Asia Project page</a> for more details."
             }
           }
         }

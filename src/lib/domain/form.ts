@@ -1,8 +1,8 @@
 import { z } from 'zod'
 import { VisaType } from '@lib/domain'
-import { formConfig as formConfigA } from '@lib/domain/visa.businessmanager'
-import { formConfig as formConfigB } from '@lib/domain/visa.engineer'
-import { formConfig as formConfigC } from '@lib/domain/visa.researcher'
+import { formConfig as formConfigBusinessManager } from '@lib/domain/visa.businessmanager'
+import { formConfig as formConfigEngineer } from '@lib/domain/visa.engineer'
+import { formConfig as formConfigResearcher } from '@lib/domain/visa.researcher'
 import { Qualifications } from '@lib/domain/qualifications'
 import { isPromptCompleted } from '@lib/domain/prompts'
 import { ReactElement } from 'react'
@@ -112,11 +112,11 @@ export function getOverallPromptIndex(
 export function formConfigForVisa(visa: string) {
   switch (visa) {
     case 'researcher':
-      return formConfigA
+      return formConfigResearcher
     case 'engineer':
-      return formConfigB
+      return formConfigEngineer
     case 'business-manager':
-      return formConfigC
+      return formConfigBusinessManager
   }
 }
 
