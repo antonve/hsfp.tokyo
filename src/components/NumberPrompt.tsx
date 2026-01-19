@@ -164,7 +164,7 @@ export function NumberPrompt({
         </button>
         <button
           type="button"
-          className="button outline m-2"
+          className="button secondary m-2"
           onClick={() =>
             onSubmit(q => ({
               ...withCompletedPrompt(overallPromptIndex, q),

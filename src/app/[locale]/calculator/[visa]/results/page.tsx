@@ -29,7 +29,7 @@ function EditAnswersButton({ editUrl }: { editUrl: string }) {
   return (
     <Link
       href={editUrl}
-      className="button outline flex items-center gap-2 text-sm no-underline"
+      className="button secondary flex items-center gap-2 text-sm no-underline"
     >
       <PencilSquareIcon className="w-4 h-4" />
       Edit Answers

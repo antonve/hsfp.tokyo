@@ -129,7 +129,7 @@ export function VisaFormSection({
       <div className="flex justify-end">
         <button
           type="button"
-          className="button outline w-full md:w-auto box-border justify-center"
+          className="button secondary w-full md:w-auto justify-center"
           onClick={() => {
             const resultsUrl = `${urlPrefix}/results?q=${encodeQualifications(
               qualifications,

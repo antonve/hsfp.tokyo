@@ -216,7 +216,7 @@ This should be done:
 
 - Dark theme: `bg-zinc-950`, `text-gray-50`
 - Accent color: `emerald-400`
-- Button classes: `.button`, `.button.outline` (defined in `globals.css`)
+- Button classes: `.button`, `.button.secondary` (defined in `globals.css`)
 - Responsive breakpoints: `md:` (768px), `lg:` (1024px)
 
 ## Testing
