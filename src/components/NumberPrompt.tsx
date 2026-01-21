@@ -129,6 +129,7 @@ export function NumberPrompt({
               const { value } = e.target
               const numberValue = Number(value.replace(/,/g, ''))
               setValue(numberValue)
+              setValidationError(undefined)
             }}
             onKeyDown={e => {
               const okKey = [
