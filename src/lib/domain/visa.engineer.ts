@@ -56,6 +56,7 @@ export const formConfig: FormConfig = {
         },
         faqCount: 3,
         maxPoints: 40,
+        required: true,
       },
     ],
     research: [

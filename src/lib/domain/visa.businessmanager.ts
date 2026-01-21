@@ -37,6 +37,7 @@ export const formConfig: FormConfig = {
         config: { min: 3_000_000 },
         faqCount: 3,
         maxPoints: 50,
+        required: true,
       },
     ],
     position: [

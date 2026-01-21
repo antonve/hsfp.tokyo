@@ -166,13 +166,15 @@ export function NumberPrompt({
         <button
           type="button"
           className="button secondary m-2"
+          disabled={prompt.required}
+          title={prompt.required ? t(`actions.cannot_skip_hint`) : undefined}
           onClick={() =>
             onSubmit(q => ({
               ...withCompletedPrompt(overallPromptIndex, q),
             }))
           }
         >
-          {t(`actions.skip`)}
+          {prompt.required ? t(`actions.cannot_skip`) : t(`actions.skip`)}
           <ChevronDoubleRightIcon className="h-5 w-5 ml-2" />
         </button>
       </div>

@@ -544,6 +544,8 @@
     "actions": {
       "continue": "Continue",
       "skip": "Skip this question",
+      "cannot_skip": "Cannot be skipped",
+      "cannot_skip_hint": "This question is required to calculate your eligibility",
       "go_to_results": "Skip all & view result",
       "edit_answers": "Edit Answers"
     },

@@ -123,6 +123,11 @@ body {
     @apply bg-zinc-800 text-zinc-300 px-4 h-12 md:h-9 flex items-center rounded whitespace-nowrap relative outline outline-2 outline-transparent;
     @apply hover:outline-emerald-400/80 hover:bg-zinc-700 transition-all;
   }
+
+  .button.secondary:disabled {
+    @apply bg-zinc-800/50 text-zinc-500 cursor-not-allowed;
+    @apply hover:outline-transparent hover:bg-zinc-800/50;
+  }
 }
 
 /* FAQ answer styles */
