@@ -1,4 +1,31 @@
 {
+  "visa_intro": {
+    "title": "{visaType} Visa Calculator",
+    "time_estimate": "Takes about 5-10 minutes",
+    "job_coverage": {
+      "heading": "Who is this for?",
+      "engineer": "Software engineers, data scientists, IT professionals, and other technical specialists working in Japan.",
+      "researcher": "Professors, scientists, and those in academic research roles at universities or research institutions.",
+      "business-manager": "Executives, managers, and business operation leaders running or managing companies in Japan."
+    },
+    "requirements": {
+      "heading": "Key Requirements",
+      "salary": "Minimum annual salary of ¥3,000,000",
+      "points": "70 points needed to qualify"
+    },
+    "tips": {
+      "heading": "Tips",
+      "skip": "Most questions can be skipped if they don't apply to you",
+      "results": "You can view your results anytime"
+    },
+    "prepare": {
+      "heading": "What You'll Need",
+      "salary": "Your annual salary",
+      "education": "Education history",
+      "experience": "Work experience details"
+    },
+    "start_button": "Start Calculator"
+  },
   "nav": {
     "home": "Home",
     "about": "About",
