@@ -65,8 +65,7 @@ export default function Page() {
           </Link>
 
           <Link
-            className="card bg-zinc-900 hover:bg-zinc-900/80 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80 pointer-events-none opacity-30"
-            aria-disabled="true"
+            className="card bg-zinc-900 hover:bg-zinc-900/80 transition ease-in-out duration-200 shadow-xl p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80"
             href={`/calculator/business-manager`}
           >
             <div className="card-body space-y-4">

@@ -12,8 +12,56 @@ import { z } from 'zod'
 
 export const formConfig: FormConfig = {
   visaType: VisaType.BusinessManager,
-  sections: {},
-  order: ['education', 'job'],
+  sections: {
+    education: [
+      {
+        id: 'degree',
+        type: 'CHOICE',
+        options: ['mba_mot', 'doctor', 'master', 'bachelor', 'none'],
+        faqCount: 1,
+      },
+      { id: 'dual_degree', type: 'BOOLEAN', faqCount: 2 },
+    ],
+    job: [
+      {
+        id: 'experience',
+        type: 'NUMBER',
+        config: { min: 0, max: 50 },
+        faqCount: 2,
+      },
+      { id: 'salary', type: 'NUMBER', config: { min: 3_000_000 }, faqCount: 3 },
+    ],
+    position: [
+      { id: 'representative_director', type: 'BOOLEAN', faqCount: 1 },
+      { id: 'executive_officer', type: 'BOOLEAN', faqCount: 1 },
+    ],
+    employer: [
+      { id: 'org_promotes_innovation', type: 'BOOLEAN', faqCount: 1 },
+      { id: 'org_smb', type: 'BOOLEAN' },
+      { id: 'org_promotes_highly_skilled', type: 'BOOLEAN', faqCount: 1 },
+      { id: 'high_rnd_expenses', type: 'BOOLEAN', faqCount: 2 },
+      { id: 'growth_field', type: 'BOOLEAN', faqCount: 1 },
+    ],
+    university: [
+      {
+        id: 'jp',
+        type: 'CHOICE',
+        options: ['jp_major', 'n1', 'n2', 'none'],
+        faqCount: 1,
+      },
+      { id: 'jp_uni_grad', type: 'BOOLEAN' },
+      { id: 'uni_ranked', type: 'BOOLEAN', faqCount: 2 },
+      { id: 'uni_funded', type: 'BOOLEAN', faqCount: 1 },
+      { id: 'uni_partner', type: 'BOOLEAN' },
+    ],
+    bonus: [
+      { id: 'foreign_qualification', type: 'BOOLEAN', faqCount: 1 },
+      { id: 'training_jica', type: 'BOOLEAN', faqCount: 1 },
+      { id: 'high_investment', type: 'BOOLEAN', faqCount: 1 },
+      { id: 'investment_management', type: 'BOOLEAN', faqCount: 1 },
+    ],
+  },
+  order: ['education', 'job', 'position', 'university', 'employer', 'bonus'],
 }
 
 // Comments indicate to what item/項目 they refer to in the official point sheet

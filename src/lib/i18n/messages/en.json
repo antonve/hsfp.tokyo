@@ -94,7 +94,7 @@
       "business_manager": {
         "title": "Business Manager",
         "description": "For executives, managers, and business operation leaders.",
-        "cta": "Coming soon"
+        "cta": "Start points calculation"
       }
     }
   },
@@ -313,6 +313,34 @@
         "investment_management": {
           "documents": "Employment contract describing investment management duties | Documentation of investment fund management activities | Evidence of managing assets exceeding ¥100M in trades/investments for third parties",
           "notes": "Applies to those engaged in investment fund management or discretionary investment business. Must be managing substantial third-party investments."
+        },
+        "representative_director": {
+          "documents": "Corporate registration certificate (法人の登記事項証明書) showing appointment as representative director | Board resolution appointing as representative | Employment contract or appointment letter",
+          "notes": "Must be appointed as representative director (代表取締役), representative executive officer (代表執行役), or representative executive member (代表権のある業務執行社員). Cannot be combined with executive officer bonus."
+        },
+        "executive_officer": {
+          "documents": "Corporate registration certificate (法人の登記事項証明書) showing appointment | Board resolution appointing as director/officer | Employment contract or appointment letter",
+          "notes": "Must be appointed as board director (取締役), executive officer (執行役), or executive member (業務執行社員). Cannot be combined with representative director bonus."
+        },
+        "high_investment": {
+          "documents": "Investment documentation showing ¥100M+ investment | Bank statements or wire transfer records | Corporate documentation showing ownership stake | Investment agreements or contracts",
+          "notes": "Investment must be in trade or other business conducted by a public or private organization in Japan. The ¥100M investment must be made by the applicant."
+        },
+        "30m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
+        },
+        "25m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
+        },
+        "20m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
+        },
+        "15m_plus": {
+          "documents": "Employment contract showing annual compensation | Offer letter with salary details | For renewals: withholding tax statement (源泉徴収票) or tax certificate",
+          "notes": "Salary must be the expected annual compensation from your contracting organization in Japan. Bonuses and allowances are included, but commuting and housing allowances are typically excluded."
         }
       }
     },
@@ -476,6 +504,34 @@
       "investment_management": {
         "category": "Bonus",
         "explanation": "Engaged in investment management business"
+      },
+      "representative_director": {
+        "category": "Position",
+        "explanation": "Representative director or representative executive officer"
+      },
+      "executive_officer": {
+        "category": "Position",
+        "explanation": "Board director, executive officer, or executive member"
+      },
+      "high_investment": {
+        "category": "Bonus",
+        "explanation": "Investment of ¥100M+ in business in Japan"
+      },
+      "30m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥30,000,000+ annual salary"
+      },
+      "25m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥25,000,000+ annual salary"
+      },
+      "20m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥20,000,000+ annual salary"
+      },
+      "15m_plus": {
+        "category": "Annual Salary",
+        "explanation": "¥15,000,000+ annual salary"
       }
     }
   },
@@ -1077,6 +1133,284 @@
             "faq": {
               "q0": "What JICA training programs qualify?",
               "a0": "Training programs designated by the Minister of Justice, particularly those conducted as part of university courses through the Innovative Asia Project. See the <a href=\"https://www.mofa.go.jp/mofaj/ic/ap_m/page22_002808.html\" target=\"_blank\">official Innovative Asia Project page</a> for more details."
+            }
+          }
+        }
+      }
+    },
+    "business-manager": {
+      "sections": {
+        "education": {
+          "title": "Education",
+          "degree": {
+            "title": "Degree",
+            "prompt": "What is your highest degree?",
+            "options": {
+              "mba_mot": "MBA or MOT (Management degree)",
+              "doctor": "Doctorate degree",
+              "master": "Master degree",
+              "bachelor": "Bachelor degree",
+              "none": "I have no higher education degree"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What is MOT?",
+              "a0": "MOT (Master of Technology Management) is a professional graduate degree focused on managing technology-driven businesses and innovation. It combines technical knowledge with business management skills. Like MBA, MOT qualifies for the top education points (25 points) for the Business Manager visa because it demonstrates expertise in managing business operations. Learn more at the <a href=\"https://motjapan.org/en/about/details.html\" target=\"_blank\">MOT Japan website</a>."
+            }
+          },
+          "dual_degree": {
+            "title": "Multiple degrees",
+            "prompt": "Do you hold multiple master's or doctorate degrees in different fields?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Do multiple majors count as different degrees?",
+              "a0": "No. The regulation requires separate degrees (学位) in different fields (複数の分野), not just multiple majors within a single degree program. A double major or dual major within a single bachelor's or master's degree program does not qualify for the 5 bonus points.",
+              "q1": "What if I have multiple bachelor's degrees or a bachelor's + master's?",
+              "a1": "The 5 bonus points are only awarded for having multiple degrees at the master's, doctorate, or professional degree level. For example: two master's degrees in different fields = 25 points (20 + 5 bonus), but a bachelor's + master's in different fields = only 20 points (no bonus). Multiple bachelor's degrees also do not qualify for the bonus."
+            }
+          }
+        },
+        "job": {
+          "title": "Job",
+          "experience": {
+            "title": "Management experience",
+            "prompt": "How many years of experience in business management do you have?",
+            "input_label": "years",
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What counts as business management experience?",
+              "a0": "Experience in business management or operation roles (事業の経営又は管理に係る実務経験). This includes executive positions, management roles, and business administration positions where you were responsible for managing business operations.",
+              "q1": "Does my experience outside my home country count?",
+              "a1": "Yes, all qualifying work experience counts regardless of the country where it was obtained, as long as it's relevant to business management."
+            }
+          },
+          "salary": {
+            "title": "Salary",
+            "prompt": "What is the expected yearly total compensation at your main activity?",
+            "input_label": "Yen",
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What income sources are included?",
+              "a0": "Your total annual income includes compensation from both your contracting organization in Japan AND any foreign affiliated organization (if you're being transferred from an overseas branch).",
+              "q1": "How is salary scored for Business Manager?",
+              "a1": "Business Manager visa has higher salary thresholds than Engineer: ¥30M+ = 50 points, ¥25M+ = 40 points, ¥20M+ = 30 points, ¥15M+ = 20 points, ¥10M+ = 10 points. There are no age restrictions for salary points.",
+              "q2": "What if my salary changes?",
+              "a2": "Your points are calculated based on your expected annual salary at the time of application. If your salary increases later, you may be able to recalculate points for visa renewal."
+            }
+          }
+        },
+        "position": {
+          "title": "Position",
+          "representative_director": {
+            "title": "Representative director",
+            "prompt": "Will you be appointed as a representative director, representative executive officer, or representative executive member?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What positions qualify as representative director?",
+              "a0": "This includes representative director (代表取締役), representative executive officer (代表執行役), or representative executive member with representative authority (代表権のある業務執行社員). These are the highest executive positions with authority to represent the company."
+            }
+          },
+          "executive_officer": {
+            "title": "Executive officer",
+            "prompt": "Will you be appointed as a board director, executive officer, or executive member (non-representative)?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What positions qualify as executive officer?",
+              "a0": "This includes board director (取締役), executive officer (執行役), or executive member (業務執行社員) without representative authority. Note: If you selected representative director above, you cannot also claim points for executive officer."
+            }
+          }
+        },
+        "university": {
+          "title": "Bonus: education",
+          "jp": {
+            "title": "Japanese ability",
+            "prompt": "What proof do you have for your Japanese ability?",
+            "options": {
+              "jp_major": "I have a major in Japanese",
+              "n1": "JLPT N1 certificate (or equivalent)",
+              "n2": "JLPT N2 certificate (or equivalent)",
+              "none": "I have no proof"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Can I combine Japanese language points with Japanese university graduation?",
+              "a0": "If you graduated from a Japanese university (10 points), you cannot also claim the N2 bonus (10 points), as your degree already demonstrates Japanese proficiency. However, you CAN combine Japanese university graduation with N1 (15 points) or a Japanese language major from a foreign university (15 points) for a total of 25 points."
+            }
+          },
+          "jp_uni_grad": {
+            "title": "Japanese university",
+            "prompt": "Did you graduate from a Japanese university or have you completed a graduate program in Japan?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "uni_ranked": {
+            "title": "Ranked university",
+            "prompt": "Did you graduate from a top 300 university?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Which university rankings are used?",
+              "a0": "Foreign universities need to be listed in at least two rankings, Japanese universities only need to be listed once.<br /><ul><li><a href=\"https://www.topuniversities.com/university-rankings/world-university-rankings/2024\" target=\"_blank\">QS World University Rankings</a></li><li><a href=\"https://www.timeshighereducation.com/world-university-rankings/2024/world-ranking\" target=\"_blank\">THE World University Rankings</a></li><li><a href=\"https://www.shanghairanking.com/rankings/arwu/2023\" target=\"_blank\">Academic Ranking of World Universities</a></li></ul>",
+              "q1": "When are the rankings checked?",
+              "a1": "The Ministry of Justice updates the qualifying university list periodically. The current list is based on rankings as of September 2023 (last updated January 2025)."
+            }
+          },
+          "uni_funded": {
+            "title": "Funded university",
+            "prompt": "Did you graduate from a university which receives subsidies from the Top Global Universities Project implemented by the Ministry of Education, Culture, Sports, Science and Technology?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What is the Top Global Universities Project?",
+              "a0": "The Top Global Universities Project (スーパーグローバル大学創成支援事業) was a MEXT initiative from 2014-2024 to enhance internationalization of Japanese universities. It designated 37 universities in two categories:<br /><br /><strong>Type A (Top Type) - 13 universities:</strong> Hokkaido, Tohoku, Tsukuba, Tokyo, Tokyo Medical and Dental, Tokyo Institute of Technology, Nagoya, Kyoto, Osaka, Hiroshima, Kyushu, Keio, Waseda<br /><br /><strong>Type B (Global Traction Type) - 24 universities:</strong> Including Chiba, Kanazawa, Okayama, Kumamoto, ICU, Sophia, Meiji, Ritsumeikan, and others.<br /><br />For the full list, see the <a href=\"https://www.mext.go.jp/en/policy/education/highered/title02/detail02/sdetail02/1395420.htm\" target=\"_blank\">official MEXT website</a>."
+            }
+          },
+          "uni_partner": {
+            "title": "Partner university",
+            "prompt": "Did you graduate from a university which is designated as a partner school in the Innovative Asia Project implemented by the Ministry of Foreign Affairs?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          }
+        },
+        "employer": {
+          "title": "Bonus: employer",
+          "org_promotes_innovation": {
+            "title": "Innovation",
+            "prompt": "Will you work for an organization which receives financial support measures for the promotion of innovation?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What qualifies as 'innovation support measures'?",
+              "a0": "This refers to organizations receiving government subsidies or grants for innovation-related projects. Examples include:<br /><ul><li>Companies with an approved Management Innovation Plan (経営革新計画) from their prefectural government</li><li>Organizations receiving Grants-in-Aid for Scientific Research</li><li>J-Startup designated companies</li></ul>You don't need to be personally involved in the innovation project—just employed by a qualifying organization. Ask your employer's HR department if they have received any qualifying subsidies. The official list is maintained by the <a href=\"https://www.moj.go.jp/isa/content/930001665.pdf\" target=\"_blank\">Immigration Services Agency</a>."
+            }
+          },
+          "org_smb": {
+            "title": "SME act",
+            "prompt": "Is your organization recognized as a small or medium-sized enterprise under the Small and Medium-Sized Enterprise Basic Act?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            }
+          },
+          "org_promotes_highly_skilled": {
+            "title": "Highly skilled",
+            "prompt": "Does your organization receive support from local governments for promoting the acceptance of highly skilled foreign workers?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What support programs qualify?",
+              "a0": "Organizations receiving government support or subsidies specifically for accepting highly skilled foreign professionals may qualify for bonus points."
+            }
+          },
+          "high_rnd_expenses": {
+            "title": "R&D expenses",
+            "prompt": "Is your organization an SME with research & development costs exceeding 3% of total revenue?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What is the \"R&D expense ratio\" bonus?",
+              "a0": "SME employers can qualify for 5 bonus points if their research and development expenses exceed 3% of their revenue in the fiscal year before your application.",
+              "q1": "How is the R&D ratio calculated?",
+              "a1": "It's calculated by dividing the total of research/development expenses and costs for starting new businesses by the total revenue (excluding income from fixed asset sales or securities transfers) in the previous fiscal year."
+            }
+          },
+          "growth_field": {
+            "title": "Growth field",
+            "prompt": "Will you be involved in a project in a growth field with the involvement of the relevant ministries and agencies?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What are \"growth fields with expected future development\"?",
+              "a0": "These are cutting-edge business sectors recognized by the Minister of Justice after consulting with relevant government agencies. This typically includes emerging technologies and strategic industries. See the <a href=\"https://www.moj.go.jp/isa/content/930001664.pdf\" target=\"_blank\">official list of growth fields (PDF)</a>."
+            }
+          }
+        },
+        "bonus": {
+          "title": "Bonus: others",
+          "foreign_qualification": {
+            "title": "Recognized qualifications",
+            "prompt": "Do you have any foreign work-related qualifications or awards which are recognized by Japan's Minister of Justice?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Do international certifications count?",
+              "a0": "They may count under the bonus points system for foreign qualifications that demonstrate advanced expertise related to business management. These must be officially recognized by the Minister of Justice."
+            }
+          },
+          "training_jica": {
+            "title": "Training by JICA",
+            "prompt": "Have you completed training conducted by JICA as part of the Innovative Asia Project by the Ministry of Foreign Affairs?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What JICA training programs qualify?",
+              "a0": "Training programs designated by the Minister of Justice, particularly those conducted as part of university courses through the Innovative Asia Project. See the <a href=\"https://www.mofa.go.jp/mofaj/ic/ap_m/page22_002808.html\" target=\"_blank\">official Innovative Asia Project page</a> for more details."
+            }
+          },
+          "high_investment": {
+            "title": "Large investment",
+            "prompt": "Have you invested ¥100 million or more in trade or other business conducted by a public or private organization in Japan?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What qualifies as a ¥100M investment?",
+              "a0": "This refers to direct investment of ¥100 million or more in a business operating in Japan. This could include capital investment in starting or expanding a business, purchasing equity stakes, or other substantial financial contributions to business operations in Japan."
+            }
+          },
+          "investment_management": {
+            "title": "Investment activities",
+            "prompt": "Will you engage in business related to investment management?",
+            "options": {
+              "true": "Yes",
+              "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "What investment management activities qualify?",
+              "a0": "Activities that strengthen financial functions, as designated by the Minister of Justice after consulting with relevant administrative agencies. This typically includes specialized financial services roles such as fund management or discretionary investment business."
             }
           }
         }
