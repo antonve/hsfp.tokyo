@@ -19,6 +19,13 @@ export function SiteHeader() {
   const shouldHideHeader =
     pathname.includes('/calculator/') && !isResultsPage && !isIntroPage
 
+  // Check active nav state (pathname includes locale prefix like /en)
+  const isHomePage = pathname === '/' || pathname.match(/^\/[a-z]{2}$/)
+  const isAboutPage = pathname.endsWith('/about')
+
+  const activeClass = 'border-b-2 border-emerald-400/80 hover:border-white/40'
+  const inactiveClass = 'hover:opacity-70'
+
   if (shouldHideHeader) {
     return null
   }
@@ -38,13 +45,16 @@ export function SiteHeader() {
               <li>
                 <Link
                   href={`/`}
-                  className="no-underline border-b-2 border-emerald-400/80 hover:border-white/40"
+                  className={`no-underline ${isHomePage ? activeClass : inactiveClass}`}
                 >
                   {t('home')}
                 </Link>
               </li>
               <li>
-                <Link href={`/about`} className="no-underline">
+                <Link
+                  href={`/about`}
+                  className={`no-underline ${isAboutPage ? activeClass : inactiveClass}`}
+                >
                   {t('about')}
                 </Link>
               </li>
