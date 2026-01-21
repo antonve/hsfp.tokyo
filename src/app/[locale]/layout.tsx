@@ -4,6 +4,7 @@ import { cormorantGaramond, inter } from '@app/fonts'
 
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
+import { SiteFooter } from '@components/SiteFooter'
 import { SiteHeader } from '@components/SiteHeader'
 import { ThemeProvider } from '@lib/ThemeContext'
 
@@ -51,6 +52,7 @@ export default async function RootLayout({
           <ThemeProvider>
             <SiteHeader />
             {children}
+            <SiteFooter />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
