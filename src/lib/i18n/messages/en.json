@@ -1,4 +1,31 @@
 {
+  "about": {
+    "title": "About",
+    "author": {
+      "name": "Anton Van Eechaute",
+      "role": "Software Engineer",
+      "bio": "Originally from Belgium, I've been living in Tokyo since 2016. I came to Japan on a working visa and later obtained permanent residency through the HSFP visa program.",
+      "email": "contact@hsfp.tokyo",
+      "website": "antonve.be"
+    },
+    "motivation": {
+      "title": "Why I Built This",
+      "content": "When I was preparing my own HSFP application, I found the official points calculation sheet confusing and tedious to work with. The PDF forms weren't interactive, and it was hard to understand which categories applied to my situation. I built this calculator to make the process easier for others going through the same journey."
+    },
+    "partnership": {
+      "title": "For Immigration Professionals",
+      "content": "Are you a 行政書士 (administrative scrivener) or immigration professional? I'm open to advertising on this site to help visitors find qualified help with their applications.",
+      "cta": "If you're interested, reach out at"
+    },
+    "source": {
+      "title": "Sources & Disclaimer",
+      "isa_link": "This calculator is based on the official points calculation criteria published by the Immigration Services Agency (ISA) of Japan.",
+      "isa_link_text": "View official ISA documents",
+      "last_updated": "Last updated: January 2026",
+      "disclaimer": "While I strive to keep this calculator accurate and up-to-date, immigration rules can change. This tool is for informational purposes only and should not be considered legal advice.",
+      "contact": "If you notice any errors or outdated information, please let me know at"
+    }
+  },
   "visa_intro": {
     "title": "{visaType} Visa Calculator",
     "time_estimate": "Takes about 5-10 minutes",
