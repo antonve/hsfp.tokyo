@@ -93,17 +93,29 @@ export default function Page({ params }: Props) {
   const formConfig = formConfigForVisa(params.visa)!
   const qualifications = useQualifications(formConfig.visaType)
   const sessionId = useSessionId()
-  const { points, matches } = useMemo(
-    () => calculatePoints(qualifications),
-    [qualifications],
-  )
+  const { points, matches } = useMemo(() => {
+    try {
+      return calculatePoints(qualifications)
+    } catch {
+      return { points: 0, matches: [] }
+    }
+  }, [qualifications])
 
   const visaType = t(`visa_type.${formConfig.visaType}`)
   const firstSection = formConfig.order[0]
   const editUrl = `/calculator/${params.visa}/${firstSection}/1?q=${encodeQualifications(qualifications)}`
+  const missingSalary =
+    qualifications.salary === undefined || qualifications.salary < 3_000_000
 
   return (
     <main className="space-y-8">
+      {missingSalary && (
+        <div className="p-4 border-2 border-red-800 rounded-lg bg-red-950/20">
+          <p className="text-red-400 font-medium">
+            {t('banner.missing_salary')}
+          </p>
+        </div>
+      )}
       {points >= HSFP_QUALIFICATION_THRESHOLD ? (
         <div className=" p-[2px] font-semibold rounded-lg bg-gradient-to-r from-emerald-300 from-10% to-emerald-500 to-90% relative">
           <span className="absolute -top-3 -left-2 text-4xl"> &#x1f389;</span>

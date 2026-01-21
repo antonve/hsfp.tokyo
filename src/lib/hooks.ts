@@ -1,7 +1,6 @@
 import { VisaType } from '@lib/domain'
 import { FormConfig, SectionNameSchema, VisaProgress } from '@lib/domain/form'
 import {
-  Qualifications,
   QualificationsSchema,
   decodeQualifications,
   generateSessionId,
@@ -51,7 +50,14 @@ export function useQualifications(visaType: VisaType) {
     })
   }
 
-  return decodeQualifications(encodedQualifications)
+  const qualifications = decodeQualifications(encodedQualifications)
+
+  // Default salary to 0 if missing to prevent calculation errors
+  if (qualifications.salary === undefined) {
+    qualifications.salary = 0
+  }
+
+  return qualifications
 }
 
 /**

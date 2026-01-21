@@ -106,7 +106,8 @@
     },
     "banner": {
       "qualified": "Congrats, based on your answers you qualify for the Highly Skilled Foreign Professional ({visaType}) visa!",
-      "not_qualified": "You need {pointsNeeded} more points to qualify for the HSFP visa."
+      "not_qualified": "You need {pointsNeeded} more points to qualify for the HSFP visa.",
+      "missing_salary": "A minimum annual salary of ¥3,000,000 is required to qualify for the HSFP visa. Please enter your salary to see accurate results."
     },
     "preview": {
       "qualified": "Congrats, you qualify for the visa!",

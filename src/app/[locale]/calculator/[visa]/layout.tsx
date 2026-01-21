@@ -35,10 +35,13 @@ export default function Layout({ children, params }: Props) {
   const progress = useVisaFormProgress(formConfig)
   const t = useTranslations('visa_form')
   const [sidebarActive, setSidebarActive] = useState(false)
-  const { points } = useMemo(
-    () => calculatePoints(qualifications),
-    [qualifications],
-  )
+  const { points } = useMemo(() => {
+    try {
+      return calculatePoints(qualifications)
+    } catch {
+      return { points: 0, matches: [] }
+    }
+  }, [qualifications])
   const doesQualify = points >= HSFP_QUALIFICATION_THRESHOLD
 
   return (
