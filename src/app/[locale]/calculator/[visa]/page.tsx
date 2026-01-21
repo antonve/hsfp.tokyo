@@ -38,8 +38,8 @@ export default function Page({ params }: Props) {
         {/* Image */}
         <div className="hidden lg:flex lg:w-64 xl:w-72 flex-shrink-0 items-center">
           <Image
-            src="/images/calculator-intro.jpg"
-            alt="Tokyo cityscape"
+            src={`/images/calculator-intro-${params.visa}.jpg`}
+            alt=""
             width={533}
             height={800}
             className="rounded-lg object-cover w-full"
