@@ -48,6 +48,7 @@ export function ChoicePrompt({
 
     return undefined
   })
+  const [error, setError] = useState<string | null>(null)
 
   const firstInputRef = useRef<HTMLInputElement>(null)
 
@@ -62,6 +63,7 @@ export function ChoicePrompt({
         const index = parseInt(e.key) - 1
         if (index < prompt.options.length) {
           setValue(prompt.options[index])
+          setError(null)
         }
       }
       // Arrow up/down
@@ -72,6 +74,7 @@ export function ChoicePrompt({
         const newIndex =
           (currentIndex + delta + prompt.options.length) % prompt.options.length
         setValue(prompt.options[newIndex])
+        setError(null)
       }
     }
     window.addEventListener('keydown', handleKeyDown)
@@ -87,13 +90,14 @@ export function ChoicePrompt({
         e.preventDefault()
 
         if (!value) {
-          // TODO: handle validation
+          setError(t('validation.choice_required'))
           return
         }
 
         onSubmit(qualificationUpdater(value))
       }}
     >
+      {error && <p className="text-red-400 mb-4">{error}</p>}
       <div className="space-y-3 mb-8">
         {prompt.options.map((option, i) => (
           <div className="w-full" key={option}>
@@ -111,7 +115,10 @@ export function ChoicePrompt({
                   ref={i === 0 ? firstInputRef : undefined}
                   id={promptOptionId(prompt, option)}
                   type="radio"
-                  onChange={() => setValue(option)}
+                  onChange={() => {
+                    setValue(option)
+                    setError(null)
+                  }}
                   name={prompt.id}
                   className="absolute inset-0 cursor-pointer w-full h-full opacity-0"
                   checked={value === option}

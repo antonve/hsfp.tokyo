@@ -550,6 +550,7 @@
     "faq_heading": "Frequently Asked Questions",
     "validation": {
       "required": "A value is required",
+      "choice_required": "Please select an option, or skip this question",
       "min": "Should be more than {min}",
       "max": "Should be less than {max}"
     },
