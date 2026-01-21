@@ -18,11 +18,13 @@ export const formConfig: FormConfig = {
         id: 'degree',
         type: 'CHOICE',
         options: ['doctor', 'mba_mot', 'master', 'bachelor', 'none'],
+        maxPoints: 30,
       },
       {
         id: 'dual_degree',
         type: 'BOOLEAN',
         faqCount: 2,
+        maxPoints: 5,
       },
     ],
     job: [
@@ -34,6 +36,7 @@ export const formConfig: FormConfig = {
           max: 50,
         },
         faqCount: 2,
+        maxPoints: 20,
       },
       {
         id: 'age',
@@ -43,6 +46,7 @@ export const formConfig: FormConfig = {
           max: 120,
         },
         faqCount: 2,
+        maxPoints: 15,
       },
       {
         id: 'salary',
@@ -51,27 +55,32 @@ export const formConfig: FormConfig = {
           min: 3_000_000,
         },
         faqCount: 3,
+        maxPoints: 40,
       },
     ],
     research: [
       {
         id: 'patent_inventor',
         type: 'BOOLEAN',
+        maxPoints: 15,
       },
       {
         id: 'conducted_financed_projects',
         type: 'BOOLEAN',
         faqCount: 1,
+        maxPoints: 15,
       },
       {
         id: 'published_papers',
         type: 'BOOLEAN',
         faqCount: 1,
+        maxPoints: 15,
       },
       {
         id: 'recognized_research',
         type: 'BOOLEAN',
         faqCount: 1,
+        maxPoints: 15,
       },
     ],
     employer: [
@@ -79,25 +88,30 @@ export const formConfig: FormConfig = {
         id: 'org_promotes_innovation',
         type: 'BOOLEAN',
         faqCount: 1,
+        maxPoints: 10,
       },
       {
         id: 'org_smb',
         type: 'BOOLEAN',
+        maxPoints: 10,
       },
       {
         id: 'org_promotes_highly_skilled',
         type: 'BOOLEAN',
         faqCount: 1,
+        maxPoints: 10,
       },
       {
         id: 'high_rnd_expenses',
         type: 'BOOLEAN',
         faqCount: 2,
+        maxPoints: 5,
       },
       {
         id: 'growth_field',
         type: 'BOOLEAN',
         faqCount: 1,
+        maxPoints: 10,
       },
     ],
     university: [
@@ -109,30 +123,36 @@ export const formConfig: FormConfig = {
           hideLabel: true,
         },
         faqCount: 2,
+        maxPoints: 10,
       },
       {
         id: 'jp',
         type: 'CHOICE',
         options: ['jp_major', 'n1', 'n2', 'none'],
         faqCount: 1,
+        maxPoints: 15,
       },
       {
         id: 'jp_uni_grad',
         type: 'BOOLEAN',
+        maxPoints: 10,
       },
       {
         id: 'uni_ranked',
         type: 'BOOLEAN',
         faqCount: 2,
+        maxPoints: 10,
       },
       {
         id: 'uni_funded',
         type: 'BOOLEAN',
         faqCount: 1,
+        maxPoints: 10,
       },
       {
         id: 'uni_partner',
         type: 'BOOLEAN',
+        maxPoints: 10,
       },
     ],
     bonus: [
@@ -140,16 +160,19 @@ export const formConfig: FormConfig = {
         id: 'foreign_qualification',
         type: 'BOOLEAN',
         faqCount: 1,
+        maxPoints: 5,
       },
       {
         id: 'training_jica',
         type: 'BOOLEAN',
         faqCount: 1,
+        maxPoints: 5,
       },
       {
         id: 'investment_management',
         type: 'BOOLEAN',
         faqCount: 1,
+        maxPoints: 10,
       },
     ],
   },

@@ -554,6 +554,10 @@
       "min": "Should be more than {min}",
       "max": "Should be less than {max}"
     },
+    "points_hint": {
+      "up_to": "Up to {points} points",
+      "conditional": "Actual points may vary based on your other qualifications"
+    },
     "test": "<a href=\"#lol\">test</a>",
     "form_title": "{visaType} visa",
     "engineer": {

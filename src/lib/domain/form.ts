@@ -42,6 +42,7 @@ export interface ChoicePrompt {
   type: 'CHOICE'
   options: string[]
   faqCount?: number
+  maxPoints?: number
 }
 
 export interface NumberPrompt {
@@ -49,12 +50,14 @@ export interface NumberPrompt {
   type: 'NUMBER'
   config: NumberPromptConfig
   faqCount?: number
+  maxPoints?: number
 }
 
 export interface BooleanPrompt {
   id: string
   type: 'BOOLEAN'
   faqCount?: number
+  maxPoints?: number
 }
 
 export interface NumberPromptConfig {
