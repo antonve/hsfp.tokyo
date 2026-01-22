@@ -1,4 +1,6 @@
+import { Metadata } from 'next'
 import { formConfigForVisa } from '@lib/domain/form'
+import { visaTypeLabels, getVisaTypeFromSlug } from '@lib/og'
 import {
   ClockIcon,
   CheckCircleIcon,
@@ -15,6 +17,28 @@ interface Props {
   params: {
     visa: string
     locale: string
+  }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const visaType = getVisaTypeFromSlug(params.visa)
+  const visaLabel = visaType ? visaTypeLabels[visaType] : 'Visa'
+
+  const title = `${visaLabel} Visa Calculator - HSFP.tokyo`
+  const description = `Calculate if you qualify for Japan's Highly Skilled Foreign Professional (HSFP) ${visaLabel} visa. 70 points to qualify, takes about 5 minutes.`
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      siteName: 'HSFP.tokyo',
+    },
+    twitter: {
+      card: 'summary_large_image',
+    },
   }
 }
 

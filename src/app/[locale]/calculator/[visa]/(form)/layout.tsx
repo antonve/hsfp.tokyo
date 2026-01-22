@@ -30,9 +30,15 @@ export default function Layout({ children, params }: Props) {
 
   const pathname = usePathname()
   const isResultsPage = pathname.endsWith('/results')
+  const isOgImage = pathname.includes('opengraph-image')
 
   const qualifications = useQualifications(formConfig.visaType)
-  const progress = useVisaFormProgress(formConfig)
+  const progress = useVisaFormProgress(formConfig, isOgImage)
+
+  // OG image routes don't need the layout
+  if (isOgImage) {
+    return <>{children}</>
+  }
   const t = useTranslations('visa_form')
   const [sidebarActive, setSidebarActive] = useState(false)
   const { points } = useMemo(() => {

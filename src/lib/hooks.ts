@@ -24,15 +24,27 @@ const paramsSchema = z.object({
   prompt: z.coerce.number().optional().default(1),
 })
 
-export function useVisaFormProgress(config: FormConfig) {
+export function useVisaFormProgress(config: FormConfig, skip = false) {
   const params = useParams()
-  const { section, prompt } = paramsSchema.parse(params)
+
+  if (skip) {
+    return { section: config.order[0], promptIndex: 0 } as VisaProgress
+  }
+
+  const parsed = paramsSchema.safeParse(params)
+
+  if (!parsed.success) {
+    // Return default for invalid routes (e.g., opengraph-image routes)
+    return { section: config.order[0], promptIndex: 0 } as VisaProgress
+  }
+
+  const { section, prompt } = parsed.data
 
   if (config.sections[section] === undefined) {
-    throw Error(`invalid section ${section}`)
+    return { section: config.order[0], promptIndex: 0 } as VisaProgress
   }
   if (config.sections[section]!!.length < prompt) {
-    throw Error(`invalid prompt ${section}`)
+    return { section: config.order[0], promptIndex: 0 } as VisaProgress
   }
 
   return { section, promptIndex: prompt - 1 } as VisaProgress
@@ -82,7 +94,7 @@ export function useSessionId(): string | undefined {
 
 export function useLanguage() {
   const params = useParams()
-  const { locale } = paramsSchema.parse(params)
+  const locale = params.locale as string
 
-  return locale
+  return locale || 'en'
 }

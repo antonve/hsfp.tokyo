@@ -11,9 +11,20 @@ import { ThemeProvider } from '@lib/ThemeContext'
 import '@app/globals.css'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://hsfp.tokyo'),
   title: 'HSFP.tokyo',
   description:
     'Calculate if you are eligible for the Highly Skilled Foreign Professional visa in Japan!',
+  openGraph: {
+    title: 'HSFP.tokyo',
+    description:
+      'Calculate if you are eligible for the Highly Skilled Foreign Professional visa in Japan!',
+    type: 'website',
+    siteName: 'HSFP.tokyo',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 // TODO: Re-enable static rendering once next-intl adds support for it.
