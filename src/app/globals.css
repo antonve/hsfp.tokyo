@@ -19,9 +19,9 @@ a {
 }
 
 .light-theme {
-  --bg-primary: theme('colors.gray.50');
-  --bg-secondary: theme('colors.white');
-  --bg-tertiary: theme('colors.gray.100');
+  --bg-primary: theme('colors.white');
+  --bg-secondary: theme('colors.zinc.100');
+  --bg-tertiary: theme('colors.zinc.200');
   --text-primary: theme('colors.zinc.900');
   --text-secondary: theme('colors.zinc.700');
   --text-muted: theme('colors.zinc.500');
@@ -42,7 +42,7 @@ body {
 }
 
 .light-theme .bg-zinc-900 {
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary);
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   border: 1px solid var(--border-subtle);
 }
@@ -126,6 +126,59 @@ body {
 
 .light-theme .shadow-border {
   box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 1px 0px, rgba(0, 0, 0, 0.16) 0px 0px 0px 1px;
+  background-color: var(--bg-primary);
+}
+
+.light-theme .button:not(.secondary) {
+  background-color: var(--bg-primary);
+}
+
+.light-theme .button.secondary {
+  background-color: var(--bg-primary);
+}
+
+/* Calculator page overrides */
+.light-theme .sidebar {
+  background-color: var(--bg-primary);
+  border-color: var(--border-subtle);
+  box-shadow: none;
+  border: none;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.light-theme main {
+  background-color: var(--bg-secondary);
+}
+
+.light-theme .bg-zinc-900\/50 {
+  background-color: var(--bg-secondary);
+}
+
+.light-theme .bg-emerald-700 {
+  background-color: theme('colors.emerald.100');
+  color: theme('colors.emerald.800');
+}
+
+.light-theme .bg-zinc-700\/70 {
+  background-color: theme('colors.zinc.300');
+  color: theme('colors.zinc.700');
+}
+
+.light-theme .border-zinc-100 {
+  border-color: theme('colors.zinc.900');
+}
+
+/* Progress bar - needs visible track in light mode */
+.light-theme .h-1.bg-zinc-950 {
+  background-color: var(--bg-secondary);
+}
+
+.light-theme .bg-white {
+  background-color: theme('colors.zinc.800');
+}
+
+.light-theme .button.secondary:hover {
+  background-color: theme('colors.zinc.100');
 }
 
 @layer utilities {
