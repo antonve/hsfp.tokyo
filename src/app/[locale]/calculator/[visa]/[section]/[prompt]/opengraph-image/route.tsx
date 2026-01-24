@@ -7,6 +7,7 @@ import {
   getOGTranslator,
   getVisaTypeLabel,
   parseIntParam,
+  Logo,
 } from '@lib/og'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 
@@ -72,7 +73,7 @@ export async function GET(
           display: 'flex',
           width: '600px',
           height: '16px',
-          backgroundColor: '#27272a',
+          backgroundColor: colors.progressBarBg,
           borderRadius: '8px',
           marginTop: '32px',
           overflow: 'hidden',
@@ -138,15 +139,9 @@ export async function GET(
           position: 'absolute',
           bottom: '40px',
           right: '60px',
-          fontSize: '24px',
-          fontWeight: 700,
         }}
       >
-        <span style={{ display: 'flex', color: '#ef4444' }}>HSFP</span>
-        <span style={{ display: 'flex', color: 'rgba(255,255,255,0.4)' }}>
-          .
-        </span>
-        <span style={{ display: 'flex', color: '#fafafa' }}>tokyo</span>
+        <Logo size={24} />
       </div>
     </div>,
     {

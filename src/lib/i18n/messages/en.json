@@ -75,6 +75,7 @@
     },
     "visa_intro": {
       "title": "{visaType} Visa Calculator",
+      "title_short": "Visa Calculator",
       "points_to_qualify": "points to qualify",
       "to_complete": "to complete"
     },
@@ -95,6 +96,10 @@
       "points_to_qualify": "points to qualify",
       "visa_categories": "visa categories",
       "to_complete": "to complete"
+    },
+    "alt": {
+      "results": "{visaType} HSFP Visa Calculator - {points} points",
+      "progress": "{visaType} HSFP Visa Calculator - {progress}% complete"
     }
   },
   "visa_intro": {

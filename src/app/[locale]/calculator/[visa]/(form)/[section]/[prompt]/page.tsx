@@ -6,7 +6,13 @@ import {
   generateSessionId,
 } from '@lib/domain/qualifications'
 import { formConfigForVisa, getFormProgress } from '@lib/domain/form'
-import { getVisaTypeLabel, getVisaTypeFromSlug } from '@lib/og'
+import {
+  getVisaTypeLabel,
+  getVisaTypeFromSlug,
+  getOGTranslator,
+  OG_WIDTH,
+  OG_HEIGHT,
+} from '@lib/og'
 import PromptClient from './PromptClient'
 
 interface Props {
@@ -25,6 +31,7 @@ export async function generateMetadata({
   params,
   searchParams,
 }: Props): Promise<Metadata> {
+  const t = await getOGTranslator(params.locale)
   const visaType = getVisaTypeFromSlug(params.visa)
   const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
   const formConfig = formConfigForVisa(params.visa)
@@ -62,6 +69,16 @@ export async function generateMetadata({
 
   const ogImageUrl = `/${params.locale}/calculator/${params.visa}/${params.section}/${params.prompt}/opengraph-image?progress=${progressPercentage}&points=${points}`
 
+  const ogImage = {
+    url: ogImageUrl,
+    width: OG_WIDTH,
+    height: OG_HEIGHT,
+    alt: t('alt.progress', {
+      visaType: visaLabel,
+      progress: progressPercentage,
+    }),
+  }
+
   return {
     title,
     description,
@@ -70,11 +87,11 @@ export async function generateMetadata({
       description,
       type: 'website',
       siteName: 'HSFP.tokyo',
-      images: [ogImageUrl],
+      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
-      images: [ogImageUrl],
+      images: [ogImage],
     },
   }
 }

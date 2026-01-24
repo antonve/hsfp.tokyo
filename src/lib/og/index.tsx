@@ -42,11 +42,39 @@ export const colors = {
   muted: '#a1a1aa', // zinc-400
   accent: '#34d399', // emerald-400
   warning: '#fbbf24', // amber-400
+  logoRed: '#ef4444', // red-500
+  logoDot: 'rgba(255,255,255,0.4)',
+  progressBarBg: '#27272a', // zinc-800
+}
+
+// Valid visa slug values
+const VISA_SLUGS = ['engineer', 'researcher', 'business-manager'] as const
+type VisaSlug = (typeof VISA_SLUGS)[number]
+
+function isValidVisaSlug(slug: string): slug is VisaSlug {
+  return VISA_SLUGS.includes(slug as VisaSlug)
+}
+
+// Shared logo component for OG images
+export function Logo({ size = 24 }: { size?: number }) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        fontSize: `${size}px`,
+        fontWeight: 700,
+      }}
+    >
+      <span style={{ display: 'flex', color: colors.logoRed }}>HSFP</span>
+      <span style={{ display: 'flex', color: colors.logoDot }}>.</span>
+      <span style={{ display: 'flex', color: colors.text }}>tokyo</span>
+    </div>
+  )
 }
 
 // Get translator for OG namespace
 export async function getOGTranslator(locale: string) {
-  return getTranslator({ locale, namespace: 'og' })
+  return getTranslator(locale, 'og')
 }
 
 // Get visa type label from translations
@@ -54,12 +82,11 @@ export async function getVisaTypeLabel(
   locale: string,
   slug: string,
 ): Promise<string> {
-  const t = await getTranslator({ locale, namespace: 'og.visa_types' })
-  try {
-    return t(slug as never)
-  } catch {
+  if (!isValidVisaSlug(slug)) {
     return 'Visa'
   }
+  const t = await getTranslator(locale, 'og.visa_types')
+  return t(slug)
 }
 
 // Parse and clamp integer from search params

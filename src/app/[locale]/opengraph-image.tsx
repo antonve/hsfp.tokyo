@@ -1,5 +1,5 @@
 import { ImageResponse } from '@vercel/og'
-import { OG_WIDTH, OG_HEIGHT, colors, getOGTranslator } from '@lib/og'
+import { OG_WIDTH, OG_HEIGHT, colors, getOGTranslator, Logo } from '@lib/og'
 
 export const runtime = 'edge'
 export const alt = 'HSFP.tokyo - Japan Visa Points Calculator'
@@ -28,19 +28,8 @@ export default async function Image({ params }: Props) {
         padding: '60px',
       }}
     >
-      <div
-        style={{
-          display: 'flex',
-          fontSize: '72px',
-          fontWeight: 700,
-          marginBottom: '24px',
-        }}
-      >
-        <span style={{ display: 'flex', color: '#ef4444' }}>HSFP</span>
-        <span style={{ display: 'flex', color: 'rgba(255,255,255,0.4)' }}>
-          .
-        </span>
-        <span style={{ display: 'flex', color: '#fafafa' }}>tokyo</span>
+      <div style={{ display: 'flex', marginBottom: '24px' }}>
+        <Logo size={72} />
       </div>
 
       <div
@@ -149,7 +138,8 @@ export default async function Image({ params }: Props) {
       </div>
     </div>,
     {
-      ...size,
+      width: OG_WIDTH,
+      height: OG_HEIGHT,
     },
   )
 }

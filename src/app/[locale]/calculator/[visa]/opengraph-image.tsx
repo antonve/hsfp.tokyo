@@ -5,6 +5,7 @@ import {
   colors,
   getOGTranslator,
   getVisaTypeLabel,
+  Logo,
 } from '@lib/og'
 
 export const runtime = 'edge'
@@ -67,7 +68,7 @@ export default async function Image({ params }: Props) {
             textAlign: 'center',
           }}
         >
-          {t('visa_intro.title', { visaType: '' }).trim()}
+          {t('visa_intro.title_short')}
         </div>
 
         <div
@@ -142,19 +143,14 @@ export default async function Image({ params }: Props) {
           position: 'absolute',
           bottom: '40px',
           right: '60px',
-          fontSize: '24px',
-          fontWeight: 700,
         }}
       >
-        <span style={{ display: 'flex', color: '#ef4444' }}>HSFP</span>
-        <span style={{ display: 'flex', color: 'rgba(255,255,255,0.4)' }}>
-          .
-        </span>
-        <span style={{ display: 'flex', color: '#fafafa' }}>tokyo</span>
+        <Logo size={24} />
       </div>
     </div>,
     {
-      ...size,
+      width: OG_WIDTH,
+      height: OG_HEIGHT,
     },
   )
 }

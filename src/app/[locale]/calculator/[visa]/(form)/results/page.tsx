@@ -4,7 +4,7 @@ import {
   calculatePoints,
 } from '@lib/domain/qualifications'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
-import { getVisaTypeLabel } from '@lib/og'
+import { getVisaTypeLabel, getOGTranslator, OG_WIDTH, OG_HEIGHT } from '@lib/og'
 import ResultsClient from './ResultsClient'
 
 interface Props {
@@ -21,6 +21,7 @@ export async function generateMetadata({
   params,
   searchParams,
 }: Props): Promise<Metadata> {
+  const t = await getOGTranslator(params.locale)
   const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
 
   let points = 0
@@ -47,6 +48,13 @@ export async function generateMetadata({
 
   const ogImageUrl = `/${params.locale}/calculator/${params.visa}/results/opengraph-image?points=${points}`
 
+  const ogImage = {
+    url: ogImageUrl,
+    width: OG_WIDTH,
+    height: OG_HEIGHT,
+    alt: t('alt.results', { visaType: visaLabel, points }),
+  }
+
   return {
     title,
     description,
@@ -55,11 +63,11 @@ export async function generateMetadata({
       description,
       type: 'website',
       siteName: 'HSFP.tokyo',
-      images: [ogImageUrl],
+      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
-      images: [ogImageUrl],
+      images: [ogImage],
     },
   }
 }
