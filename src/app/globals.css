@@ -43,6 +43,12 @@ body {
 
 .light-theme .bg-zinc-900 {
   background-color: var(--bg-secondary);
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  border: 1px solid var(--border-subtle);
+}
+
+.light-theme .hover\:bg-zinc-900\/80:hover {
+  background-color: theme('colors.gray.50');
 }
 
 .light-theme .bg-zinc-900\/30 {
@@ -55,6 +61,11 @@ body {
 
 .light-theme .bg-zinc-800\/50 {
   background-color: rgb(243 244 246 / 0.5);
+}
+
+.light-theme .bg-zinc-600\/50 {
+  background-color: theme('colors.zinc.200');
+  color: theme('colors.zinc.700');
 }
 
 .light-theme .text-gray-50 {
@@ -95,6 +106,22 @@ body {
 
 .light-theme .hover\:bg-zinc-800\/50:hover {
   background-color: rgb(243 244 246 / 0.5);
+}
+
+.light-theme .from-emerald-900\/30 {
+  --tw-gradient-from: rgb(167 243 208 / 0.4) var(--tw-gradient-from-position);
+}
+
+.light-theme .to-zinc-900 {
+  --tw-gradient-to: rgb(255 255 255) var(--tw-gradient-to-position);
+}
+
+.light-theme .bg-emerald-400\/10 {
+  background-color: rgb(52 211 153 / 0.15);
+}
+
+.light-theme .bg-gradient-to-r.from-emerald-900\/30 {
+  border: 1px solid rgb(167 243 208 / 0.6);
 }
 
 .light-theme .shadow-border {
