@@ -50,10 +50,10 @@ export function ChoicePrompt({
   })
   const [error, setError] = useState<string | null>(null)
 
-  const firstInputRef = useRef<HTMLInputElement>(null)
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([])
 
   useEffect(() => {
-    firstInputRef.current?.focus()
+    inputRefs.current[0]?.focus()
   }, [])
 
   useEffect(() => {
@@ -64,6 +64,7 @@ export function ChoicePrompt({
         if (index < prompt.options.length) {
           setValue(prompt.options[index])
           setError(null)
+          inputRefs.current[index]?.focus()
         }
       }
       // Arrow up/down
@@ -75,6 +76,7 @@ export function ChoicePrompt({
           (currentIndex + delta + prompt.options.length) % prompt.options.length
         setValue(prompt.options[newIndex])
         setError(null)
+        inputRefs.current[newIndex]?.focus()
       }
     }
     window.addEventListener('keydown', handleKeyDown)
@@ -103,7 +105,7 @@ export function ChoicePrompt({
           <div className="w-full" key={option}>
             <div
               className={cn(
-                'px-2 py-2  min-h-9 rounded relative inline-block',
+                'px-2 py-2  min-h-9 rounded relative inline-block has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-emerald-400/80',
                 {
                   'ring-2 ring-emerald-400/80': value === option,
                   'shadow-border': value !== option,
@@ -112,7 +114,9 @@ export function ChoicePrompt({
             >
               <div className="flex">
                 <input
-                  ref={i === 0 ? firstInputRef : undefined}
+                  ref={el => {
+                    inputRefs.current[i] = el
+                  }}
                   id={promptOptionId(prompt, option)}
                   type="radio"
                   onChange={() => {
