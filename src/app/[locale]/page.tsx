@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import {
   BeakerIcon,
   BriefcaseIcon,
@@ -13,6 +14,44 @@ import {
 } from '@heroicons/react/24/solid'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
+import { getOGTranslator, OG_WIDTH, OG_HEIGHT } from '@lib/og'
+
+interface Props {
+  params: {
+    locale: string
+  }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getOGTranslator(params.locale)
+
+  const title = t('default.title')
+  const description = t('default.description')
+  const ogImageUrl = `/${params.locale}/opengraph-image`
+
+  const ogImage = {
+    url: ogImageUrl,
+    width: OG_WIDTH,
+    height: OG_HEIGHT,
+    alt: t('alt.default'),
+  }
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      siteName: 'HSFP.tokyo',
+      images: [ogImage],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [ogImage],
+    },
+  }
+}
 
 export default function Page() {
   const t = useTranslations('home')

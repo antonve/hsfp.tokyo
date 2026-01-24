@@ -38,13 +38,24 @@ export async function generateMetadata({
     }
   }
 
+  const pointsNeeded = HSFP_QUALIFICATION_THRESHOLD - points
+  const pointsAbove = points - HSFP_QUALIFICATION_THRESHOLD
+
   const title = isQualified
-    ? `Qualified with ${points} points - ${visaLabel} Visa`
-    : `${points} points - ${HSFP_QUALIFICATION_THRESHOLD - points} more needed`
+    ? t('meta.results.qualified_title', { points, visaType: visaLabel })
+    : t('meta.results.not_qualified_title', { points, needed: pointsNeeded })
 
   const description = isQualified
-    ? `You qualify for the ${visaLabel} HSFP visa with ${points} points (${points - HSFP_QUALIFICATION_THRESHOLD} above the threshold).`
-    : `You have ${points} points toward the ${visaLabel} HSFP visa. ${HSFP_QUALIFICATION_THRESHOLD - points} more points needed to qualify.`
+    ? t('meta.results.qualified_description', {
+        points,
+        visaType: visaLabel,
+        above: pointsAbove,
+      })
+    : t('meta.results.not_qualified_description', {
+        points,
+        visaType: visaLabel,
+        needed: pointsNeeded,
+      })
 
   const ogImageUrl = `/${params.locale}/calculator/${params.visa}/results/opengraph-image?points=${points}`
 

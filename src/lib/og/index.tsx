@@ -82,11 +82,55 @@ export async function getVisaTypeLabel(
   locale: string,
   slug: string,
 ): Promise<string> {
-  if (!isValidVisaSlug(slug)) {
-    return 'Visa'
-  }
   const t = await getTranslator(locale, 'og.visa_types')
+  if (!isValidVisaSlug(slug)) {
+    return t('fallback')
+  }
   return t(slug)
+}
+
+// Shared stat block component for OG images
+interface StatBlockProps {
+  value: string | number
+  label: string
+  valueColor?: string
+}
+
+export function StatBlock({
+  value,
+  label,
+  valueColor = colors.accent,
+}: StatBlockProps) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: '8px',
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          fontSize: '48px',
+          fontWeight: 700,
+          color: valueColor,
+        }}
+      >
+        {value}
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          fontSize: '20px',
+          color: colors.muted,
+        }}
+      >
+        {label}
+      </div>
+    </div>
+  )
 }
 
 // Parse and clamp integer from search params

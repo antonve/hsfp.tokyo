@@ -61,11 +61,21 @@ export async function generateMetadata({
     )
   }
 
-  const title = `${progressPercentage}% Complete - ${visaLabel} Visa Calculator`
+  const title = t('meta.progress.title', {
+    progress: progressPercentage,
+    visaType: visaLabel,
+  })
   const description =
     points > 0
-      ? `${visaLabel} HSFP visa calculator - ${progressPercentage}% complete with ${points} points so far.`
-      : `${visaLabel} HSFP visa calculator - ${progressPercentage}% complete. Calculate if you qualify for Japan's Highly Skilled Professional visa.`
+      ? t('meta.progress.description_with_points', {
+          visaType: visaLabel,
+          progress: progressPercentage,
+          points,
+        })
+      : t('meta.progress.description', {
+          visaType: visaLabel,
+          progress: progressPercentage,
+        })
 
   const ogImageUrl = `/${params.locale}/calculator/${params.visa}/${params.section}/${params.prompt}/opengraph-image?progress=${progressPercentage}&points=${points}`
 

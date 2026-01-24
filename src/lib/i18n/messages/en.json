@@ -67,7 +67,8 @@
     "visa_types": {
       "engineer": "Engineering",
       "researcher": "Research",
-      "business-manager": "Business Management"
+      "business-manager": "Business Management",
+      "fallback": "Visa"
     },
     "default": {
       "title": "Japan Visa Points Calculator",
@@ -75,9 +76,7 @@
     },
     "visa_intro": {
       "title": "{visaType} Visa Calculator",
-      "title_short": "Visa Calculator",
-      "points_to_qualify": "points to qualify",
-      "to_complete": "to complete"
+      "title_short": "Visa Calculator"
     },
     "results": {
       "qualified": "QUALIFIED",
@@ -98,8 +97,27 @@
       "to_complete": "to complete"
     },
     "alt": {
+      "default": "HSFP.tokyo - Japan Visa Points Calculator",
+      "visa_calculator": "HSFP Visa Calculator",
       "results": "{visaType} HSFP Visa Calculator - {points} points",
       "progress": "{visaType} HSFP Visa Calculator - {progress}% complete"
+    },
+    "meta": {
+      "visa_intro": {
+        "title": "{visaType} Visa Calculator - HSFP.tokyo",
+        "description": "Calculate if you qualify for Japan's Highly Skilled Foreign Professional (HSFP) {visaType} visa. {points} points to qualify."
+      },
+      "results": {
+        "qualified_title": "Qualified with {points} points - {visaType} Visa",
+        "not_qualified_title": "{points} points - {needed} more needed",
+        "qualified_description": "You qualify for the {visaType} HSFP visa with {points} points ({above} above the threshold).",
+        "not_qualified_description": "You have {points} points toward the {visaType} HSFP visa. {needed} more points needed to qualify."
+      },
+      "progress": {
+        "title": "{progress}% Complete - {visaType} Visa Calculator",
+        "description": "{visaType} HSFP visa calculator - {progress}% complete. Calculate if you qualify for Japan's Highly Skilled Professional visa.",
+        "description_with_points": "{visaType} HSFP visa calculator - {progress}% complete with {points} points so far."
+      }
     }
   },
   "visa_intro": {

@@ -1,4 +1,5 @@
 import { ImageResponse } from '@vercel/og'
+import { NextRequest } from 'next/server'
 import {
   OG_WIDTH,
   OG_HEIGHT,
@@ -6,21 +7,15 @@ import {
   getOGTranslator,
   getVisaTypeLabel,
   Logo,
+  StatBlock,
 } from '@lib/og'
 
 export const runtime = 'edge'
-export const alt = 'HSFP Visa Calculator'
-export const size = { width: OG_WIDTH, height: OG_HEIGHT }
-export const contentType = 'image/png'
 
-interface Props {
-  params: {
-    visa: string
-    locale: string
-  }
-}
-
-export default async function Image({ params }: Props) {
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: { visa: string; locale: string } },
+) {
   const t = await getOGTranslator(params.locale)
   const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
 
@@ -78,62 +73,16 @@ export default async function Image({ params }: Props) {
             marginTop: '24px',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '8px',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                fontSize: '48px',
-                fontWeight: 700,
-                color: colors.text,
-              }}
-            >
-              70
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                fontSize: '20px',
-                color: colors.muted,
-              }}
-            >
-              {t('visa_intro.points_to_qualify')}
-            </div>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: '8px',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                fontSize: '48px',
-                fontWeight: 700,
-                color: colors.text,
-              }}
-            >
-              5 min
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                fontSize: '20px',
-                color: colors.muted,
-              }}
-            >
-              {t('visa_intro.to_complete')}
-            </div>
-          </div>
+          <StatBlock
+            value={70}
+            label={t('stats.points_to_qualify')}
+            valueColor={colors.text}
+          />
+          <StatBlock
+            value="5 min"
+            label={t('stats.to_complete')}
+            valueColor={colors.text}
+          />
         </div>
       </div>
 

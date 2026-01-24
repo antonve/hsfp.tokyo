@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { formConfigForVisa } from '@lib/domain/form'
-import { getVisaTypeLabel } from '@lib/og'
+import { getVisaTypeLabel, getOGTranslator, OG_WIDTH, OG_HEIGHT } from '@lib/og'
+import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 import {
   ClockIcon,
   CheckCircleIcon,
@@ -21,10 +22,22 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const t = await getOGTranslator(params.locale)
   const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
 
-  const title = `${visaLabel} Visa Calculator - HSFP.tokyo`
-  const description = `Calculate if you qualify for Japan's Highly Skilled Foreign Professional (HSFP) ${visaLabel} visa. 70 points to qualify, takes about 5 minutes.`
+  const title = t('meta.visa_intro.title', { visaType: visaLabel })
+  const description = t('meta.visa_intro.description', {
+    visaType: visaLabel,
+    points: HSFP_QUALIFICATION_THRESHOLD,
+  })
+
+  const ogImageUrl = `/${params.locale}/calculator/${params.visa}/opengraph-image`
+  const ogImage = {
+    url: ogImageUrl,
+    width: OG_WIDTH,
+    height: OG_HEIGHT,
+    alt: t('alt.visa_calculator'),
+  }
 
   return {
     title,
@@ -34,9 +47,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       type: 'website',
       siteName: 'HSFP.tokyo',
+      images: [ogImage],
     },
     twitter: {
       card: 'summary_large_image',
+      images: [ogImage],
     },
   }
 }
