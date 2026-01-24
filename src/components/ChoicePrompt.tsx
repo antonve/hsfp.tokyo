@@ -53,10 +53,6 @@ export function ChoicePrompt({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
 
   useEffect(() => {
-    inputRefs.current[0]?.focus()
-  }, [])
-
-  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Number keys 1-9
       if (e.key >= '1' && e.key <= '9') {
@@ -102,12 +98,17 @@ export function ChoicePrompt({
       {error && <p className="text-red-400 mb-4">{error}</p>}
       <div className="space-y-3 mb-8">
         {prompt.options.map((option, i) => (
-          <div className="w-full" key={option}>
+          <div
+            className="w-full motion-preset-slide-up motion-duration-300"
+            key={option}
+            style={{ animationDelay: `${i * 50}ms` }}
+          >
             <div
               className={cn(
                 'px-2 py-2  min-h-9 rounded relative inline-block has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-emerald-400/80',
                 {
-                  'ring-2 ring-emerald-400/80': value === option,
+                  'ring-2 ring-emerald-400/80 motion-preset-fade motion-duration-200':
+                    value === option,
                   'shadow-border': value !== option,
                 },
               )}
@@ -129,9 +130,10 @@ export function ChoicePrompt({
                 />
                 <span
                   className={cn(
-                    'flex shrink-0 w-5 h-5 items-center justify-center rounded text-xs font-bold',
+                    'flex shrink-0 w-5 h-5 items-center justify-center rounded text-xs font-bold transition-colors',
                     {
-                      'bg-emerald-500': value === option,
+                      'bg-emerald-500 motion-scale-in-100 motion-duration-150':
+                        value === option,
                       'bg-zinc-700/70': value !== option,
                     },
                   )}

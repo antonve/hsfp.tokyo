@@ -115,7 +115,7 @@ export default function ResultsClient({ visa }: Props) {
         </div>
       )}
       {points >= HSFP_QUALIFICATION_THRESHOLD ? (
-        <div className=" p-[2px] font-semibold rounded-lg bg-gradient-to-r from-emerald-300 from-10% to-emerald-500 to-90% relative">
+        <div className="p-[2px] font-semibold rounded-lg bg-gradient-to-r from-emerald-300 from-10% to-emerald-500 to-90% relative motion-preset-expand motion-duration-500">
           <span className="absolute -top-3 -left-2 text-4xl"> &#x1f389;</span>
           <span className="absolute -bottom-3 -right-3 text-4xl">
             &#128640;
@@ -125,7 +125,7 @@ export default function ResultsClient({ visa }: Props) {
           </div>
         </div>
       ) : (
-        <div className="p-[2px] font-semibold rounded-lg bg-gradient-to-r from-amber-400 from-10% to-orange-500 to-90% relative">
+        <div className="p-[2px] font-semibold rounded-lg bg-gradient-to-r from-amber-400 from-10% to-orange-500 to-90% relative motion-preset-expand motion-duration-500">
           <div className="bg-zinc-950/80 px-6 py-4 rounded-lg">
             <p>
               {t('banner.not_qualified', {
@@ -225,9 +225,10 @@ function MatchesOverview({
             {matches.map((match, index) => (
               <tr
                 key={match.id}
-                className={`border-b border-zinc-800 ${
+                className={`border-b border-zinc-800 motion-preset-fade motion-duration-300 ${
                   index % 2 === 0 ? 'bg-zinc-900/30' : ''
                 }`}
+                style={{ animationDelay: `${index * 50}ms` }}
               >
                 <td className="py-3 px-4 text-zinc-300">
                   {t(`criteria.${match.id}.category`)}
@@ -288,14 +289,19 @@ function EvidenceOverview({
 
   return (
     <div className="space-y-3">
-      {categories.map(category => (
-        <CollapsibleEvidenceCategory
+      {categories.map((category, index) => (
+        <div
           key={category}
-          category={category}
-          matches={groupedByCategory[category]}
-          checkedItems={checkedItems}
-          toggleItem={toggleItem}
-        />
+          className="motion-preset-slide-up motion-duration-300"
+          style={{ animationDelay: `${index * 75}ms` }}
+        >
+          <CollapsibleEvidenceCategory
+            category={category}
+            matches={groupedByCategory[category]}
+            checkedItems={checkedItems}
+            toggleItem={toggleItem}
+          />
+        </div>
       ))}
     </div>
   )
@@ -336,7 +342,7 @@ function CollapsibleEvidenceCategory({
         </span>
       </button>
       {isOpen && (
-        <div className="border-t border-zinc-800 p-4 space-y-3">
+        <div className="border-t border-zinc-800 p-4 space-y-3 motion-preset-slide-down motion-duration-200">
           {matches.map(match => (
             <EvidenceItemCard
               key={match.id}

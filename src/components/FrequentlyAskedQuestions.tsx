@@ -51,6 +51,7 @@ export function FrequentlyAskedQuestions({
             <div
               className={classNames('faq-answer text-sm mt-2', {
                 hidden: !isToggled(i),
+                'motion-preset-slide-down motion-duration-200': isToggled(i),
               })}
               dangerouslySetInnerHTML={{ __html: t.raw(`faq.a${i}`) }}
             />

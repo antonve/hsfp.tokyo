@@ -131,7 +131,7 @@ function Section({
           {!isActive ? <ToggleIcon className="w-4 h-4 opacity-50" /> : null}
         </a>
         {isExpanded ? (
-          <ul className="ml-2 mt-2">
+          <ul className="ml-2 mt-2 motion-preset-slide-down motion-duration-200">
             {prompts.map((prompt, i) => (
               <Prompt
                 key={i}
