@@ -93,11 +93,17 @@ body {
 }
 
 .light-theme .border-zinc-700 {
-  border-color: var(--border-color);
+  border-color: theme('colors.zinc.200');
+  background-color: theme('colors.zinc.50');
 }
 
 .light-theme .border-zinc-800 {
-  border-color: var(--border-subtle);
+  border-color: theme('colors.zinc.200');
+  background-color: theme('colors.zinc.50');
+}
+
+.light-theme .border-t.border-zinc-800 {
+  background-color: var(--bg-primary);
 }
 
 .light-theme .border-zinc-900\/50 {
@@ -134,7 +140,8 @@ body {
 }
 
 .light-theme .button.secondary {
-  background-color: var(--bg-primary);
+  background-color: theme('colors.zinc.200');
+  color: theme('colors.zinc.700');
 }
 
 /* Calculator page overrides */
@@ -146,7 +153,7 @@ body {
   border-right: 1px solid var(--border-subtle);
 }
 
-.light-theme main {
+.light-theme .sidebar + main {
   background-color: var(--bg-secondary);
 }
 
@@ -157,6 +164,59 @@ body {
 .light-theme .bg-emerald-700 {
   background-color: theme('colors.emerald.100');
   color: theme('colors.emerald.800');
+}
+
+/* Results page */
+
+/* Table styling for light mode */
+.light-theme table {
+  background-color: var(--bg-primary);
+}
+
+.light-theme thead tr {
+  background-color: theme('colors.zinc.100');
+}
+
+.light-theme tbody tr.bg-zinc-900 {
+  background-color: var(--bg-primary);
+  box-shadow: none;
+  border: none;
+}
+
+.light-theme tbody tr.bg-zinc-900.bg-zinc-900\/30 {
+  background-color: theme('colors.zinc.50');
+}
+
+.light-theme tfoot tr {
+  background-color: theme('colors.zinc.100');
+}
+
+.light-theme .bg-zinc-950\/80 {
+  background-color: rgb(255 255 255 / 0.9);
+}
+
+.light-theme .bg-red-950\/20 {
+  background-color: theme('colors.red.50');
+}
+
+.light-theme .border-red-800 {
+  border-color: theme('colors.red.300');
+}
+
+.light-theme .text-red-400 {
+  color: theme('colors.red.600');
+}
+
+.light-theme .border-zinc-600 {
+  border-color: theme('colors.zinc.300');
+}
+
+.light-theme .bg-emerald-950\/20 {
+  background-color: theme('colors.emerald.50');
+}
+
+.light-theme .border-emerald-600 {
+  border-color: theme('colors.emerald.400');
 }
 
 .light-theme .bg-zinc-700\/70 {
@@ -178,7 +238,7 @@ body {
 }
 
 .light-theme .button.secondary:hover {
-  background-color: theme('colors.zinc.100');
+  background-color: theme('colors.zinc.300');
 }
 
 @layer utilities {

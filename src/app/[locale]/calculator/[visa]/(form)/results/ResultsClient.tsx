@@ -206,7 +206,7 @@ function MatchesOverview({
 
   return (
     <div className="space-y-3">
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto border border-zinc-700 rounded-lg">
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b border-zinc-700">
@@ -225,7 +225,7 @@ function MatchesOverview({
             {matches.map((match, index) => (
               <tr
                 key={match.id}
-                className={`border-b border-zinc-800 motion-preset-fade motion-duration-300 ${
+                className={`border-b border-zinc-800 motion-preset-fade motion-duration-300 bg-zinc-900 ${
                   index % 2 === 0 ? 'bg-zinc-900/30' : ''
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
