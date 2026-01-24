@@ -6,7 +6,7 @@ import {
   generateSessionId,
 } from '@lib/domain/qualifications'
 import { formConfigForVisa, getFormProgress } from '@lib/domain/form'
-import { visaTypeLabels, getVisaTypeFromSlug } from '@lib/og'
+import { getVisaTypeLabel, getVisaTypeFromSlug } from '@lib/og'
 import PromptClient from './PromptClient'
 
 interface Props {
@@ -26,7 +26,7 @@ export async function generateMetadata({
   searchParams,
 }: Props): Promise<Metadata> {
   const visaType = getVisaTypeFromSlug(params.visa)
-  const visaLabel = visaType ? visaTypeLabels[visaType] : 'Visa'
+  const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
   const formConfig = formConfigForVisa(params.visa)
 
   let progressPercentage = 0

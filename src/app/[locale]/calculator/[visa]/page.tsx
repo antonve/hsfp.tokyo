@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { formConfigForVisa } from '@lib/domain/form'
-import { visaTypeLabels, getVisaTypeFromSlug } from '@lib/og'
+import { getVisaTypeLabel } from '@lib/og'
 import {
   ClockIcon,
   CheckCircleIcon,
@@ -8,7 +8,7 @@ import {
   LightBulbIcon,
   ArrowRightIcon,
 } from '@heroicons/react/24/solid'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import Link from 'next-intl/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -21,8 +21,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const visaType = getVisaTypeFromSlug(params.visa)
-  const visaLabel = visaType ? visaTypeLabels[visaType] : 'Visa'
+  const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
 
   const title = `${visaLabel} Visa Calculator - HSFP.tokyo`
   const description = `Calculate if you qualify for Japan's Highly Skilled Foreign Professional (HSFP) ${visaLabel} visa. 70 points to qualify, takes about 5 minutes.`
@@ -42,14 +41,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function Page({ params }: Props) {
+export default async function Page({ params }: Props) {
   const formConfig = formConfigForVisa(params.visa)
   if (!formConfig) {
     notFound()
   }
 
-  const t = useTranslations('visa_intro')
-  const tResults = useTranslations('results')
+  const t = await getTranslations('visa_intro')
+  const tResults = await getTranslations('results')
 
   const firstSection = formConfig.order[0]
   const startUrl = `/calculator/${params.visa}/${firstSection}/1`

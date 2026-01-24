@@ -3,8 +3,8 @@ import {
   OG_WIDTH,
   OG_HEIGHT,
   colors,
-  visaTypeLabels,
-  getVisaTypeFromSlug,
+  getOGTranslator,
+  getVisaTypeLabel,
 } from '@lib/og'
 
 export const runtime = 'edge'
@@ -13,16 +13,15 @@ export const size = { width: OG_WIDTH, height: OG_HEIGHT }
 export const contentType = 'image/png'
 
 interface Props {
-  params: Promise<{
+  params: {
     visa: string
     locale: string
-  }>
+  }
 }
 
-export default async function Image(props: Props) {
-  const params = await props.params
-  const visaType = getVisaTypeFromSlug(params.visa)
-  const visaLabel = visaType ? visaTypeLabels[visaType] : 'Visa'
+export default async function Image({ params }: Props) {
+  const t = await getOGTranslator(params.locale)
+  const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
 
   return new ImageResponse(
     <div
@@ -68,7 +67,7 @@ export default async function Image(props: Props) {
             textAlign: 'center',
           }}
         >
-          HSFP Visa Calculator
+          {t('visa_intro.title', { visaType: '' }).trim()}
         </div>
 
         <div
@@ -103,7 +102,7 @@ export default async function Image(props: Props) {
                 color: colors.muted,
               }}
             >
-              points to qualify
+              {t('visa_intro.points_to_qualify')}
             </div>
           </div>
           <div
@@ -131,7 +130,7 @@ export default async function Image(props: Props) {
                 color: colors.muted,
               }}
             >
-              to complete
+              {t('visa_intro.to_complete')}
             </div>
           </div>
         </div>

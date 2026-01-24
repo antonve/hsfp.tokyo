@@ -4,8 +4,9 @@ import {
   OG_WIDTH,
   OG_HEIGHT,
   colors,
-  visaTypeLabels,
-  getVisaTypeFromSlug,
+  getOGTranslator,
+  getVisaTypeLabel,
+  parseIntParam,
 } from '@lib/og'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 
@@ -20,12 +21,11 @@ export async function GET(
   },
 ) {
   const searchParams = request.nextUrl.searchParams
-  const visaType = getVisaTypeFromSlug(params.visa)
-  const visaLabel = visaType ? visaTypeLabels[visaType] : 'Visa'
+  const t = await getOGTranslator(params.locale)
+  const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
 
-  const progressPercentage = parseInt(searchParams.get('progress') || '0', 10)
-  const points = parseInt(searchParams.get('points') || '0', 10)
-  const progressBarWidth = Math.min(progressPercentage, 100)
+  const progressPercentage = parseIntParam(searchParams.get('progress'), 0, 100)
+  const points = parseIntParam(searchParams.get('points'))
 
   return new ImageResponse(
     <div
@@ -52,7 +52,7 @@ export async function GET(
           marginBottom: '16px',
         }}
       >
-        In Progress
+        {t('progress.in_progress')}
       </div>
 
       <div
@@ -81,7 +81,7 @@ export async function GET(
         <div
           style={{
             display: 'flex',
-            width: `${progressBarWidth}%`,
+            width: `${progressPercentage}%`,
             height: '100%',
             backgroundColor: colors.accent,
             borderRadius: '8px',
@@ -117,7 +117,7 @@ export async function GET(
             color: colors.muted,
           }}
         >
-          points so far
+          {t('progress.points_so_far')}
         </span>
       </div>
 
@@ -129,7 +129,7 @@ export async function GET(
           marginTop: points > 0 ? '16px' : '40px',
         }}
       >
-        {visaLabel} Visa Calculator
+        {t('progress.visa_calculator', { visaType: visaLabel })}
       </div>
 
       <div

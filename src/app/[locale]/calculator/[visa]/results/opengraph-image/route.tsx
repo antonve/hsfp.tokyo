@@ -4,8 +4,9 @@ import {
   OG_WIDTH,
   OG_HEIGHT,
   colors,
-  visaTypeLabels,
-  getVisaTypeFromSlug,
+  getOGTranslator,
+  getVisaTypeLabel,
+  parseIntParam,
 } from '@lib/og'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 
@@ -16,10 +17,10 @@ export async function GET(
   { params }: { params: { visa: string; locale: string } },
 ) {
   const searchParams = request.nextUrl.searchParams
-  const visaType = getVisaTypeFromSlug(params.visa)
-  const visaLabel = visaType ? visaTypeLabels[visaType] : 'Visa'
+  const t = await getOGTranslator(params.locale)
+  const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
 
-  const points = parseInt(searchParams.get('points') || '0', 10)
+  const points = parseIntParam(searchParams.get('points'))
   const isQualified = points >= HSFP_QUALIFICATION_THRESHOLD
 
   const pointsDiff = isQualified
@@ -27,10 +28,12 @@ export async function GET(
     : HSFP_QUALIFICATION_THRESHOLD - points
 
   const statusColor = isQualified ? colors.accent : colors.warning
-  const statusText = isQualified ? 'QUALIFIED' : 'NOT QUALIFIED'
+  const statusText = isQualified
+    ? t('results.qualified')
+    : t('results.not_qualified')
   const diffText = isQualified
-    ? `${pointsDiff} points above threshold`
-    : `${pointsDiff} points needed`
+    ? t('results.points_above', { points: pointsDiff })
+    : t('results.points_needed', { points: pointsDiff })
 
   return new ImageResponse(
     <div
@@ -97,7 +100,7 @@ export async function GET(
           marginTop: '8px',
         }}
       >
-        points
+        {t('results.points')}
       </div>
 
       <div
@@ -119,7 +122,7 @@ export async function GET(
           marginTop: '40px',
         }}
       >
-        {visaLabel} Visa
+        {t('results.visa_label', { visaType: visaLabel })}
       </div>
 
       <div

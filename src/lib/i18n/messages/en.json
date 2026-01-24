@@ -63,6 +63,40 @@
       "contact": "If you notice any errors or outdated information, please let me know at"
     }
   },
+  "og": {
+    "visa_types": {
+      "engineer": "Engineering",
+      "researcher": "Research",
+      "business-manager": "Business Management"
+    },
+    "default": {
+      "title": "Japan Visa Points Calculator",
+      "description": "Calculate your points for Japan's Highly Skilled Foreign Professional visa"
+    },
+    "visa_intro": {
+      "title": "{visaType} Visa Calculator",
+      "points_to_qualify": "points to qualify",
+      "to_complete": "to complete"
+    },
+    "results": {
+      "qualified": "QUALIFIED",
+      "not_qualified": "NOT QUALIFIED",
+      "points": "points",
+      "points_above": "{points} points above threshold",
+      "points_needed": "{points} points needed",
+      "visa_label": "{visaType} Visa"
+    },
+    "progress": {
+      "in_progress": "In Progress",
+      "points_so_far": "points so far",
+      "visa_calculator": "{visaType} Visa Calculator"
+    },
+    "stats": {
+      "points_to_qualify": "points to qualify",
+      "visa_categories": "visa categories",
+      "to_complete": "to complete"
+    }
+  },
   "visa_intro": {
     "title": "{visaType} Visa Calculator",
     "time_estimate": "Takes about 5-10 minutes",

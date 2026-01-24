@@ -4,7 +4,7 @@ import {
   calculatePoints,
 } from '@lib/domain/qualifications'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
-import { visaTypeLabels, getVisaTypeFromSlug } from '@lib/og'
+import { getVisaTypeLabel } from '@lib/og'
 import ResultsClient from './ResultsClient'
 
 interface Props {
@@ -21,8 +21,7 @@ export async function generateMetadata({
   params,
   searchParams,
 }: Props): Promise<Metadata> {
-  const visaType = getVisaTypeFromSlug(params.visa)
-  const visaLabel = visaType ? visaTypeLabels[visaType] : 'Visa'
+  const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
 
   let points = 0
   let isQualified = false

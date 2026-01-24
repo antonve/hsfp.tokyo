@@ -1,12 +1,20 @@
 import { ImageResponse } from '@vercel/og'
-import { OG_WIDTH, OG_HEIGHT, colors } from '@lib/og'
+import { OG_WIDTH, OG_HEIGHT, colors, getOGTranslator } from '@lib/og'
 
 export const runtime = 'edge'
 export const alt = 'HSFP.tokyo - Japan Visa Points Calculator'
 export const size = { width: OG_WIDTH, height: OG_HEIGHT }
 export const contentType = 'image/png'
 
-export default async function Image() {
+interface Props {
+  params: {
+    locale: string
+  }
+}
+
+export default async function Image({ params }: Props) {
+  const t = await getOGTranslator(params.locale)
+
   return new ImageResponse(
     <div
       style={{
@@ -44,8 +52,7 @@ export default async function Image() {
           maxWidth: '800px',
         }}
       >
-        Calculate your points for Japan&apos;s Highly Skilled Foreign
-        Professional visa
+        {t('default.description')}
       </div>
 
       <div
@@ -80,7 +87,7 @@ export default async function Image() {
               color: colors.muted,
             }}
           >
-            points to qualify
+            {t('stats.points_to_qualify')}
           </div>
         </div>
         <div
@@ -108,7 +115,7 @@ export default async function Image() {
               color: colors.muted,
             }}
           >
-            visa categories
+            {t('stats.visa_categories')}
           </div>
         </div>
         <div
@@ -136,7 +143,7 @@ export default async function Image() {
               color: colors.muted,
             }}
           >
-            to complete
+            {t('stats.to_complete')}
           </div>
         </div>
       </div>
