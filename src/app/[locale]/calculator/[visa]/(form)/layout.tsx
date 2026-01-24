@@ -4,13 +4,18 @@ import { formConfigForVisa } from '@lib/domain/form'
 import { calculatePoints } from '@lib/domain/qualifications'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 import { useQualifications, useVisaFormProgress } from '@lib/hooks'
-import { Bars3BottomLeftIcon, XMarkIcon } from '@heroicons/react/24/solid'
+import {
+  Bars3BottomLeftIcon,
+  XMarkIcon,
+  Cog6ToothIcon,
+} from '@heroicons/react/24/solid'
 import { notFound, usePathname } from 'next/navigation'
 import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
 import cn from 'classnames'
 import { Logo } from '@components/Logo'
+import { SettingsModal } from '@components/SettingsModal'
 import { VisaFormNavigation } from '@components/VisaFormNavigation'
 import { VisaProgressBar } from '@components/VisaProgressBar'
 import { VisaFormResultsPreview } from '@components/VisaFormResultsPreview'
@@ -41,6 +46,7 @@ export default function Layout({ children, params }: Props) {
   }
   const t = useTranslations('visa_form')
   const [sidebarActive, setSidebarActive] = useState(false)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
   const { points } = useMemo(() => {
     try {
       return calculatePoints(qualifications)
@@ -73,11 +79,22 @@ export default function Layout({ children, params }: Props) {
         </button>
         <Link
           href={`/`}
-          className="no-underline hover:opacity-60 transition-opacity"
+          className="no-underline hover:opacity-60 transition-opacity flex-grow"
         >
           <Logo />
         </Link>
+        <button
+          onClick={() => setIsSettingsOpen(true)}
+          className="p-2 text-zinc-400 hover:text-zinc-200 transition-colors"
+          aria-label="Settings"
+        >
+          <Cog6ToothIcon className="w-6 h-6" />
+        </button>
       </div>
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+      />
       <div className="flex flex-row flex-grow">
         <aside
           className={cn(
