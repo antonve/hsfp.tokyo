@@ -5,6 +5,7 @@ import { formConfig as formConfigEngineer } from '@lib/domain/visa.engineer'
 import { formConfig as formConfigResearcher } from '@lib/domain/visa.researcher'
 import { Qualifications } from '@lib/domain/qualifications'
 import { isPromptCompleted } from '@lib/domain/prompts'
+import { shouldSkipPrompt } from '@lib/domain/caps'
 import { ReactElement } from 'react'
 
 export const SectionNameSchema = z.enum([
@@ -69,7 +70,13 @@ export interface NumberPromptConfig {
   hideLabel?: boolean
 }
 
-export function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {
+/**
+ * Compute the raw next step without considering skipped prompts.
+ */
+function computeNextStep(
+  formConfig: FormConfig,
+  progress: VisaProgress,
+): { section: SectionName; promptIndex: number; finished: boolean } {
   const currentSection = formConfig.sections[progress.section]!!
   const shouldUseNextCategory =
     currentSection.length <= progress.promptIndex + 1
@@ -90,10 +97,36 @@ export function nextStepOfForm(formConfig: FormConfig, progress: VisaProgress) {
   }
 }
 
-export function previousStepOfForm(
+export function nextStepOfForm(
   formConfig: FormConfig,
   progress: VisaProgress,
+  qualifications?: Qualifications,
 ) {
+  let result = computeNextStep(formConfig, progress)
+
+  // Skip prompts where cap group is maxed
+  while (!result.finished && qualifications) {
+    const prompt = formConfig.sections[result.section]?.[result.promptIndex]
+    if (
+      !prompt ||
+      !shouldSkipPrompt(prompt.id, formConfig.visaType, qualifications)
+    ) {
+      break
+    }
+    // Advance to next prompt
+    result = computeNextStep(formConfig, result)
+  }
+
+  return result
+}
+
+/**
+ * Compute the raw previous step without considering skipped prompts.
+ */
+function computePreviousStep(
+  formConfig: FormConfig,
+  progress: VisaProgress,
+): { section: SectionName; promptIndex: number; isFirst: boolean } {
   const sectionIndex = formConfig.order.indexOf(progress.section)
 
   if (progress.promptIndex > 0) {
@@ -119,6 +152,29 @@ export function previousStepOfForm(
     promptIndex: progress.promptIndex,
     isFirst: true,
   }
+}
+
+export function previousStepOfForm(
+  formConfig: FormConfig,
+  progress: VisaProgress,
+  qualifications?: Qualifications,
+) {
+  let result = computePreviousStep(formConfig, progress)
+
+  // Skip prompts where cap group is maxed
+  while (!result.isFirst && qualifications) {
+    const prompt = formConfig.sections[result.section]?.[result.promptIndex]
+    if (
+      !prompt ||
+      !shouldSkipPrompt(prompt.id, formConfig.visaType, qualifications)
+    ) {
+      break
+    }
+    // Go back to previous prompt
+    result = computePreviousStep(formConfig, result)
+  }
+
+  return result
 }
 
 export function getOverallPromptIndex(

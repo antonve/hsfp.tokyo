@@ -15,6 +15,7 @@ import {
   getHighestCompletedOverallPromptIndex,
   isPromptCompleted,
 } from '@lib/domain/prompts'
+import { shouldSkipPrompt } from '@lib/domain/caps'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
@@ -29,7 +30,7 @@ import {
   BarsArrowDownIcon,
   BarsArrowUpIcon,
 } from '@heroicons/react/24/outline'
-import { CheckIcon } from '@heroicons/react/20/solid'
+import { CheckIcon, ForwardIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 
 export function VisaFormNavigation({
@@ -170,8 +171,10 @@ function Prompt({
   progress: VisaProgress
   qualifications: Qualifications
 }) {
+  const t = useTranslations('visa_form.navigation')
   const overallPromptIndex = getOverallPromptIndex(config, name, promptIndex)
   const isCompleted = isPromptCompleted(overallPromptIndex, qualifications)
+  const isSkipped = shouldSkipPrompt(prompt.id, config.visaType, qualifications)
   const isActive =
     progress.promptIndex === promptIndex && progress.section === name
   const isEnabled = maxActivePrompt >= overallPromptIndex
@@ -183,20 +186,25 @@ function Prompt({
         'border-zinc-100': isActive,
         'border-zinc-700': !isActive,
         'disabled opacity-60 cursor-not-allowed': !isEnabled,
+        'opacity-50': isSkipped && !isActive,
       })}
     >
       <Link
         href={urlForPrompt(config.visaType, name, promptIndex, qualifications)}
         className={cn(
-          'no-underline pr-3 pl-6 py-2  flex items-center justify-between',
+          'no-underline pr-3 pl-6 py-2 flex items-center justify-between',
           {
             'pointer-events-none': !isEnabled,
+            'line-through decoration-zinc-500': isSkipped,
           },
         )}
+        title={isSkipped ? t('skipped_tooltip') : undefined}
       >
         {title}
         {isCompleted ? (
           <CheckIcon className="w-4 h-4 text-emerald-600" />
+        ) : isSkipped ? (
+          <ForwardIcon className="w-4 h-4 text-zinc-500" />
         ) : null}
       </Link>
     </li>

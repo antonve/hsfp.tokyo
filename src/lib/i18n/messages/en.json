@@ -709,6 +709,9 @@
       "up_to": "Up to {points} points",
       "conditional": "Actual points may vary based on your other qualifications"
     },
+    "navigation": {
+      "skipped_tooltip": "Skipped: You've already earned the maximum points for this category"
+    },
     "test": "<a href=\"#lol\">test</a>",
     "form_title": "{visaType} visa",
     "engineer": {

@@ -49,8 +49,12 @@ export function VisaFormSection({
   const formRef = useRef<HTMLDivElement>(null)
 
   const submit = (updateQualifications: QualificationUpdater) => {
-    const { section, promptIndex, finished } = nextStepOfForm(config, progress)
     const newQualifications = updateQualifications(qualifications)
+    const { section, promptIndex, finished } = nextStepOfForm(
+      config,
+      progress,
+      newQualifications,
+    )
 
     const nextPage = `${urlPrefix}/${
       finished ? `results` : `/${section}/${promptIndex + 1}`
@@ -63,6 +67,7 @@ export function VisaFormSection({
     const { section, promptIndex, isFirst } = previousStepOfForm(
       config,
       progress,
+      qualifications,
     )
     if (isFirst) return
 
@@ -71,9 +76,22 @@ export function VisaFormSection({
   }
 
   const skipAndGoNext = () => {
-    submit(q => ({
-      ...withCompletedPrompt(overallPromptIndex, q),
-    }))
+    // When skipping, use current qualifications (just mark as completed)
+    const newQualifications = withCompletedPrompt(
+      overallPromptIndex,
+      qualifications,
+    )
+    const { section, promptIndex, finished } = nextStepOfForm(
+      config,
+      progress,
+      newQualifications,
+    )
+
+    const nextPage = `${urlPrefix}/${
+      finished ? `results` : `/${section}/${promptIndex + 1}`
+    }?q=${encodeQualifications(newQualifications)}`
+
+    router.push(nextPage)
   }
 
   useEffect(() => {
