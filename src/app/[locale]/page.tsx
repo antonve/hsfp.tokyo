@@ -60,8 +60,17 @@ export default function Page() {
     <div className="max-w-7xl mx-auto">
       {/* Hero Section */}
       <section className="max-w-7xl px-4">
-        <h1 className="mt-16 text-center text-5xl leading-normal font-bold tracking-tighter sm:text-6xl/normal md:text-7xl/normal">
-          {t('title')}
+        <h1 className="mt-16 text-center text-5xl leading-normal font-bold tracking-tighter sm:text-6xl/normal md:text-7xl/normal relative">
+          {/* Glow effect */}
+          <span
+            className="absolute inset-0 text-emerald-400 blur-2xl opacity-20 dark:opacity-50"
+            aria-hidden="true"
+          >
+            {t('title')}
+          </span>
+          <span className="relative bg-gradient-to-r from-emerald-700 via-teal-600 to-cyan-700 dark:from-emerald-400 dark:via-teal-300 dark:to-cyan-400 bg-clip-text text-transparent">
+            {t('title')}
+          </span>
         </h1>
         <p className="text-center my-8 text-zinc-400 text-xl/relaxed lg:text-2xl/relaxed xl:text-3xl/relaxed max-w-4xl mx-auto">
           {t('subtitle')}

@@ -3,8 +3,16 @@
 import { Fragment, useState, useCallback } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
+import { useRouter, usePathname } from 'next/navigation'
 import { useTheme } from '@lib/ThemeContext'
+
+const LANGUAGES = [
+  { code: 'en', name: 'English' },
+  { code: 'ja', name: '日本語' },
+  { code: 'zh-CN', name: '简体中文' },
+  { code: 'zh-TW', name: '繁體中文' },
+] as const
 
 const STORAGE_KEY_PREFIX = 'hsfp-evidence'
 
@@ -16,7 +24,24 @@ interface SettingsModalProps {
 export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const t = useTranslations('settings')
   const { theme, setTheme } = useTheme()
+  const locale = useLocale()
+  const router = useRouter()
+  const pathname = usePathname()
   const [clearConfirmation, setClearConfirmation] = useState(false)
+
+  const handleLanguageChange = useCallback(
+    (newLocale: string) => {
+      // Remove current locale prefix from pathname if present
+      const pathWithoutLocale =
+        pathname.replace(/^\/(en|ja|zh-CN|zh-TW)/, '') || '/'
+      const newPath =
+        newLocale === 'en'
+          ? pathWithoutLocale
+          : `/${newLocale}${pathWithoutLocale}`
+      router.push(newPath)
+    },
+    [router, pathname],
+  )
 
   const handleClearData = useCallback(() => {
     if (!clearConfirmation) {
@@ -87,6 +112,28 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 </div>
 
                 <div className="space-y-6">
+                  {/* Language Selector */}
+                  <div className="space-y-3">
+                    <h3 className="text-sm font-medium text-zinc-300">
+                      {t('language')}
+                    </h3>
+                    <div className="grid grid-cols-2 gap-2">
+                      {LANGUAGES.map(lang => (
+                        <button
+                          key={lang.code}
+                          onClick={() => handleLanguageChange(lang.code)}
+                          className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
+                            locale === lang.code
+                              ? 'bg-zinc-800 border-emerald-500 text-zinc-100 dark:bg-zinc-800 dark:text-zinc-100'
+                              : 'bg-zinc-100 border-zinc-300 text-zinc-600 hover:border-zinc-400 dark:bg-zinc-800/50 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-zinc-600'
+                          }`}
+                        >
+                          <span>{lang.name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
                   {/* Theme Toggle */}
                   <div className="space-y-3">
                     <h3 className="text-sm font-medium text-zinc-300">

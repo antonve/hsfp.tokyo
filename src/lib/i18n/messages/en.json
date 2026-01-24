@@ -154,6 +154,7 @@
   },
   "settings": {
     "title": "Settings",
+    "language": "Language",
     "appearance": "Appearance",
     "dark": "Dark",
     "light": "Light",
