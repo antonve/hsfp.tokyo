@@ -21,7 +21,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 const STORAGE_KEY = 'hsfp-theme'
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('dark')
+  const [theme, setThemeState] = useState<Theme>('light')
   const [mounted, setMounted] = useState(false)
 
   // Load theme from localStorage on mount
@@ -42,12 +42,10 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (!mounted) return
 
     const root = document.documentElement
-    if (theme === 'light') {
-      root.classList.add('light-theme')
-      root.classList.remove('dark-theme')
+    if (theme === 'dark') {
+      root.classList.add('dark')
     } else {
-      root.classList.add('dark-theme')
-      root.classList.remove('light-theme')
+      root.classList.remove('dark')
     }
   }, [theme, mounted])
 

@@ -35,7 +35,7 @@ export function FrequentlyAskedQuestions({
         {Array.from(Array(count).keys()).map((_, i) => (
           <li
             key={i}
-            className="rounded bg-surface-primary px-4 py-2 shadow-sm"
+            className="rounded bg-white dark:bg-zinc-950 px-4 py-2 shadow-sm"
           >
             <h3
               className="font-semibold cursor-pointer flex items-center justify-between"

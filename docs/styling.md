@@ -2,37 +2,64 @@
 
 ## Theme System
 
-The app uses CSS variables for theming, defined in `globals.css`. Use semantic Tailwind classes that reference these variables:
+The app uses Tailwind's standard `dark:` modifier for theming. Light mode is the default, and dark mode is activated by adding the `dark` class to the document root.
 
-### Surface Colors (backgrounds)
-- `bg-surface-primary` - Main background (zinc-950 dark / white light)
-- `bg-surface-secondary` - Secondary background (zinc-900 dark / zinc-100 light)
-- `bg-surface-tertiary` - Tertiary background (zinc-800 dark / zinc-200 light)
-- `bg-surface-accent` - Accent surfaces (zinc-600 dark / zinc-200 light)
+### Color Mapping Reference
 
-### Content Colors (text)
-- `text-content-primary` - Primary text (gray-50 dark / zinc-900 light)
-- `text-content-secondary` - Secondary text (zinc-300 dark / zinc-700 light)
-- `text-content-muted` - Muted text (zinc-400 dark / zinc-500 light)
-- `text-content-subtle` - Subtle text (zinc-500 dark / zinc-600 light)
+When styling components, use explicit light and dark variants:
 
-### Border Colors
-- `border-border` - Standard borders (zinc-700 dark / zinc-300 light)
-- `border-border-subtle` - Subtle borders (zinc-900 dark / zinc-100 light)
+| Purpose | Light (default) | Dark (`dark:`) |
+|---------|-----------------|----------------|
+| Primary background | `bg-white` | `dark:bg-zinc-950` |
+| Secondary background | `bg-zinc-100` | `dark:bg-zinc-900` |
+| Tertiary background | `bg-zinc-200` | `dark:bg-zinc-800` |
+| Accent background | `bg-zinc-200` | `dark:bg-zinc-600` |
+| Primary text | `text-zinc-900` | `dark:text-gray-50` |
+| Secondary text | `text-zinc-700` | `dark:text-zinc-300` |
+| Muted text | `text-zinc-500` | `dark:text-zinc-400` |
+| Subtle text | `text-zinc-600` | `dark:text-zinc-500` |
+| Standard border | `border-zinc-300` | `dark:border-zinc-700` |
+| Subtle border | `border-zinc-100` | `dark:border-zinc-900` |
 
-## Rules
+### Status Colors
 
-**Never create `.light-theme` class overrides.** The goal is for all styling to work automatically via CSS variables. If something doesn't look right in one theme, adjust the CSS variable values in `globals.css` or use a different semantic class.
+| Purpose | Light | Dark |
+|---------|-------|------|
+| Success background | `bg-emerald-50` | `dark:bg-emerald-900/20` |
+| Success border | `border-emerald-400` | `dark:border-emerald-600` |
+| Success badge background | `bg-emerald-100` | `dark:bg-emerald-700` |
+| Success badge text | `text-emerald-800` | `dark:text-gray-50` |
+| Error background | `bg-red-50` | `dark:bg-red-950/20` |
+| Error border | `border-red-300` | `dark:border-red-800` |
+| Error text | `text-red-600` | `dark:text-red-400` |
+
+### Accent Subtle (icon circles)
+
+```tsx
+className="bg-emerald-400/15 dark:bg-emerald-400/10"
+```
+
+### Gradient Backgrounds
+
+```tsx
+className="bg-gradient-to-r from-emerald-200/40 to-zinc-100 dark:from-emerald-900/30 dark:to-zinc-900"
+```
+
+### Shadow with Ring Border
+
+```tsx
+className="shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800"
+```
 
 ## Buttons
 
 Use classes defined in `globals.css`:
-- `.button` - Primary CTA button (light bg, dark text - fixed colors for both themes)
-- `.button.secondary` - Secondary button (uses semantic surface colors)
+- `.button` - Primary CTA button (white bg, dark text - fixed colors for both themes)
+- `.button.secondary` - Secondary button (uses dark: modifiers for theme adaptation)
 
 ## Accent Color
 
-- `emerald-400` - Used for interactive states, focus rings, and highlights
+- `emerald-400` - Used for interactive states, focus rings, and highlights (fixed color, doesn't change with theme)
 
 ## Breakpoints
 

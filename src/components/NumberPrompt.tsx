@@ -114,7 +114,7 @@ export function NumberPrompt({
             ref={inputRef}
             type="text"
             className={classNames(
-              'box-border h-full w-full pl-2 py-2 bg-transparent rounded shadow-border absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-emerald-400/80 appearance-none',
+              'box-border h-full w-full pl-2 py-2 bg-white dark:bg-zinc-950 rounded shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800 absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-emerald-400/80 appearance-none',
               {
                 'pr-16': showLabel,
                 'pr-2': !showLabel,
@@ -148,7 +148,7 @@ export function NumberPrompt({
             name={prompt.id}
           />
           {showLabel ? (
-            <span className="mx-1 absolute right-0 top-1 h-7 flex items-center font-bold text-xs bg-surface-accent/70 px-2 py-1 rounded-sm">
+            <span className="mx-1 absolute right-0 top-1 h-7 flex items-center font-bold text-xs bg-zinc-200/70 dark:bg-zinc-600/70 px-2 py-1 rounded-sm">
               {t(`${promptKey}.input_label`)}
             </span>
           ) : null}

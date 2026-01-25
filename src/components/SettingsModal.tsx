@@ -88,14 +88,14 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="settings-modal w-full max-w-md transform overflow-hidden rounded-lg bg-surface-secondary border border-border p-6 shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 p-6 shadow-xl transition-all">
                 <div className="flex items-center justify-between mb-6">
-                  <Dialog.Title className="text-xl font-semibold text-content-primary">
+                  <Dialog.Title className="text-xl font-semibold text-zinc-900 dark:text-gray-50">
                     {t('title')}
                   </Dialog.Title>
                   <button
                     onClick={handleClose}
-                    className="text-content-muted hover:text-content-primary transition-colors"
+                    className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-gray-50 transition-colors"
                   >
                     <XMarkIcon className="w-6 h-6" />
                   </button>
@@ -104,7 +104,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 <div className="space-y-6">
                   {/* Language Selector */}
                   <div className="space-y-3">
-                    <h3 className="text-sm font-medium text-content-secondary">
+                    <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                       {t('language')}
                     </h3>
                     <div className="grid grid-cols-2 gap-2">
@@ -114,10 +114,10 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                           href={pathWithoutLocale}
                           locale={lang.code}
                           onClick={onClose}
-                          className={`settings-btn flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors no-underline ${
+                          className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors no-underline ${
                             locale === lang.code
-                              ? 'selected bg-surface-tertiary border-emerald-500 text-content-primary'
-                              : 'bg-surface-tertiary/50 border-border text-content-muted hover:border-content-muted'
+                              ? 'bg-zinc-200 dark:bg-zinc-800 border-emerald-500 text-zinc-900 dark:text-gray-50'
+                              : 'bg-zinc-200/50 dark:bg-zinc-800/50 border-zinc-300 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:border-zinc-500 dark:hover:border-zinc-400'
                           }`}
                         >
                           <span>{lang.name}</span>
@@ -128,17 +128,17 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
                   {/* Theme Toggle */}
                   <div className="space-y-3">
-                    <h3 className="text-sm font-medium text-content-secondary">
+                    <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                       {t('appearance')}
                     </h3>
                     <div className="flex gap-2">
                       <button
                         type="button"
                         onClick={() => setTheme('dark')}
-                        className={`settings-btn flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
+                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
                           theme === 'dark'
-                            ? 'selected bg-surface-tertiary border-emerald-500 text-content-primary'
-                            : 'bg-surface-tertiary/50 border-border text-content-muted hover:border-content-muted'
+                            ? 'bg-zinc-200 dark:bg-zinc-800 border-emerald-500 text-zinc-900 dark:text-gray-50'
+                            : 'bg-zinc-200/50 dark:bg-zinc-800/50 border-zinc-300 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:border-zinc-500 dark:hover:border-zinc-400'
                         }`}
                       >
                         <MoonIcon className="w-5 h-5" />
@@ -147,10 +147,10 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                       <button
                         type="button"
                         onClick={() => setTheme('light')}
-                        className={`settings-btn flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
+                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
                           theme === 'light'
-                            ? 'selected bg-surface-tertiary border-emerald-500 text-content-primary'
-                            : 'bg-surface-tertiary/50 border-border text-content-muted hover:border-content-muted'
+                            ? 'bg-zinc-200 dark:bg-zinc-800 border-emerald-500 text-zinc-900 dark:text-gray-50'
+                            : 'bg-zinc-200/50 dark:bg-zinc-800/50 border-zinc-300 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:border-zinc-500 dark:hover:border-zinc-400'
                         }`}
                       >
                         <SunIcon className="w-5 h-5" />
@@ -161,19 +161,19 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
                   {/* Clear Data */}
                   <div className="space-y-3">
-                    <h3 className="text-sm font-medium text-content-secondary">
+                    <h3 className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                       {t('data')}
                     </h3>
-                    <p className="text-sm text-content-muted">
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400">
                       {t('clear_description')}
                     </p>
                     <button
                       type="button"
                       onClick={handleClearData}
-                      className={`settings-btn w-full px-4 py-3 rounded-lg border transition-colors ${
+                      className={`w-full px-4 py-3 rounded-lg border transition-colors ${
                         clearConfirmation
-                          ? 'bg-red-900/50 border-red-500 text-red-200 hover:bg-red-900/70'
-                          : 'bg-surface-tertiary/50 border-border text-content-secondary hover:border-content-muted'
+                          ? 'bg-red-100 dark:bg-red-900/50 border-red-500 text-red-700 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-900/70'
+                          : 'bg-zinc-200/50 dark:bg-zinc-800/50 border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-500 dark:hover:border-zinc-400'
                       }`}
                     >
                       {clearConfirmation ? t('clear_confirm') : t('clear_data')}

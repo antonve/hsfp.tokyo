@@ -6,102 +6,7 @@ a {
   text-decoration: underline;
 }
 
-/* Theme variables */
-:root {
-  /* RGB values for Tailwind opacity modifier support */
-  --surface-primary: 9 9 11;           /* zinc-950 */
-  --surface-secondary: 24 24 27;       /* zinc-900 */
-  --surface-tertiary: 39 39 42;        /* zinc-800 */
-  --surface-accent: 82 82 91;          /* zinc-600 - for CTA buttons */
-  --content-primary: 249 250 251;      /* gray-50 */
-  --content-secondary: 212 212 216;    /* zinc-300 */
-  --content-muted: 161 161 170;        /* zinc-400 */
-  --content-subtle: 113 113 122;       /* zinc-500 - more faded */
-  --border-color: 63 63 70;            /* zinc-700 */
-  --border-subtle: 24 24 27;           /* zinc-900 - barely visible on zinc-950 */
-}
-
-.light-theme {
-  --surface-primary: 255 255 255;      /* white */
-  --surface-secondary: 244 244 245;    /* zinc-100 */
-  --surface-tertiary: 228 228 231;     /* zinc-200 */
-  --surface-accent: 228 228 231;       /* zinc-200 - for CTA buttons */
-  --content-primary: 24 24 27;         /* zinc-900 */
-  --content-secondary: 63 63 70;       /* zinc-700 */
-  --content-muted: 113 113 122;        /* zinc-500 */
-  --content-subtle: 82 82 91;          /* zinc-600 - more faded */
-  --border-color: 212 212 216;         /* zinc-300 */
-  --border-subtle: 244 244 245;        /* zinc-100 - subtle on white */
-}
-
-/* Apply theme to body */
-body {
-  background-color: rgb(var(--surface-primary));
-  color: rgb(var(--content-primary));
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-/* Light theme overrides for accent colors */
-.light-theme .bg-emerald-700 {
-  background-color: theme('colors.emerald.100');
-  color: theme('colors.emerald.800');
-}
-
-.light-theme .from-emerald-900\/30 {
-  --tw-gradient-from: rgb(167 243 208 / 0.4) var(--tw-gradient-from-position);
-}
-
-.light-theme .bg-emerald-400\/10 {
-  background-color: rgb(52 211 153 / 0.15);
-}
-
-.light-theme .bg-gradient-to-r.from-emerald-900\/30 {
-  border: 1px solid rgb(167 243 208 / 0.6);
-}
-
-/* Light theme status colors */
-.light-theme .bg-red-950\/20 {
-  background-color: theme('colors.red.50');
-}
-
-.light-theme .border-red-800 {
-  border-color: theme('colors.red.300');
-}
-
-.light-theme .text-red-400 {
-  color: theme('colors.red.600');
-}
-
-.light-theme .bg-emerald-950\/20 {
-  background-color: theme('colors.emerald.50');
-}
-
-.light-theme .border-emerald-600 {
-  border-color: theme('colors.emerald.400');
-}
-
-/* Light theme table styling */
-.light-theme table {
-  background-color: rgb(var(--surface-primary));
-}
-
-.light-theme thead tr {
-  background-color: rgb(var(--surface-secondary));
-}
-
-.light-theme tfoot tr {
-  background-color: rgb(var(--surface-secondary));
-}
-
 @layer utilities {
-  .shadow-border {
-    box-shadow: rgba(255, 255, 255, 0.05) 0px 1px 1px 0px, rgba(235, 235, 234, 0.16) 0px 0px 0px 1px;
-  }
-
-  .light-theme .shadow-border {
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 1px 0px, rgba(0, 0, 0, 0.16) 0px 0px 0px 1px;
-  }
-
   .backdrop {
     @apply relative;
   }
@@ -111,18 +16,19 @@ body {
   }
 
   .button:not(.secondary) {
-    @apply px-4 h-12 md:h-9 flex items-center rounded bg-white text-zinc-900 font-bold whitespace-nowrap shadow-border relative outline-2 outline outline-transparent;
+    @apply px-4 h-12 md:h-9 flex items-center rounded bg-white text-zinc-900 font-bold whitespace-nowrap shadow-sm relative outline-2 outline outline-transparent;
     @apply hover:outline-emerald-400/80 hover:bg-zinc-50 focus-visible:outline-emerald-400/80 active:scale-95 transition-all;
   }
 
   .button.secondary {
-    @apply bg-surface-tertiary text-content-secondary px-4 h-12 md:h-9 flex items-center rounded whitespace-nowrap relative outline outline-2 outline-transparent;
-    @apply hover:outline-emerald-400/80 hover:bg-surface-accent focus-visible:outline-emerald-400/80 active:scale-95 transition-all;
+    @apply px-4 h-12 md:h-9 flex items-center rounded whitespace-nowrap relative outline outline-2 outline-transparent;
+    @apply bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300;
+    @apply hover:outline-emerald-400/80 hover:bg-zinc-300 dark:hover:bg-zinc-700 focus-visible:outline-emerald-400/80 active:scale-95 transition-all;
   }
 
   .button.secondary:disabled {
-    @apply bg-surface-tertiary/50 text-content-muted cursor-not-allowed;
-    @apply hover:outline-transparent hover:bg-surface-tertiary/50;
+    @apply bg-zinc-200/50 text-zinc-500 dark:bg-zinc-800/50 dark:text-zinc-400 cursor-not-allowed;
+    @apply hover:outline-transparent hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50;
   }
 
   .button.large {
@@ -140,16 +46,16 @@ body {
 }
 
 .faq-answer a {
-  @apply text-emerald-400 underline hover:text-emerald-300 transition-colors;
+  @apply text-emerald-600 dark:text-emerald-400 underline hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors;
 }
 
 @layer base {
-  input[type=number].appearance-none::-webkit-inner-spin-button,
-  input[type=number].appearance-none::-webkit-outer-spin-button {
+  input[type='number'].appearance-none::-webkit-inner-spin-button,
+  input[type='number'].appearance-none::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
-  input[type=number].appearance-none {
-    -moz-appearance:textfield;
+  input[type='number'].appearance-none {
+    -moz-appearance: textfield;
   }
 }

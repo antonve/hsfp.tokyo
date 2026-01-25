@@ -131,10 +131,10 @@ export function VisaFormSection({
         {t(`${translationPrefix}.prompt`)}
       </h2>
       {prompt.maxPoints && (
-        <p className="text-content-muted text-sm mb-5 motion-preset-fade motion-duration-300 motion-delay-100">
+        <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-5 motion-preset-fade motion-duration-300 motion-delay-100">
           {t('visa_form.points_hint.up_to', { points: prompt.maxPoints })}
           {' · '}
-          <span className="text-content-subtle">
+          <span className="text-zinc-600 dark:text-zinc-500">
             {t('visa_form.points_hint.conditional')}
           </span>
         </p>

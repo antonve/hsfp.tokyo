@@ -108,8 +108,8 @@ export default function ResultsClient({ visa }: Props) {
   return (
     <main className="space-y-8">
       {missingSalary && (
-        <div className="p-4 border-2 border-red-800 rounded-lg bg-red-950/20">
-          <p className="text-red-400 font-medium">
+        <div className="p-4 border-2 border-red-300 dark:border-red-800 rounded-lg bg-red-50 dark:bg-red-950/20">
+          <p className="text-red-600 dark:text-red-400 font-medium">
             {t('banner.missing_salary')}
           </p>
         </div>
@@ -120,13 +120,13 @@ export default function ResultsClient({ visa }: Props) {
           <span className="absolute -bottom-3 -right-3 text-4xl">
             &#128640;
           </span>
-          <div className="bg-surface-primary/80 px-6 py-4 rounded-lg">
+          <div className="bg-white/80 dark:bg-zinc-950/80 px-6 py-4 rounded-lg">
             {t('banner.qualified', { visaType })}
           </div>
         </div>
       ) : (
         <div className="p-[2px] font-semibold rounded-lg bg-gradient-to-r from-amber-400 from-10% to-orange-500 to-90% relative motion-preset-expand motion-duration-500">
-          <div className="bg-surface-primary/80 px-6 py-4 rounded-lg">
+          <div className="bg-white/80 dark:bg-zinc-950/80 px-6 py-4 rounded-lg">
             <p>
               {t('banner.not_qualified', {
                 pointsNeeded: HSFP_QUALIFICATION_THRESHOLD - points,
@@ -162,7 +162,7 @@ export default function ResultsClient({ visa }: Props) {
             </section>
             <section className="space-y-4">
               <h3 className="font-semibold text-2xl">{t('evidence.title')}</h3>
-              <div className="text-content-secondary text-sm space-y-3">
+              <div className="text-zinc-700 dark:text-zinc-300 text-sm space-y-3">
                 <p>{t('evidence.description1')}</p>
                 <p>{t('evidence.description2')}</p>
                 <p>{t('evidence.description3')}</p>
@@ -174,20 +174,20 @@ export default function ResultsClient({ visa }: Props) {
             <h3 className="font-semibold text-xl">
               {t('permanent_residency.title')}
             </h3>
-            <p className="text-content-secondary">
+            <p className="text-zinc-700 dark:text-zinc-300">
               {t('permanent_residency.intro')}
             </p>
-            <ul className="text-content-secondary list-disc list-inside pl-4 space-y-2">
+            <ul className="text-zinc-700 dark:text-zinc-300 list-disc list-inside pl-4 space-y-2">
               <li> {t('permanent_residency.condition1')}</li>
               <li> {t('permanent_residency.condition2')}</li>
             </ul>
-            <p className="text-content-secondary">
+            <p className="text-zinc-700 dark:text-zinc-300">
               {t('permanent_residency.visa_note')}
             </p>{' '}
-            <p className="text-content-secondary">
+            <p className="text-zinc-700 dark:text-zinc-300">
               {t('permanent_residency.length_warning')}
             </p>
-            <p className="text-sm text-content-muted italic">
+            <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
               {t('permanent_residency.political_caveat')}
             </p>
           </section>
@@ -208,17 +208,17 @@ function MatchesOverview({
 
   return (
     <div className="space-y-3">
-      <div className="overflow-x-auto border border-border rounded-lg">
+      <div className="overflow-x-auto border border-zinc-200 dark:border-zinc-800 rounded-lg bg-white dark:bg-zinc-950">
         <table className="w-full border-collapse">
           <thead>
-            <tr className="border-b border-border">
-              <th className="text-left py-3 px-4 font-semibold text-content-secondary">
+            <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
+              <th className="text-left py-3 px-4 font-semibold text-zinc-700 dark:text-zinc-300">
                 {t('overview.category')}
               </th>
-              <th className="text-left py-3 px-4 font-semibold text-content-secondary">
+              <th className="text-left py-3 px-4 font-semibold text-zinc-700 dark:text-zinc-300">
                 {t('overview.explanation')}
               </th>
-              <th className="text-right py-3 px-4 font-semibold text-content-secondary">
+              <th className="text-right py-3 px-4 font-semibold text-zinc-700 dark:text-zinc-300">
                 {t('overview.points')}
               </th>
             </tr>
@@ -227,36 +227,41 @@ function MatchesOverview({
             {matches.map((match, index) => (
               <tr
                 key={match.id}
-                className={`border-b border-border-subtle motion-preset-fade motion-duration-300 bg-surface-secondary ${
-                  index % 2 === 0 ? 'bg-surface-secondary/30' : ''
+                className={`border-b border-zinc-100 dark:border-zinc-900 motion-preset-fade motion-duration-300 ${
+                  index % 2 === 1
+                    ? 'bg-zinc-50 dark:bg-zinc-900/30'
+                    : 'bg-white dark:bg-zinc-950'
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <td className="py-3 px-4 text-content-secondary">
+                <td className="py-3 px-4 text-zinc-700 dark:text-zinc-300">
                   {t(`criteria.${match.id}.category`)}
                 </td>
-                <td className="py-3 px-4 text-content-muted">
+                <td className="py-3 px-4 text-zinc-500 dark:text-zinc-400">
                   {t(`criteria.${match.id}.explanation`)}
                 </td>
-                <td className="py-3 px-4 text-right font-mono text-content-secondary">
+                <td className="py-3 px-4 text-right font-mono text-zinc-700 dark:text-zinc-300">
                   {match.points}
                 </td>
               </tr>
             ))}
           </tbody>
           <tfoot>
-            <tr className="border-t-2 border-border font-semibold">
-              <td className="py-3 px-4 text-content-primary" colSpan={2}>
+            <tr className="border-t-2 border-zinc-200 dark:border-zinc-800 font-semibold bg-zinc-100 dark:bg-zinc-900">
+              <td
+                className="py-3 px-4 text-zinc-900 dark:text-gray-50"
+                colSpan={2}
+              >
                 {t('overview.total')}
               </td>
-              <td className="py-3 px-4 text-right font-mono text-content-primary">
+              <td className="py-3 px-4 text-right font-mono text-zinc-900 dark:text-gray-50">
                 {totalPoints}
               </td>
             </tr>
           </tfoot>
         </table>
       </div>
-      <p className="text-sm text-content-muted italic">
+      <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
         {t('overview.disclaimer')}
       </p>
     </div>
@@ -288,7 +293,11 @@ function EvidenceOverview({
   const categories = Object.keys(groupedByCategory)
 
   if (categories.length === 0) {
-    return <p className="text-content-muted italic">{t('evidence.empty')}</p>
+    return (
+      <p className="text-zinc-500 dark:text-zinc-400 italic">
+        {t('evidence.empty')}
+      </p>
+    )
   }
 
   return (
@@ -328,25 +337,27 @@ function CollapsibleEvidenceCategory({
   const totalCount = matches.length
 
   return (
-    <div className="border border-border-subtle rounded-lg overflow-hidden">
+    <div className="border border-zinc-100 dark:border-zinc-900 rounded-lg overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 text-left hover:bg-surface-tertiary/50 transition-colors"
+        className="w-full flex items-center justify-between p-4 text-left bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
       >
         <div className="flex items-center gap-3">
           {isOpen ? (
-            <ChevronDownIcon className="w-5 h-5 text-content-muted" />
+            <ChevronDownIcon className="w-5 h-5 text-zinc-500 dark:text-zinc-400" />
           ) : (
-            <ChevronRightIcon className="w-5 h-5 text-content-muted" />
+            <ChevronRightIcon className="w-5 h-5 text-zinc-500 dark:text-zinc-400" />
           )}
-          <span className="font-semibold text-content-primary">{category}</span>
+          <span className="font-semibold text-zinc-900 dark:text-gray-50">
+            {category}
+          </span>
         </div>
-        <span className="text-sm text-content-muted">
+        <span className="text-sm text-zinc-500 dark:text-zinc-400">
           {checkedCount}/{totalCount}
         </span>
       </button>
       {isOpen && (
-        <div className="border-t border-border-subtle p-4 space-y-3 motion-preset-slide-down motion-duration-200">
+        <div className="border-t border-zinc-100 dark:border-zinc-900 p-4 space-y-3 motion-preset-slide-down motion-duration-200">
           {matches.map(match => (
             <EvidenceItemCard
               key={match.id}
@@ -400,8 +411,8 @@ function EvidenceItemCard({
     <div
       className={`border rounded-lg p-4 transition-colors ${
         isChecked
-          ? 'border-emerald-600 bg-emerald-950/20'
-          : 'border-border hover:border-content-muted'
+          ? 'border-emerald-400 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/20'
+          : 'border-zinc-300 dark:border-zinc-900 hover:border-zinc-500 dark:hover:border-zinc-700'
       }`}
     >
       <label className="flex items-start gap-3 cursor-pointer">
@@ -409,17 +420,17 @@ function EvidenceItemCard({
           type="checkbox"
           checked={isChecked}
           onChange={onToggle}
-          className="mt-1 w-4 h-4 rounded border-border bg-surface-tertiary text-emerald-500 focus:ring-emerald-500 focus:ring-offset-0 cursor-pointer"
+          className="mt-1 w-4 h-4 rounded border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-800 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-0 cursor-pointer"
         />
         <div className="flex-1">
           <h5
-            className={`font-medium mb-2 ${isChecked ? 'text-content-muted line-through' : 'text-content-secondary'}`}
+            className={`font-medium mb-2 ${isChecked ? 'text-zinc-500 dark:text-zinc-400 line-through' : 'text-zinc-700 dark:text-zinc-300'}`}
           >
             {description}
           </h5>
           {documents.length > 0 && (
             <ul
-              className={`list-disc list-inside space-y-1 text-sm pl-2 ${isChecked ? 'text-content-muted' : 'text-content-muted'}`}
+              className={`list-disc list-inside space-y-1 text-sm pl-2 ${isChecked ? 'text-zinc-500 dark:text-zinc-400' : 'text-zinc-500 dark:text-zinc-400'}`}
             >
               {documents.map((doc, index) => (
                 <li key={index}>{doc}</li>
@@ -428,7 +439,7 @@ function EvidenceItemCard({
           )}
           {notes && (
             <p
-              className={`text-sm mt-2 italic ${isChecked ? 'text-content-muted' : 'text-content-muted'}`}
+              className={`text-sm mt-2 italic ${isChecked ? 'text-zinc-500 dark:text-zinc-400' : 'text-zinc-500 dark:text-zinc-400'}`}
             >
               {notes}
             </p>
@@ -467,17 +478,19 @@ function HowToImprove({
       ) : (
         <h2 className="font-semibold text-2xl">{t('how_to_improve.title')}</h2>
       )}
-      <p className="text-content-secondary">{t('how_to_improve.intro')}</p>
+      <p className="text-zinc-700 dark:text-zinc-300">
+        {t('how_to_improve.intro')}
+      </p>
       <div className="space-y-4">
         {categories.map(category => (
           <div
             key={category}
-            className="border border-border-subtle rounded-lg p-4"
+            className="rounded-lg p-4 bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-100 hover:dark:bg-zinc-900 dark:bg-zinc-900/80 shadow-sm shadow-zinc-300 dark:shadow-black"
           >
-            <h3 className="font-semibold text-content-primary mb-2">
+            <h3 className="font-semibold text-zinc-900 dark:text-gray-50 mb-2">
               {t(`how_to_improve.${category}.title`)}
             </h3>
-            <p className="text-sm text-content-muted">
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">
               {t(`how_to_improve.${category}.description`)}
             </p>
           </div>

@@ -54,7 +54,7 @@ export default async function RootLayout({
     <html lang={locale} dir="ltr">
       <body
         className={cn(
-          'bg-surface-primary text-content-primary font-sans',
+          'bg-white dark:bg-zinc-950 text-zinc-900 dark:text-gray-50 font-sans',
           cormorantGaramond.variable,
           inter.variable,
         )}

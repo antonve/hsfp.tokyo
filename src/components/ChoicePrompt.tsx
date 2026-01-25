@@ -105,11 +105,12 @@ export function ChoicePrompt({
           >
             <div
               className={cn(
-                'px-2 py-2 min-h-9 rounded relative inline-block bg-surface-primary has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-emerald-400/80',
+                'px-2 py-2 min-h-9 rounded relative inline-block bg-white dark:bg-zinc-950 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-emerald-400/80',
                 {
                   'ring-2 ring-emerald-400/80 motion-preset-fade motion-duration-200':
                     value === option,
-                  'shadow-border': value !== option,
+                  'shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800':
+                    value !== option,
                 },
               )}
             >
@@ -134,7 +135,7 @@ export function ChoicePrompt({
                     {
                       'bg-emerald-500 motion-scale-in-100 motion-duration-150':
                         value === option,
-                      'bg-surface-accent/70': value !== option,
+                      'bg-zinc-200/70 dark:bg-zinc-600/70': value !== option,
                     },
                   )}
                 >

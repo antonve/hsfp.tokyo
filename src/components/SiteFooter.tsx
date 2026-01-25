@@ -19,11 +19,11 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="max-w-7xl mx-auto py-8 px-4 border-t-4 border-surface-secondary/50">
-      <div className="flex justify-center gap-4 text-sm text-content-muted">
+    <footer className="max-w-7xl mx-auto py-8 px-4 border-t-4 border-zinc-100/50 dark:border-zinc-900/50">
+      <div className="flex justify-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
         <Link
           href="/privacy"
-          className="hover:text-content-secondary transition-colors"
+          className="hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors"
         >
           {t('privacy')}
         </Link>

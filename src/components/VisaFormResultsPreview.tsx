@@ -17,8 +17,9 @@ export function VisaFormResultsPreview({
   return (
     <div
       className={classNames(`px-8 py-4 flex items-center justify-between`, {
-        'bg-emerald-700': doesQualify,
-        'bg-surface-secondary/50': !doesQualify,
+        'bg-emerald-100 dark:bg-emerald-700 text-emerald-800 dark:text-gray-50':
+          doesQualify,
+        'bg-zinc-100/50 dark:bg-zinc-900/50': !doesQualify,
       })}
     >
       <div className="ont-semibold">{label}</div>

@@ -112,7 +112,7 @@ function Section({
     <>
       <li
         className={cn('px-2 py-2', {
-          'bg-surface-secondary rounded': isActive,
+          'bg-zinc-100 dark:bg-zinc-900 rounded': isActive,
         })}
       >
         <a
@@ -183,8 +183,8 @@ function Prompt({
     <li
       key={prompt.id}
       className={cn('text-sm border-l-2', {
-        'border-content-primary': isActive,
-        'border-border': !isActive,
+        'border-zinc-900 dark:border-gray-50': isActive,
+        'border-zinc-300 dark:border-zinc-700': !isActive,
         'disabled opacity-60 cursor-not-allowed': !isEnabled,
         'opacity-50': isSkipped && !isActive,
       })}
@@ -204,7 +204,7 @@ function Prompt({
         {isCompleted ? (
           <CheckIcon className="w-4 h-4 text-emerald-600" />
         ) : isSkipped ? (
-          <ForwardIcon className="w-4 h-4 text-content-muted" />
+          <ForwardIcon className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
         ) : null}
       </Link>
     </li>

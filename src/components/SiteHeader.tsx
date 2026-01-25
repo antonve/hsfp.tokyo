@@ -33,7 +33,7 @@ export function SiteHeader() {
   return (
     <>
       <div className="max-w-7xl mx-auto">
-        <header className="py-6 px-4 flex justify-between space-x-8 border-b-4 border-surface-secondary/50">
+        <header className="py-6 px-4 flex justify-between space-x-8 border-b-4 border-zinc-100/50 dark:border-zinc-900/50">
           <Link
             href={`/`}
             className="no-underline hover:opacity-60 transition-opacity"
@@ -61,7 +61,7 @@ export function SiteHeader() {
             </ul>
             <button
               onClick={() => setIsSettingsOpen(true)}
-              className="p-2 text-content-muted hover:text-content-primary transition-colors"
+              className="p-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-gray-50 transition-colors"
               aria-label={t('settings')}
             >
               <Cog6ToothIcon className="w-6 h-6" />
