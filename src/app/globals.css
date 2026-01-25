@@ -241,6 +241,53 @@ body {
   background-color: theme('colors.zinc.300');
 }
 
+/* Settings modal light theme */
+.light-theme .settings-modal {
+  background-color: theme('colors.white');
+  border-color: theme('colors.zinc.200');
+}
+
+.light-theme .settings-modal .text-zinc-100 {
+  color: theme('colors.zinc.900');
+}
+
+.light-theme .settings-modal .text-zinc-300 {
+  color: theme('colors.zinc.700');
+}
+
+.light-theme .settings-modal .text-zinc-400 {
+  color: theme('colors.zinc.500');
+}
+
+.light-theme .settings-modal .text-zinc-400:hover {
+  color: theme('colors.zinc.700');
+}
+
+.light-theme .settings-btn {
+  background-color: theme('colors.zinc.50');
+  border-color: theme('colors.zinc.200');
+  color: theme('colors.zinc.600');
+}
+
+.light-theme .settings-btn:hover {
+  border-color: theme('colors.zinc.300');
+}
+
+.light-theme .settings-btn.selected {
+  background-color: theme('colors.emerald.50');
+  border-color: theme('colors.emerald.500');
+  color: theme('colors.emerald.700');
+}
+
+.light-theme .settings-modal .bg-red-900\/50 {
+  background-color: theme('colors.red.50');
+  color: theme('colors.red.700');
+}
+
+.light-theme .settings-modal .text-red-200 {
+  color: theme('colors.red.700');
+}
+
 @layer utilities {
   .shadow-border {
     box-shadow: rgba(255, 255, 255, 0.05) 0px 1px 1px 0px, rgba(235, 235, 234, 0.16) 0px 0px 0px 1px;

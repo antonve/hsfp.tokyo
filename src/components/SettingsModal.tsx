@@ -4,7 +4,8 @@ import { Fragment, useState, useCallback } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline'
 import { useTranslations, useLocale } from 'next-intl'
-import { useRouter, usePathname } from 'next/navigation'
+import { usePathname } from 'next/navigation'
+import Link from 'next-intl/link'
 import { useTheme } from '@lib/ThemeContext'
 
 const LANGUAGES = [
@@ -25,23 +26,12 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const t = useTranslations('settings')
   const { theme, setTheme } = useTheme()
   const locale = useLocale()
-  const router = useRouter()
   const pathname = usePathname()
   const [clearConfirmation, setClearConfirmation] = useState(false)
 
-  const handleLanguageChange = useCallback(
-    (newLocale: string) => {
-      // Remove current locale prefix from pathname if present
-      const pathWithoutLocale =
-        pathname.replace(/^\/(en|ja|zh-CN|zh-TW)/, '') || '/'
-      const newPath =
-        newLocale === 'en'
-          ? pathWithoutLocale
-          : `/${newLocale}${pathWithoutLocale}`
-      router.push(newPath)
-    },
-    [router, pathname],
-  )
+  // Get path without locale prefix for language switching
+  const pathWithoutLocale =
+    pathname.replace(/^\/(en|ja|zh-CN|zh-TW)/, '') || '/'
 
   const handleClearData = useCallback(() => {
     if (!clearConfirmation) {
@@ -98,7 +88,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-lg bg-zinc-900 border border-zinc-700 p-6 shadow-xl transition-all">
+              <Dialog.Panel className="settings-modal w-full max-w-md transform overflow-hidden rounded-lg bg-zinc-900 border border-zinc-700 p-6 shadow-xl transition-all">
                 <div className="flex items-center justify-between mb-6">
                   <Dialog.Title className="text-xl font-semibold text-zinc-100">
                     {t('title')}
@@ -119,17 +109,19 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     </h3>
                     <div className="grid grid-cols-2 gap-2">
                       {LANGUAGES.map(lang => (
-                        <button
+                        <Link
                           key={lang.code}
-                          onClick={() => handleLanguageChange(lang.code)}
-                          className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
+                          href={pathWithoutLocale}
+                          locale={lang.code}
+                          onClick={onClose}
+                          className={`settings-btn flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors no-underline ${
                             locale === lang.code
-                              ? 'bg-zinc-800 border-emerald-500 text-zinc-100 dark:bg-zinc-800 dark:text-zinc-100'
-                              : 'bg-zinc-100 border-zinc-300 text-zinc-600 hover:border-zinc-400 dark:bg-zinc-800/50 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-zinc-600'
+                              ? 'selected bg-zinc-800 border-emerald-500 text-zinc-100'
+                              : 'bg-zinc-800/50 border-zinc-700 text-zinc-400 hover:border-zinc-600'
                           }`}
                         >
                           <span>{lang.name}</span>
-                        </button>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -141,10 +133,11 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     </h3>
                     <div className="flex gap-2">
                       <button
+                        type="button"
                         onClick={() => setTheme('dark')}
-                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
+                        className={`settings-btn flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
                           theme === 'dark'
-                            ? 'bg-zinc-800 border-emerald-500 text-zinc-100'
+                            ? 'selected bg-zinc-800 border-emerald-500 text-zinc-100'
                             : 'bg-zinc-800/50 border-zinc-700 text-zinc-400 hover:border-zinc-600'
                         }`}
                       >
@@ -152,10 +145,11 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                         <span>{t('dark')}</span>
                       </button>
                       <button
+                        type="button"
                         onClick={() => setTheme('light')}
-                        className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
+                        className={`settings-btn flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
                           theme === 'light'
-                            ? 'bg-zinc-100 border-emerald-500 text-zinc-900'
+                            ? 'selected bg-zinc-800 border-emerald-500 text-zinc-100'
                             : 'bg-zinc-800/50 border-zinc-700 text-zinc-400 hover:border-zinc-600'
                         }`}
                       >
@@ -174,8 +168,9 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                       {t('clear_description')}
                     </p>
                     <button
+                      type="button"
                       onClick={handleClearData}
-                      className={`w-full px-4 py-3 rounded-lg border transition-colors ${
+                      className={`settings-btn w-full px-4 py-3 rounded-lg border transition-colors ${
                         clearConfirmation
                           ? 'bg-red-900/50 border-red-500 text-red-200 hover:bg-red-900/70'
                           : 'bg-zinc-800/50 border-zinc-700 text-zinc-300 hover:border-zinc-600'
