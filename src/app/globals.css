@@ -8,118 +8,47 @@ a {
 
 /* Theme variables */
 :root {
-  --bg-primary: theme('colors.zinc.950');
-  --bg-secondary: theme('colors.zinc.900');
-  --bg-tertiary: theme('colors.zinc.800');
-  --text-primary: theme('colors.gray.50');
-  --text-secondary: theme('colors.zinc.300');
-  --text-muted: theme('colors.zinc.400');
-  --border-color: theme('colors.zinc.700');
-  --border-subtle: theme('colors.zinc.800');
+  /* RGB values for Tailwind opacity modifier support */
+  --surface-primary: 9 9 11;           /* zinc-950 */
+  --surface-secondary: 24 24 27;       /* zinc-900 */
+  --surface-tertiary: 39 39 42;        /* zinc-800 */
+  --surface-accent: 82 82 91;          /* zinc-600 - for CTA buttons */
+  --content-primary: 249 250 251;      /* gray-50 */
+  --content-secondary: 212 212 216;    /* zinc-300 */
+  --content-muted: 161 161 170;        /* zinc-400 */
+  --content-subtle: 113 113 122;       /* zinc-500 - more faded */
+  --border-color: 63 63 70;            /* zinc-700 */
+  --border-subtle: 24 24 27;           /* zinc-900 - barely visible on zinc-950 */
 }
 
 .light-theme {
-  --bg-primary: theme('colors.white');
-  --bg-secondary: theme('colors.zinc.100');
-  --bg-tertiary: theme('colors.zinc.200');
-  --text-primary: theme('colors.zinc.900');
-  --text-secondary: theme('colors.zinc.700');
-  --text-muted: theme('colors.zinc.500');
-  --border-color: theme('colors.zinc.300');
-  --border-subtle: theme('colors.zinc.200');
+  --surface-primary: 255 255 255;      /* white */
+  --surface-secondary: 244 244 245;    /* zinc-100 */
+  --surface-tertiary: 228 228 231;     /* zinc-200 */
+  --surface-accent: 228 228 231;       /* zinc-200 - for CTA buttons */
+  --content-primary: 24 24 27;         /* zinc-900 */
+  --content-secondary: 63 63 70;       /* zinc-700 */
+  --content-muted: 113 113 122;        /* zinc-500 */
+  --content-subtle: 82 82 91;          /* zinc-600 - more faded */
+  --border-color: 212 212 216;         /* zinc-300 */
+  --border-subtle: 244 244 245;        /* zinc-100 - subtle on white */
 }
 
 /* Apply theme to body */
 body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+  background-color: rgb(var(--surface-primary));
+  color: rgb(var(--content-primary));
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Light theme overrides for specific components */
-.light-theme .bg-zinc-950 {
-  background-color: var(--bg-primary);
-}
-
-.light-theme .bg-zinc-900 {
-  background-color: var(--bg-primary);
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-  border: 1px solid var(--border-subtle);
-}
-
-.light-theme .hover\:bg-zinc-900\/80:hover {
-  background-color: theme('colors.gray.50');
-}
-
-.light-theme .bg-zinc-900\/30 {
-  background-color: rgb(243 244 246 / 0.3);
-}
-
-.light-theme .bg-zinc-800 {
-  background-color: var(--bg-tertiary);
-}
-
-.light-theme .bg-zinc-800\/50 {
-  background-color: rgb(243 244 246 / 0.5);
-}
-
-.light-theme .bg-zinc-600\/50 {
-  background-color: theme('colors.zinc.200');
-  color: theme('colors.zinc.700');
-}
-
-.light-theme .text-gray-50 {
-  color: var(--text-primary);
-}
-
-.light-theme .text-zinc-100 {
-  color: var(--text-primary);
-}
-
-.light-theme .text-zinc-200 {
-  color: theme('colors.zinc.800');
-}
-
-.light-theme .text-zinc-300 {
-  color: var(--text-secondary);
-}
-
-.light-theme .text-zinc-400 {
-  color: var(--text-muted);
-}
-
-.light-theme .text-zinc-500 {
-  color: theme('colors.zinc.600');
-}
-
-.light-theme .border-zinc-700 {
-  border-color: theme('colors.zinc.200');
-  background-color: theme('colors.zinc.50');
-}
-
-.light-theme .border-zinc-800 {
-  border-color: theme('colors.zinc.200');
-  background-color: theme('colors.zinc.50');
-}
-
-.light-theme .border-t.border-zinc-800 {
-  background-color: var(--bg-primary);
-}
-
-.light-theme .border-zinc-900\/50 {
-  border-color: rgb(228 228 231 / 0.5);
-}
-
-.light-theme .hover\:bg-zinc-800\/50:hover {
-  background-color: rgb(243 244 246 / 0.5);
+/* Light theme overrides for accent colors */
+.light-theme .bg-emerald-700 {
+  background-color: theme('colors.emerald.100');
+  color: theme('colors.emerald.800');
 }
 
 .light-theme .from-emerald-900\/30 {
   --tw-gradient-from: rgb(167 243 208 / 0.4) var(--tw-gradient-from-position);
-}
-
-.light-theme .to-zinc-900 {
-  --tw-gradient-to: rgb(255 255 255) var(--tw-gradient-to-position);
 }
 
 .light-theme .bg-emerald-400\/10 {
@@ -130,71 +59,7 @@ body {
   border: 1px solid rgb(167 243 208 / 0.6);
 }
 
-.light-theme .shadow-border {
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 1px 0px, rgba(0, 0, 0, 0.16) 0px 0px 0px 1px;
-  background-color: var(--bg-primary);
-}
-
-.light-theme .button:not(.secondary) {
-  background-color: var(--bg-primary);
-}
-
-.light-theme .button.secondary {
-  background-color: theme('colors.zinc.200');
-  color: theme('colors.zinc.700');
-}
-
-/* Calculator page overrides */
-.light-theme .sidebar {
-  background-color: var(--bg-primary);
-  border-color: var(--border-subtle);
-  box-shadow: none;
-  border: none;
-  border-right: 1px solid var(--border-subtle);
-}
-
-.light-theme .sidebar + main {
-  background-color: var(--bg-secondary);
-}
-
-.light-theme .bg-zinc-900\/50 {
-  background-color: var(--bg-secondary);
-}
-
-.light-theme .bg-emerald-700 {
-  background-color: theme('colors.emerald.100');
-  color: theme('colors.emerald.800');
-}
-
-/* Results page */
-
-/* Table styling for light mode */
-.light-theme table {
-  background-color: var(--bg-primary);
-}
-
-.light-theme thead tr {
-  background-color: theme('colors.zinc.100');
-}
-
-.light-theme tbody tr.bg-zinc-900 {
-  background-color: var(--bg-primary);
-  box-shadow: none;
-  border: none;
-}
-
-.light-theme tbody tr.bg-zinc-900.bg-zinc-900\/30 {
-  background-color: theme('colors.zinc.50');
-}
-
-.light-theme tfoot tr {
-  background-color: theme('colors.zinc.100');
-}
-
-.light-theme .bg-zinc-950\/80 {
-  background-color: rgb(255 255 255 / 0.9);
-}
-
+/* Light theme status colors */
 .light-theme .bg-red-950\/20 {
   background-color: theme('colors.red.50');
 }
@@ -207,10 +72,6 @@ body {
   color: theme('colors.red.600');
 }
 
-.light-theme .border-zinc-600 {
-  border-color: theme('colors.zinc.300');
-}
-
 .light-theme .bg-emerald-950\/20 {
   background-color: theme('colors.emerald.50');
 }
@@ -219,78 +80,26 @@ body {
   border-color: theme('colors.emerald.400');
 }
 
-.light-theme .bg-zinc-700\/70 {
-  background-color: theme('colors.zinc.300');
-  color: theme('colors.zinc.700');
+/* Light theme table styling */
+.light-theme table {
+  background-color: rgb(var(--surface-primary));
 }
 
-.light-theme .border-zinc-100 {
-  border-color: theme('colors.zinc.900');
+.light-theme thead tr {
+  background-color: rgb(var(--surface-secondary));
 }
 
-/* Progress bar - needs visible track in light mode */
-.light-theme .h-1.bg-zinc-950 {
-  background-color: var(--bg-secondary);
-}
-
-.light-theme .bg-white {
-  background-color: theme('colors.zinc.800');
-}
-
-.light-theme .button.secondary:hover {
-  background-color: theme('colors.zinc.300');
-}
-
-/* Settings modal light theme */
-.light-theme .settings-modal {
-  background-color: theme('colors.white');
-  border-color: theme('colors.zinc.200');
-}
-
-.light-theme .settings-modal .text-zinc-100 {
-  color: theme('colors.zinc.900');
-}
-
-.light-theme .settings-modal .text-zinc-300 {
-  color: theme('colors.zinc.700');
-}
-
-.light-theme .settings-modal .text-zinc-400 {
-  color: theme('colors.zinc.500');
-}
-
-.light-theme .settings-modal .text-zinc-400:hover {
-  color: theme('colors.zinc.700');
-}
-
-.light-theme .settings-btn {
-  background-color: theme('colors.zinc.50');
-  border-color: theme('colors.zinc.200');
-  color: theme('colors.zinc.600');
-}
-
-.light-theme .settings-btn:hover {
-  border-color: theme('colors.zinc.300');
-}
-
-.light-theme .settings-btn.selected {
-  background-color: theme('colors.emerald.50');
-  border-color: theme('colors.emerald.500');
-  color: theme('colors.emerald.700');
-}
-
-.light-theme .settings-modal .bg-red-900\/50 {
-  background-color: theme('colors.red.50');
-  color: theme('colors.red.700');
-}
-
-.light-theme .settings-modal .text-red-200 {
-  color: theme('colors.red.700');
+.light-theme tfoot tr {
+  background-color: rgb(var(--surface-secondary));
 }
 
 @layer utilities {
   .shadow-border {
     box-shadow: rgba(255, 255, 255, 0.05) 0px 1px 1px 0px, rgba(235, 235, 234, 0.16) 0px 0px 0px 1px;
+  }
+
+  .light-theme .shadow-border {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 1px 0px, rgba(0, 0, 0, 0.16) 0px 0px 0px 1px;
   }
 
   .backdrop {
@@ -302,18 +111,18 @@ body {
   }
 
   .button:not(.secondary) {
-    @apply px-4 h-12 md:h-9 flex items-center rounded bg-zinc-100 text-zinc-900 font-bold whitespace-nowrap shadow-border relative outline-2 outline outline-transparent;
+    @apply px-4 h-12 md:h-9 flex items-center rounded bg-white text-zinc-900 font-bold whitespace-nowrap shadow-border relative outline-2 outline outline-transparent;
     @apply hover:outline-emerald-400/80 hover:bg-zinc-50 focus-visible:outline-emerald-400/80 active:scale-95 transition-all;
   }
 
   .button.secondary {
-    @apply bg-zinc-800 text-zinc-300 px-4 h-12 md:h-9 flex items-center rounded whitespace-nowrap relative outline outline-2 outline-transparent;
-    @apply hover:outline-emerald-400/80 hover:bg-zinc-700 focus-visible:outline-emerald-400/80 active:scale-95 transition-all;
+    @apply bg-surface-tertiary text-content-secondary px-4 h-12 md:h-9 flex items-center rounded whitespace-nowrap relative outline outline-2 outline-transparent;
+    @apply hover:outline-emerald-400/80 hover:bg-surface-accent focus-visible:outline-emerald-400/80 active:scale-95 transition-all;
   }
 
   .button.secondary:disabled {
-    @apply bg-zinc-800/50 text-zinc-500 cursor-not-allowed;
-    @apply hover:outline-transparent hover:bg-zinc-800/50;
+    @apply bg-surface-tertiary/50 text-content-muted cursor-not-allowed;
+    @apply hover:outline-transparent hover:bg-surface-tertiary/50;
   }
 
   .button.large {

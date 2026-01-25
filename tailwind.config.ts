@@ -17,6 +17,24 @@ const config: Config = {
           ...defaultTheme.fontFamily.serif,
         ],
       },
+      colors: {
+        surface: {
+          primary: 'rgb(var(--surface-primary) / <alpha-value>)',
+          secondary: 'rgb(var(--surface-secondary) / <alpha-value>)',
+          tertiary: 'rgb(var(--surface-tertiary) / <alpha-value>)',
+          accent: 'rgb(var(--surface-accent) / <alpha-value>)',
+        },
+        content: {
+          primary: 'rgb(var(--content-primary) / <alpha-value>)',
+          secondary: 'rgb(var(--content-secondary) / <alpha-value>)',
+          muted: 'rgb(var(--content-muted) / <alpha-value>)',
+          subtle: 'rgb(var(--content-subtle) / <alpha-value>)',
+        },
+        border: {
+          DEFAULT: 'rgb(var(--border-color) / <alpha-value>)',
+          subtle: 'rgb(var(--border-subtle) / <alpha-value>)',
+        },
+      },
     },
   },
   plugins: [motion],

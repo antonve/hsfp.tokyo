@@ -105,7 +105,7 @@ export function ChoicePrompt({
           >
             <div
               className={cn(
-                'px-2 py-2  min-h-9 rounded relative inline-block has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-emerald-400/80',
+                'px-2 py-2 min-h-9 rounded relative inline-block bg-surface-primary has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-emerald-400/80',
                 {
                   'ring-2 ring-emerald-400/80 motion-preset-fade motion-duration-200':
                     value === option,
@@ -134,7 +134,7 @@ export function ChoicePrompt({
                     {
                       'bg-emerald-500 motion-scale-in-100 motion-duration-150':
                         value === option,
-                      'bg-zinc-700/70': value !== option,
+                      'bg-surface-accent/70': value !== option,
                     },
                   )}
                 >

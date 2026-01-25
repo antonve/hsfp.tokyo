@@ -148,7 +148,7 @@ export function NumberPrompt({
             name={prompt.id}
           />
           {showLabel ? (
-            <span className="mx-1 absolute right-0 top-1 h-7 flex items-center font-bold text-xs bg-zinc-700/70 px-2 py-1 rounded-sm">
+            <span className="mx-1 absolute right-0 top-1 h-7 flex items-center font-bold text-xs bg-surface-accent/70 px-2 py-1 rounded-sm">
               {t(`${promptKey}.input_label`)}
             </span>
           ) : null}

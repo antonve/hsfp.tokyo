@@ -13,11 +13,11 @@ export function VisaProgressBar({
   const completed = Math.ceil(getFormProgress(config, qualifications))
 
   return (
-    <div className="h-1 bg-zinc-950 w-full mx-auto">
+    <div className="h-1 bg-surface-secondary w-full mx-auto">
       <div
         style={{ width: `${completed}%` }}
         className={`transition-all duration-1000 h-1 ease-out ${
-          doesQualify ? 'bg-emerald-500' : 'bg-white'
+          doesQualify ? 'bg-emerald-500' : 'bg-content-primary'
         }`}
       ></div>
     </div>

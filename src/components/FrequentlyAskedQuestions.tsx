@@ -33,7 +33,10 @@ export function FrequentlyAskedQuestions({
       <h2 className="font-semibold text-lg mb-4">{t('faq_heading')}</h2>
       <ol className="space-y-4">
         {Array.from(Array(count).keys()).map((_, i) => (
-          <li key={i} className="rounded bg-zinc-900 px-4 py-2">
+          <li
+            key={i}
+            className="rounded bg-surface-primary px-4 py-2 shadow-sm"
+          >
             <h3
               className="font-semibold cursor-pointer flex items-center justify-between"
               onClick={() => {

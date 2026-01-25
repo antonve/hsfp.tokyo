@@ -10,18 +10,18 @@ export default function PrivacyPage() {
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
           {t('title')}
         </h1>
-        <p className="mt-4 text-zinc-400">{t('last_updated')}</p>
+        <p className="mt-4 text-content-muted">{t('last_updated')}</p>
       </section>
 
       {/* Introduction */}
       <section className="mb-12">
-        <p className="text-zinc-300 leading-relaxed">{t('intro')}</p>
+        <p className="text-content-secondary leading-relaxed">{t('intro')}</p>
       </section>
 
       {/* No Data Collection */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4">{t('no_collection.title')}</h2>
-        <p className="text-zinc-300 leading-relaxed">
+        <p className="text-content-secondary leading-relaxed">
           {t('no_collection.content')}
         </p>
       </section>
@@ -29,10 +29,10 @@ export default function PrivacyPage() {
       {/* Local Storage */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4">{t('local_storage.title')}</h2>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <p className="text-content-secondary leading-relaxed mb-4">
           {t('local_storage.content')}
         </p>
-        <ul className="list-disc list-inside text-zinc-300 space-y-2 ml-4">
+        <ul className="list-disc list-inside text-content-secondary space-y-2 ml-4">
           <li>{t('local_storage.items.calculator')}</li>
           <li>{t('local_storage.items.preferences')}</li>
         </ul>
@@ -41,13 +41,15 @@ export default function PrivacyPage() {
       {/* Your Control */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4">{t('control.title')}</h2>
-        <p className="text-zinc-300 leading-relaxed">{t('control.content')}</p>
+        <p className="text-content-secondary leading-relaxed">
+          {t('control.content')}
+        </p>
       </section>
 
       {/* Third-Party Services */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4">{t('third_party.title')}</h2>
-        <p className="text-zinc-300 leading-relaxed">
+        <p className="text-content-secondary leading-relaxed">
           {t('third_party.content')}
         </p>
       </section>
@@ -55,13 +57,15 @@ export default function PrivacyPage() {
       {/* Future Changes */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4">{t('changes.title')}</h2>
-        <p className="text-zinc-300 leading-relaxed">{t('changes.content')}</p>
+        <p className="text-content-secondary leading-relaxed">
+          {t('changes.content')}
+        </p>
       </section>
 
       {/* Contact */}
       <section>
         <h2 className="text-2xl font-bold mb-4">{t('contact.title')}</h2>
-        <p className="text-zinc-300">
+        <p className="text-content-secondary">
           {t('contact.content')}{' '}
           <a
             href="mailto:contact@hsfp.tokyo"

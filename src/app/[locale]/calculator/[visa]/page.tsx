@@ -91,31 +91,33 @@ export default async function Page({ params }: Props) {
           <h1 className="text-3xl md:text-4xl font-bold mb-2">
             {t('title', { visaType: visaTypeLabel })}
           </h1>
-          <p className="text-zinc-400 mb-8">{t('time_estimate')}</p>
+          <p className="text-content-muted mb-8">{t('time_estimate')}</p>
 
           {/* Job Coverage */}
           <section className="mb-8 max-w-md">
-            <h2 className="text-lg font-semibold text-zinc-300 uppercase tracking-wide mb-3">
+            <h2 className="text-lg font-semibold text-content-secondary uppercase tracking-wide mb-3">
               {t('job_coverage.heading')}
             </h2>
-            <p className="text-zinc-300">{t(`job_coverage.${params.visa}`)}</p>
+            <p className="text-content-secondary">
+              {t(`job_coverage.${params.visa}`)}
+            </p>
           </section>
 
           {/* Key Requirements */}
           <section className="mb-8">
-            <h2 className="text-lg font-semibold text-zinc-300 uppercase tracking-wide mb-3">
+            <h2 className="text-lg font-semibold text-content-secondary uppercase tracking-wide mb-3">
               {t('requirements.heading')}
             </h2>
             <ul className="space-y-2">
               <li className="flex items-start gap-3">
                 <CheckCircleIcon className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
-                <span className="text-zinc-300">
+                <span className="text-content-secondary">
                   {t('requirements.salary')}
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <CheckCircleIcon className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
-                <span className="text-zinc-300">
+                <span className="text-content-secondary">
                   {t('requirements.points')}
                 </span>
               </li>
@@ -124,38 +126,46 @@ export default async function Page({ params }: Props) {
 
           {/* Tips */}
           <section className="mb-8">
-            <h2 className="text-lg font-semibold text-zinc-300 uppercase tracking-wide mb-3">
+            <h2 className="text-lg font-semibold text-content-secondary uppercase tracking-wide mb-3">
               {t('tips.heading')}
             </h2>
             <ul className="space-y-2">
               <li className="flex items-start gap-3">
                 <LightBulbIcon className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
-                <span className="text-zinc-300">{t('tips.skip')}</span>
+                <span className="text-content-secondary">{t('tips.skip')}</span>
               </li>
               <li className="flex items-start gap-3">
                 <DocumentTextIcon className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
-                <span className="text-zinc-300">{t('tips.results')}</span>
+                <span className="text-content-secondary">
+                  {t('tips.results')}
+                </span>
               </li>
             </ul>
           </section>
 
           {/* What You'll Need */}
           <section>
-            <h2 className="text-lg font-semibold text-zinc-300 uppercase tracking-wide mb-3">
+            <h2 className="text-lg font-semibold text-content-secondary uppercase tracking-wide mb-3">
               {t('prepare.heading')}
             </h2>
             <ul className="space-y-2">
               <li className="flex items-start gap-3">
-                <ClockIcon className="w-5 h-5 text-zinc-500 mt-0.5 flex-shrink-0" />
-                <span className="text-zinc-300">{t('prepare.salary')}</span>
+                <ClockIcon className="w-5 h-5 text-content-muted mt-0.5 flex-shrink-0" />
+                <span className="text-content-secondary">
+                  {t('prepare.salary')}
+                </span>
               </li>
               <li className="flex items-start gap-3">
-                <ClockIcon className="w-5 h-5 text-zinc-500 mt-0.5 flex-shrink-0" />
-                <span className="text-zinc-300">{t('prepare.education')}</span>
+                <ClockIcon className="w-5 h-5 text-content-muted mt-0.5 flex-shrink-0" />
+                <span className="text-content-secondary">
+                  {t('prepare.education')}
+                </span>
               </li>
               <li className="flex items-start gap-3">
-                <ClockIcon className="w-5 h-5 text-zinc-500 mt-0.5 flex-shrink-0" />
-                <span className="text-zinc-300">{t('prepare.experience')}</span>
+                <ClockIcon className="w-5 h-5 text-content-muted mt-0.5 flex-shrink-0" />
+                <span className="text-content-secondary">
+                  {t('prepare.experience')}
+                </span>
               </li>
             </ul>
           </section>

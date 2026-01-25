@@ -66,7 +66,7 @@ export default function Layout({ children, params }: Props) {
 
   return (
     <div className="flex flex-col relative min-h-[calc(100dvh)]">
-      <div className="flex items-center px-4 py-4 border-b-4 border-zinc-900/50">
+      <div className="flex items-center px-4 py-4 border-b-4 border-surface-secondary/50">
         <button
           onClick={() => setSidebarActive(!sidebarActive)}
           className={cn(`p-2 mr-2 rounded md:hidden`, {})}
@@ -85,7 +85,7 @@ export default function Layout({ children, params }: Props) {
         </Link>
         <button
           onClick={() => setIsSettingsOpen(true)}
-          className="p-2 text-zinc-400 hover:text-zinc-200 transition-colors"
+          className="p-2 text-content-muted hover:text-content-primary transition-colors"
           aria-label="Settings"
         >
           <Cog6ToothIcon className="w-6 h-6" />
@@ -98,7 +98,7 @@ export default function Layout({ children, params }: Props) {
       <div className="flex flex-row flex-grow">
         <aside
           className={cn(
-            `sidebar w-72 shrink-0 transform md:shadow md:translate-x-0 transition-transform duration-150 ease-in bg-zinc-950 z-50 border-r-4 border-zinc-900/50`,
+            `sidebar w-72 shrink-0 transform md:translate-x-0 transition-transform duration-150 ease-in bg-surface-primary z-50 border-r-4 border-surface-secondary/50`,
             {
               '-translate-x-full': !sidebarActive,
               shadow: sidebarActive,
@@ -106,7 +106,7 @@ export default function Layout({ children, params }: Props) {
           )}
         >
           <div className="sidebar-header p-2">
-            <div className="font-semibold text-sm px-2 py-2 rounded bg-zinc-900/50">
+            <div className="font-semibold text-sm px-2 py-2 rounded bg-surface-secondary">
               {t('form_title', {
                 visaType: t(`visa_type.${formConfig.visaType}`),
               })}
@@ -126,7 +126,7 @@ export default function Layout({ children, params }: Props) {
             qualifications={qualifications}
             doesQualify={doesQualify}
           />
-          <div className="flex-grow h-full items-stretch p-4 md:p-8">
+          <div className="flex-grow h-full items-stretch p-4 md:p-8 bg-surface-secondary">
             {children}
           </div>
           <div className="flex-shrink">

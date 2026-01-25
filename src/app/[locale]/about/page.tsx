@@ -15,7 +15,7 @@ export default function AboutPage() {
 
       {/* Author Section */}
       <section className="mb-16">
-        <div className="bg-zinc-900 rounded-xl p-8">
+        <div className="bg-surface-secondary rounded-xl p-8">
           <div className="flex flex-col sm:flex-row items-center gap-8">
             <Image
               src="/images/anton.jpeg"
@@ -26,8 +26,8 @@ export default function AboutPage() {
             />
             <div className="text-center sm:text-left">
               <h2 className="text-2xl font-bold">{t('author.name')}</h2>
-              <p className="text-zinc-400 mt-1">{t('author.role')}</p>
-              <p className="mt-4 text-zinc-300">{t('author.bio')}</p>
+              <p className="text-content-muted mt-1">{t('author.role')}</p>
+              <p className="mt-4 text-content-secondary">{t('author.bio')}</p>
               <div className="mt-4 flex flex-wrap justify-center sm:justify-start gap-4">
                 <a
                   href={`mailto:${t('author.email')}`}
@@ -52,7 +52,7 @@ export default function AboutPage() {
       {/* Motivation Section */}
       <section className="mb-16">
         <h2 className="text-2xl font-bold mb-4">{t('motivation.title')}</h2>
-        <p className="text-zinc-300 leading-relaxed">
+        <p className="text-content-secondary leading-relaxed">
           {t('motivation.content')}
         </p>
       </section>
@@ -60,10 +60,10 @@ export default function AboutPage() {
       {/* Partnership Section */}
       <section className="mb-16">
         <h2 className="text-2xl font-bold mb-4">{t('partnership.title')}</h2>
-        <p className="text-zinc-300 leading-relaxed mb-4">
+        <p className="text-content-secondary leading-relaxed mb-4">
           {t('partnership.content')}
         </p>
-        <p className="text-zinc-300">
+        <p className="text-content-secondary">
           {t('partnership.cta')}{' '}
           <a
             href={`mailto:${t('author.email')}`}
@@ -77,7 +77,7 @@ export default function AboutPage() {
       {/* Source & Disclaimer Section */}
       <section>
         <h2 className="text-2xl font-bold mb-4">{t('source.title')}</h2>
-        <p className="text-zinc-300 mb-4">{t('source.isa_link')}</p>
+        <p className="text-content-secondary mb-4">{t('source.isa_link')}</p>
         <a
           href="https://www.moj.go.jp/isa/publications/materials/newimmiact_3_index.html"
           target="_blank"
@@ -86,9 +86,13 @@ export default function AboutPage() {
         >
           {t('source.isa_link_text')} &rarr;
         </a>
-        <p className="text-zinc-400 text-sm mb-6">{t('source.last_updated')}</p>
-        <p className="text-zinc-400 text-sm mb-4">{t('source.disclaimer')}</p>
-        <p className="text-zinc-400 text-sm">
+        <p className="text-content-muted text-sm mb-6">
+          {t('source.last_updated')}
+        </p>
+        <p className="text-content-muted text-sm mb-4">
+          {t('source.disclaimer')}
+        </p>
+        <p className="text-content-muted text-sm">
           {t('source.contact')}{' '}
           <a
             href={`mailto:${t('author.email')}`}
