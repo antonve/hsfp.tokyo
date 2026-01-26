@@ -206,15 +206,26 @@ function MatchesOverview({
 }) {
   const t = useTranslations('results')
 
+  const groupedByCategory = useMemo(() => {
+    const groups: Record<string, Criteria[]> = {}
+    for (const match of matches) {
+      const category = t(`criteria.${match.id}.category`)
+      if (!groups[category]) {
+        groups[category] = []
+      }
+      groups[category].push(match)
+    }
+    return groups
+  }, [matches, t])
+
+  const categories = Object.keys(groupedByCategory)
+
   return (
     <div className="space-y-3">
       <div className="overflow-x-auto border border-zinc-200 dark:border-zinc-800 rounded-lg bg-white dark:bg-zinc-950">
         <table className="w-full border-collapse">
           <thead>
             <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900">
-              <th className="text-left py-3 px-4 font-semibold text-zinc-700 dark:text-zinc-300">
-                {t('overview.category')}
-              </th>
               <th className="text-left py-3 px-4 font-semibold text-zinc-700 dark:text-zinc-300">
                 {t('overview.explanation')}
               </th>
@@ -224,34 +235,27 @@ function MatchesOverview({
             </tr>
           </thead>
           <tbody>
-            {matches.map((match, index) => (
-              <tr
-                key={match.id}
-                className={`border-b border-zinc-100 dark:border-zinc-900 motion-preset-fade motion-duration-300 ${
-                  index % 2 === 1
-                    ? 'bg-zinc-50 dark:bg-zinc-900/30'
-                    : 'bg-white dark:bg-zinc-950'
-                }`}
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                <td className="py-3 px-4 text-zinc-700 dark:text-zinc-300">
-                  {t(`criteria.${match.id}.category`)}
-                </td>
-                <td className="py-3 px-4 text-zinc-500 dark:text-zinc-400">
-                  {t(`criteria.${match.id}.explanation`)}
-                </td>
-                <td className="py-3 px-4 text-right font-mono text-zinc-700 dark:text-zinc-300">
-                  {match.points}
-                </td>
-              </tr>
-            ))}
+            {categories.map((category, categoryIndex) => {
+              const categoryMatches = groupedByCategory[category]
+              const categoryPoints = categoryMatches.reduce(
+                (sum, m) => sum + m.points,
+                0,
+              )
+
+              return (
+                <CategoryGroup
+                  key={category}
+                  category={category}
+                  matches={categoryMatches}
+                  categoryPoints={categoryPoints}
+                  categoryIndex={categoryIndex}
+                />
+              )
+            })}
           </tbody>
           <tfoot>
             <tr className="border-t-2 border-zinc-200 dark:border-zinc-800 font-semibold bg-zinc-100 dark:bg-zinc-900">
-              <td
-                className="py-3 px-4 text-zinc-900 dark:text-gray-50"
-                colSpan={2}
-              >
+              <td className="py-3 px-4 text-zinc-900 dark:text-gray-50">
                 {t('overview.total')}
               </td>
               <td className="py-3 px-4 text-right font-mono text-zinc-900 dark:text-gray-50">
@@ -265,6 +269,52 @@ function MatchesOverview({
         {t('overview.disclaimer')}
       </p>
     </div>
+  )
+}
+
+function CategoryGroup({
+  category,
+  matches,
+  categoryPoints,
+  categoryIndex,
+}: {
+  category: string
+  matches: Criteria[]
+  categoryPoints: number
+  categoryIndex: number
+}) {
+  const t = useTranslations('results')
+
+  return (
+    <>
+      <tr
+        className="bg-zinc-50 dark:bg-zinc-900/50 motion-preset-fade motion-duration-300"
+        style={{ animationDelay: `${categoryIndex * 75}ms` }}
+      >
+        <td className="py-2 px-4 font-semibold text-zinc-800 dark:text-zinc-200">
+          {category}
+        </td>
+        <td className="py-2 px-4 text-right font-mono font-semibold text-zinc-800 dark:text-zinc-200">
+          {categoryPoints}
+        </td>
+      </tr>
+      {matches.map((match, index) => (
+        <tr
+          key={match.id}
+          className="border-b border-zinc-100 dark:border-zinc-900 motion-preset-fade motion-duration-300 bg-white dark:bg-zinc-950"
+          style={{
+            animationDelay: `${categoryIndex * 75 + (index + 1) * 50}ms`,
+          }}
+        >
+          <td className="py-2 px-4 pl-8 text-zinc-500 dark:text-zinc-400">
+            {t(`criteria.${match.id}.explanation`)}
+          </td>
+          <td className="py-2 px-4 text-right font-mono text-zinc-500 dark:text-zinc-400">
+            {match.points}
+          </td>
+        </tr>
+      ))}
+    </>
   )
 }
 
