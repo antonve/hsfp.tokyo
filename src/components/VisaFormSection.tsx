@@ -14,7 +14,7 @@ import { FrequentlyAskedQuestions } from '@components/FrequentlyAskedQuestions'
 import { useParams, useRouter } from 'next/navigation'
 import { useLanguage } from '@lib/hooks'
 import { useTranslations } from 'next-intl'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { withCompletedPrompt } from '@lib/domain/prompts'
 import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid'
 
@@ -47,8 +47,10 @@ export function VisaFormSection({
   const translationPrefix = `visa_form.${config.visaType}.sections.${progress.section}.${prompt.id}`
 
   const formRef = useRef<HTMLDivElement>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const submit = (updateQualifications: QualificationUpdater) => {
+    setIsLoading(true)
     const newQualifications = updateQualifications(qualifications)
     const { section, promptIndex, finished } = nextStepOfForm(
       config,
@@ -148,6 +150,7 @@ export function VisaFormSection({
           section={progress.section}
           visaType={config.visaType}
           overallPromptIndex={overallPromptIndex}
+          isLoading={isLoading}
         />
         <FrequentlyAskedQuestions
           count={prompt.faqCount ?? 0}

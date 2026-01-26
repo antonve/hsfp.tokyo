@@ -15,6 +15,7 @@ export function BooleanPrompt({
   prompt,
   overallPromptIndex,
   onSubmit,
+  isLoading = false,
 }: {
   qualifications: Qualifications
   visaType: VisaType
@@ -22,6 +23,7 @@ export function BooleanPrompt({
   prompt: BooleanPromptType
   overallPromptIndex: number
   onSubmit: (updateQualifications: QualificationUpdater) => void
+  isLoading?: boolean
 }) {
   return (
     <ChoicePrompt
@@ -39,6 +41,7 @@ export function BooleanPrompt({
       })}
       visaType={visaType}
       section={section}
+      isLoading={isLoading}
     />
   )
 }

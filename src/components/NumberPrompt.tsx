@@ -18,6 +18,7 @@ export function NumberPrompt({
   qualifications,
   visaType,
   section,
+  isLoading = false,
 }: {
   qualifications: Qualifications
   visaType: VisaType
@@ -25,6 +26,7 @@ export function NumberPrompt({
   prompt: NumberPromptType
   overallPromptIndex: number
   onSubmit: (updateQualifications: QualificationUpdater) => void
+  isLoading?: boolean
 }) {
   const [value, setValue] = useState<number | undefined>(() => {
     if (isPromptCompleted(overallPromptIndex, qualifications)) {
@@ -159,14 +161,23 @@ export function NumberPrompt({
       </div>
 
       <div className="flex flex-wrap -m-2">
-        <button type="submit" className="button m-2">
-          {t(`actions.continue`)}
-          <ArrowRightIcon className="h-5 w-5 ml-2" />
+        <button type="submit" className="button m-2" disabled={isLoading}>
+          <span className={isLoading ? 'invisible' : ''}>
+            {t(`actions.continue`)}
+          </span>
+          <ArrowRightIcon
+            className={`h-5 w-5 ml-2 ${isLoading ? 'invisible' : ''}`}
+          />
+          {isLoading && (
+            <span className="absolute inset-0 flex items-center justify-center">
+              <span className="h-5 w-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+            </span>
+          )}
         </button>
         <button
           type="button"
           className="button secondary m-2"
-          disabled={prompt.required}
+          disabled={prompt.required || isLoading}
           title={prompt.required ? t(`actions.cannot_skip_hint`) : undefined}
           onClick={() =>
             onSubmit(q => ({

@@ -15,6 +15,7 @@ export function VisaFormPrompt({
   prompt,
   overallPromptIndex,
   onSubmit,
+  isLoading,
 }: {
   qualifications: Qualifications
   visaType: VisaType
@@ -22,6 +23,7 @@ export function VisaFormPrompt({
   prompt: Prompt
   overallPromptIndex: number
   onSubmit: (updateQualifications: QualificationUpdater) => void
+  isLoading: boolean
 }) {
   switch (prompt.type) {
     case 'NUMBER':
@@ -34,6 +36,7 @@ export function VisaFormPrompt({
             visaType={visaType}
             section={section}
             overallPromptIndex={overallPromptIndex}
+            isLoading={isLoading}
           />
         </div>
       )
@@ -47,6 +50,7 @@ export function VisaFormPrompt({
             visaType={visaType}
             section={section}
             overallPromptIndex={overallPromptIndex}
+            isLoading={isLoading}
           />
         </div>
       )
@@ -60,6 +64,7 @@ export function VisaFormPrompt({
             visaType={visaType}
             section={section}
             overallPromptIndex={overallPromptIndex}
+            isLoading={isLoading}
           />
         </div>
       )
