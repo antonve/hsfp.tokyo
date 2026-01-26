@@ -33,7 +33,7 @@ describe('state versioning', () => {
       expect(decoded._v).toBe(CALCULATOR_STATE_VERSION)
     })
 
-    it('should always set version to current version, even if different version exists', () => {
+    it('should preserve existing version when encoding (to allow outdated detection)', () => {
       const qualifications = QualificationsSchema.parse({
         ...baseQualifications,
         _v: 0, // Old version
@@ -41,7 +41,7 @@ describe('state versioning', () => {
       const encoded = encodeQualifications(qualifications)
       const decoded = JSON.parse(atob(encoded))
 
-      expect(decoded._v).toBe(CALCULATOR_STATE_VERSION)
+      expect(decoded._v).toBe(0) // Preserved, not overwritten
     })
 
     it('should preserve other fields when encoding', () => {
@@ -170,7 +170,7 @@ describe('state versioning', () => {
       expect(decoded._v).toBe(CALCULATOR_STATE_VERSION)
     })
 
-    it('should produce non-outdated state after encoding', () => {
+    it('should preserve outdated state through encode/decode (version is not auto-upgraded)', () => {
       const qualifications = QualificationsSchema.parse({
         v: VisaType.Engineer,
         completed: 0,
@@ -181,7 +181,23 @@ describe('state versioning', () => {
       const encoded = encodeQualifications(qualifications)
       const decoded = decodeQualifications(encoded)
 
+      // Version should remain outdated - the OutdatedStateError component handles this
+      expect(isStateVersionOutdated(decoded)).toBe(true)
+    })
+
+    it('should set current version for new states without version', () => {
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+        // No _v - simulates fresh state
+      })
+
+      const encoded = encodeQualifications(qualifications)
+      const decoded = decodeQualifications(encoded)
+
       expect(isStateVersionOutdated(decoded)).toBe(false)
+      expect(decoded._v).toBe(CALCULATOR_STATE_VERSION)
     })
   })
 

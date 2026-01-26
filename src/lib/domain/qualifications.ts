@@ -53,11 +53,11 @@ export function decodeQualifications(raw: string) {
 }
 
 export function encodeQualifications(qualifications: Qualifications) {
-  // Ensure sessionId and version exist
+  // Ensure sessionId exists, preserve version (or default to current for new states)
   const qualificationsWithMetadata = {
     ...qualifications,
     s: qualifications.s || generateSessionId(),
-    _v: CALCULATOR_STATE_VERSION,
+    _v: qualifications._v ?? CALCULATOR_STATE_VERSION,
   }
   return btoa(JSON.stringify(qualificationsWithMetadata))
 }
