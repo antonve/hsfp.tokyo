@@ -199,6 +199,28 @@
         }
       }
     },
+    "considerations": {
+      "title": "Things to Consider",
+      "description": "While the HSFP visa offers many advantages, there are some factors to be aware of before applying.",
+      "items": {
+        "job_change": {
+          "title": "Job Changes Require New Visa",
+          "description": "Changing employers requires applying for a new HSFP visa. With HSFP Type 2, you still need to be employed but your visa is no longer tied to a specific employer."
+        },
+        "renewal": {
+          "title": "Must Maintain 70+ Points",
+          "description": "You need to re-prove your points at renewal every 5 years. If your income drops or circumstances change, renewal may be denied."
+        },
+        "income": {
+          "title": "Minimum Income Requirement",
+          "description": "A minimum annual salary of ¥3,000,000 is generally required. Falling below this threshold may affect your HSFP eligibility even with 70+ points."
+        },
+        "employment_link": {
+          "title": "Tied to Employment Status",
+          "description": "Unlike Permanent Residency, HSFP is linked to your job. Being unemployed for more than 3 months without good reason can put your status at risk."
+        }
+      }
+    },
     "how_app_helps": {
       "title": "How This Calculator Helps",
       "description": "Preparing for the HSFP visa can be complex. Our calculator simplifies the process so you can focus on what matters.",

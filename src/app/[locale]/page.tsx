@@ -11,6 +11,10 @@ import {
   DocumentCheckIcon,
   ShareIcon,
   LightBulbIcon,
+  ExclamationTriangleIcon,
+  ArrowPathIcon,
+  CurrencyYenIcon,
+  BuildingOfficeIcon,
 } from '@heroicons/react/24/solid'
 import { useTranslations } from 'next-intl'
 import Link from 'next-intl/link'
@@ -211,6 +215,66 @@ export default function Page() {
             </div>
             <p className="text-zinc-500 dark:text-zinc-400 text-sm">
               {t('why_hsfp.benefits.indefinite_stay.description')}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Considerations Section */}
+      <section className="max-w-7xl px-4 mt-16">
+        <h2 className="text-3xl font-bold text-center mb-4">
+          {t('considerations.title')}
+        </h2>
+        <p className="text-center text-zinc-500 dark:text-zinc-400 mb-12 max-w-3xl mx-auto">
+          {t('considerations.description')}
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <BuildingOfficeIcon className="w-6 h-6 text-amber-500" />
+              <h3 className="text-lg font-semibold">
+                {t('considerations.items.job_change.title')}
+              </h3>
+            </div>
+            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
+              {t('considerations.items.job_change.description')}
+            </p>
+          </div>
+
+          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <ArrowPathIcon className="w-6 h-6 text-amber-500" />
+              <h3 className="text-lg font-semibold">
+                {t('considerations.items.renewal.title')}
+              </h3>
+            </div>
+            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
+              {t('considerations.items.renewal.description')}
+            </p>
+          </div>
+
+          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <CurrencyYenIcon className="w-6 h-6 text-amber-500" />
+              <h3 className="text-lg font-semibold">
+                {t('considerations.items.income.title')}
+              </h3>
+            </div>
+            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
+              {t('considerations.items.income.description')}
+            </p>
+          </div>
+
+          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
+            <div className="flex items-center gap-3 mb-3">
+              <ExclamationTriangleIcon className="w-6 h-6 text-amber-500" />
+              <h3 className="text-lg font-semibold">
+                {t('considerations.items.employment_link.title')}
+              </h3>
+            </div>
+            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
+              {t('considerations.items.employment_link.description')}
             </p>
           </div>
         </div>
