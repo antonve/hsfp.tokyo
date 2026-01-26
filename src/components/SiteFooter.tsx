@@ -27,6 +27,14 @@ export function SiteFooter() {
         >
           {t('privacy')}
         </Link>
+        <a
+          href="https://github.com/antonve/hsfp.tokyo"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors"
+        >
+          GitHub
+        </a>
         <span>{t('last_updated')}</span>
       </div>
     </footer>
