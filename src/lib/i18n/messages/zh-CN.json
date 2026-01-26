@@ -150,7 +150,9 @@
   "nav": {
     "home": "首页",
     "about": "关于本站",
-    "settings": "设置"
+    "settings": "设置",
+    "menu": "菜单",
+    "close": "关闭菜单"
   },
   "settings": {
     "title": "设置",
