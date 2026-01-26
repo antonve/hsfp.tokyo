@@ -217,15 +217,33 @@ export function getFormProgress(
   config: FormConfig,
   qualifications: Qualifications,
 ) {
-  const totalPrompts = Object.values(config.order).reduce(
-    (accumulator, value) => accumulator + (config.sections[value] ?? []).length,
-    0,
-  )
-  const completedPrompts = [...Array(totalPrompts)]
-    .map((_, promptId) => isPromptCompleted(promptId, qualifications))
-    .filter(isCompleted => isCompleted)
+  let totalPrompts = 0
+  let completedPrompts = 0
+  let overallIndex = 0
 
-  const progressPercentage = (completedPrompts.length / totalPrompts) * 100
+  for (const sectionName of config.order) {
+    const prompts = config.sections[sectionName] ?? []
+    for (const prompt of prompts) {
+      totalPrompts++
+
+      const isCompleted = isPromptCompleted(overallIndex, qualifications)
+      const isSkipped = shouldSkipPrompt(
+        prompt.id,
+        config.visaType,
+        qualifications,
+      )
+
+      // Count as completed if either actually completed or skipped due to cap group
+      if (isCompleted || isSkipped) {
+        completedPrompts++
+      }
+
+      overallIndex++
+    }
+  }
+
+  const progressPercentage =
+    totalPrompts > 0 ? (completedPrompts / totalPrompts) * 100 : 0
 
   return progressPercentage
 }

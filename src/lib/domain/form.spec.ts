@@ -3,10 +3,14 @@ import { getFormProgress, getOverallPromptIndex } from '@lib/domain/form'
 import { QualificationsSchema } from './qualifications'
 import { VisaType } from '.'
 
-function createQualification(completed: number) {
+function createQualification(
+  completed: number,
+  additionalFields: Record<string, unknown> = {},
+) {
   return QualificationsSchema.parse({
     v: VisaType.Engineer,
     completed: getQualificationsMaskForCompleted(completed),
+    ...additionalFields,
   })
 }
 
@@ -46,5 +50,28 @@ describe('getFormProgress', () => {
   it('should return accurate progress when in the middle of the form', () => {
     const progress = getFormProgress(formConfig, createQualification(5))
     expect(progress).toBeCloseTo(21.739)
+  })
+
+  it('should count skipped prompts due to cap groups as completed', () => {
+    // When patent_inventor is true (prompt index 5), the research cap is maxed
+    // This means prompts 6, 7, 8 (conducted_financed_projects, published_papers, recognized_research) are skipped
+    // Complete prompts 0-5 (6 prompts) + 3 skipped = 9 prompts worth of progress
+    const progress = getFormProgress(
+      formConfig,
+      createQualification(6, { patent_inventor: true }),
+    )
+    // 9 out of 23 prompts = 39.13%
+    expect(progress).toBeCloseTo(39.13, 1)
+  })
+
+  it('should reach 100% when all non-skipped prompts are completed', () => {
+    // With patent_inventor: true, 3 research prompts are skipped
+    // We need to complete 20 prompts (23 - 3 skipped)
+    // Complete all 23 prompts worth of bitmask
+    const progress = getFormProgress(
+      formConfig,
+      createQualification(23, { patent_inventor: true }),
+    )
+    expect(progress).toBe(100)
   })
 })
