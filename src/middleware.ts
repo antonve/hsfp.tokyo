@@ -4,7 +4,7 @@ import { intlMiddleware } from '@lib/i18n/middleware'
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|images|assets|favicon.ico|sw.js|.*opengraph-image.*).*)',
+    '/((?!api|_next/static|_next/image|images|assets|favicon.ico|favicon-.*|apple-touch-icon.png|android-chrome-.*|site.webmanifest|sw.js|.*opengraph-image.*).*)',
   ],
 }
 
