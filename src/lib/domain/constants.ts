@@ -7,3 +7,9 @@ export const HSFP_QUALIFICATION_THRESHOLD = 70
 
 /** Points required for 1-year fast-track to permanent residency (vs 3 years at 70+) */
 export const HSFP_PR_FAST_TRACK_THRESHOLD = 80
+
+/**
+ * State versioning for the calculator
+ * Increment this when immigration changes their point system
+ */
+export const CALCULATOR_STATE_VERSION = 1

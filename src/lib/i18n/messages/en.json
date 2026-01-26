@@ -36,6 +36,11 @@
     "privacy": "Privacy Policy",
     "last_updated": "Last updated: January 2026"
   },
+  "outdated_state": {
+    "title": "Calculator Updated",
+    "description": "The immigration point system has been updated since you started this calculation. Please restart the calculator to ensure accurate results.",
+    "restart_button": "Start Over"
+  },
   "about": {
     "title": "About",
     "author": {

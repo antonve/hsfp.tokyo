@@ -36,6 +36,11 @@
     "privacy": "隐私权政策",
     "last_updated": "最后更新：2026年1月"
   },
+  "outdated_state": {
+    "title": "计算器已更新",
+    "description": "自您开始此计算以来，入国管理的积分制度已更新。请重新开始计算以确保结果准确。",
+    "restart_button": "重新开始"
+  },
   "about": {
     "title": "关于本站",
     "author": {

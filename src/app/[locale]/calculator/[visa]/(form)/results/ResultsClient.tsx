@@ -7,7 +7,8 @@ import {
   encodeQualifications,
 } from '@lib/domain/qualifications'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
-import { useQualifications, useSessionId } from '@lib/hooks'
+import { useQualifications, useSessionId, useIsStateOutdated } from '@lib/hooks'
+import { OutdatedStateError } from '@components/OutdatedStateError'
 import {
   ChevronDownIcon,
   ChevronRightIcon,
@@ -91,6 +92,7 @@ export default function ResultsClient({ visa }: Props) {
   const formConfig = formConfigForVisa(visa)!
   const qualifications = useQualifications(formConfig.visaType)
   const sessionId = useSessionId()
+  const isOutdated = useIsStateOutdated()
   const { points, matches } = useMemo(() => {
     try {
       return calculatePoints(qualifications)
@@ -104,6 +106,10 @@ export default function ResultsClient({ visa }: Props) {
   const editUrl = `/calculator/${visa}/${firstSection}/1?q=${encodeQualifications(qualifications)}`
   const missingSalary =
     qualifications.salary === undefined || qualifications.salary < 3_000_000
+
+  if (isOutdated) {
+    return <OutdatedStateError visaSlug={formConfig.visaType} />
+  }
 
   return (
     <main className="space-y-8">

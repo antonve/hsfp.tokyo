@@ -16,6 +16,8 @@ pnpm lint     # Run ESLint
 
 **Always run `pnpm fmt` before finishing any changes.**
 
+**Use `npx tsc --noEmit` to check for type errors** (faster and works offline, unlike `pnpm build` which requires network for Google Fonts).
+
 ## Reference
 
 - [Architecture](docs/architecture.md) - URL state, matcher pattern, form config, i18n
