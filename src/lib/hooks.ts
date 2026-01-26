@@ -4,6 +4,7 @@ import {
   QualificationsSchema,
   decodeQualifications,
   generateSessionId,
+  isStateVersionOutdated,
 } from '@lib/domain/qualifications'
 import { formConfigForVisa } from './domain/form'
 import { notFound, useParams, useSearchParams } from 'next/navigation'
@@ -97,4 +98,25 @@ export function useLanguage() {
   const locale = params.locale as string
 
   return locale || 'en'
+}
+
+/**
+ * Checks if the current URL state is from an outdated calculator version.
+ * Returns false if there's no state in the URL (fresh start).
+ */
+export function useIsStateOutdated(): boolean {
+  const searchParams = useSearchParams()
+  const encodedQualifications = searchParams.get('q')
+
+  if (!encodedQualifications) {
+    return false
+  }
+
+  try {
+    const qualifications = decodeQualifications(encodedQualifications)
+    return isStateVersionOutdated(qualifications)
+  } catch {
+    // If we can't decode, treat as outdated
+    return true
+  }
 }

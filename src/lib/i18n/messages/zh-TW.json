@@ -36,6 +36,11 @@
     "privacy": "隱私權政策",
     "last_updated": "最後更新：2026年1月"
   },
+  "outdated_state": {
+    "title": "計算器已更新",
+    "description": "自您開始此計算以來，入國管理的積分制度已更新。請重新開始計算以確保結果準確。",
+    "restart_button": "重新開始"
+  },
   "about": {
     "title": "關於本站",
     "author": {
