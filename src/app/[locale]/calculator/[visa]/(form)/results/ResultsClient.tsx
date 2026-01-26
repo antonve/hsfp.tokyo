@@ -174,6 +174,9 @@ export default function ResultsClient({ visa }: Props) {
                 <p>{t('evidence.description3')}</p>
               </div>
               <EvidenceOverview matches={matches} sessionId={sessionId} />
+              <p className="text-zinc-500 dark:text-zinc-400 text-xs italic mt-4">
+                {t('evidence.caveat')}
+              </p>
             </section>
           </div>
           <section className="space-y-4 max-w-2xl">
