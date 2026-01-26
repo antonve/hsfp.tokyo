@@ -235,7 +235,7 @@ function MatchesOverview({
               <th className="text-left py-3 px-4 font-semibold text-zinc-700 dark:text-zinc-300">
                 {t('overview.explanation')}
               </th>
-              <th className="text-right py-3 px-4 font-semibold text-zinc-700 dark:text-zinc-300">
+              <th className="text-right py-3 px-4 font-semibold text-zinc-700 dark:text-zinc-300 whitespace-nowrap">
                 {t('overview.points')}
               </th>
             </tr>
@@ -396,7 +396,7 @@ function CollapsibleEvidenceCategory({
     <div className="border border-zinc-100 dark:border-zinc-900 rounded-lg overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 text-left bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+        className="w-full flex items-center justify-between p-4 text-left bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
       >
         <div className="flex items-center gap-3">
           {isOpen ? (
