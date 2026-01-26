@@ -20,6 +20,11 @@ a {
     @apply hover:outline-emerald-400/80 hover:bg-zinc-50 focus-visible:outline-emerald-400/80 active:scale-95 transition-all;
   }
 
+  .button:not(.secondary):disabled {
+    @apply bg-zinc-100 text-zinc-400 cursor-not-allowed;
+    @apply hover:outline-transparent hover:bg-zinc-100 active:scale-100;
+  }
+
   .button.secondary {
     @apply px-4 h-12 md:h-9 flex items-center rounded whitespace-nowrap relative outline outline-2 outline-transparent;
     @apply bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300;

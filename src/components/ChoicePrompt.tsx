@@ -26,6 +26,7 @@ export function ChoicePrompt({
     ...withCompletedPrompt(overallPromptIndex, q),
     [prompt.id]: value,
   }),
+  isLoading = false,
 }: {
   qualifications: Qualifications
   visaType: VisaType
@@ -34,6 +35,7 @@ export function ChoicePrompt({
   overallPromptIndex: number
   onSubmit: (updateQualifications: QualificationUpdater) => void
   qualificationUpdater?: (value: string) => QualificationUpdater
+  isLoading?: boolean
 }) {
   const [value, setValue] = useState<string | undefined>(() => {
     if (isPromptCompleted(overallPromptIndex, qualifications)) {
@@ -153,13 +155,23 @@ export function ChoicePrompt({
         ))}
       </div>
       <div className="flex flex-wrap -m-2">
-        <button type="submit" className="button m-2">
-          {t(`actions.continue`)}
-          <ArrowRightIcon className="h-5 w-5 ml-2" />
+        <button type="submit" className="button m-2" disabled={isLoading}>
+          <span className={isLoading ? 'invisible' : ''}>
+            {t(`actions.continue`)}
+          </span>
+          <ArrowRightIcon
+            className={`h-5 w-5 ml-2 ${isLoading ? 'invisible' : ''}`}
+          />
+          {isLoading && (
+            <span className="absolute inset-0 flex items-center justify-center">
+              <span className="h-5 w-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
+            </span>
+          )}
         </button>
         <button
           type="button"
           className="button secondary m-2"
+          disabled={isLoading}
           onClick={() =>
             onSubmit(q => ({
               ...withCompletedPrompt(overallPromptIndex, q),
