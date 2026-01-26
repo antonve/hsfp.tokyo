@@ -24,13 +24,19 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('light')
   const [mounted, setMounted] = useState(false)
 
-  // Load theme from localStorage on mount
+  // Load theme from localStorage on mount, or use system preference
   useEffect(() => {
     setMounted(true)
     try {
       const stored = localStorage.getItem(STORAGE_KEY) as Theme | null
       if (stored === 'light' || stored === 'dark') {
         setThemeState(stored)
+      } else {
+        // No stored preference, use system preference
+        const prefersDark = window.matchMedia(
+          '(prefers-color-scheme: dark)',
+        ).matches
+        setThemeState(prefersDark ? 'dark' : 'light')
       }
     } catch {
       // Ignore localStorage errors
