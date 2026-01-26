@@ -16,7 +16,7 @@ a {
   }
 
   .button:not(.secondary) {
-    @apply px-4 h-12 md:h-9 flex items-center rounded bg-white text-zinc-900 font-bold whitespace-nowrap shadow-sm relative outline-2 outline outline-transparent;
+    @apply px-4 h-12 md:h-9 flex items-center rounded bg-white text-zinc-900 font-bold whitespace-nowrap shadow-sm relative outline-2 outline outline-transparent ring-1 ring-zinc-300 dark:ring-0;
     @apply hover:outline-emerald-400/80 hover:bg-zinc-50 focus-visible:outline-emerald-400/80 active:scale-95 transition-all;
   }
 
