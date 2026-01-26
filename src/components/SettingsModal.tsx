@@ -4,7 +4,7 @@ import { Fragment, useState, useCallback } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline'
 import { useTranslations, useLocale } from 'next-intl'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import Link from 'next-intl/link'
 import { useTheme } from '@lib/ThemeContext'
 
@@ -27,11 +27,16 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   const { theme, setTheme } = useTheme()
   const locale = useLocale()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
   const [clearConfirmation, setClearConfirmation] = useState(false)
 
-  // Get path without locale prefix for language switching
+  // Get path without locale prefix for language switching, preserving query string
   const pathWithoutLocale =
     pathname.replace(/^\/(en|ja|zh-CN|zh-TW)/, '') || '/'
+  const search = searchParams.toString()
+  const hrefWithQuery = search
+    ? `${pathWithoutLocale}?${search}`
+    : pathWithoutLocale
 
   const handleClearData = useCallback(() => {
     if (!clearConfirmation) {
@@ -111,7 +116,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                       {LANGUAGES.map(lang => (
                         <Link
                           key={lang.code}
-                          href={pathWithoutLocale}
+                          href={hrefWithQuery}
                           locale={lang.code}
                           onClick={onClose}
                           className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors no-underline ${
