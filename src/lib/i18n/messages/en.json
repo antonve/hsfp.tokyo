@@ -825,6 +825,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Do pending patent applications count?",
+              "a0": "No. Only granted patents qualify for points. Patent applications that are still pending or under examination do not count. The patent must have been officially granted and registered."
             }
           },
           "conducted_financed_projects": {
@@ -1128,6 +1133,11 @@
             "options": {
               "true": "Yes",
               "false": "No"
+            },
+            "faq_heading": "Frequently Asked Questions",
+            "faq": {
+              "q0": "Do pending patent applications count?",
+              "a0": "No. Only granted patents qualify for points. Patent applications that are still pending or under examination do not count. The patent must have been officially granted and registered."
             }
           },
           "conducted_financed_projects": {
