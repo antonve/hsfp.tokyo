@@ -64,6 +64,7 @@ export const formConfig: FormConfig = {
         id: 'patent_inventor',
         type: 'BOOLEAN',
         maxPoints: 15,
+        faqCount: 1,
       },
       {
         id: 'conducted_financed_projects',
