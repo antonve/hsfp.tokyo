@@ -22,7 +22,7 @@ describe('VisaFormPrompt', () => {
         qualifications={qualifications}
         visaType={VisaType.Engineer}
         section="education"
-        prompt={prompt as any}
+        prompt={prompt!}
         overallPromptIndex={0}
         onSubmit={() => {}}
         isLoading={false}
@@ -41,7 +41,7 @@ describe('VisaFormPrompt', () => {
         qualifications={qualifications}
         visaType={VisaType.Engineer}
         section="job"
-        prompt={prompt as any}
+        prompt={prompt!}
         overallPromptIndex={0}
         onSubmit={() => {}}
         isLoading={false}
@@ -62,7 +62,7 @@ describe('VisaFormPrompt', () => {
         qualifications={qualifications}
         visaType={VisaType.Engineer}
         section="education"
-        prompt={prompt as any}
+        prompt={prompt!}
         overallPromptIndex={0}
         onSubmit={() => {}}
         isLoading={false}
