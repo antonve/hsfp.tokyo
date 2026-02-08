@@ -12,13 +12,13 @@ import {
 import { notFound, usePathname } from 'next/navigation'
 import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import Link from 'next-intl/link'
 import cn from 'classnames'
 import { Logo } from '@components/Logo'
 import { SettingsModal } from '@components/SettingsModal'
 import { VisaFormNavigation } from '@components/VisaFormNavigation'
 import { VisaProgressBar } from '@components/VisaProgressBar'
 import { VisaFormResultsPreview } from '@components/VisaFormResultsPreview'
+import { Link } from '@lib/i18n/navigation'
 
 interface Props {
   children: React.ReactNode

@@ -17,8 +17,8 @@ import {
   BuildingOfficeIcon,
 } from '@heroicons/react/24/solid'
 import { useTranslations } from 'next-intl'
-import Link from 'next-intl/link'
 import { getOGTranslator, OG_WIDTH, OG_HEIGHT } from '@lib/og'
+import { Link } from '@lib/i18n/navigation'
 
 interface Props {
   params: {

@@ -11,9 +11,13 @@ const customJestConfig = {
   testEnvironment: 'jest-environment-jsdom',
   testPathIgnorePatterns: ['<rootDir>/e2e/'],
   moduleNameMapper: {
-    '@app/(.*)': '<rootDir>/src/app/$1',
-    '@components/(.*)': '<rootDir>/src/components/$1',
-    '@lib/(.*)': '<rootDir>/src/lib/$1',
+    '^@app/(.*)$': '<rootDir>/src/app/$1',
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@lib/(.*)$': '<rootDir>/src/lib/$1',
+    '^next-intl$': '<rootDir>/src/test-utils/next-intl.tsx',
+    '^next-intl/link$': '<rootDir>/src/test-utils/next-intl-link.tsx',
+    '^next-intl/server$': '<rootDir>/src/test-utils/next-intl-server.ts',
+    '^next-intl/middleware$': '<rootDir>/src/test-utils/next-intl-middleware.ts',
   },
 }
 

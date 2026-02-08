@@ -5,7 +5,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline'
 import { useTranslations, useLocale } from 'next-intl'
 import { usePathname, useSearchParams } from 'next/navigation'
-import Link from 'next-intl/link'
+import { Link } from '@lib/i18n/navigation'
 import { useTheme } from '@lib/ThemeContext'
 
 const LANGUAGES = [
