@@ -448,21 +448,13 @@ function EvidenceItemCard({
   const documentsKey = `evidence.items.${id}.documents`
   const notesKey = `evidence.items.${id}.notes`
 
-  // Check if the translation exists (next-intl returns the key if not found)
-  const documentsString = t(documentsKey)
-  const hasDocuments =
-    documentsString &&
-    documentsString !== documentsKey &&
-    !documentsString.includes('evidence.items')
-  const documents = hasDocuments ? documentsString.split(' | ') : []
+  // Avoid noisy MISSING_MESSAGE console errors by checking existence first.
+  const hasDocuments = t.has(documentsKey as any)
+  const documentsString = hasDocuments ? t(documentsKey as any) : ''
+  const documents = documentsString ? documentsString.split(' | ') : []
 
-  const notesString = t(notesKey)
-  // Only use notes if translation exists (not a key pattern)
-  const hasNotes =
-    notesString &&
-    notesString !== notesKey &&
-    !notesString.includes('evidence.items')
-  const notes = hasNotes ? notesString : undefined
+  const hasNotes = t.has(notesKey as any)
+  const notes = hasNotes ? t(notesKey as any) : undefined
 
   if (!hasDocuments && !notes) {
     return null

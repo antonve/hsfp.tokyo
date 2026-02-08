@@ -47,6 +47,12 @@ export function useTranslations(namespace?: string) {
     return typeof msg === 'string' ? msg : fullKey
   }
 
+  t.has = (key: string) => {
+    const messages = ctx?.messages ?? {}
+    const fullKey = namespace ? `${namespace}.${key}` : key
+    return getByPath(messages, fullKey) !== undefined
+  }
+
   return t
 }
 
