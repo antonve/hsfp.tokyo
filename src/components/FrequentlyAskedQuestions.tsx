@@ -19,7 +19,6 @@ export function FrequentlyAskedQuestions({
 
   function toggle(i: number) {
     const newToggled = toggled ^ (1 << i)
-    console.log('new toggle value', newToggled)
     setToggled(newToggled)
   }
 
@@ -39,10 +38,7 @@ export function FrequentlyAskedQuestions({
           >
             <h3
               className="font-semibold cursor-pointer flex items-center justify-between"
-              onClick={() => {
-                console.log('toggling', i)
-                toggle(i)
-              }}
+              onClick={() => toggle(i)}
             >
               {t(`faq.q${i}`)}
               {isToggled(i) ? (
