@@ -1,3 +1,5 @@
+import createNextIntlPlugin from 'next-intl/plugin'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Jest (via next/jest) also uses this list to decide which packages to
@@ -14,6 +16,6 @@ const nextConfig = {
   ],
 }
 
-const withNextIntl = require('next-intl/plugin')('./src/lib/i18n/index.ts')
+const withNextIntl = createNextIntlPlugin('./src/lib/i18n/index.ts')
 
-module.exports = withNextIntl(nextConfig)
+export default withNextIntl(nextConfig)
