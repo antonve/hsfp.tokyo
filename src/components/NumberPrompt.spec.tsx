@@ -315,4 +315,154 @@ describe('NumberPrompt', () => {
       expect(skipButton).toBeEnabled()
     })
   })
+
+  describe('accessibility', () => {
+    it('input is accessible via its name attribute for form submission', () => {
+      const onSubmit = jest.fn()
+      const prompt = getNumberPrompt('salary')
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+      )
+
+      const input = screen.getByRole('textbox')
+      expect(input).toHaveAttribute('name', prompt.id)
+    })
+
+    it('buttons have accessible names', () => {
+      const onSubmit = jest.fn()
+      const prompt = getNumberPrompt('salary')
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+      )
+
+      // Both buttons should be findable by their accessible names
+      expect(
+        screen.getByRole('button', { name: /continue/i }),
+      ).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: /cannot be skipped/i }),
+      ).toBeInTheDocument()
+    })
+
+    it('input has appropriate attributes for numeric entry', () => {
+      const onSubmit = jest.fn()
+      const prompt = getNumberPrompt('salary')
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+      )
+
+      const input = screen.getByRole('textbox')
+
+      // Input should have inputMode for mobile keyboard optimization
+      expect(input).toHaveAttribute('inputMode', 'numeric')
+
+      // Input should have pattern for validation hint
+      expect(input).toHaveAttribute('pattern', '[0-9,]*')
+
+      // Input should have min/max from prompt config
+      expect(input).toHaveAttribute('min', String(prompt.config.min))
+    })
+
+    it('submit button has correct type attribute', () => {
+      const onSubmit = jest.fn()
+      const prompt = getNumberPrompt('salary')
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+      )
+
+      const continueButton = screen.getByRole('button', { name: /continue/i })
+      const skipButton = screen.getByRole('button', {
+        name: /cannot be skipped/i,
+      })
+
+      expect(continueButton).toHaveAttribute('type', 'submit')
+      expect(skipButton).toHaveAttribute('type', 'button')
+    })
+
+    it('required prompts have skip button with explanatory title', () => {
+      const onSubmit = jest.fn()
+      const prompt = getNumberPrompt('salary')
+      expect(prompt.required).toBe(true)
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+      )
+
+      const skipButton = screen.getByRole('button', {
+        name: /cannot be skipped/i,
+      })
+
+      // The title attribute provides additional context for why the button is disabled
+      expect(skipButton).toHaveAttribute('title')
+    })
+  })
 })
