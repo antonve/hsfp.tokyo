@@ -131,4 +131,63 @@ describe('NumberPrompt', () => {
     expect((updated as any).salary).toBe(3_100_000)
     expect(updated.completed & 1).toBe(1)
   })
+
+  describe('isLoading state', () => {
+    it('disables buttons when isLoading is true', () => {
+      const onSubmit = jest.fn()
+      const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
+      expect(prompt).toBeTruthy()
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt as any}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+          isLoading={true}
+        />,
+      )
+
+      const continueButton = screen.getByRole('button', { name: /continue/i })
+      const skipButton = screen.getByRole('button', { name: /skip|cannot/i })
+
+      expect(continueButton).toBeDisabled()
+      expect(skipButton).toBeDisabled()
+    })
+
+    it('shows loading spinner when isLoading is true', () => {
+      const onSubmit = jest.fn()
+      const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
+      expect(prompt).toBeTruthy()
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      const { container } = renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt as any}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+          isLoading={true}
+        />,
+      )
+
+      const spinner = container.querySelector('.animate-spin')
+      expect(spinner).toBeInTheDocument()
+    })
+  })
 })
