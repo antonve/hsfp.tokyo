@@ -23,7 +23,10 @@ for (const visa of visas) {
       const hasRadio = (await radios.count()) > 0
       const hasTextInput = (await textInput.count()) > 0
 
-      expect(hasRadio || hasTextInput).toBeTruthy()
+      expect(
+        hasRadio || hasTextInput,
+        `Expected radio buttons or text input on step ${i + 1}`,
+      ).toBeTruthy()
 
       let willSubmitSalary = false
 
@@ -34,11 +37,7 @@ for (const visa of visas) {
         const name = await textInput.getAttribute('name')
 
         const value =
-          name === 'salary'
-            ? '3000000'
-            : name === 'age'
-              ? '30'
-              : '0'
+          name === 'salary' ? '3000000' : name === 'age' ? '30' : '0'
 
         willSubmitSalary = name === 'salary'
         await textInput.fill(value)
@@ -59,7 +58,10 @@ for (const visa of visas) {
       }
     }
 
-    expect(submittedSalary).toBeTruthy()
+    expect(
+      submittedSalary,
+      'Salary prompt was never encountered in first 10 steps',
+    ).toBeTruthy()
 
     await expect(page).toHaveURL(new RegExp(`/en/calculator/${visa}/results`))
 
