@@ -52,7 +52,9 @@ describe('VisaFormPrompt', () => {
   })
 
   it('renders BooleanPrompt (as a 2-option choice) for BOOLEAN prompts', () => {
-    const prompt = engineerForm.sections.education?.find(p => p.id === 'dual_degree')
+    const prompt = engineerForm.sections.education?.find(
+      p => p.id === 'dual_degree',
+    )
     expect(prompt).toBeTruthy()
 
     renderWithIntl(
