@@ -25,5 +25,4 @@ describe('OutdatedStateError', () => {
 
     expect(screen.getByRole('link', { name: /Start Over/ })).toBeInTheDocument()
   })
-
 })
