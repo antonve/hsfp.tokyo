@@ -190,4 +190,92 @@ describe('NumberPrompt', () => {
       expect(spinner).toBeInTheDocument()
     })
   })
+
+  describe('skip button behavior for required prompts', () => {
+    it('disables skip button for required prompts', () => {
+      const onSubmit = jest.fn()
+      const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
+      expect(prompt).toBeTruthy()
+      expect((prompt as any).required).toBe(true)
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt as any}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+      )
+
+      const skipButton = screen.getByRole('button', {
+        name: /cannot be skipped/i,
+      })
+      expect(skipButton).toBeDisabled()
+    })
+
+    it('shows "Cannot be skipped" text for required prompts', () => {
+      const onSubmit = jest.fn()
+      const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
+      expect(prompt).toBeTruthy()
+      expect((prompt as any).required).toBe(true)
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt as any}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+      )
+
+      expect(
+        screen.getByRole('button', { name: /cannot be skipped/i }),
+      ).toBeInTheDocument()
+    })
+
+    it('enables skip button and shows "Skip" for optional prompts', () => {
+      const onSubmit = jest.fn()
+      const prompt = engineerForm.sections.job?.find(p => p.id === 'experience')
+      expect(prompt).toBeTruthy()
+      expect((prompt as any).required).toBeFalsy()
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt as any}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+      )
+
+      const skipButton = screen.getByRole('button', {
+        name: /skip this question/i,
+      })
+      expect(skipButton).toBeEnabled()
+    })
+  })
 })
