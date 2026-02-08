@@ -20,6 +20,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [motion],
+  // tailwindcss-motion's published types don't currently match Tailwind v4.
+  plugins: [motion as any],
 }
 export default config
