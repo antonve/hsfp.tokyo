@@ -86,7 +86,7 @@ export default function Page() {
             href={`/calculator/engineer`}
           >
             <div className="card-body h-full flex flex-col gap-4">
-              <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
+              <h3 className="text-2xl font-semibold flex justify-center items-center gap-2">
                 <WrenchScrewdriverIcon className="w-5 h-5" />
                 <span>{t('visa_cards.engineer.title')}</span>
               </h3>
@@ -104,7 +104,7 @@ export default function Page() {
             href={`/calculator/researcher`}
           >
             <div className="card-body h-full flex flex-col gap-4">
-              <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
+              <h3 className="text-2xl font-semibold flex justify-center items-center gap-2">
                 <BeakerIcon className="w-5 h-5" />
                 <span>{t('visa_cards.researcher.title')}</span>
               </h3>
@@ -122,7 +122,7 @@ export default function Page() {
             href={`/calculator/business-manager`}
           >
             <div className="card-body h-full flex flex-col gap-4">
-              <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
+              <h3 className="text-2xl font-semibold flex justify-center items-center gap-2">
                 <BriefcaseIcon className="w-5 h-5" />
                 <span>{t('visa_cards.business_manager.title')}</span>
               </h3>

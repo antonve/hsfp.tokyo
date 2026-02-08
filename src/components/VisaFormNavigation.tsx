@@ -117,7 +117,7 @@ function Section({
       >
         <a
           className={cn(
-            'flex space-x-3 align-middle items-center no-underline pr-3',
+            'flex gap-3 align-middle items-center no-underline pr-3',
             {
               'pointer-events-none': isActive,
             },
