@@ -15,6 +15,7 @@ for (const visa of visas) {
 
     // Walk prompts until we've submitted salary (required for non-error results),
     // then jump to results using the page-level shortcut.
+    // Salary appears within the first 5 prompts for all visa types; 10 provides margin.
     let submittedSalary = false
     for (let i = 0; i < 10; i++) {
       const radios = page.getByRole('radio')
