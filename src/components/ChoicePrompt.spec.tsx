@@ -257,4 +257,67 @@ describe('ChoicePrompt', () => {
       expect(radios[0]).toBeChecked()
     })
   })
+
+  describe('isLoading state', () => {
+    it('disables buttons when isLoading is true', () => {
+      const onSubmit = jest.fn()
+      const prompt = engineerForm.sections.education?.find(
+        p => p.id === 'degree',
+      )
+      expect(prompt).toBeTruthy()
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <ChoicePrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="education"
+          prompt={prompt as any}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+          isLoading={true}
+        />,
+      )
+
+      const continueButton = screen.getByRole('button', { name: /continue/i })
+      const skipButton = screen.getByRole('button', { name: /skip/i })
+
+      expect(continueButton).toBeDisabled()
+      expect(skipButton).toBeDisabled()
+    })
+
+    it('shows a loading spinner when isLoading is true', () => {
+      const onSubmit = jest.fn()
+      const prompt = engineerForm.sections.education?.find(
+        p => p.id === 'degree',
+      )
+      expect(prompt).toBeTruthy()
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <ChoicePrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="education"
+          prompt={prompt as any}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+          isLoading={true}
+        />,
+      )
+
+      const spinner = document.querySelector('.animate-spin')
+      expect(spinner).toBeInTheDocument()
+    })
+  })
 })
