@@ -50,6 +50,7 @@ function useEvidenceChecklist(sessionId: string | undefined) {
       const stored = localStorage.getItem(storageKey)
       if (stored) {
         const parsed = JSON.parse(stored) as string[]
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setCheckedItems(new Set(parsed))
       }
     } catch {

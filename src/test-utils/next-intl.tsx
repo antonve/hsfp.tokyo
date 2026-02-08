@@ -1,5 +1,7 @@
 import React from 'react'
 
+/* eslint-disable react-hooks/immutability */
+
 // Jest runs in a CommonJS environment and can't easily consume next-intl's ESM
 // bundles. For unit tests we don't need next-intl's runtime behavior; we just
 // need stable hooks/components.
