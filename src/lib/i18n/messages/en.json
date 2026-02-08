@@ -313,6 +313,7 @@
     },
     "overview": {
       "title": "Results overview",
+      "edit_answers": "Edit Answers",
       "disclaimer": "Note: The points shown for each item reflect their individual values, but your total may differ from a simple sum. Some categories have caps (e.g., university bonuses are limited to 10 points regardless of how many you qualify for), and certain combinations may not stack. The total shown accounts for these rules.",
       "category": "Category",
       "explanation": "Explanation",

@@ -61,8 +61,10 @@ async function walkToResults(
     'Salary prompt was never encountered in first 10 steps',
   ).toBeTruthy()
 
+  // 'as-needed' locale prefix: en has no prefix, others keep it
+  const localePrefix = locale === 'en' ? '' : `/${locale}`
   await expect(page).toHaveURL(
-    new RegExp(`/${locale}/calculator/${visa}/results`),
+    new RegExp(`${localePrefix}/calculator/${visa}/results`),
   )
 }
 
@@ -94,7 +96,7 @@ for (const visa of visas) {
 test('happy path: engineer (ja)', async ({ page }) => {
   await page.goto('/ja/calculator/engineer')
 
-  const start = page.getByRole('link', { name: '計算を始める' })
+  const start = page.getByRole('link', { name: '計算を開始' })
   await expect(start).toBeVisible()
 
   const beforeStartUrl = page.url()
