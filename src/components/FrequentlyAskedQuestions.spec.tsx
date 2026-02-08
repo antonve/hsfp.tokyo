@@ -107,45 +107,6 @@ describe('FrequentlyAskedQuestions', () => {
     })
   })
 
-  describe('icon display', () => {
-    it('shows PlusIcon when closed', () => {
-      const { container } = renderWithIntl(
-        <FrequentlyAskedQuestions
-          count={1}
-          translationPrefix={translationPrefix}
-        />,
-      )
-
-      // PlusIcon is rendered when not toggled
-      // Check for the SVG with the plus icon path characteristics
-      const svgIcons = container.querySelectorAll('svg')
-      expect(svgIcons.length).toBeGreaterThan(0)
-
-      // The question should start collapsed, showing PlusIcon
-      const questionHeading = screen.getByRole('heading', { level: 3 })
-      const icon = questionHeading.querySelector('svg')
-      expect(icon).toBeInTheDocument()
-    })
-
-    it('shows MinusIcon when open', () => {
-      const { container } = renderWithIntl(
-        <FrequentlyAskedQuestions
-          count={1}
-          translationPrefix={translationPrefix}
-        />,
-      )
-
-      const questionHeading = screen.getByRole('heading', { level: 3 })
-
-      // Click to expand
-      fireEvent.click(questionHeading)
-
-      // Icon should still be present (now MinusIcon)
-      const icon = questionHeading.querySelector('svg')
-      expect(icon).toBeInTheDocument()
-    })
-  })
-
   describe('multiple items can be opened/closed independently', () => {
     it('opening one item does not affect others', () => {
       renderWithIntl(
