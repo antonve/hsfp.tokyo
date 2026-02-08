@@ -2,6 +2,7 @@ import { fireEvent, screen } from '@testing-library/react'
 
 import { ChoicePrompt } from '@components/ChoicePrompt'
 import { VisaType } from '@lib/domain'
+import { ChoicePrompt as ChoicePromptType } from '@lib/domain/form'
 import { QualificationsSchema } from '@lib/domain/qualifications'
 import { formConfig as engineerForm } from '@lib/domain/visa.engineer'
 import { renderWithIntl } from '../test-utils/renderWithIntl'
@@ -12,7 +13,7 @@ describe('ChoicePrompt', () => {
       const onSubmit = jest.fn()
       const prompt = engineerForm.sections.education?.find(
         p => p.id === 'degree',
-      )
+      ) as ChoicePromptType | undefined
       expect(prompt).toBeTruthy()
 
       // Create qualifications with a pre-existing value and mark prompt as completed
@@ -28,7 +29,7 @@ describe('ChoicePrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="education"
-          prompt={prompt as any}
+          prompt={prompt!}
           overallPromptIndex={0}
           onSubmit={onSubmit}
         />,
@@ -37,7 +38,7 @@ describe('ChoicePrompt', () => {
       const radios = screen.getAllByRole('radio')
 
       // Find the index of 'master' in the options array
-      const masterIndex = (prompt as any).options.indexOf('master')
+      const masterIndex = prompt!.options.indexOf('master')
       expect(masterIndex).toBeGreaterThanOrEqual(0)
 
       // Verify the 'master' option is pre-selected
@@ -54,7 +55,9 @@ describe('ChoicePrompt', () => {
 
   it('shows validation error when submitting with no selection', () => {
     const onSubmit = jest.fn()
-    const prompt = engineerForm.sections.education?.find(p => p.id === 'degree')
+    const prompt = engineerForm.sections.education?.find(
+      p => p.id === 'degree',
+    ) as ChoicePromptType | undefined
     expect(prompt).toBeTruthy()
 
     const qualifications = QualificationsSchema.parse({
@@ -68,7 +71,7 @@ describe('ChoicePrompt', () => {
         qualifications={qualifications}
         visaType={VisaType.Engineer}
         section="education"
-        prompt={prompt as any}
+        prompt={prompt!}
         overallPromptIndex={0}
         onSubmit={onSubmit}
       />,
@@ -83,7 +86,9 @@ describe('ChoicePrompt', () => {
 
   it('calls onSubmit with an updater that sets the selected value and marks prompt completed', () => {
     const onSubmit = jest.fn()
-    const prompt = engineerForm.sections.education?.find(p => p.id === 'degree')
+    const prompt = engineerForm.sections.education?.find(
+      p => p.id === 'degree',
+    ) as ChoicePromptType | undefined
     expect(prompt).toBeTruthy()
 
     const qualifications = QualificationsSchema.parse({
@@ -97,7 +102,7 @@ describe('ChoicePrompt', () => {
         qualifications={qualifications}
         visaType={VisaType.Engineer}
         section="education"
-        prompt={prompt as any}
+        prompt={prompt!}
         overallPromptIndex={0}
         onSubmit={onSubmit}
       />,
@@ -113,14 +118,16 @@ describe('ChoicePrompt', () => {
     const updater = onSubmit.mock.calls[0][0]
     const updated = updater(qualifications)
 
-    const firstOption = (prompt as any).options[0]
-    expect((updated as any).degree).toBe(firstOption)
+    const firstOption = prompt!.options[0]
+    expect(updated.degree).toBe(firstOption)
     expect(updated.completed & 1).toBe(1)
   })
 
   it('skip calls onSubmit with an updater that marks prompt completed but does not set a value', () => {
     const onSubmit = jest.fn()
-    const prompt = engineerForm.sections.education?.find(p => p.id === 'degree')
+    const prompt = engineerForm.sections.education?.find(
+      p => p.id === 'degree',
+    ) as ChoicePromptType | undefined
     expect(prompt).toBeTruthy()
 
     const qualifications = QualificationsSchema.parse({
@@ -134,7 +141,7 @@ describe('ChoicePrompt', () => {
         qualifications={qualifications}
         visaType={VisaType.Engineer}
         section="education"
-        prompt={prompt as any}
+        prompt={prompt!}
         overallPromptIndex={0}
         onSubmit={onSubmit}
       />,
@@ -146,7 +153,7 @@ describe('ChoicePrompt', () => {
     const updater = onSubmit.mock.calls[0][0]
     const updated = updater(qualifications)
 
-    expect((updated as any).degree).toBeUndefined()
+    expect(updated.degree).toBeUndefined()
     expect(updated.completed & 1).toBe(1)
   })
 
@@ -155,7 +162,7 @@ describe('ChoicePrompt', () => {
       const onSubmit = jest.fn()
       const prompt = engineerForm.sections.education?.find(
         p => p.id === 'degree',
-      )
+      ) as ChoicePromptType | undefined
       expect(prompt).toBeTruthy()
 
       const qualifications = QualificationsSchema.parse({
@@ -169,7 +176,7 @@ describe('ChoicePrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="education"
-          prompt={prompt as any}
+          prompt={prompt!}
           overallPromptIndex={0}
           onSubmit={onSubmit}
         />,
@@ -196,7 +203,7 @@ describe('ChoicePrompt', () => {
       const onSubmit = jest.fn()
       const prompt = engineerForm.sections.education?.find(
         p => p.id === 'degree',
-      )
+      ) as ChoicePromptType | undefined
       expect(prompt).toBeTruthy()
 
       const qualifications = QualificationsSchema.parse({
@@ -210,7 +217,7 @@ describe('ChoicePrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="education"
-          prompt={prompt as any}
+          prompt={prompt!}
           overallPromptIndex={0}
           onSubmit={onSubmit}
         />,
@@ -231,7 +238,7 @@ describe('ChoicePrompt', () => {
       const onSubmit = jest.fn()
       const prompt = engineerForm.sections.education?.find(
         p => p.id === 'degree',
-      )
+      ) as ChoicePromptType | undefined
       expect(prompt).toBeTruthy()
 
       const qualifications = QualificationsSchema.parse({
@@ -245,7 +252,7 @@ describe('ChoicePrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="education"
-          prompt={prompt as any}
+          prompt={prompt!}
           overallPromptIndex={0}
           onSubmit={onSubmit}
         />,
@@ -266,7 +273,7 @@ describe('ChoicePrompt', () => {
       const onSubmit = jest.fn()
       const prompt = engineerForm.sections.education?.find(
         p => p.id === 'degree',
-      )
+      ) as ChoicePromptType | undefined
       expect(prompt).toBeTruthy()
 
       const qualifications = QualificationsSchema.parse({
@@ -280,7 +287,7 @@ describe('ChoicePrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="education"
-          prompt={prompt as any}
+          prompt={prompt!}
           overallPromptIndex={0}
           onSubmit={onSubmit}
         />,
@@ -308,7 +315,7 @@ describe('ChoicePrompt', () => {
       const onSubmit = jest.fn()
       const prompt = engineerForm.sections.education?.find(
         p => p.id === 'degree',
-      )
+      ) as ChoicePromptType | undefined
       expect(prompt).toBeTruthy()
 
       const qualifications = QualificationsSchema.parse({
@@ -322,7 +329,7 @@ describe('ChoicePrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="education"
-          prompt={prompt as any}
+          prompt={prompt!}
           overallPromptIndex={0}
           onSubmit={onSubmit}
           isLoading={true}
@@ -340,7 +347,7 @@ describe('ChoicePrompt', () => {
       const onSubmit = jest.fn()
       const prompt = engineerForm.sections.education?.find(
         p => p.id === 'degree',
-      )
+      ) as ChoicePromptType | undefined
       expect(prompt).toBeTruthy()
 
       const qualifications = QualificationsSchema.parse({
@@ -354,7 +361,7 @@ describe('ChoicePrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="education"
-          prompt={prompt as any}
+          prompt={prompt!}
           overallPromptIndex={0}
           onSubmit={onSubmit}
           isLoading={true}
