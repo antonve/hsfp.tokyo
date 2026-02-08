@@ -13,9 +13,10 @@ export const runtime = 'edge'
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { locale: string } },
+  { params }: { params: Promise<{ locale: string }> },
 ) {
-  const t = await getOGTranslator(params.locale)
+  const { locale } = await params
+  const t = await getOGTranslator(locale)
 
   return new ImageResponse(
     <div

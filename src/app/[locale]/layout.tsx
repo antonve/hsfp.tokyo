@@ -44,13 +44,14 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode
-  params: {
+  params: Promise<{
     locale: string
-  }
+  }>
 }) {
+  const { locale } = await params
   let messages
   try {
     messages = (await import(`../../lib/i18n/messages/${locale}.json`)).default

@@ -21,17 +21,18 @@ import { getOGTranslator, OG_WIDTH, OG_HEIGHT } from '@lib/og'
 import { Link } from '@lib/i18n/navigation'
 
 interface Props {
-  params: {
+  params: Promise<{
     locale: string
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getOGTranslator(params.locale)
+  const { locale } = await params
+  const t = await getOGTranslator(locale)
 
   const title = t('default.title')
   const description = t('default.description')
-  const ogImageUrl = `/${params.locale}/opengraph-image`
+  const ogImageUrl = `/${locale}/opengraph-image`
 
   const ogImage = {
     url: ogImageUrl,

@@ -8,28 +8,30 @@ import { getVisaTypeLabel, getOGTranslator, OG_WIDTH, OG_HEIGHT } from '@lib/og'
 import ResultsClient from './ResultsClient'
 
 interface Props {
-  params: {
+  params: Promise<{
     visa: string
     locale: string
-  }
-  searchParams: {
+  }>
+  searchParams: Promise<{
     q?: string
-  }
+  }>
 }
 
 export async function generateMetadata({
   params,
   searchParams,
 }: Props): Promise<Metadata> {
-  const t = await getOGTranslator(params.locale)
-  const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
+  const { locale, visa } = await params
+  const sp = await searchParams
+  const t = await getOGTranslator(locale)
+  const visaLabel = await getVisaTypeLabel(locale, visa)
 
   let points = 0
   let isQualified = false
 
-  if (searchParams?.q) {
+  if (sp?.q) {
     try {
-      const qualifications = decodeQualifications(searchParams.q)
+      const qualifications = decodeQualifications(sp.q)
       const result = calculatePoints(qualifications)
       points = result.points
       isQualified = points >= HSFP_QUALIFICATION_THRESHOLD
@@ -57,7 +59,7 @@ export async function generateMetadata({
         needed: pointsNeeded,
       })
 
-  const ogImageUrl = `/${params.locale}/calculator/${params.visa}/results/opengraph-image?points=${points}`
+  const ogImageUrl = `/${locale}/calculator/${visa}/results/opengraph-image?points=${points}`
 
   const ogImage = {
     url: ogImageUrl,
@@ -83,6 +85,7 @@ export async function generateMetadata({
   }
 }
 
-export default function Page({ params }: Props) {
-  return <ResultsClient visa={params.visa} />
+export default async function Page({ params }: Props) {
+  const { visa } = await params
+  return <ResultsClient visa={visa} />
 }

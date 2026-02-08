@@ -16,32 +16,34 @@ import {
 import PromptClient from './PromptClient'
 
 interface Props {
-  params: {
+  params: Promise<{
     visa: string
     locale: string
     section: string
     prompt: string
-  }
-  searchParams: {
+  }>
+  searchParams: Promise<{
     q?: string
-  }
+  }>
 }
 
 export async function generateMetadata({
   params,
   searchParams,
 }: Props): Promise<Metadata> {
-  const t = await getOGTranslator(params.locale)
-  const visaType = getVisaTypeFromSlug(params.visa)
-  const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
-  const formConfig = formConfigForVisa(params.visa)
+  const p = await params
+  const sp = await searchParams
+  const t = await getOGTranslator(p.locale)
+  const visaType = getVisaTypeFromSlug(p.visa)
+  const visaLabel = await getVisaTypeLabel(p.locale, p.visa)
+  const formConfig = formConfigForVisa(p.visa)
 
   let progressPercentage = 0
   let points = 0
 
-  if (searchParams?.q && formConfig) {
+  if (sp?.q && formConfig) {
     try {
-      const qualifications = decodeQualifications(searchParams.q)
+      const qualifications = decodeQualifications(sp.q)
       progressPercentage = Math.ceil(
         getFormProgress(formConfig, qualifications),
       )
@@ -77,7 +79,7 @@ export async function generateMetadata({
           progress: progressPercentage,
         })
 
-  const ogImageUrl = `/${params.locale}/calculator/${params.visa}/${params.section}/${params.prompt}/opengraph-image?progress=${progressPercentage}&points=${points}`
+  const ogImageUrl = `/${p.locale}/calculator/${p.visa}/${p.section}/${p.prompt}/opengraph-image?progress=${progressPercentage}&points=${points}`
 
   const ogImage = {
     url: ogImageUrl,
@@ -106,6 +108,7 @@ export async function generateMetadata({
   }
 }
 
-export default function Page({ params }: Props) {
-  return <PromptClient visa={params.visa} />
+export default async function Page({ params }: Props) {
+  const { visa } = await params
+  return <PromptClient visa={visa} />
 }

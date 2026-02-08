@@ -22,9 +22,9 @@ import { Link } from '@lib/i18n/navigation'
 
 interface Props {
   children: React.ReactNode
-  params: {
-    visa: string
-  }
+  // Next 15+ types `params` as a Promise; this layout is a client component
+  // and uses the resolved object synchronously.
+  params: any
 }
 
 export default function Layout({ children, params }: Props) {
