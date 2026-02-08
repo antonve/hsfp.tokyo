@@ -7,6 +7,51 @@ import { formConfig as engineerForm } from '@lib/domain/visa.engineer'
 import { renderWithIntl } from '../test-utils/renderWithIntl'
 
 describe('ChoicePrompt', () => {
+  describe('pre-filled state', () => {
+    it('pre-selects the radio button when qualifications contains an existing value', () => {
+      const onSubmit = jest.fn()
+      const prompt = engineerForm.sections.education?.find(
+        p => p.id === 'degree',
+      )
+      expect(prompt).toBeTruthy()
+
+      // Create qualifications with a pre-existing value and mark prompt as completed
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 1, // Bit 0 set = prompt at overallPromptIndex 0 is completed
+        s: 'test-session',
+        degree: 'master',
+      })
+
+      renderWithIntl(
+        <ChoicePrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="education"
+          prompt={prompt as any}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+      )
+
+      const radios = screen.getAllByRole('radio')
+
+      // Find the index of 'master' in the options array
+      const masterIndex = (prompt as any).options.indexOf('master')
+      expect(masterIndex).toBeGreaterThanOrEqual(0)
+
+      // Verify the 'master' option is pre-selected
+      expect(radios[masterIndex]).toBeChecked()
+
+      // Verify other options are not checked
+      radios.forEach((radio, index) => {
+        if (index !== masterIndex) {
+          expect(radio).not.toBeChecked()
+        }
+      })
+    })
+  })
+
   it('shows validation error when submitting with no selection', () => {
     const onSubmit = jest.fn()
     const prompt = engineerForm.sections.education?.find(p => p.id === 'degree')
