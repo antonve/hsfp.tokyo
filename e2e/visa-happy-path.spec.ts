@@ -8,29 +8,66 @@ for (const visa of visas) {
 
     const start = page.getByRole('link', { name: 'Start Calculator' })
     await expect(start).toBeVisible()
+
+    const beforeStartUrl = page.url()
     await start.click()
+    await expect(page).not.toHaveURL(beforeStartUrl)
 
-    await expect(page).toHaveURL(new RegExp(`/en/calculator/${visa}/`))
+    // Walk prompts until we've submitted salary (required for non-error results),
+    // then jump to results using the page-level shortcut.
+    let submittedSalary = false
+    for (let i = 0; i < 10; i++) {
+      const radios = page.getByRole('radio')
+      const textInput = page.locator('input[type="text"]').first()
 
-    // Complete the first prompt (education/degree is a CHOICE prompt for all visas).
-    const radios = page.getByRole('radio')
-    if ((await radios.count()) > 0) {
-      await radios.first().click()
-    } else {
-      const input = page.locator('input[type="text"]').first()
-      await expect(input).toBeVisible()
-      await input.fill('3000000')
+      const hasRadio = (await radios.count()) > 0
+      const hasTextInput = (await textInput.count()) > 0
+
+      expect(hasRadio || hasTextInput).toBeTruthy()
+
+      let willSubmitSalary = false
+
+      if (hasRadio) {
+        await radios.first().click()
+      } else {
+        await expect(textInput).toBeVisible()
+        const name = await textInput.getAttribute('name')
+
+        const value =
+          name === 'salary'
+            ? '3000000'
+            : name === 'age'
+              ? '30'
+              : '0'
+
+        willSubmitSalary = name === 'salary'
+        await textInput.fill(value)
+      }
+
+      const beforeContinueUrl = page.url()
+      await page.getByRole('button', { name: /continue/i }).click()
+      await expect(page).not.toHaveURL(beforeContinueUrl)
+
+      if (willSubmitSalary) {
+        submittedSalary = true
+
+        await page
+          .getByRole('button', { name: /skip all & view result/i })
+          .click()
+
+        break
+      }
     }
 
-    await page.getByRole('button', { name: /continue/i }).click()
-    await expect(page).toHaveURL(/\?q=/)
-
-    // Fast, stable path to results.
-    await page
-      .getByRole('button', { name: /skip all & view result/i })
-      .click()
+    expect(submittedSalary).toBeTruthy()
 
     await expect(page).toHaveURL(new RegExp(`/en/calculator/${visa}/results`))
+
+    // Salary should be present, so we should not see the missing-salary banner.
+    await expect(
+      page.getByText(/minimum annual salary of .*3,000,000/i),
+    ).toHaveCount(0)
+
     await expect(
       page.getByRole('link', { name: /edit answers/i }),
     ).toBeVisible()
