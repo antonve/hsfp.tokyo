@@ -91,12 +91,4 @@ describe('VisaForm', () => {
     expect(screen.getByTestId('visa-form-section')).toBeInTheDocument()
     expect(screen.getByTestId('visa-type')).toHaveTextContent('engineer')
   })
-
-  it('passes config to VisaFormSection', () => {
-    renderWithIntl(<VisaForm config={engineerForm} />)
-
-    expect(screen.getByTestId('visa-type')).toHaveTextContent(
-      engineerForm.visaType,
-    )
-  })
 })

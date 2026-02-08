@@ -60,6 +60,7 @@ export function SiteHeader() {
                 <Link
                   href={`/`}
                   className={`no-underline ${isHomePage ? activeClass : inactiveClass}`}
+                  aria-current={isHomePage ? 'page' : undefined}
                 >
                   {t('home')}
                 </Link>
@@ -68,6 +69,7 @@ export function SiteHeader() {
                 <Link
                   href={`/about`}
                   className={`no-underline ${isAboutPage ? activeClass : inactiveClass}`}
+                  aria-current={isAboutPage ? 'page' : undefined}
                 >
                   {t('about')}
                 </Link>
@@ -87,6 +89,7 @@ export function SiteHeader() {
             onClick={() => setIsMobileMenuOpen(true)}
             className="md:hidden p-2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-gray-50 transition-colors"
             aria-label={t('menu')}
+            aria-expanded={isMobileMenuOpen}
           >
             <Bars3Icon className="w-6 h-6" />
           </button>
@@ -106,6 +109,7 @@ export function SiteHeader() {
         className={`md:hidden fixed top-0 right-0 h-full w-64 bg-white dark:bg-zinc-900 z-50 transform transition-transform duration-200 ease-in-out ${
           isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
+        aria-hidden={!isMobileMenuOpen}
       >
         <div className="flex flex-col h-full">
           <div className="flex justify-end p-4 border-b border-zinc-200 dark:border-zinc-800">
@@ -129,6 +133,7 @@ export function SiteHeader() {
                       ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
                       : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                   }`}
+                  aria-current={isHomePage ? 'page' : undefined}
                 >
                   <HomeIcon className="w-5 h-5" />
                   {t('home')}
@@ -143,6 +148,7 @@ export function SiteHeader() {
                       ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
                       : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
                   }`}
+                  aria-current={isAboutPage ? 'page' : undefined}
                 >
                   <InformationCircleIcon className="w-5 h-5" />
                   {t('about')}

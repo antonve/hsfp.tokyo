@@ -188,6 +188,7 @@ function Prompt({
         'disabled opacity-60 cursor-not-allowed': !isEnabled,
         'opacity-50': isSkipped && !isActive,
       })}
+      aria-current={isActive ? 'true' : undefined}
     >
       <Link
         href={urlForPrompt(config.visaType, name, promptIndex, qualifications)}
@@ -199,6 +200,7 @@ function Prompt({
           },
         )}
         title={isSkipped ? t('skipped_tooltip') : undefined}
+        aria-disabled={!isEnabled ? 'true' : undefined}
       >
         {title}
         {isCompleted ? (

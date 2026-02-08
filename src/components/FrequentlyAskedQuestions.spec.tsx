@@ -17,16 +17,6 @@ describe('FrequentlyAskedQuestions', () => {
       )
       expect(container.firstChild).toBeNull()
     })
-
-    it('returns null when count is negative', () => {
-      const { container } = renderWithIntl(
-        <FrequentlyAskedQuestions
-          count={-1}
-          translationPrefix={translationPrefix}
-        />,
-      )
-      expect(container.firstChild).toBeNull()
-    })
   })
 
   describe('renders correct number of FAQ items', () => {

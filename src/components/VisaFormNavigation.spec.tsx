@@ -212,7 +212,7 @@ describe('VisaFormNavigation', () => {
       )
     })
 
-    it('highlights the currently active prompt', () => {
+    it('highlights the currently active prompt with aria-current', () => {
       renderWithIntl(
         <VisaFormNavigation
           config={engineerForm}
@@ -222,16 +222,15 @@ describe('VisaFormNavigation', () => {
       )
 
       // The dual_degree prompt (index 1) should be marked as active
-      // Active prompts have border-zinc-900 class
       const multipleDegreesLink = screen.getByRole('link', {
         name: /^Multiple degrees$/i,
       })
       const listItem = multipleDegreesLink.closest('li')
 
-      expect(listItem).toHaveClass('border-zinc-900')
+      expect(listItem).toHaveAttribute('aria-current', 'true')
     })
 
-    it('disables links for prompts not yet reached', () => {
+    it('disables links for prompts not yet reached with aria-disabled', () => {
       renderWithIntl(
         <VisaFormNavigation
           config={engineerForm}
@@ -245,10 +244,10 @@ describe('VisaFormNavigation', () => {
 
       // Job prompts should be disabled since education hasn't been completed
       const salaryLink = screen.getByRole('link', { name: /Salary/i })
-      expect(salaryLink).toHaveClass('pointer-events-none')
+      expect(salaryLink).toHaveAttribute('aria-disabled', 'true')
     })
 
-    it('enables links for completed prompts', () => {
+    it('enables links for completed prompts without aria-disabled', () => {
       // Complete first prompt
       const partiallyCompleted = QualificationsSchema.parse({
         v: VisaType.Engineer,
@@ -265,9 +264,9 @@ describe('VisaFormNavigation', () => {
         />,
       )
 
-      // First prompt (Degree) should be navigable
+      // First prompt (Degree) should be navigable (no aria-disabled)
       const degreeLink = screen.getByRole('link', { name: /^Degree$/i })
-      expect(degreeLink).not.toHaveClass('pointer-events-none')
+      expect(degreeLink).not.toHaveAttribute('aria-disabled')
     })
   })
 })

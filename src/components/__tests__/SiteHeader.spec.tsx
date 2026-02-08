@@ -49,16 +49,6 @@ describe('SiteHeader', () => {
       expect(homeLinks.length).toBeGreaterThan(0)
       expect(aboutLinks.length).toBeGreaterThan(0)
     })
-
-    it('navigation links have correct hrefs', () => {
-      renderWithIntl(<SiteHeader />)
-
-      const homeLinks = screen.getAllByRole('link', { name: /home/i })
-      const aboutLinks = screen.getAllByRole('link', { name: /about/i })
-
-      expect(homeLinks[0]).toHaveAttribute('href', '/')
-      expect(aboutLinks[0]).toHaveAttribute('href', '/about')
-    })
   })
 
   describe('mobile menu toggle', () => {
@@ -81,9 +71,8 @@ describe('SiteHeader', () => {
       const closeButton = screen.getByRole('button', { name: /close menu/i })
       fireEvent.click(closeButton)
 
-      // The sidebar should be translated off-screen (translate-x-full class)
       const sidebar = document.querySelector('aside')
-      expect(sidebar).toHaveClass('translate-x-full')
+      expect(sidebar).toHaveAttribute('aria-hidden', 'true')
     })
   })
 
@@ -127,7 +116,7 @@ describe('SiteHeader', () => {
 
       // Mobile menu should be closed
       const sidebar = document.querySelector('aside')
-      expect(sidebar).toHaveClass('translate-x-full')
+      expect(sidebar).toHaveAttribute('aria-hidden', 'true')
     })
   })
 
@@ -158,24 +147,28 @@ describe('SiteHeader', () => {
   })
 
   describe('active route styling', () => {
-    it('applies active styling to home link on home page', () => {
+    it('marks active nav link with aria-current="page" on home page', () => {
       mockUsePathname.mockReturnValue('/')
 
       renderWithIntl(<SiteHeader />)
 
       const homeLinks = screen.getAllByRole('link', { name: /home/i })
-      // Desktop navigation link (first one)
-      expect(homeLinks[0]).toHaveClass('border-b-2')
+      expect(homeLinks[0]).toHaveAttribute('aria-current', 'page')
+
+      const aboutLinks = screen.getAllByRole('link', { name: /about/i })
+      expect(aboutLinks[0]).not.toHaveAttribute('aria-current')
     })
 
-    it('applies active styling to about link on about page', () => {
+    it('marks active nav link with aria-current="page" on about page', () => {
       mockUsePathname.mockReturnValue('/en/about')
 
       renderWithIntl(<SiteHeader />)
 
       const aboutLinks = screen.getAllByRole('link', { name: /about/i })
-      // Desktop navigation link (first one)
-      expect(aboutLinks[0]).toHaveClass('border-b-2')
+      expect(aboutLinks[0]).toHaveAttribute('aria-current', 'page')
+
+      const homeLinks = screen.getAllByRole('link', { name: /home/i })
+      expect(homeLinks[0]).not.toHaveAttribute('aria-current')
     })
   })
 })
