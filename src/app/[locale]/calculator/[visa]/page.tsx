@@ -9,7 +9,7 @@ import {
   LightBulbIcon,
   ArrowRightIcon,
 } from '@heroicons/react/24/solid'
-import { getTranslations } from 'next-intl/server'
+import { getTranslator } from 'next-intl/server'
 import Link from 'next-intl/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
@@ -62,8 +62,8 @@ export default async function Page({ params }: Props) {
     notFound()
   }
 
-  const t = await getTranslations('visa_intro')
-  const tResults = await getTranslations('results')
+  const t = await getTranslator(params.locale, 'visa_intro')
+  const tResults = await getTranslator(params.locale, 'results')
 
   const firstSection = formConfig.order[0]
   const startUrl = `/calculator/${params.visa}/${firstSection}/1`
