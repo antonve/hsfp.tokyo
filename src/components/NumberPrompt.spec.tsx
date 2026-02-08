@@ -2,16 +2,60 @@ import { fireEvent, screen } from '@testing-library/react'
 
 import { NumberPrompt } from '@components/NumberPrompt'
 import { VisaType } from '@lib/domain'
-import { QualificationsSchema } from '@lib/domain/qualifications'
-import { formConfig as engineerForm } from '@lib/domain/visa.engineer'
+import { NumberPrompt as NumberPromptType } from '@lib/domain/form'
+import {
+  Qualifications,
+  QualificationsSchema,
+} from '@lib/domain/qualifications'
+import {
+  formConfig as engineerForm,
+  EngineerQualifications,
+} from '@lib/domain/visa.engineer'
 import { withCompletedPrompt } from '@lib/domain/prompts'
 import { renderWithIntl } from '../test-utils/renderWithIntl'
 
+function getNumberPrompt(id: string): NumberPromptType {
+  const prompt = engineerForm.sections.job?.find(p => p.id === id)
+  if (!prompt || prompt.type !== 'NUMBER') {
+    throw new Error(`Expected NUMBER prompt with id '${id}'`)
+  }
+  return prompt
+}
+
 describe('NumberPrompt', () => {
+  describe('pre-filled state', () => {
+    it('shows existing value in input when qualifications contains a value', () => {
+      const onSubmit = jest.fn()
+      const prompt = getNumberPrompt('salary')
+
+      // Create qualifications with a pre-existing value and mark prompt as completed
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 1, // Bit 0 set = prompt at overallPromptIndex 0 is completed
+        s: 'test-session',
+        salary: 5_000_000,
+      })
+
+      renderWithIntl(
+        <NumberPrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="job"
+          prompt={prompt}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+      )
+
+      const input = screen.getByRole('textbox')
+      // The value should be formatted with commas
+      expect(input).toHaveValue('5,000,000')
+    })
+  })
+
   it('shows required validation error when submitting empty', () => {
     const onSubmit = jest.fn()
-    const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
-    expect(prompt).toBeTruthy()
+    const prompt = getNumberPrompt('salary')
 
     const qualifications = QualificationsSchema.parse({
       v: VisaType.Engineer,
@@ -24,7 +68,7 @@ describe('NumberPrompt', () => {
         qualifications={qualifications}
         visaType={VisaType.Engineer}
         section="job"
-        prompt={prompt as any}
+        prompt={prompt}
         overallPromptIndex={0}
         onSubmit={onSubmit}
       />,
@@ -37,8 +81,7 @@ describe('NumberPrompt', () => {
 
   it('shows min validation error when below min', () => {
     const onSubmit = jest.fn()
-    const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
-    expect(prompt).toBeTruthy()
+    const prompt = getNumberPrompt('salary')
 
     const base = QualificationsSchema.parse({
       v: VisaType.Engineer,
@@ -53,7 +96,7 @@ describe('NumberPrompt', () => {
         qualifications={qualifications}
         visaType={VisaType.Engineer}
         section="job"
-        prompt={prompt as any}
+        prompt={prompt}
         overallPromptIndex={0}
         onSubmit={onSubmit}
       />,
@@ -69,8 +112,7 @@ describe('NumberPrompt', () => {
 
   it('shows max validation error when above max', () => {
     const onSubmit = jest.fn()
-    const prompt = engineerForm.sections.job?.find(p => p.id === 'experience')
-    expect(prompt).toBeTruthy()
+    const prompt = getNumberPrompt('experience')
 
     const base = QualificationsSchema.parse({
       v: VisaType.Engineer,
@@ -85,7 +127,7 @@ describe('NumberPrompt', () => {
         qualifications={qualifications}
         visaType={VisaType.Engineer}
         section="job"
-        prompt={prompt as any}
+        prompt={prompt}
         overallPromptIndex={0}
         onSubmit={onSubmit}
       />,
@@ -99,8 +141,7 @@ describe('NumberPrompt', () => {
 
   it('submits valid value (including changes) and marks prompt completed', () => {
     const onSubmit = jest.fn()
-    const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
-    expect(prompt).toBeTruthy()
+    const prompt = getNumberPrompt('salary')
 
     const base = QualificationsSchema.parse({
       v: VisaType.Engineer,
@@ -115,7 +156,7 @@ describe('NumberPrompt', () => {
         qualifications={qualifications}
         visaType={VisaType.Engineer}
         section="job"
-        prompt={prompt as any}
+        prompt={prompt}
         overallPromptIndex={0}
         onSubmit={onSubmit}
       />,
@@ -127,16 +168,16 @@ describe('NumberPrompt', () => {
 
     expect(onSubmit).toHaveBeenCalledTimes(1)
     const updater = onSubmit.mock.calls[0][0]
-    const updated = updater(qualifications)
-    expect((updated as any).salary).toBe(3_100_000)
+    const updated = updater(qualifications) as Qualifications &
+      EngineerQualifications
+    expect(updated.salary).toBe(3_100_000)
     expect(updated.completed & 1).toBe(1)
   })
 
   describe('isLoading state', () => {
     it('disables buttons when isLoading is true', () => {
       const onSubmit = jest.fn()
-      const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
-      expect(prompt).toBeTruthy()
+      const prompt = getNumberPrompt('salary')
 
       const qualifications = QualificationsSchema.parse({
         v: VisaType.Engineer,
@@ -149,7 +190,7 @@ describe('NumberPrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="job"
-          prompt={prompt as any}
+          prompt={prompt}
           overallPromptIndex={0}
           onSubmit={onSubmit}
           isLoading={true}
@@ -165,8 +206,7 @@ describe('NumberPrompt', () => {
 
     it('shows loading spinner when isLoading is true', () => {
       const onSubmit = jest.fn()
-      const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
-      expect(prompt).toBeTruthy()
+      const prompt = getNumberPrompt('salary')
 
       const qualifications = QualificationsSchema.parse({
         v: VisaType.Engineer,
@@ -179,7 +219,7 @@ describe('NumberPrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="job"
-          prompt={prompt as any}
+          prompt={prompt}
           overallPromptIndex={0}
           onSubmit={onSubmit}
           isLoading={true}
@@ -194,9 +234,8 @@ describe('NumberPrompt', () => {
   describe('skip button behavior for required prompts', () => {
     it('disables skip button for required prompts', () => {
       const onSubmit = jest.fn()
-      const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
-      expect(prompt).toBeTruthy()
-      expect((prompt as any).required).toBe(true)
+      const prompt = getNumberPrompt('salary')
+      expect(prompt.required).toBe(true)
 
       const qualifications = QualificationsSchema.parse({
         v: VisaType.Engineer,
@@ -209,7 +248,7 @@ describe('NumberPrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="job"
-          prompt={prompt as any}
+          prompt={prompt}
           overallPromptIndex={0}
           onSubmit={onSubmit}
         />,
@@ -223,9 +262,8 @@ describe('NumberPrompt', () => {
 
     it('shows "Cannot be skipped" text for required prompts', () => {
       const onSubmit = jest.fn()
-      const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
-      expect(prompt).toBeTruthy()
-      expect((prompt as any).required).toBe(true)
+      const prompt = getNumberPrompt('salary')
+      expect(prompt.required).toBe(true)
 
       const qualifications = QualificationsSchema.parse({
         v: VisaType.Engineer,
@@ -238,7 +276,7 @@ describe('NumberPrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="job"
-          prompt={prompt as any}
+          prompt={prompt}
           overallPromptIndex={0}
           onSubmit={onSubmit}
         />,
@@ -251,9 +289,8 @@ describe('NumberPrompt', () => {
 
     it('enables skip button and shows "Skip" for optional prompts', () => {
       const onSubmit = jest.fn()
-      const prompt = engineerForm.sections.job?.find(p => p.id === 'experience')
-      expect(prompt).toBeTruthy()
-      expect((prompt as any).required).toBeFalsy()
+      const prompt = getNumberPrompt('experience')
+      expect(prompt.required).toBeFalsy()
 
       const qualifications = QualificationsSchema.parse({
         v: VisaType.Engineer,
@@ -266,7 +303,7 @@ describe('NumberPrompt', () => {
           qualifications={qualifications}
           visaType={VisaType.Engineer}
           section="job"
-          prompt={prompt as any}
+          prompt={prompt}
           overallPromptIndex={0}
           onSubmit={onSubmit}
         />,
