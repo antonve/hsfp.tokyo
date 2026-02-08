@@ -25,13 +25,14 @@ interface Props {
 const STORAGE_KEY_PREFIX = 'hsfp-evidence'
 
 function EditAnswersButton({ editUrl }: { editUrl: string }) {
+  const t = useTranslations('results')
   return (
     <Link
       href={editUrl}
       className="button secondary flex items-center gap-2 text-sm no-underline"
     >
       <PencilSquareIcon className="w-4 h-4" />
-      Edit Answers
+      {t('overview.edit_answers')}
     </Link>
   )
 }

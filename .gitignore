@@ -37,3 +37,7 @@ yarn-error.log*
 *.tsbuildinfo
 
 .claude/
+
+# playwright
+/playwright-report
+/test-results
