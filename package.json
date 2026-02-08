@@ -13,7 +13,8 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "e2e:install": "playwright install"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
