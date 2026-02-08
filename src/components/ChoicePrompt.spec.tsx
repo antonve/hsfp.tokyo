@@ -5,6 +5,7 @@ import { VisaType } from '@lib/domain'
 import { ChoicePrompt as ChoicePromptType } from '@lib/domain/form'
 import { QualificationsSchema } from '@lib/domain/qualifications'
 import { formConfig as engineerForm } from '@lib/domain/visa.engineer'
+import messagesJa from '@lib/i18n/messages/ja.json'
 import { renderWithIntl } from '../test-utils/renderWithIntl'
 
 describe('ChoicePrompt', () => {
@@ -307,6 +308,40 @@ describe('ChoicePrompt', () => {
       // Arrow down from last option should wrap to first option
       fireEvent.keyDown(window, { key: 'ArrowDown' })
       expect(radios[0]).toBeChecked()
+    })
+  })
+
+  describe('i18n locale', () => {
+    it('renders with Japanese locale and shows translated button text', () => {
+      const onSubmit = jest.fn()
+      const prompt = engineerForm.sections.education?.find(
+        p => p.id === 'degree',
+      ) as ChoicePromptType | undefined
+      expect(prompt).toBeTruthy()
+
+      const qualifications = QualificationsSchema.parse({
+        v: VisaType.Engineer,
+        completed: 0,
+        s: 'test-session',
+      })
+
+      renderWithIntl(
+        <ChoicePrompt
+          qualifications={qualifications}
+          visaType={VisaType.Engineer}
+          section="education"
+          prompt={prompt!}
+          overallPromptIndex={0}
+          onSubmit={onSubmit}
+        />,
+        { locale: 'ja', messages: messagesJa },
+      )
+
+      // Verify Japanese translated button text appears
+      expect(screen.getByRole('button', { name: '続ける' })).toBeInTheDocument()
+      expect(
+        screen.getByRole('button', { name: 'この質問をスキップ' }),
+      ).toBeInTheDocument()
     })
   })
 
