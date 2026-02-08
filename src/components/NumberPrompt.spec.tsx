@@ -67,6 +67,36 @@ describe('NumberPrompt', () => {
     expect(onSubmit).not.toHaveBeenCalled()
   })
 
+  it('shows max validation error when above max', () => {
+    const onSubmit = jest.fn()
+    const prompt = engineerForm.sections.job?.find(p => p.id === 'experience')
+    expect(prompt).toBeTruthy()
+
+    const base = QualificationsSchema.parse({
+      v: VisaType.Engineer,
+      completed: 0,
+      s: 'test-session',
+      experience: 51,
+    })
+    const qualifications = withCompletedPrompt(0, base)
+
+    renderWithIntl(
+      <NumberPrompt
+        qualifications={qualifications}
+        visaType={VisaType.Engineer}
+        section="job"
+        prompt={prompt as any}
+        overallPromptIndex={0}
+        onSubmit={onSubmit}
+      />,
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: /continue/i }))
+
+    expect(screen.getByText(/should be less than 50/i)).toBeInTheDocument()
+    expect(onSubmit).not.toHaveBeenCalled()
+  })
+
   it('submits valid value (including changes) and marks prompt completed', () => {
     const onSubmit = jest.fn()
     const prompt = engineerForm.sections.job?.find(p => p.id === 'salary')
