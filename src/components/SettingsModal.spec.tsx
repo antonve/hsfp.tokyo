@@ -1,7 +1,7 @@
 import { fireEvent, screen, waitFor, act } from '@testing-library/react'
 
 import { SettingsModal } from '@components/SettingsModal'
-import { renderWithIntl } from '../../test-utils/renderWithIntl'
+import { renderWithIntl } from '../test-utils/renderWithIntl'
 
 jest.mock('next/navigation', () => ({
   usePathname: () => '/en/calculator/engineer',

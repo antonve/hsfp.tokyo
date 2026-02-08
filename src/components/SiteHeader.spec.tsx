@@ -1,7 +1,7 @@
 import { fireEvent, screen } from '@testing-library/react'
 
 import { SiteHeader } from '@components/SiteHeader'
-import { renderWithIntl } from '../../test-utils/renderWithIntl'
+import { renderWithIntl } from '../test-utils/renderWithIntl'
 
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn(() => '/'),
