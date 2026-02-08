@@ -10,7 +10,7 @@ import {
   Cog6ToothIcon,
 } from '@heroicons/react/24/solid'
 import { notFound, usePathname } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { use, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import cn from 'classnames'
 import { Logo } from '@components/Logo'
@@ -22,13 +22,15 @@ import { Link } from '@lib/i18n/navigation'
 
 interface Props {
   children: React.ReactNode
-  // Next 15+ types `params` as a Promise; this layout is a client component
-  // and uses the resolved object synchronously.
-  params: any
+  // Next 15+ passes App Router params as a Promise, even for client components.
+  params: Promise<{
+    visa: string
+  }>
 }
 
 export default function Layout({ children, params }: Props) {
-  const formConfig = formConfigForVisa(params.visa)
+  const { visa } = use(params)
+  const formConfig = formConfigForVisa(visa)
   if (!formConfig) {
     notFound()
   }
