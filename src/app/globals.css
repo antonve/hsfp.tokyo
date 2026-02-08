@@ -1,7 +1,13 @@
 @import "tailwindcss";
 
-a {
-  text-decoration: underline;
+@layer base {
+  body {
+    margin: 0;
+  }
+
+  button:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 @layer utilities {
