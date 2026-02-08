@@ -1,4 +1,4 @@
-import { fireEvent, screen, within } from '@testing-library/react'
+import { fireEvent, screen } from '@testing-library/react'
 
 import { VisaFormNavigation } from '@components/VisaFormNavigation'
 import { VisaType } from '@lib/domain'
@@ -125,7 +125,7 @@ describe('VisaFormNavigation', () => {
   })
 
   describe('completion indicators', () => {
-    it('shows check icon for completed prompts', () => {
+    it('shows completed icon for completed prompts', () => {
       // Complete first 2 prompts (education section: degree and dual_degree)
       // completed bitmask: 0b11 = 3 (prompts 0 and 1 completed)
       const completedQualifications = QualificationsSchema.parse({
@@ -144,29 +144,19 @@ describe('VisaFormNavigation', () => {
         />,
       )
 
-      // Find all links in the education section prompts list
-      // The prompt links have an svg (CheckIcon) when completed
-      const allLinks = screen.getAllByRole('link')
+      // Find prompt links with completed icons (name includes "Completed" from aria-label)
+      const degreeLink = screen.getByRole('link', {
+        name: /^Degree Completed$/i,
+      })
+      const multipleDegreesLink = screen.getByRole('link', {
+        name: /^Multiple degrees Completed$/i,
+      })
 
-      // Find the Degree and Multiple degrees links that contain the check icon SVG
-      const degreeLink = allLinks.find(
-        link =>
-          link.textContent?.includes('Degree') &&
-          !link.textContent?.includes('Multiple'),
-      )
-      const multipleDegreesLink = allLinks.find(link =>
-        link.textContent?.includes('Multiple degrees'),
-      )
-
-      expect(degreeLink).toBeTruthy()
-      expect(multipleDegreesLink).toBeTruthy()
-
-      // Check icons (SVGs with text-emerald-600 class) should be present
-      expect(degreeLink!.querySelector('svg')).toBeInTheDocument()
-      expect(multipleDegreesLink!.querySelector('svg')).toBeInTheDocument()
+      expect(degreeLink).toBeInTheDocument()
+      expect(multipleDegreesLink).toBeInTheDocument()
     })
 
-    it('does not show check icon for incomplete prompts', () => {
+    it('does not show completed icon for incomplete prompts', () => {
       renderWithIntl(
         <VisaFormNavigation
           config={engineerForm}
@@ -175,15 +165,14 @@ describe('VisaFormNavigation', () => {
         />,
       )
 
-      // Find prompt links in the education section
+      // Links should not have "Completed" in their accessible name
       const degreeLink = screen.getByRole('link', { name: /^Degree$/i })
       const multipleDegreesLink = screen.getByRole('link', {
         name: /^Multiple degrees$/i,
       })
 
-      // No check icons should be present
-      expect(degreeLink.querySelector('svg')).not.toBeInTheDocument()
-      expect(multipleDegreesLink.querySelector('svg')).not.toBeInTheDocument()
+      expect(degreeLink).toBeInTheDocument()
+      expect(multipleDegreesLink).toBeInTheDocument()
     })
   })
 
@@ -265,7 +254,10 @@ describe('VisaFormNavigation', () => {
       )
 
       // First prompt (Degree) should be navigable (no aria-disabled)
-      const degreeLink = screen.getByRole('link', { name: /^Degree$/i })
+      // It shows "Completed" because the first prompt is completed
+      const degreeLink = screen.getByRole('link', {
+        name: /^Degree Completed$/i,
+      })
       expect(degreeLink).not.toHaveAttribute('aria-disabled')
     })
   })

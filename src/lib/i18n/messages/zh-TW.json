@@ -741,7 +741,9 @@
       "conditional": "實際積分可能因您的其他資格而異"
     },
     "navigation": {
-      "skipped_tooltip": "已跳過：您已獲得此類別的最高積分"
+      "skipped_tooltip": "已跳過：您已獲得此類別的最高積分",
+      "completed": "已完成",
+      "skipped": "已跳過"
     },
     "test": "<a href=\"#lol\">test</a>",
     "form_title": "{visaType}簽證",

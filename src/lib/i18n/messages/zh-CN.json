@@ -741,7 +741,9 @@
       "conditional": "实际积分可能因您的其他资格而异"
     },
     "navigation": {
-      "skipped_tooltip": "已跳过：您已获得此类别的最高积分"
+      "skipped_tooltip": "已跳过：您已获得此类别的最高积分",
+      "completed": "已完成",
+      "skipped": "已跳过"
     },
     "test": "<a href=\"#lol\">test</a>",
     "form_title": "{visaType}签证",

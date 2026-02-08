@@ -741,7 +741,9 @@
       "conditional": "他の資格により実際のポイントは変わる可能性があります"
     },
     "navigation": {
-      "skipped_tooltip": "スキップ：このカテゴリーの最大ポイントをすでに獲得しています"
+      "skipped_tooltip": "スキップ：このカテゴリーの最大ポイントをすでに獲得しています",
+      "completed": "完了",
+      "skipped": "スキップ"
     },
     "test": "<a href=\"#lol\">test</a>",
     "form_title": "{visaType}ビザ",
