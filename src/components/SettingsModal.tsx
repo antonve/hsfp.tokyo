@@ -120,7 +120,9 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                           href={hrefWithQuery}
                           // Avoid forcing a `/en` prefix for default locale when using
                           // `localePrefix: 'as-needed'`.
-                          locale={lang.code === DEFAULT_LOCALE ? undefined : lang.code}
+                          locale={
+                            lang.code === DEFAULT_LOCALE ? undefined : lang.code
+                          }
                           onClick={onClose}
                           className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors no-underline ${
                             locale === lang.code

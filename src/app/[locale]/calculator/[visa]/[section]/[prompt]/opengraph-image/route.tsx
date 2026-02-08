@@ -18,7 +18,12 @@ export async function GET(
   {
     params,
   }: {
-    params: Promise<{ visa: string; locale: string; section: string; prompt: string }>
+    params: Promise<{
+      visa: string
+      locale: string
+      section: string
+      prompt: string
+    }>
   },
 ) {
   const searchParams = request.nextUrl.searchParams
