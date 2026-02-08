@@ -6,12 +6,12 @@ Date: 2026-02-08
 
 Top-level versions from `pnpm list --depth 0`:
 
-- next: 13.5.11
-- react / react-dom: 18.3.1
-- tailwindcss: 3.4.19
+- next: 16.1.6
+- react / react-dom: 19.2.4
+- tailwindcss: 4.1.18
 - typescript: 5.9.3
 - @headlessui/react: 2.2.9
-- next-intl: 3.0.0-beta.19
+- next-intl: 4.8.2
 
 ## Target “latest stable” (as of 2026-02-08)
 
@@ -34,20 +34,20 @@ Big jumps are acceptable, but we’ll validate each Next.js major upgrade as “
 
 1. Baseline stabilization (done)
    - Ensure `pnpm lint`, `pnpm test`, `pnpm build` run non-interactively and are green.
-2. Make versions deterministic
+2. Make versions deterministic (done)
    - Replace `latest` tags in `package.json` with explicit versions (TypeScript, PostCSS, Autoprefixer, @types/*, etc.).
-3. Next.js major-by-major
-   - Upgrade Next 13 -> 14 (latest 14.x), run `lint/test/build`, commit.
-   - Upgrade Next 14 -> 15 (latest 15.x), run `lint/test/build`, commit.
-   - Upgrade Next 15 -> 16.1.6, run `lint/test/build`, commit.
-4. React major upgrade
-   - Upgrade React 18 -> 19.2.4 (and align `@types/react*`), run `lint/test/build`, commit.
-   - If Next 16 requires React 19 earlier, we’ll move this step earlier.
-5. next-intl upgrade
-   - Upgrade 3.0.0-beta.19 -> 4.8.2, update config/plugin usage as needed, run checks, commit.
-6. Tailwind major upgrade
-   - Upgrade Tailwind 3 -> 4.1.18, update config/CSS as needed, run checks, commit.
-7. Cleanup
+3. Next.js major-by-major (done)
+   - Upgraded Next 13 -> 14.2.35.
+   - Upgraded Next 14 -> 15.5.12 (required updating App Router prop types: `params`/`searchParams` are typed as Promises in Next 15+).
+   - Upgraded Next 15 -> 16.1.6 (migrated linting to ESLint flat config via `eslint.config.cjs`).
+4. React major upgrade (done)
+   - Upgraded React 18 -> 19.2.4 (and updated `@types/react*` + testing-library to versions compatible with React 19).
+5. next-intl upgrade (done)
+   - Upgraded 3.0.0-beta.19 -> 4.8.2 and migrated API usage (`getTranslator` -> `getTranslations`, `next-intl/link` -> local locale-aware Link wrapper).
+6. Tailwind major upgrade (done)
+   - Upgraded Tailwind 3 -> 4.1.18.
+   - Updated PostCSS plugin (`tailwindcss` -> `@tailwindcss/postcss`) and CSS entry (`@tailwind ...` -> `@import "tailwindcss";`).
+7. Cleanup (pending)
    - Remove deprecated/unused deps, re-run checks, commit.
 
 ## Verification gates (per step)
@@ -55,4 +55,3 @@ Big jumps are acceptable, but we’ll validate each Next.js major upgrade as “
 - `pnpm -s run lint`
 - `pnpm -s run test`
 - `pnpm -s run build`
-
