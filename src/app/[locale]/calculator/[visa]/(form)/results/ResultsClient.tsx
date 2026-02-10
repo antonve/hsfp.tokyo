@@ -157,8 +157,8 @@ export default function ResultsClient({ visa }: Props) {
         </div>
       )}
       {points >= HSFP_QUALIFICATION_THRESHOLD && (
-        <>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-8">
             <section className="space-y-4">
               <div className="flex items-center justify-between">
                 <h2 className="font-semibold text-2xl">
@@ -169,40 +169,40 @@ export default function ResultsClient({ visa }: Props) {
               <MatchesOverview matches={matches} totalPoints={points} />
             </section>
             <section className="space-y-4">
-              <h3 className="font-semibold text-2xl">{t('evidence.title')}</h3>
-              <div className="text-zinc-700 dark:text-zinc-300 text-sm space-y-3">
-                <p>{t('evidence.description1')}</p>
-                <p>{t('evidence.description2')}</p>
-                <p>{t('evidence.description3')}</p>
-              </div>
-              <EvidenceOverview matches={matches} sessionId={sessionId} />
-              <p className="text-zinc-500 dark:text-zinc-400 text-xs italic mt-4">
-                {t('evidence.caveat')}
+              <h3 className="font-semibold text-xl">
+                {t('permanent_residency.title')}
+              </h3>
+              <p className="text-zinc-700 dark:text-zinc-300">
+                {t('permanent_residency.intro')}
+              </p>
+              <ul className="text-zinc-700 dark:text-zinc-300 list-disc list-inside pl-4 space-y-2">
+                <li> {t('permanent_residency.condition1')}</li>
+                <li> {t('permanent_residency.condition2')}</li>
+              </ul>
+              <p className="text-zinc-700 dark:text-zinc-300">
+                {t('permanent_residency.visa_note')}
+              </p>
+              <p className="text-zinc-700 dark:text-zinc-300">
+                {t('permanent_residency.length_warning')}
+              </p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
+                {t('permanent_residency.political_caveat')}
               </p>
             </section>
           </div>
-          <section className="space-y-4 max-w-2xl">
-            <h3 className="font-semibold text-xl">
-              {t('permanent_residency.title')}
-            </h3>
-            <p className="text-zinc-700 dark:text-zinc-300">
-              {t('permanent_residency.intro')}
-            </p>
-            <ul className="text-zinc-700 dark:text-zinc-300 list-disc list-inside pl-4 space-y-2">
-              <li> {t('permanent_residency.condition1')}</li>
-              <li> {t('permanent_residency.condition2')}</li>
-            </ul>
-            <p className="text-zinc-700 dark:text-zinc-300">
-              {t('permanent_residency.visa_note')}
-            </p>{' '}
-            <p className="text-zinc-700 dark:text-zinc-300">
-              {t('permanent_residency.length_warning')}
-            </p>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 italic">
-              {t('permanent_residency.political_caveat')}
+          <section className="space-y-4">
+            <h3 className="font-semibold text-2xl">{t('evidence.title')}</h3>
+            <div className="text-zinc-700 dark:text-zinc-300 text-sm space-y-3">
+              <p>{t('evidence.description1')}</p>
+              <p>{t('evidence.description2')}</p>
+              <p>{t('evidence.description3')}</p>
+            </div>
+            <EvidenceOverview matches={matches} sessionId={sessionId} />
+            <p className="text-zinc-500 dark:text-zinc-400 text-xs italic mt-4">
+              {t('evidence.caveat')}
             </p>
           </section>
-        </>
+        </div>
       )}
     </main>
   )
