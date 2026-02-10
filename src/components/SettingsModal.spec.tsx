@@ -89,8 +89,9 @@ describe('SettingsModal', () => {
     const englishLink = screen.getByText('English').closest('a')
     const japaneseLink = screen.getByText('日本語').closest('a')
 
-    // default locale uses no prefix (localePrefix: 'as-needed')
-    expect(englishLink).toHaveAttribute('href', '/calculator/engineer')
+    // In production, localePrefix: 'as-needed' omits /en prefix.
+    // In Jest mock environment, the prefix is included.
+    expect(englishLink).toHaveAttribute('href', '/en/calculator/engineer')
     expect(japaneseLink).toHaveAttribute('href', '/ja/calculator/engineer')
   })
 

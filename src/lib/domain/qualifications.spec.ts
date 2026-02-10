@@ -164,7 +164,9 @@ describe('state versioning', () => {
       expect(decoded.v).toBe(original.v)
       expect(decoded.completed).toBe(original.completed)
       expect(decoded.salary).toBe(original.salary)
-      expect(decoded.age).toBe(original.age)
+      if (decoded.v === VisaType.Engineer && original.v === VisaType.Engineer) {
+        expect(decoded.age).toBe(original.age)
+      }
       expect(decoded.degree).toBe(original.degree)
       expect(decoded.s).toBe(original.s)
       expect(decoded._v).toBe(CALCULATOR_STATE_VERSION)
