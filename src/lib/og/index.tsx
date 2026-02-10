@@ -31,7 +31,7 @@
  */
 
 import { VisaType } from '@lib/domain'
-import { getTranslator } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 export const OG_WIDTH = 1200
 export const OG_HEIGHT = 630
@@ -74,7 +74,7 @@ export function Logo({ size = 24 }: { size?: number }) {
 
 // Get translator for OG namespace
 export async function getOGTranslator(locale: string) {
-  return getTranslator(locale, 'og')
+  return getTranslations({ locale, namespace: 'og' })
 }
 
 // Get visa type label from translations
@@ -82,7 +82,7 @@ export async function getVisaTypeLabel(
   locale: string,
   slug: string,
 ): Promise<string> {
-  const t = await getTranslator(locale, 'og.visa_types')
+  const t = await getTranslations({ locale, namespace: 'og.visa_types' })
   if (!isValidVisaSlug(slug)) {
     return t('fallback')
   }

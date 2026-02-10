@@ -10,25 +10,27 @@ import {
   Cog6ToothIcon,
 } from '@heroicons/react/24/solid'
 import { notFound, usePathname } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { use, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import Link from 'next-intl/link'
 import cn from 'classnames'
 import { Logo } from '@components/Logo'
 import { SettingsModal } from '@components/SettingsModal'
 import { VisaFormNavigation } from '@components/VisaFormNavigation'
 import { VisaProgressBar } from '@components/VisaProgressBar'
 import { VisaFormResultsPreview } from '@components/VisaFormResultsPreview'
+import { Link } from '@lib/i18n/navigation'
 
 interface Props {
   children: React.ReactNode
-  params: {
+  // Next 15+ passes App Router params as a Promise, even for client components.
+  params: Promise<{
     visa: string
-  }
+  }>
 }
 
 export default function Layout({ children, params }: Props) {
-  const formConfig = formConfigForVisa(params.visa)
+  const { visa } = use(params)
+  const formConfig = formConfigForVisa(visa)
   if (!formConfig) {
     notFound()
   }
@@ -37,16 +39,41 @@ export default function Layout({ children, params }: Props) {
   const isResultsPage = pathname.endsWith('/results')
   const isOgImage = pathname.includes('opengraph-image')
 
-  const qualifications = useQualifications(formConfig.visaType)
-  const progress = useVisaFormProgress(formConfig, isOgImage)
-
   // OG image routes don't need the layout
   if (isOgImage) {
     return <>{children}</>
   }
+
+  return (
+    <VisaFormLayout
+      formConfig={formConfig}
+      isResultsPage={isResultsPage}
+      isOgImage={isOgImage}
+    >
+      {children}
+    </VisaFormLayout>
+  )
+}
+
+function VisaFormLayout({
+  children,
+  formConfig,
+  isResultsPage,
+  isOgImage,
+}: {
+  children: React.ReactNode
+  formConfig: ReturnType<typeof formConfigForVisa>
+  isResultsPage: boolean
+  isOgImage: boolean
+}) {
+  // formConfigForVisa() is guarded by notFound() in the parent.
+  const qualifications = useQualifications(formConfig!.visaType)
+  const progress = useVisaFormProgress(formConfig!, isOgImage)
+
   const t = useTranslations('visa_form')
   const [sidebarActive, setSidebarActive] = useState(false)
   const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+
   const { points } = useMemo(() => {
     try {
       return calculatePoints(qualifications)
@@ -108,13 +135,13 @@ export default function Layout({ children, params }: Props) {
           <div className="sidebar-header p-2">
             <div className="font-semibold text-sm px-2 py-2 rounded bg-zinc-100 dark:bg-zinc-900">
               {t('form_title', {
-                visaType: t(`visa_type.${formConfig.visaType}`),
+                visaType: t(`visa_type.${formConfig!.visaType}`),
               })}
             </div>
           </div>
           <div className="sidebar-content px-2">
             <VisaFormNavigation
-              config={formConfig}
+              config={formConfig!}
               progress={progress}
               qualifications={qualifications}
             />
@@ -122,7 +149,7 @@ export default function Layout({ children, params }: Props) {
         </aside>
         <main className="flex flex-col flex-grow transition-all duration-150 ease-in -ml-72 md:ml-0">
           <VisaProgressBar
-            config={formConfig}
+            config={formConfig!}
             qualifications={qualifications}
             doesQualify={doesQualify}
           />

@@ -26,6 +26,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   // Load theme from localStorage on mount, or use system preference
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
     try {
       const stored = localStorage.getItem(STORAGE_KEY) as Theme | null

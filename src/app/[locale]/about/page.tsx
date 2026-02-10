@@ -35,7 +35,7 @@ export default function AboutPage() {
               <div className="mt-4 flex flex-wrap justify-center sm:justify-start gap-4">
                 <a
                   href={`mailto:${t('author.email')}`}
-                  className="text-emerald-400 hover:underline"
+                  className="text-emerald-600 dark:text-emerald-400 hover:underline"
                 >
                   {t('author.email')}
                 </a>
@@ -43,7 +43,7 @@ export default function AboutPage() {
                   href={`https://${t('author.website')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-400 hover:underline"
+                  className="text-emerald-600 dark:text-emerald-400 hover:underline"
                 >
                   {t('author.website')}
                 </a>
@@ -71,7 +71,7 @@ export default function AboutPage() {
           {t('partnership.cta')}{' '}
           <a
             href={`mailto:${t('author.email')}`}
-            className="text-emerald-400 hover:underline"
+            className="text-emerald-600 dark:text-emerald-400 hover:underline"
           >
             {t('author.email')}
           </a>
@@ -88,7 +88,7 @@ export default function AboutPage() {
           href="https://www.moj.go.jp/isa/publications/materials/newimmiact_3_index.html"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block text-emerald-400 hover:underline mb-4"
+          className="inline-block text-emerald-600 dark:text-emerald-400 hover:underline mb-4"
         >
           {t('source.isa_link_text')} &rarr;
         </a>
@@ -102,7 +102,7 @@ export default function AboutPage() {
           {t('source.contact')}{' '}
           <a
             href={`mailto:${t('author.email')}`}
-            className="text-emerald-400 hover:underline"
+            className="text-emerald-600 dark:text-emerald-400 hover:underline"
           >
             {t('author.email')}
           </a>

@@ -18,7 +18,6 @@ import {
 import { shouldSkipPrompt } from '@lib/domain/caps'
 import cn from 'classnames'
 import { useTranslations } from 'next-intl'
-import Link from 'next-intl/link'
 import {
   AcademicCapIcon,
   BeakerIcon,
@@ -32,6 +31,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { CheckIcon, ForwardIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
+import { Link } from '@lib/i18n/navigation'
 
 export function VisaFormNavigation({
   config,
@@ -117,7 +117,7 @@ function Section({
       >
         <a
           className={cn(
-            'flex space-x-3 align-middle items-center no-underline pr-3',
+            'flex gap-3 align-middle items-center no-underline pr-3',
             {
               'pointer-events-none': isActive,
             },

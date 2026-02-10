@@ -7,15 +7,6 @@ jest.mock('next/navigation', () => ({
   usePathname: jest.fn(() => '/'),
 }))
 
-jest.mock('next-intl/link', () => ({
-  __esModule: true,
-  default: ({ href, children, ...props }: any) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}))
-
 jest.mock('@components/SettingsModal', () => ({
   SettingsModal: ({ isOpen, onClose }: any) =>
     isOpen ? (

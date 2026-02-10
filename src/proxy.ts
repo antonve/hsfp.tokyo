@@ -8,7 +8,7 @@ export const config = {
   ],
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   return composeMiddleware(request, NextResponse.next(), {
     scripts: [intlMiddleware],
   })

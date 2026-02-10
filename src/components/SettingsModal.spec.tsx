@@ -10,20 +10,6 @@ jest.mock('next/navigation', () => ({
   }),
 }))
 
-jest.mock('next-intl', () => ({
-  ...jest.requireActual('next-intl'),
-  useLocale: () => 'en',
-}))
-
-jest.mock('next-intl/link', () => ({
-  __esModule: true,
-  default: ({ href, locale, children, onClick, ...props }: any) => (
-    <a href={`/${locale}${href}`} onClick={onClick} {...props}>
-      {children}
-    </a>
-  ),
-}))
-
 const mockSetTheme = jest.fn()
 jest.mock('@lib/ThemeContext', () => ({
   useTheme: () => ({
@@ -103,7 +89,8 @@ describe('SettingsModal', () => {
     const englishLink = screen.getByText('English').closest('a')
     const japaneseLink = screen.getByText('日本語').closest('a')
 
-    expect(englishLink).toHaveAttribute('href', '/en/calculator/engineer')
+    // default locale uses no prefix (localePrefix: 'as-needed')
+    expect(englishLink).toHaveAttribute('href', '/calculator/engineer')
     expect(japaneseLink).toHaveAttribute('href', '/ja/calculator/engineer')
   })
 

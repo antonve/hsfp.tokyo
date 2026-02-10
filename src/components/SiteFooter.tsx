@@ -1,8 +1,8 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import Link from 'next-intl/link'
 import { usePathname } from 'next/navigation'
+import { Link } from '@lib/i18n/navigation'
 
 export function SiteFooter() {
   const pathname = usePathname()

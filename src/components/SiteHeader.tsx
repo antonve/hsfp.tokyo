@@ -11,8 +11,8 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { useTranslations } from 'next-intl'
-import Link from 'next-intl/link'
 import { usePathname } from 'next/navigation'
+import { Link } from '@lib/i18n/navigation'
 
 export function SiteHeader() {
   const pathname = usePathname()
@@ -45,7 +45,7 @@ export function SiteHeader() {
   return (
     <>
       <div className="max-w-7xl mx-auto">
-        <header className="py-6 px-4 flex justify-between space-x-8 border-b-4 border-zinc-100/50 dark:border-zinc-900/50">
+        <header className="py-6 px-4 flex justify-between gap-8 border-b-4 border-zinc-100/50 dark:border-zinc-900/50">
           <Link
             href={`/`}
             className="no-underline hover:opacity-60 transition-opacity"
@@ -55,7 +55,7 @@ export function SiteHeader() {
 
           {/* Desktop navigation */}
           <nav className="hidden md:flex items-center gap-4">
-            <ul className="flex space-x-4 items-center justify-center h-full font-semibold text-lg">
+            <ul className="flex gap-4 items-center justify-center h-full font-semibold text-lg">
               <li>
                 <Link
                   href={`/`}

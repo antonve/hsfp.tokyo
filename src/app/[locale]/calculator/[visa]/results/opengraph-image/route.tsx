@@ -15,11 +15,12 @@ export const runtime = 'edge'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { visa: string; locale: string } },
+  { params }: { params: Promise<{ visa: string; locale: string }> },
 ) {
   const searchParams = request.nextUrl.searchParams
-  const t = await getOGTranslator(params.locale)
-  const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
+  const { locale, visa } = await params
+  const t = await getOGTranslator(locale)
+  const visaLabel = await getVisaTypeLabel(locale, visa)
 
   const points = parseIntParam(searchParams.get('points'))
   const isQualified = points >= HSFP_QUALIFICATION_THRESHOLD

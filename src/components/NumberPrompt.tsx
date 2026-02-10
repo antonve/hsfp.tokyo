@@ -52,16 +52,11 @@ export function NumberPrompt({
     inputRef.current?.focus()
   }, [])
 
-  function formatWithCommas(value: number | undefined) {
-    if (value === undefined) {
-      return
+  function formatWithCommas(value: number) {
+    if (Number.isNaN(value)) {
+      return '0'
     }
-
-    if (isNaN(value)) {
-      return 0
-    }
-
-    return Number(value).toLocaleString('en-US')
+    return value.toLocaleString('en-US')
   }
 
   const promptKey = `${visaType}.sections.${section}.${prompt.id}`
@@ -146,7 +141,7 @@ export function NumberPrompt({
                 e.preventDefault()
               }
             }}
-            value={formatWithCommas(value)}
+            value={value === undefined ? '' : formatWithCommas(value)}
             name={prompt.id}
           />
           {showLabel ? (

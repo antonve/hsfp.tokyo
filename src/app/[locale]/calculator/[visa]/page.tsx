@@ -9,21 +9,22 @@ import {
   LightBulbIcon,
   ArrowRightIcon,
 } from '@heroicons/react/24/solid'
-import { getTranslator } from 'next-intl/server'
-import Link from 'next-intl/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
+import { Link } from '@lib/i18n/navigation'
+import { getTranslations } from 'next-intl/server'
 
 interface Props {
-  params: {
+  params: Promise<{
     visa: string
     locale: string
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getOGTranslator(params.locale)
-  const visaLabel = await getVisaTypeLabel(params.locale, params.visa)
+  const { locale, visa } = await params
+  const t = await getOGTranslator(locale)
+  const visaLabel = await getVisaTypeLabel(locale, visa)
 
   const title = t('meta.visa_intro.title', { visaType: visaLabel })
   const description = t('meta.visa_intro.description', {
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     points: HSFP_QUALIFICATION_THRESHOLD,
   })
 
-  const ogImageUrl = `/${params.locale}/calculator/${params.visa}/opengraph-image`
+  const ogImageUrl = `/${locale}/calculator/${visa}/opengraph-image`
   const ogImage = {
     url: ogImageUrl,
     width: OG_WIDTH,
@@ -57,18 +58,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-  const formConfig = formConfigForVisa(params.visa)
+  const { locale, visa } = await params
+  const formConfig = formConfigForVisa(visa)
   if (!formConfig) {
     notFound()
   }
 
-  const t = await getTranslator(params.locale, 'visa_intro')
-  const tResults = await getTranslator(params.locale, 'results')
+  const t = await getTranslations({ locale, namespace: 'visa_intro' })
+  const tResults = await getTranslations({ locale, namespace: 'results' })
 
   const firstSection = formConfig.order[0]
-  const startUrl = `/calculator/${params.visa}/${firstSection}/1`
+  const startUrl = `/calculator/${visa}/${firstSection}/1`
 
-  const visaTypeLabel = tResults(`visa_type.${params.visa}`)
+  const visaTypeLabel = tResults(`visa_type.${visa}`)
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -76,7 +78,7 @@ export default async function Page({ params }: Props) {
         {/* Image */}
         <div className="hidden lg:flex lg:w-64 xl:w-72 flex-shrink-0 items-center">
           <Image
-            src={`/images/calculator-intro-${params.visa}.jpg`}
+            src={`/images/calculator-intro-${visa}.jpg`}
             alt=""
             width={533}
             height={800}
@@ -101,7 +103,7 @@ export default async function Page({ params }: Props) {
               {t('job_coverage.heading')}
             </h2>
             <p className="text-zinc-700 dark:text-zinc-300">
-              {t(`job_coverage.${params.visa}`)}
+              {t(`job_coverage.${visa}`)}
             </p>
           </section>
 

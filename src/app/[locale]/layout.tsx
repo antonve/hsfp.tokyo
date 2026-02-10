@@ -44,13 +44,14 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode
-  params: {
+  params: Promise<{
     locale: string
-  }
+  }>
 }) {
+  const { locale } = await params
   let messages
   try {
     messages = (await import(`../../lib/i18n/messages/${locale}.json`)).default
@@ -59,14 +60,12 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale} dir="ltr">
-      <body
-        className={cn(
-          'bg-white dark:bg-zinc-950 text-zinc-900 dark:text-gray-50 font-sans',
-          cormorantGaramond.variable,
-          inter.variable,
-        )}
-      >
+    <html
+      lang={locale}
+      dir="ltr"
+      className={cn(cormorantGaramond.variable, inter.variable)}
+    >
+      <body className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-gray-50 font-sans">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>
             <SiteHeader />

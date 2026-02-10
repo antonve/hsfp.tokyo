@@ -17,21 +17,22 @@ import {
   BuildingOfficeIcon,
 } from '@heroicons/react/24/solid'
 import { useTranslations } from 'next-intl'
-import Link from 'next-intl/link'
 import { getOGTranslator, OG_WIDTH, OG_HEIGHT } from '@lib/og'
+import { Link } from '@lib/i18n/navigation'
 
 interface Props {
-  params: {
+  params: Promise<{
     locale: string
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const t = await getOGTranslator(params.locale)
+  const { locale } = await params
+  const t = await getOGTranslator(locale)
 
   const title = t('default.title')
   const description = t('default.description')
-  const ogImageUrl = `/${params.locale}/opengraph-image`
+  const ogImageUrl = `/${locale}/opengraph-image`
 
   const ogImage = {
     url: ogImageUrl,
@@ -85,7 +86,7 @@ export default function Page() {
             href={`/calculator/engineer`}
           >
             <div className="card-body h-full flex flex-col gap-4">
-              <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
+              <h3 className="text-2xl font-semibold flex justify-center items-center gap-2">
                 <WrenchScrewdriverIcon className="w-5 h-5" />
                 <span>{t('visa_cards.engineer.title')}</span>
               </h3>
@@ -103,7 +104,7 @@ export default function Page() {
             href={`/calculator/researcher`}
           >
             <div className="card-body h-full flex flex-col gap-4">
-              <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
+              <h3 className="text-2xl font-semibold flex justify-center items-center gap-2">
                 <BeakerIcon className="w-5 h-5" />
                 <span>{t('visa_cards.researcher.title')}</span>
               </h3>
@@ -121,7 +122,7 @@ export default function Page() {
             href={`/calculator/business-manager`}
           >
             <div className="card-body h-full flex flex-col gap-4">
-              <h3 className="text-2xl font-semibold flex justify-center items-center space-x-2">
+              <h3 className="text-2xl font-semibold flex justify-center items-center gap-2">
                 <BriefcaseIcon className="w-5 h-5" />
                 <span>{t('visa_cards.business_manager.title')}</span>
               </h3>
