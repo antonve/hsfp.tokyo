@@ -7,7 +7,6 @@ import { useTranslations, useLocale } from 'next-intl'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { Link } from '@lib/i18n/navigation'
 import { useTheme } from '@lib/ThemeContext'
-import { DEFAULT_LOCALE } from '@lib/i18n'
 
 const LANGUAGES = [
   { code: 'en', name: 'English' },
@@ -118,11 +117,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                         <Link
                           key={lang.code}
                           href={hrefWithQuery}
-                          // Avoid forcing a `/en` prefix for default locale when using
-                          // `localePrefix: 'as-needed'`.
-                          locale={
-                            lang.code === DEFAULT_LOCALE ? undefined : lang.code
-                          }
+                          locale={lang.code}
                           onClick={onClose}
                           className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors no-underline ${
                             locale === lang.code
