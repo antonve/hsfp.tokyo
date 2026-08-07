@@ -97,11 +97,11 @@ importers:
         specifier: ^3.9.6
         version: 3.9.6
       tailwindcss:
-        specifier: 4.1.18
-        version: 4.1.18
+        specifier: 4.3.3
+        version: 4.3.3
       tailwindcss-motion:
         specifier: ^1.1.1
-        version: 1.1.1(tailwindcss@4.1.18)
+        version: 1.1.1(tailwindcss@4.3.3)
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -3281,6 +3281,9 @@ packages:
 
   tailwindcss@4.1.18:
     resolution: {integrity: sha512-4+Z+0yiYyEtUVCScyfHCxOYP06L5Ne+JiHhY2IjR2KWMIWhJOYZKLSGZaP5HkZ8+bY0cxfzwDE5uOmzFXyIwxw==}
+
+  tailwindcss@4.3.3:
+    resolution: {integrity: sha512-gOhV3P7ufE62QDGg1zVaTgCR+EtPv92k2nIhVcVKcLmxT1sUBsQGhnZj175j+MqRt4zLF7ic+sCYjfhxMxj7YQ==}
 
   tapable@2.3.0:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
@@ -7125,11 +7128,13 @@ snapshots:
 
   tabbable@6.5.0: {}
 
-  tailwindcss-motion@1.1.1(tailwindcss@4.1.18):
+  tailwindcss-motion@1.1.1(tailwindcss@4.3.3):
     dependencies:
-      tailwindcss: 4.1.18
+      tailwindcss: 4.3.3
 
   tailwindcss@4.1.18: {}
+
+  tailwindcss@4.3.3: {}
 
   tapable@2.3.0: {}
 
