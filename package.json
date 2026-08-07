@@ -25,7 +25,7 @@
     "classnames": "^2.3.2",
     "next": "16.3.0",
     "next-compose-middleware": "^1.0.0",
-    "next-intl": "4.8.2",
+    "next-intl": "4.13.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "zod": "^4.4.3"
