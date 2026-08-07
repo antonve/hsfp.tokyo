@@ -148,6 +148,6 @@ describe('point calculation: engineer visa', () => {
   test('calculate({ salary: 2999999}) throws error', () => {
     expect(() => {
       calculatePoints({ salary: 2_999_999, age: 24 })
-    }).toThrowError(errorMessages.salaryTooLow)
+    }).toThrow(errorMessages.salaryTooLow)
   })
 })
