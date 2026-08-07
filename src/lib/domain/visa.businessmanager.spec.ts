@@ -109,6 +109,6 @@ describe('point calculation: business management visa', () => {
   test('calculate({ salary: 2999999}) throws error', () => {
     expect(() => {
       calculatePoints({ salary: 2_999_999 })
-    }).toThrowError(errorMessages.salaryTooLow)
+    }).toThrow(errorMessages.salaryTooLow)
   })
 })
