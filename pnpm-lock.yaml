@@ -22,13 +22,13 @@ importers:
         version: 2.5.1
       next:
         specifier: 16.1.6
-        version: 16.1.6(@babel/core@7.28.5)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 16.1.6(@babel/core@7.28.5)(@playwright/test@1.62.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-compose-middleware:
         specifier: ^1.0.0
         version: 1.0.0
       next-intl:
         specifier: 4.8.2
-        version: 4.8.2(@swc/helpers@0.5.23)(next@16.1.6(@babel/core@7.28.5)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+        version: 4.8.2(@swc/helpers@0.5.23)(next@16.1.6(@babel/core@7.28.5)(@playwright/test@1.62.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
       react:
         specifier: 19.2.4
         version: 19.2.4
@@ -40,8 +40,8 @@ importers:
         version: 3.25.76
     devDependencies:
       '@playwright/test':
-        specifier: ^1.58.2
-        version: 1.58.2
+        specifier: ^1.62.1
+        version: 1.62.1
       '@tailwindcss/postcss':
         specifier: ^4.1.18
         version: 4.1.18
@@ -815,9 +815,9 @@ packages:
     resolution: {integrity: sha512-tmmZ3lQxAe/k/+rNnXQRawJ4NjxO2hqiOLTHvWchtGZULp4RyFeh6aU4XdOYBFe2KE1oShQTv4AblOs2iOrNnQ==}
     engines: {node: '>= 10.0.0'}
 
-  '@playwright/test@1.58.2':
-    resolution: {integrity: sha512-akea+6bHYBBfA9uQqSYmlJXn61cTa+jbO87xVLCWbTqbWadRVmhxlXATaOjOgcBaWU4ePo0wB41KMFv3o35IXA==}
-    engines: {node: '>=18'}
+  '@playwright/test@1.62.1':
+    resolution: {integrity: sha512-DTcUc8qii+cpHvtOwggMtBRMjKZHXYWdw8syRYu2vtzuq4Wxphqq4NfCs5Zt44L6mA8rfDfj+PHnxFc/FeK6mQ==}
+    engines: {node: '>=20'}
     hasBin: true
 
   '@react-aria/focus@3.22.1':
@@ -2924,14 +2924,14 @@ packages:
     resolution: {integrity: sha512-HRDzbaKjC+AOWVXxAU/x54COGeIv9eb+6CkDSQoNTt4XyWoIJvuPsXizxu/Fr23EiekbtZwmh1IcIG/l/a10GQ==}
     engines: {node: '>=8'}
 
-  playwright-core@1.58.2:
-    resolution: {integrity: sha512-yZkEtftgwS8CsfYo7nm0KE8jsvm6i/PTgVtB8DL726wNf6H2IMsDuxCpJj59KDaxCtSnrWan2AeDqM7JBaultg==}
-    engines: {node: '>=18'}
+  playwright-core@1.62.1:
+    resolution: {integrity: sha512-wPYSwEBJY9GHraISXqyqtx0na0LpO3XEX7jNDhntbex7tzUS7kLnZsOlFruFJB4Hi/rhDMjXGqHewDZ68nYZVw==}
+    engines: {node: '>=20'}
     hasBin: true
 
-  playwright@1.58.2:
-    resolution: {integrity: sha512-vA30H8Nvkq/cPBnNw4Q8TWz1EJyqgpuinBcHET0YVJVFldr8JDNiU9LaWAE1KqSkRYazuaBhTpB5ZzShOezQ6A==}
-    engines: {node: '>=18'}
+  playwright@1.62.1:
+    resolution: {integrity: sha512-0M+L3LAD8/nm554LOla9Ayx0j0tmFZ0FBcoQ7F1VuVHpM/XpiC8RcDzBQB8W5+hA8L22THxELzeF+2WcUzvcLg==}
+    engines: {node: '>=20'}
     hasBin: true
 
   po-parser@2.1.1:
@@ -4277,9 +4277,9 @@ snapshots:
       '@parcel/watcher-win32-ia32': 2.5.6
       '@parcel/watcher-win32-x64': 2.5.6
 
-  '@playwright/test@1.58.2':
+  '@playwright/test@1.62.1':
     dependencies:
-      playwright: 1.58.2
+      playwright: 1.62.1
 
   '@react-aria/focus@3.22.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
@@ -6518,14 +6518,14 @@ snapshots:
 
   next-intl-swc-plugin-extractor@4.8.2: {}
 
-  next-intl@4.8.2(@swc/helpers@0.5.23)(next@16.1.6(@babel/core@7.28.5)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3):
+  next-intl@4.8.2(@swc/helpers@0.5.23)(next@16.1.6(@babel/core@7.28.5)(@playwright/test@1.62.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react@19.2.4)(typescript@5.9.3):
     dependencies:
       '@formatjs/intl-localematcher': 0.5.4
       '@parcel/watcher': 2.5.6
       '@swc/core': 1.15.11(@swc/helpers@0.5.23)
       icu-minify: 4.8.2
       negotiator: 1.0.0
-      next: 16.1.6(@babel/core@7.28.5)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      next: 16.1.6(@babel/core@7.28.5)(@playwright/test@1.62.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-intl-swc-plugin-extractor: 4.8.2
       po-parser: 2.1.1
       react: 19.2.4
@@ -6535,7 +6535,7 @@ snapshots:
     transitivePeerDependencies:
       - '@swc/helpers'
 
-  next@16.1.6(@babel/core@7.28.5)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  next@16.1.6(@babel/core@7.28.5)(@playwright/test@1.62.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@next/env': 16.1.6
       '@swc/helpers': 0.5.15
@@ -6554,7 +6554,7 @@ snapshots:
       '@next/swc-linux-x64-musl': 16.1.6
       '@next/swc-win32-arm64-msvc': 16.1.6
       '@next/swc-win32-x64-msvc': 16.1.6
-      '@playwright/test': 1.58.2
+      '@playwright/test': 1.62.1
       sharp: 0.34.5
     transitivePeerDependencies:
       - '@babel/core'
@@ -6703,11 +6703,11 @@ snapshots:
     dependencies:
       find-up: 4.1.0
 
-  playwright-core@1.58.2: {}
+  playwright-core@1.62.1: {}
 
-  playwright@1.58.2:
+  playwright@1.62.1:
     dependencies:
-      playwright-core: 1.58.2
+      playwright-core: 1.62.1
     optionalDependencies:
       fsevents: 2.3.2
 
