@@ -48,7 +48,7 @@
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "jest-extended": "^4.0.2",
-    "postcss": "8.5.25",
+    "postcss": "8.5.26",
     "prettier": "^3.9.6",
     "tailwindcss": "4.3.3",
     "tailwindcss-motion": "^1.1.1",
