@@ -21,7 +21,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.10",
     "@heroicons/react": "^2.0.18",
-    "@vercel/og": "^0.8.6",
+    "@vercel/og": "^1.0.1",
     "classnames": "^2.3.2",
     "next": "16.3.0",
     "next-compose-middleware": "^1.0.0",
