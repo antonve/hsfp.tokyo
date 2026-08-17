@@ -44,7 +44,7 @@
     "autoprefixer": "10.5.4",
     "cross-fetch": "^4.0.0",
     "eslint": "9.39.2",
-    "eslint-config-next": "16.3.0",
+    "eslint-config-next": "16.3.1",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "jest-extended": "^4.0.2",
