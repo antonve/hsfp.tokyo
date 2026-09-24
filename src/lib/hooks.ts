@@ -7,7 +7,12 @@ import {
   isStateVersionOutdated,
 } from '@lib/domain/qualifications'
 import { formConfigForVisa } from './domain/form'
-import { notFound, useParams, useSearchParams } from 'next/navigation'
+import {
+  notFound,
+  useParams,
+  usePathname,
+  useSearchParams,
+} from 'next/navigation'
 import { z } from 'zod'
 
 export function useFormConfig(visa: string) {
@@ -20,19 +25,22 @@ export function useFormConfig(visa: string) {
 }
 
 const paramsSchema = z.object({
-  locale: z.coerce.string(),
   section: SectionNameSchema.optional().default('education'),
   prompt: z.coerce.number().optional().default(1),
 })
 
 export function useVisaFormProgress(config: FormConfig, skip = false) {
-  const params = useParams()
+  const pathname = usePathname()
 
   if (skip) {
     return { section: config.order[0], promptIndex: 0 } as VisaProgress
   }
 
-  const parsed = paramsSchema.safeParse(params)
+  const segments = pathname.split('/')
+  const parsed = paramsSchema.safeParse({
+    section: segments.at(-2),
+    prompt: segments.at(-1),
+  })
 
   if (!parsed.success) {
     // Return default for invalid routes (e.g., opengraph-image routes)

@@ -192,6 +192,7 @@ function Prompt({
     >
       <Link
         href={urlForPrompt(config.visaType, name, promptIndex, qualifications)}
+        prefetch={false}
         className={cn(
           'no-underline pr-3 pl-6 py-2 flex items-center justify-between',
           {

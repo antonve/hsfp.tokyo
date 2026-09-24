@@ -24,6 +24,7 @@ export function VisaForm({ config }: Props) {
 
   return (
     <VisaFormSection
+      key={`${progress.section}/${progress.promptIndex}`}
       config={config}
       progress={progress}
       qualifications={qualifications}
