@@ -129,11 +129,11 @@ export function VisaFormSection({
 
   return (
     <div ref={formRef} className="flex flex-col min-h-full">
-      <h2 className="font-semibold text-2xl mb-2">
+      <h2 className="font-semibold text-2xl mb-2 motion-preset-fade motion-duration-300">
         {t(`${translationPrefix}.prompt`)}
       </h2>
       {prompt.maxPoints && (
-        <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-5">
+        <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-5 motion-preset-fade motion-duration-300 motion-delay-100">
           {t('visa_form.points_hint.up_to', { points: prompt.maxPoints })}
           {' · '}
           <span className="text-zinc-600 dark:text-zinc-500">
@@ -142,7 +142,7 @@ export function VisaFormSection({
         </p>
       )}
       {!prompt.maxPoints && <div className="mb-3" />}
-      <div className="flex-1 mb-10">
+      <div className="flex-1 mb-10 motion-preset-slide-up motion-delay-150 motion-duration-400">
         <VisaFormPrompt
           qualifications={qualifications}
           prompt={prompt}
