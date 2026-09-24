@@ -24,13 +24,13 @@
   "dependencies": {
     "@headlessui/react": "^2.2.10",
     "@heroicons/react": "^2.0.18",
-    "@vercel/og": "^0.8.6",
+    "@vercel/og": "^1.0.1",
     "classnames": "^2.3.2",
     "next": "16.3.3",
     "next-compose-middleware": "^1.0.0",
     "next-intl": "4.13.5",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -41,7 +41,7 @@
     "@testing-library/react": "^16.3.2",
     "@types/jest": "^30.0.0",
     "@types/node": "24.13.6",
-    "@types/react": "19.2.13",
+    "@types/react": "19.2.18",
     "@types/react-dom": "19.2.3",
     "@typescript-eslint/parser": "8.67.0",
     "autoprefixer": "10.5.4",
