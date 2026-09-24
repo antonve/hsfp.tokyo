@@ -44,6 +44,9 @@ jobs:
       - name: Check formatting
         run: pnpm run fmt:check
 
+      - name: Run lint
+        run: pnpm run lint
+
       - name: Run tests
         run: pnpm run test
 
@@ -54,4 +57,14 @@ jobs:
         run: pnpm e2e:install
 
       - name: Run E2E tests
+        id: e2e
         run: pnpm test:e2e
+
+      - name: Upload E2E evidence
+        if: ${{ always() && steps.e2e.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-evidence
+          path: |
+            playwright-report/
+            test-results/
