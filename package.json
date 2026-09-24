@@ -5,7 +5,7 @@
   "type": "module",
   "packageManager": "pnpm@9.15.9",
   "engines": {
-    "node": "^24.0.0"
+    "node": "^24.11.0"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -50,7 +50,7 @@
     "eslint-config-next": "16.3.0",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
-    "jest-extended": "^4.0.2",
+    "jest-extended": "^7.0.0",
     "postcss": "8.5.26",
     "prettier": "^3.9.6",
     "tailwindcss": "4.3.3",
