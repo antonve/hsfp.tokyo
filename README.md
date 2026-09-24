@@ -8,7 +8,7 @@ A calculator to estimate your points for Japan's Highly Skilled Foreign Professi
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 24
 - [pnpm](https://pnpm.io/)
 
 ### Installation
