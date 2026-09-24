@@ -100,11 +100,7 @@ export function ChoicePrompt({
       {error && <p className="text-red-400 mb-4">{error}</p>}
       <div className="space-y-3 mb-8">
         {prompt.options.map((option, i) => (
-          <div
-            className="w-full motion-preset-slide-up motion-duration-300"
-            key={option}
-            style={{ animationDelay: `${i * 50}ms` }}
-          >
+          <div className="w-full" key={option}>
             <div
               className={cn(
                 'px-2 py-2 min-h-9 rounded relative inline-block bg-white dark:bg-zinc-950 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-emerald-400/80',

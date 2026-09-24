@@ -13,6 +13,7 @@ import { VisaFormPrompt } from '@components/VisaFormPrompt'
 import { FrequentlyAskedQuestions } from '@components/FrequentlyAskedQuestions'
 import { useParams, useRouter } from 'next/navigation'
 import { useLanguage } from '@lib/hooks'
+import { DEFAULT_LOCALE } from '@lib/i18n'
 import { useTranslations } from 'next-intl'
 import { useEffect, useRef, useState } from 'react'
 import { withCompletedPrompt } from '@lib/domain/prompts'
@@ -35,7 +36,7 @@ export function VisaFormSection({
   const params = useParams()
   const language = useLanguage()
   const t = useTranslations()
-  const urlPrefix = `/${language}/calculator/${params['visa']}`
+  const urlPrefix = `${language === DEFAULT_LOCALE ? '' : `/${language}`}/calculator/${params['visa']}`
 
   const prompts = config.sections[progress.section]!!
   const prompt = prompts[progress.promptIndex]
@@ -49,9 +50,7 @@ export function VisaFormSection({
   const formRef = useRef<HTMLDivElement>(null)
   const [isLoading, setIsLoading] = useState(false)
 
-  const submit = (updateQualifications: QualificationUpdater) => {
-    setIsLoading(true)
-    const newQualifications = updateQualifications(qualifications)
+  const goToNextQuestion = (newQualifications: Qualifications) => {
     const { section, promptIndex, finished } = nextStepOfForm(
       config,
       progress,
@@ -59,10 +58,20 @@ export function VisaFormSection({
     )
 
     const nextPage = `${urlPrefix}/${
-      finished ? `results` : `/${section}/${promptIndex + 1}`
-    }?q=${encodeQualifications(newQualifications)}`
+      finished ? 'results' : `${section}/${promptIndex + 1}`
+    }?q=${encodeURIComponent(encodeQualifications(newQualifications))}`
 
-    router.push(nextPage)
+    if (finished) {
+      router.push(nextPage)
+    } else {
+      window.history.pushState(null, '', nextPage)
+      window.scrollTo(0, 0)
+    }
+  }
+
+  const submit = (updateQualifications: QualificationUpdater) => {
+    setIsLoading(true)
+    goToNextQuestion(updateQualifications(qualifications))
   }
 
   const goToPreviousQuestion = () => {
@@ -73,8 +82,9 @@ export function VisaFormSection({
     )
     if (isFirst) return
 
-    const prevPage = `${urlPrefix}/${section}/${promptIndex + 1}?q=${encodeQualifications(qualifications)}`
-    router.push(prevPage)
+    const prevPage = `${urlPrefix}/${section}/${promptIndex + 1}?q=${encodeURIComponent(encodeQualifications(qualifications))}`
+    window.history.pushState(null, '', prevPage)
+    window.scrollTo(0, 0)
   }
 
   const skipAndGoNext = () => {
@@ -83,17 +93,7 @@ export function VisaFormSection({
       overallPromptIndex,
       qualifications,
     )
-    const { section, promptIndex, finished } = nextStepOfForm(
-      config,
-      progress,
-      newQualifications,
-    )
-
-    const nextPage = `${urlPrefix}/${
-      finished ? `results` : `/${section}/${promptIndex + 1}`
-    }?q=${encodeQualifications(newQualifications)}`
-
-    router.push(nextPage)
+    goToNextQuestion(newQualifications)
   }
 
   useEffect(() => {
@@ -129,11 +129,11 @@ export function VisaFormSection({
 
   return (
     <div ref={formRef} className="flex flex-col min-h-full">
-      <h2 className="font-semibold text-2xl mb-2 motion-preset-fade motion-duration-300">
+      <h2 className="font-semibold text-2xl mb-2">
         {t(`${translationPrefix}.prompt`)}
       </h2>
       {prompt.maxPoints && (
-        <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-5 motion-preset-fade motion-duration-300 motion-delay-100">
+        <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-5">
           {t('visa_form.points_hint.up_to', { points: prompt.maxPoints })}
           {' · '}
           <span className="text-zinc-600 dark:text-zinc-500">
@@ -142,7 +142,7 @@ export function VisaFormSection({
         </p>
       )}
       {!prompt.maxPoints && <div className="mb-3" />}
-      <div className="flex-1 mb-10 motion-preset-slide-up motion-delay-150 motion-duration-400">
+      <div className="flex-1 mb-10">
         <VisaFormPrompt
           qualifications={qualifications}
           prompt={prompt}

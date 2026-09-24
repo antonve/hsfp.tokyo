@@ -8,6 +8,7 @@ import { formConfig as engineerForm } from '@lib/domain/visa.engineer'
 import { renderWithIntl } from '../test-utils/renderWithIntl'
 
 const mockPush = jest.fn()
+const mockHistoryPush = jest.fn()
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({
@@ -32,7 +33,12 @@ describe('VisaFormSection', () => {
 
   beforeEach(() => {
     mockPush.mockClear()
+    mockHistoryPush.mockClear()
+    jest.spyOn(window.history, 'pushState').mockImplementation(mockHistoryPush)
+    jest.spyOn(window, 'scrollTo').mockImplementation(() => {})
   })
+
+  afterEach(() => jest.restoreAllMocks())
 
   describe('renders section with prompts', () => {
     it('renders the prompt heading from translations', () => {
@@ -118,9 +124,10 @@ describe('VisaFormSection', () => {
       // Submit the form
       fireEvent.click(screen.getByRole('button', { name: /continue/i }))
 
-      expect(mockPush).toHaveBeenCalledTimes(1)
-      expect(mockPush).toHaveBeenCalledWith(
-        expect.stringMatching(/\/en\/calculator\/engineer\/.*education\/2/),
+      expect(mockHistoryPush).toHaveBeenCalledWith(
+        null,
+        '',
+        expect.stringMatching(/\/calculator\/engineer\/education\/2\?q=/),
       )
     })
 
@@ -147,10 +154,12 @@ describe('VisaFormSection', () => {
       fireEvent.click(screen.getByText(/yes/i))
       fireEvent.click(screen.getByRole('button', { name: /continue/i }))
 
-      expect(mockPush).toHaveBeenCalledTimes(1)
+      expect(mockHistoryPush).toHaveBeenCalledTimes(1)
       // Should navigate to job section (next in order)
-      expect(mockPush).toHaveBeenCalledWith(
-        expect.stringMatching(/\/en\/calculator\/engineer\/.*\/1/),
+      expect(mockHistoryPush).toHaveBeenCalledWith(
+        null,
+        '',
+        expect.stringMatching(/\/calculator\/engineer\/job\/1\?q=/),
       )
     })
 
@@ -171,7 +180,7 @@ describe('VisaFormSection', () => {
 
       expect(mockPush).toHaveBeenCalledTimes(1)
       expect(mockPush).toHaveBeenCalledWith(
-        expect.stringMatching(/\/en\/calculator\/engineer\/results\?q=/),
+        expect.stringMatching(/\/calculator\/engineer\/results\?q=/),
       )
     })
   })
@@ -190,9 +199,11 @@ describe('VisaFormSection', () => {
 
       fireEvent.keyDown(window, { key: 'ArrowRight' })
 
-      expect(mockPush).toHaveBeenCalledTimes(1)
-      expect(mockPush).toHaveBeenCalledWith(
-        expect.stringMatching(/\/en\/calculator\/engineer\/.*education\/2/),
+      expect(mockHistoryPush).toHaveBeenCalledTimes(1)
+      expect(mockHistoryPush).toHaveBeenCalledWith(
+        null,
+        '',
+        expect.stringMatching(/\/calculator\/engineer\/education\/2\?q=/),
       )
     })
 
@@ -214,9 +225,11 @@ describe('VisaFormSection', () => {
 
       fireEvent.keyDown(window, { key: 'ArrowLeft' })
 
-      expect(mockPush).toHaveBeenCalledTimes(1)
-      expect(mockPush).toHaveBeenCalledWith(
-        expect.stringMatching(/\/en\/calculator\/engineer\/education\/1/),
+      expect(mockHistoryPush).toHaveBeenCalledTimes(1)
+      expect(mockHistoryPush).toHaveBeenCalledWith(
+        null,
+        '',
+        expect.stringMatching(/\/calculator\/engineer\/education\/1\?q=/),
       )
     })
 
@@ -233,7 +246,7 @@ describe('VisaFormSection', () => {
 
       fireEvent.keyDown(window, { key: 'ArrowLeft' })
 
-      expect(mockPush).not.toHaveBeenCalled()
+      expect(mockHistoryPush).not.toHaveBeenCalled()
     })
 
     it('pressing Enter submits the form', () => {
@@ -254,9 +267,11 @@ describe('VisaFormSection', () => {
       // Press Enter to submit
       fireEvent.keyDown(window, { key: 'Enter' })
 
-      expect(mockPush).toHaveBeenCalledTimes(1)
-      expect(mockPush).toHaveBeenCalledWith(
-        expect.stringMatching(/\/en\/calculator\/engineer/),
+      expect(mockHistoryPush).toHaveBeenCalledTimes(1)
+      expect(mockHistoryPush).toHaveBeenCalledWith(
+        null,
+        '',
+        expect.stringMatching(/\/calculator\/engineer/),
       )
     })
 
@@ -283,7 +298,7 @@ describe('VisaFormSection', () => {
       fireEvent.keyDown(input, { key: 'ArrowRight' })
 
       // Should not navigate when typing in text input
-      expect(mockPush).not.toHaveBeenCalled()
+      expect(mockHistoryPush).not.toHaveBeenCalled()
     })
   })
 
