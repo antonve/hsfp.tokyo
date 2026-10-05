@@ -52,7 +52,7 @@
     "jest-environment-jsdom": "^30.4.1",
     "jest-extended": "^7.0.0",
     "postcss": "8.5.26",
-    "prettier": "^3.9.6",
+    "prettier": "^3.9.9",
     "tailwindcss": "4.3.3",
     "tailwindcss-motion": "^1.1.1",
     "typescript": "5.9.3"
