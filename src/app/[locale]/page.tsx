@@ -1,21 +1,6 @@
 import { Metadata } from 'next'
-import {
-  BeakerIcon,
-  BriefcaseIcon,
-  WrenchScrewdriverIcon,
-  ClockIcon,
-  HomeIcon,
-  UserGroupIcon,
-  BoltIcon,
-  CalculatorIcon,
-  DocumentCheckIcon,
-  ShareIcon,
-  LightBulbIcon,
-  ExclamationTriangleIcon,
-  ArrowPathIcon,
-  CurrencyYenIcon,
-  BuildingOfficeIcon,
-} from '@heroicons/react/24/solid'
+import Image from 'next/image'
+import { Fragment } from 'react'
 import { useTranslations } from 'next-intl'
 import { getOGTranslator, OG_WIDTH, OG_HEIGHT } from '@lib/og'
 import { Link } from '@lib/i18n/navigation'
@@ -60,310 +45,154 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default function Page() {
   const t = useTranslations('home')
+  const options = ['engineer', 'researcher', 'business-manager'] as const
+  const routes = [
+    { key: 'standard', years: 10 },
+    { key: '70', years: 3 },
+    { key: '80', years: 1 },
+  ] as const
+  const headingClass =
+    'mb-5 text-[22px] leading-[1.3] font-semibold tracking-[-0.015em]'
+  const mutedClass = 'text-zinc-500 dark:text-zinc-400'
 
   return (
-    <div className="max-w-7xl mx-auto">
-      {/* Hero Section */}
-      <section className="max-w-7xl px-4">
-        <h1 className="mt-16 text-center text-5xl leading-normal font-bold tracking-tighter sm:text-6xl/normal md:text-7xl/normal relative">
-          {/* Glow effect */}
-          <span
-            className="absolute inset-0 text-emerald-400 blur-2xl opacity-20 dark:opacity-50"
-            aria-hidden="true"
-          >
+    <main className="mx-auto max-w-7xl px-4 text-left leading-[1.6] antialiased">
+      <section className="grid grid-cols-1 items-start gap-7 pt-8 pb-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-[72px] lg:pt-20 lg:pb-10">
+        <div>
+          <h1 className="mb-3.5 text-[34px] leading-[1.08] font-[650] tracking-[-0.028em] lg:mb-5 lg:max-w-[12ch] lg:text-[46px]">
             {t('title')}
-          </span>
-          <span className="relative bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 dark:from-emerald-400 dark:via-teal-300 dark:to-cyan-400 bg-clip-text text-transparent">
-            {t('title')}
-          </span>
-        </h1>
-        <p className="text-center my-8 text-zinc-500 dark:text-zinc-400 text-xl/relaxed lg:text-2xl/relaxed xl:text-3xl/relaxed max-w-4xl mx-auto">
-          {t('subtitle')}
-        </p>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 text-center mt-12">
-          <Link
-            className="card bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-100 hover:dark:bg-zinc-900 dark:bg-zinc-900/80 transition ease-in-out duration-200 shadow-sm shadow-zinc-300 dark:shadow-black p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80"
-            href={`/calculator/engineer`}
+          </h1>
+          <p className="max-w-[34em] text-[17px] leading-[1.55] text-zinc-700 dark:text-zinc-300 lg:mb-6 lg:text-[19px]">
+            {t('intro')}
+          </p>
+          <p
+            className={`hidden max-w-[34em] text-[15px] lg:block ${mutedClass}`}
           >
-            <div className="card-body h-full flex flex-col gap-4">
-              <h3 className="text-2xl font-semibold flex justify-center items-center gap-2">
-                <WrenchScrewdriverIcon className="w-5 h-5" />
-                <span>{t('visa_cards.engineer.title')}</span>
-              </h3>
-              <p className="text-zinc-500 dark:text-zinc-400 flex-1 flex items-center justify-center">
-                {t('visa_cards.engineer.description')}
-              </p>
-              <div className="rounded-md font-semibold bg-emerald-500 text-white dark:bg-emerald-700 py-2 px-4">
-                {t('visa_cards.engineer.cta')}
-              </div>
-            </div>
-          </Link>
-
-          <Link
-            className="card bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-100 hover:dark:bg-zinc-900 dark:bg-zinc-900/80 transition ease-in-out duration-200 shadow-sm shadow-zinc-300 dark:shadow-black p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80"
-            href={`/calculator/researcher`}
+            {t('meta')}
+          </p>
+        </div>
+        <div>
+          <h2 className="mt-1.5 mb-3.5 text-xl leading-[1.6] font-semibold tracking-[-0.01em]">
+            {t('question')}
+          </h2>
+          <ul className="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
+            {options.map(visa => (
+              <li
+                key={visa}
+                className="not-first:border-t border-zinc-200 dark:border-zinc-800"
+              >
+                <Link
+                  href={`/calculator/${visa}`}
+                  className="grid grid-cols-[1fr_auto] items-center gap-4 px-[18px] py-4 no-underline hover:bg-zinc-100 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-emerald-400 dark:hover:bg-zinc-900 lg:px-[22px] lg:py-5"
+                >
+                  <span>
+                    <span className="block text-lg leading-[1.6] font-semibold tracking-[-0.01em]">
+                      {t(`options.${visa}.title`)}
+                    </span>
+                    <span
+                      className={`mt-0.5 block text-[15px] leading-[1.5] ${mutedClass}`}
+                    >
+                      {t(`options.${visa}.description`)}
+                    </span>
+                  </span>
+                  <svg
+                    className={`size-5 ${mutedClass}`}
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                    />
+                  </svg>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p
+            className={`mt-3.5 max-w-[34em] text-[15px] lg:hidden ${mutedClass}`}
           >
-            <div className="card-body h-full flex flex-col gap-4">
-              <h3 className="text-2xl font-semibold flex justify-center items-center gap-2">
-                <BeakerIcon className="w-5 h-5" />
-                <span>{t('visa_cards.researcher.title')}</span>
-              </h3>
-              <p className="text-zinc-500 dark:text-zinc-400 flex-1 flex items-center justify-center">
-                {t('visa_cards.researcher.description')}
-              </p>
-              <div className="rounded-md font-semibold bg-emerald-500 text-white dark:bg-emerald-700 py-2 px-4">
-                {t('visa_cards.researcher.cta')}
-              </div>
-            </div>
-          </Link>
-
-          <Link
-            className="card bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-100 hover:dark:bg-zinc-900 dark:bg-zinc-900/80 transition ease-in-out duration-200 shadow-sm shadow-zinc-300 dark:shadow-black p-4 rounded-lg no-underline hover:ring-2 ring-emerald-400/80"
-            href={`/calculator/business-manager`}
-          >
-            <div className="card-body h-full flex flex-col gap-4">
-              <h3 className="text-2xl font-semibold flex justify-center items-center gap-2">
-                <BriefcaseIcon className="w-5 h-5" />
-                <span>{t('visa_cards.business_manager.title')}</span>
-              </h3>
-              <p className="text-zinc-500 dark:text-zinc-400 flex-1 flex items-center justify-center">
-                {t('visa_cards.business_manager.description')}
-              </p>
-              <div className="rounded-md font-semibold bg-emerald-500 text-white dark:bg-emerald-700 py-2 px-4">
-                {t('visa_cards.business_manager.cta')}
-              </div>
-            </div>
-          </Link>
-        </div>
-      </section>
-
-      {/* Why HSFP Section */}
-      <section className="max-w-7xl px-4 mt-16">
-        <h2 className="text-3xl font-bold text-center mb-4">
-          {t('why_hsfp.title')}
-        </h2>
-        <p className="text-center text-zinc-500 dark:text-zinc-400 mb-12 max-w-3xl mx-auto">
-          {t('why_hsfp.description')}
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <ClockIcon className="w-6 h-6 text-emerald-400" />
-              <h3 className="text-lg font-semibold">
-                {t('why_hsfp.benefits.pr_fast_track.title')}
-              </h3>
-            </div>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('why_hsfp.benefits.pr_fast_track.description')}
-            </p>
-          </div>
-
-          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <HomeIcon className="w-6 h-6 text-emerald-400" />
-              <h3 className="text-lg font-semibold">
-                {t('why_hsfp.benefits.five_year_visa.title')}
-              </h3>
-            </div>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('why_hsfp.benefits.five_year_visa.description')}
-            </p>
-          </div>
-
-          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <UserGroupIcon className="w-6 h-6 text-emerald-400" />
-              <h3 className="text-lg font-semibold">
-                {t('why_hsfp.benefits.family.title')}
-              </h3>
-            </div>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('why_hsfp.benefits.family.description')}
-            </p>
-          </div>
-
-          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <BoltIcon className="w-6 h-6 text-emerald-400" />
-              <h3 className="text-lg font-semibold">
-                {t('why_hsfp.benefits.priority_processing.title')}
-              </h3>
-            </div>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('why_hsfp.benefits.priority_processing.description')}
-            </p>
-          </div>
-
-          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <BriefcaseIcon className="w-6 h-6 text-emerald-400" />
-              <h3 className="text-lg font-semibold">
-                {t('why_hsfp.benefits.multiple_activities.title')}
-              </h3>
-            </div>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('why_hsfp.benefits.multiple_activities.description')}
-            </p>
-          </div>
-
-          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <DocumentCheckIcon className="w-6 h-6 text-emerald-400" />
-              <h3 className="text-lg font-semibold">
-                {t('why_hsfp.benefits.indefinite_stay.title')}
-              </h3>
-            </div>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('why_hsfp.benefits.indefinite_stay.description')}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Considerations Section */}
-      <section className="max-w-7xl px-4 mt-16">
-        <h2 className="text-3xl font-bold text-center mb-4">
-          {t('considerations.title')}
-        </h2>
-        <p className="text-center text-zinc-500 dark:text-zinc-400 mb-12 max-w-3xl mx-auto">
-          {t('considerations.description')}
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <BuildingOfficeIcon className="w-6 h-6 text-amber-500" />
-              <h3 className="text-lg font-semibold">
-                {t('considerations.items.job_change.title')}
-              </h3>
-            </div>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('considerations.items.job_change.description')}
-            </p>
-          </div>
-
-          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <ArrowPathIcon className="w-6 h-6 text-amber-500" />
-              <h3 className="text-lg font-semibold">
-                {t('considerations.items.renewal.title')}
-              </h3>
-            </div>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('considerations.items.renewal.description')}
-            </p>
-          </div>
-
-          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <CurrencyYenIcon className="w-6 h-6 text-amber-500" />
-              <h3 className="text-lg font-semibold">
-                {t('considerations.items.income.title')}
-              </h3>
-            </div>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('considerations.items.income.description')}
-            </p>
-          </div>
-
-          <div className="bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6">
-            <div className="flex items-center gap-3 mb-3">
-              <ExclamationTriangleIcon className="w-6 h-6 text-amber-500" />
-              <h3 className="text-lg font-semibold">
-                {t('considerations.items.employment_link.title')}
-              </h3>
-            </div>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('considerations.items.employment_link.description')}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* How This App Helps Section */}
-      <section className="max-w-7xl px-4 mt-20">
-        <h2 className="text-3xl font-bold text-center mb-4">
-          {t('how_app_helps.title')}
-        </h2>
-        <p className="text-center text-zinc-500 dark:text-zinc-400 mb-12 max-w-3xl mx-auto">
-          {t('how_app_helps.description')}
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="text-center">
-            <div className="w-12 h-12 bg-emerald-400/15 dark:bg-emerald-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CalculatorIcon className="w-6 h-6 text-emerald-400" />
-            </div>
-            <h3 className="font-semibold mb-2">
-              {t('how_app_helps.features.calculate.title')}
-            </h3>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('how_app_helps.features.calculate.description')}
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="w-12 h-12 bg-emerald-400/15 dark:bg-emerald-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <LightBulbIcon className="w-6 h-6 text-emerald-400" />
-            </div>
-            <h3 className="font-semibold mb-2">
-              {t('how_app_helps.features.improve.title')}
-            </h3>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('how_app_helps.features.improve.description')}
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="w-12 h-12 bg-emerald-400/15 dark:bg-emerald-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <DocumentCheckIcon className="w-6 h-6 text-emerald-400" />
-            </div>
-            <h3 className="font-semibold mb-2">
-              {t('how_app_helps.features.evidence.title')}
-            </h3>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('how_app_helps.features.evidence.description')}
-            </p>
-          </div>
-
-          <div className="text-center">
-            <div className="w-12 h-12 bg-emerald-400/15 dark:bg-emerald-400/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <ShareIcon className="w-6 h-6 text-emerald-400" />
-            </div>
-            <h3 className="font-semibold mb-2">
-              {t('how_app_helps.features.share.title')}
-            </h3>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              {t('how_app_helps.features.share.description')}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Points Threshold Info */}
-      <section className="max-w-7xl px-4 mt-20 mb-16">
-        <div className="bg-gradient-to-r from-emerald-200/40 to-zinc-100 dark:from-emerald-900/30 dark:to-zinc-900 rounded-xl p-8 text-center">
-          <h2 className="text-2xl font-bold mb-4">{t('points_info.title')}</h2>
-          <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
-            <div>
-              <div className="text-5xl font-bold text-emerald-400">70</div>
-              <p className="text-zinc-500 dark:text-zinc-400 mt-2">
-                {t('points_info.qualify')}
-              </p>
-            </div>
-            <div>
-              <div className="text-5xl font-bold text-emerald-400">80+</div>
-              <p className="text-zinc-500 dark:text-zinc-400 mt-2">
-                {t('points_info.pr_1_year')}
-              </p>
-            </div>
-          </div>
-          <p className="text-zinc-500 dark:text-zinc-400 mt-6 max-w-2xl mx-auto text-sm">
-            {t('points_info.description')}
+            {t('meta')}
           </p>
         </div>
       </section>
-    </div>
+
+      <section className="grid grid-cols-1 gap-10 pt-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-[72px] lg:pt-[72px]">
+        <div>
+          <h2 className={headingClass}>{t('chart.title')}</h2>
+          <dl className="mb-[18px] grid grid-cols-[7.5em_minmax(0,1fr)] items-center gap-x-4 gap-y-3.5 lg:grid-cols-[9.5em_minmax(0,1fr)]">
+            {routes.map(({ key, years }) => (
+              <Fragment key={key}>
+                <dt className="text-[15px] text-zinc-700 dark:text-zinc-300">
+                  {t(`chart.routes.${key}`)}
+                </dt>
+                <dd className="flex items-center gap-2.5">
+                  <span
+                    aria-hidden="true"
+                    className={`h-3.5 rounded-r ${key === 'standard' ? 'bg-zinc-400 dark:bg-zinc-600' : 'bg-emerald-600 dark:bg-emerald-400'}`}
+                    style={{ width: `${(years / 10) * 84}%` }}
+                  />
+                  <span className="text-[15px] font-semibold whitespace-nowrap tabular-nums">
+                    {t('chart.years', { count: years })}
+                  </span>
+                </dd>
+              </Fragment>
+            ))}
+          </dl>
+          <p className={`max-w-[38em] text-[15px] ${mutedClass}`}>
+            {t('chart.note')}
+          </p>
+        </div>
+        <div>
+          <h2 className={headingClass}>{t('benefits.title')}</h2>
+          <ul className="list-disc pl-[1.1em] text-zinc-700 marker:text-zinc-500 dark:text-zinc-300 dark:marker:text-zinc-400">
+            {['stay', 'spouse', 'family', 'side_work'].map(benefit => (
+              <li key={benefit} className="mb-2">
+                {t(`benefits.${benefit}`)}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="pt-[72px]">
+        <h2 className={headingClass}>{t('caveats.title')}</h2>
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
+          {['employer', 'renewal', 'gaps'].map(caveat => (
+            <p key={caveat} className={`text-[15px] ${mutedClass}`}>
+              <strong className="mb-1 block text-base leading-[1.6] font-semibold text-zinc-900 dark:text-gray-50">
+                {t(`caveats.${caveat}.title`)}
+              </strong>
+              {t(`caveats.${caveat}.description`)}
+            </p>
+          ))}
+        </div>
+      </section>
+
+      <div className="flex max-w-[46em] items-start gap-4 pt-14 pb-12 lg:pt-[72px] lg:pb-16">
+        <Image
+          src="/images/anton.jpeg"
+          alt=""
+          width={48}
+          height={48}
+          className="size-12 flex-none rounded-full object-cover"
+        />
+        <div>
+          <p className="mb-1.5 text-[15px] text-zinc-700 dark:text-zinc-300">
+            {t('author.note')}
+          </p>
+          <div className="flex text-[15px]">
+            <Link
+              href="/about"
+              className="underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-emerald-400"
+            >
+              {t('author.link')}
+            </Link>
+          </div>
+        </div>
+      </div>
+    </main>
   )
 }
