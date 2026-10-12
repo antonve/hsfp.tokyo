@@ -11,8 +11,6 @@ import {
 } from '@lib/og'
 import { HSFP_QUALIFICATION_THRESHOLD } from '@lib/domain/constants'
 
-export const runtime = 'edge'
-
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ visa: string; locale: string }> },

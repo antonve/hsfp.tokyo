@@ -9,8 +9,6 @@ import {
   StatBlock,
 } from '@lib/og'
 
-export const runtime = 'edge'
-
 export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ locale: string }> },
