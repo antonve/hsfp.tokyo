@@ -20,10 +20,16 @@ export function SiteFooter() {
 
   return (
     <footer className="max-w-7xl mx-auto py-8 px-4 border-t-4 border-zinc-100/50 dark:border-zinc-900/50">
-      <div className="flex justify-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
+      <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm leading-[1.6] antialiased text-zinc-500 dark:text-zinc-400">
+        <Link
+          href="/about"
+          className="hover:text-zinc-900 hover:underline dark:hover:text-gray-50 focus-visible:outline-2 focus-visible:outline-emerald-400"
+        >
+          {t('sources_contact')}
+        </Link>
         <Link
           href="/privacy"
-          className="hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors"
+          className="hover:text-zinc-900 hover:underline dark:hover:text-gray-50 focus-visible:outline-2 focus-visible:outline-emerald-400"
         >
           {t('privacy')}
         </Link>
@@ -31,7 +37,7 @@ export function SiteFooter() {
           href="https://github.com/antonve/hsfp.tokyo"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors"
+          className="hover:text-zinc-900 hover:underline dark:hover:text-gray-50 focus-visible:outline-2 focus-visible:outline-emerald-400"
         >
           GitHub
         </a>
