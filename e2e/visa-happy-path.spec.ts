@@ -42,8 +42,12 @@ async function walkToResults(
     }
 
     const beforeContinueUrl = page.url()
+    const heading = page.locator('main h2').first()
+    const beforeContinueHeading = (await heading.textContent()) ?? ''
     await page.getByRole('button', { name: /continue|続ける/i }).click()
     await expect(page).not.toHaveURL(beforeContinueUrl)
+    // pushState updates the URL before the next question renders.
+    await expect(heading).not.toHaveText(beforeContinueHeading)
 
     if (willSubmitSalary) {
       submittedSalary = true
