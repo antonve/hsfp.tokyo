@@ -114,13 +114,13 @@ export default async function Page({ params }: Props) {
             </h2>
             <ul className="space-y-2">
               <li className="flex items-start gap-3">
-                <CheckCircleIcon className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
+                <CheckCircleIcon className="w-5 h-5 text-zinc-400 mt-0.5 flex-shrink-0" />
                 <span className="text-zinc-700 dark:text-zinc-300">
                   {t('requirements.salary')}
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <CheckCircleIcon className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
+                <CheckCircleIcon className="w-5 h-5 text-zinc-400 mt-0.5 flex-shrink-0" />
                 <span className="text-zinc-700 dark:text-zinc-300">
                   {t('requirements.points')}
                 </span>
@@ -135,13 +135,13 @@ export default async function Page({ params }: Props) {
             </h2>
             <ul className="space-y-2">
               <li className="flex items-start gap-3">
-                <LightBulbIcon className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
+                <LightBulbIcon className="w-5 h-5 text-zinc-400 mt-0.5 flex-shrink-0" />
                 <span className="text-zinc-700 dark:text-zinc-300">
                   {t('tips.skip')}
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <DocumentTextIcon className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" />
+                <DocumentTextIcon className="w-5 h-5 text-zinc-400 mt-0.5 flex-shrink-0" />
                 <span className="text-zinc-700 dark:text-zinc-300">
                   {t('tips.results')}
                 </span>

@@ -206,7 +206,7 @@ function Prompt({
         {title}
         {isCompleted ? (
           <CheckIcon
-            className="w-4 h-4 text-emerald-600"
+            className="w-4 h-4 text-zinc-500 dark:text-zinc-400"
             role="img"
             aria-hidden={false}
             aria-label={t('completed')}

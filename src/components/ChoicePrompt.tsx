@@ -6,6 +6,7 @@ import {
 import {
   ArrowRightIcon,
   ChevronDoubleRightIcon,
+  ExclamationCircleIcon,
 } from '@heroicons/react/20/solid'
 import { useState, useEffect, useRef } from 'react'
 import cn from 'classnames'
@@ -97,7 +98,12 @@ export function ChoicePrompt({
         onSubmit(qualificationUpdater(value))
       }}
     >
-      {error && <p className="text-red-400 mb-4">{error}</p>}
+      {error && (
+        <p className="flex items-center gap-1.5 text-red-700 dark:text-red-400 mb-4">
+          <ExclamationCircleIcon className="h-5 w-5 shrink-0" />
+          {error}
+        </p>
+      )}
       <div className="space-y-3 mb-8">
         {prompt.options.map((option, i) => (
           <div
@@ -107,9 +113,9 @@ export function ChoicePrompt({
           >
             <div
               className={cn(
-                'px-2 py-2 min-h-9 rounded relative inline-block bg-white dark:bg-zinc-950 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-emerald-400/80',
+                'px-2 py-2 min-h-9 rounded relative inline-block bg-white dark:bg-zinc-950 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent',
                 {
-                  'ring-2 ring-emerald-400/80 motion-preset-fade motion-duration-200':
+                  'ring-2 ring-accent motion-preset-fade motion-duration-200':
                     value === option,
                   'shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800':
                     value !== option,
@@ -135,7 +141,7 @@ export function ChoicePrompt({
                   className={cn(
                     'flex shrink-0 w-5 h-5 items-center justify-center rounded text-xs font-bold transition-colors',
                     {
-                      'bg-emerald-500 motion-scale-in-100 motion-duration-150':
+                      'bg-accent text-accent-contrast motion-scale-in-100 motion-duration-150':
                         value === option,
                       'bg-zinc-200/70 dark:bg-zinc-600/70': value !== option,
                     },

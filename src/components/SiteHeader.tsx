@@ -29,14 +29,14 @@ export function SiteHeader() {
         <header className="min-h-[100px] py-6 flex items-center justify-between gap-8 border-b-4 border-zinc-100/50 dark:border-zinc-900/50 leading-[1.6] antialiased">
           <Link
             href="/"
-            className="no-underline hover:opacity-60 transition-opacity focus-visible:outline-2 focus-visible:outline-emerald-400"
+            className="no-underline hover:opacity-60 transition-opacity focus-visible:outline-2 focus-visible:outline-accent"
           >
             <Logo />
           </Link>
           <button
             type="button"
             onClick={() => setIsSettingsOpen(true)}
-            className="-m-2 p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-gray-50 focus-visible:outline-2 focus-visible:outline-emerald-400"
+            className="-m-2 p-2 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-gray-50 focus-visible:outline-2 focus-visible:outline-accent"
             aria-label={t('settings')}
           >
             <Cog6ToothIcon className="w-6 h-6" aria-hidden="true" />

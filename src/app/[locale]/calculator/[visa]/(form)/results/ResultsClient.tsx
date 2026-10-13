@@ -14,6 +14,7 @@ import {
   ChevronRightIcon,
   PencilSquareIcon,
 } from '@heroicons/react/24/outline'
+import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useMemo, useState, useCallback, useEffect } from 'react'
@@ -117,7 +118,8 @@ export default function ResultsClient({ visa }: Props) {
     <main className="space-y-8">
       {missingSalary && (
         <div className="p-4 border-2 border-red-300 dark:border-red-800 rounded-lg bg-red-50 dark:bg-red-950/20">
-          <p className="text-red-600 dark:text-red-400 font-medium">
+          <p className="flex items-start gap-2.5 text-red-700 dark:text-red-400 font-medium">
+            <ExclamationCircleIcon className="h-5 w-5 mt-0.5 shrink-0" />
             {t('banner.missing_salary')}
           </p>
         </div>
@@ -148,7 +150,9 @@ export default function ResultsClient({ visa }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <section className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="font-semibold text-2xl">{t('overview.title')}</h2>
+              <h2 className="kicker font-semibold text-2xl">
+                {t('overview.title')}
+              </h2>
               <EditAnswersButton editUrl={editUrl} />
             </div>
             <MatchesOverview matches={matches} totalPoints={points} />
@@ -161,7 +165,7 @@ export default function ResultsClient({ visa }: Props) {
           <div className="space-y-8">
             <section className="space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="font-semibold text-2xl">
+                <h2 className="kicker font-semibold text-2xl">
                   {t('overview.title')}
                 </h2>
                 <EditAnswersButton editUrl={editUrl} />
@@ -191,7 +195,9 @@ export default function ResultsClient({ visa }: Props) {
             </section>
           </div>
           <section className="space-y-4">
-            <h3 className="font-semibold text-2xl">{t('evidence.title')}</h3>
+            <h3 className="kicker font-semibold text-2xl">
+              {t('evidence.title')}
+            </h3>
             <div className="text-zinc-700 dark:text-zinc-300 text-sm space-y-3">
               <p>{t('evidence.description1')}</p>
               <p>{t('evidence.description2')}</p>
@@ -464,7 +470,7 @@ function EvidenceItemCard({
     <div
       className={`border rounded-lg p-4 transition-colors ${
         isChecked
-          ? 'border-emerald-400 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-900/20'
+          ? 'border-zinc-300 dark:border-zinc-700'
           : 'border-zinc-300 dark:border-zinc-900 hover:border-zinc-500 dark:hover:border-zinc-700'
       }`}
     >
@@ -473,7 +479,7 @@ function EvidenceItemCard({
           type="checkbox"
           checked={isChecked}
           onChange={onToggle}
-          className="mt-1 w-4 h-4 rounded border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-800 text-emerald-500 focus:ring-emerald-500 focus:ring-offset-0 cursor-pointer"
+          className="mt-1 w-4 h-4 rounded border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-800 accent-accent cursor-pointer"
         />
         <div className="flex-1">
           <h5
@@ -523,13 +529,15 @@ function HowToImprove({
     <section className="space-y-4">
       {showEditButton ? (
         <div className="flex items-center justify-between">
-          <h2 className="font-semibold text-2xl">
+          <h2 className="kicker font-semibold text-2xl">
             {t('how_to_improve.title')}
           </h2>
           <EditAnswersButton editUrl={editUrl} />
         </div>
       ) : (
-        <h2 className="font-semibold text-2xl">{t('how_to_improve.title')}</h2>
+        <h2 className="kicker font-semibold text-2xl">
+          {t('how_to_improve.title')}
+        </h2>
       )}
       <p className="text-zinc-700 dark:text-zinc-300">
         {t('how_to_improve.intro')}

@@ -51,7 +51,7 @@ export async function GET(
           display: 'flex',
           fontSize: '24px',
           fontWeight: 600,
-          color: colors.accent,
+          color: colors.muted,
           textTransform: 'uppercase',
           letterSpacing: '0.15em',
           marginBottom: '16px',
@@ -88,7 +88,7 @@ export async function GET(
             display: 'flex',
             width: `${progressPercentage}%`,
             height: '100%',
-            backgroundColor: colors.accent,
+            backgroundColor: colors.text,
             borderRadius: '8px',
           }}
         />
@@ -109,7 +109,7 @@ export async function GET(
             fontWeight: 700,
             color:
               points >= HSFP_QUALIFICATION_THRESHOLD
-                ? colors.accent
+                ? colors.qualified
                 : colors.text,
           }}
         >

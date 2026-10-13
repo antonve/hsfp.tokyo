@@ -73,7 +73,7 @@ export default function PrivacyPage() {
           {t('contact.content')}{' '}
           <a
             href="mailto:contact@hsfp.tokyo"
-            className="text-emerald-600 dark:text-emerald-400 hover:underline"
+            className="text-zinc-900 dark:text-gray-50 underline underline-offset-2"
           >
             contact@hsfp.tokyo
           </a>
