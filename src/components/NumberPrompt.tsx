@@ -7,6 +7,7 @@ import { isPromptCompleted, withCompletedPrompt } from '@lib/domain/prompts'
 import {
   ArrowRightIcon,
   ChevronDoubleRightIcon,
+  ExclamationCircleIcon,
 } from '@heroicons/react/20/solid'
 import { useTranslations } from 'next-intl'
 import classNames from 'classnames'
@@ -111,11 +112,12 @@ export function NumberPrompt({
             ref={inputRef}
             type="text"
             className={classNames(
-              'box-border h-full w-full pl-2 py-2 bg-white dark:bg-zinc-950 rounded shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800 absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-emerald-400/80 appearance-none',
+              'box-border h-full w-full pl-2 py-2 bg-white dark:bg-zinc-950 rounded shadow-sm ring-1 ring-zinc-200 dark:ring-zinc-800 absolute left-0 right-0 top-0 bottom-0 overflow-hidden !outline-none focus-within:ring-2 focus-within:ring-accent appearance-none',
               {
                 'pr-16': showLabel,
                 'pr-2': !showLabel,
-                '!ring-2 !ring-red-400/80': hasError,
+                '!ring-2 !ring-red-600 dark:!ring-red-400 !bg-red-50 dark:!bg-red-950/40':
+                  hasError,
               },
             )}
             min={prompt.config.min}
@@ -151,7 +153,10 @@ export function NumberPrompt({
           ) : null}
         </div>
         {hasError ? (
-          <span className="text-red-400 text-xs">{validationError}</span>
+          <span className="flex items-center gap-1 text-red-700 dark:text-red-400 text-xs">
+            <ExclamationCircleIcon className="h-4 w-4 shrink-0" />
+            {validationError}
+          </span>
         ) : null}
       </div>
 

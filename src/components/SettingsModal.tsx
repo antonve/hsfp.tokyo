@@ -3,6 +3,7 @@
 import { Fragment, useState, useCallback } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline'
+import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
 import { useTranslations, useLocale } from 'next-intl'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { Link } from '@lib/i18n/navigation'
@@ -121,7 +122,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                           onClick={onClose}
                           className={`flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors no-underline ${
                             locale === lang.code
-                              ? 'bg-zinc-200 dark:bg-zinc-800 border-emerald-500 text-zinc-900 dark:text-gray-50'
+                              ? 'bg-zinc-200 dark:bg-zinc-800 border-accent text-zinc-900 dark:text-gray-50'
                               : 'bg-zinc-200/50 dark:bg-zinc-800/50 border-zinc-300 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:border-zinc-500 dark:hover:border-zinc-400'
                           }`}
                         >
@@ -142,7 +143,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                         onClick={() => setTheme('dark')}
                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
                           theme === 'dark'
-                            ? 'bg-zinc-200 dark:bg-zinc-800 border-emerald-500 text-zinc-900 dark:text-gray-50'
+                            ? 'bg-zinc-200 dark:bg-zinc-800 border-accent text-zinc-900 dark:text-gray-50'
                             : 'bg-zinc-200/50 dark:bg-zinc-800/50 border-zinc-300 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:border-zinc-500 dark:hover:border-zinc-400'
                         }`}
                       >
@@ -154,7 +155,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                         onClick={() => setTheme('light')}
                         className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
                           theme === 'light'
-                            ? 'bg-zinc-200 dark:bg-zinc-800 border-emerald-500 text-zinc-900 dark:text-gray-50'
+                            ? 'bg-zinc-200 dark:bg-zinc-800 border-accent text-zinc-900 dark:text-gray-50'
                             : 'bg-zinc-200/50 dark:bg-zinc-800/50 border-zinc-300 dark:border-zinc-700 text-zinc-500 dark:text-zinc-400 hover:border-zinc-500 dark:hover:border-zinc-400'
                         }`}
                       >
@@ -175,12 +176,15 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     <button
                       type="button"
                       onClick={handleClearData}
-                      className={`w-full px-4 py-3 rounded-lg border transition-colors ${
+                      className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border transition-colors ${
                         clearConfirmation
                           ? 'bg-red-100 dark:bg-red-900/50 border-red-500 text-red-700 dark:text-red-200 hover:bg-red-200 dark:hover:bg-red-900/70'
                           : 'bg-zinc-200/50 dark:bg-zinc-800/50 border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-500 dark:hover:border-zinc-400'
                       }`}
                     >
+                      {clearConfirmation && (
+                        <ExclamationCircleIcon className="h-5 w-5 shrink-0" />
+                      )}
                       {clearConfirmation ? t('clear_confirm') : t('clear_data')}
                     </button>
                   </div>

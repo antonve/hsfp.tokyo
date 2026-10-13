@@ -44,7 +44,7 @@ export async function GET(
           style={{
             display: 'flex',
             fontSize: '32px',
-            color: colors.accent,
+            color: colors.muted,
             fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '0.1em',

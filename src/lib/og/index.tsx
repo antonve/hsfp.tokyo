@@ -40,7 +40,7 @@ export const colors = {
   background: '#09090b', // zinc-950
   text: '#fafafa', // gray-50
   muted: '#a1a1aa', // zinc-400
-  accent: '#34d399', // emerald-400
+  qualified: '#34d399', // emerald-400, only for the qualified verdict
   warning: '#fbbf24', // amber-400
   logoRed: '#ef4444', // red-500
   logoDot: 'rgba(255,255,255,0.4)',
@@ -99,7 +99,7 @@ interface StatBlockProps {
 export function StatBlock({
   value,
   label,
-  valueColor = colors.accent,
+  valueColor = colors.text,
 }: StatBlockProps) {
   return (
     <div

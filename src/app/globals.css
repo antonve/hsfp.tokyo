@@ -4,9 +4,18 @@
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-serif: var(--font-cormorant-garamond), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  /* Interactive accent is ink. Red is reserved for the brand and for errors. */
+  --color-accent: var(--color-zinc-900);
+  --color-accent-contrast: var(--color-white);
 }
 
 @layer base {
+  .dark {
+    --color-accent: var(--color-gray-50);
+    --color-accent-contrast: var(--color-zinc-900);
+  }
+
   body {
     margin: 0;
   }
@@ -17,17 +26,14 @@
 }
 
 @layer utilities {
-  .backdrop {
-    @apply relative;
-  }
-
-  .backdrop::after {
-    @apply absolute left-0 top-0 w-full h-full bg-emerald-400/80 transition-all duration-100 -z-10 rounded hover:left-1 hover:top-1 content-[''];
+  /* Short brand-red rule above section headings */
+  .kicker::before {
+    @apply block w-[22px] h-[3px] mb-2.5 bg-red-500 content-[''];
   }
 
   .button:not(.secondary) {
-    @apply px-4 h-12 md:h-9 flex items-center rounded bg-white text-zinc-900 font-bold whitespace-nowrap shadow-sm relative outline-2 outline outline-transparent ring-1 ring-zinc-300 dark:ring-0;
-    @apply hover:outline-emerald-400/80 hover:bg-zinc-50 focus-visible:outline-emerald-400/80 active:scale-95 transition-all;
+    @apply px-4 h-12 md:h-9 flex items-center rounded bg-white text-zinc-900 font-bold whitespace-nowrap shadow-sm relative outline-2 outline outline-offset-2 outline-transparent ring-1 ring-zinc-300 dark:ring-0;
+    @apply hover:outline-accent/35 hover:bg-zinc-50 focus-visible:outline-accent active:scale-95 transition-all;
   }
 
   .button:not(.secondary):disabled {
@@ -36,9 +42,9 @@
   }
 
   .button.secondary {
-    @apply px-4 h-12 md:h-9 flex items-center rounded whitespace-nowrap relative outline outline-2 outline-transparent;
+    @apply px-4 h-12 md:h-9 flex items-center rounded whitespace-nowrap relative outline outline-2 outline-offset-2 outline-transparent;
     @apply bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300;
-    @apply hover:outline-emerald-400/80 hover:bg-zinc-300 dark:hover:bg-zinc-700 focus-visible:outline-emerald-400/80 active:scale-95 transition-all;
+    @apply hover:outline-accent/35 hover:bg-zinc-300 dark:hover:bg-zinc-700 focus-visible:outline-accent active:scale-95 transition-all;
   }
 
   .button.secondary:disabled {
@@ -61,7 +67,7 @@
 }
 
 .faq-answer a {
-  @apply text-emerald-600 dark:text-emerald-400 underline hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors;
+  @apply text-zinc-900 dark:text-gray-50 underline underline-offset-2;
 }
 
 @layer base {

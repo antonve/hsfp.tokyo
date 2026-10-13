@@ -23,27 +23,17 @@ When styling components, use explicit light and dark variants:
 
 ### Status Colors
 
+Green means only "you qualify". Use it for the verdict (progress bar, results preview footer, results banner) and nowhere else.
+
 | Purpose | Light | Dark |
 |---------|-------|------|
-| Success background | `bg-emerald-50` | `dark:bg-emerald-900/20` |
-| Success border | `border-emerald-400` | `dark:border-emerald-600` |
-| Success badge background | `bg-emerald-100` | `dark:bg-emerald-700` |
-| Success badge text | `text-emerald-800` | `dark:text-gray-50` |
+| Qualified badge background | `bg-emerald-100` | `dark:bg-emerald-700` |
+| Qualified badge text | `text-emerald-800` | `dark:text-gray-50` |
 | Error background | `bg-red-50` | `dark:bg-red-950/20` |
 | Error border | `border-red-300` | `dark:border-red-800` |
-| Error text | `text-red-600` | `dark:text-red-400` |
+| Error text | `text-red-700` | `dark:text-red-400` |
 
-### Accent Subtle (icon circles)
-
-```tsx
-className="bg-emerald-400/15 dark:bg-emerald-400/10"
-```
-
-### Gradient Backgrounds
-
-```tsx
-className="bg-gradient-to-r from-emerald-200/40 to-zinc-100 dark:from-emerald-900/30 dark:to-zinc-900"
-```
+Every error shows an `ExclamationCircleIcon` next to its message, so errors are not identified by colour alone.
 
 ### Shadow with Ring Border
 
@@ -59,7 +49,8 @@ Use classes defined in `globals.css`:
 
 ## Accent Color
 
-- `emerald-400` - Used for interactive states, focus rings, and highlights (fixed color, doesn't change with theme)
+- `accent` - Ink (`zinc-900` in light mode, `gray-50` in dark mode), defined in `globals.css`. Use it for selected states, focus rings and hover outlines: `ring-accent`, `outline-accent`, `border-accent`, `bg-accent text-accent-contrast`.
+- Red (`red-500`) is the brand colour and the error colour. Use it for the logo, the landing chart and the `.kicker` heading rule, never on controls, so red inside a form always means an error.
 
 ## Breakpoints
 

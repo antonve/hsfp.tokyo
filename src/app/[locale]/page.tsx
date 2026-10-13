@@ -52,7 +52,7 @@ export default function Page() {
     { key: '80', years: 1 },
   ] as const
   const headingClass =
-    'mb-5 text-[22px] leading-[1.3] font-semibold tracking-[-0.015em]'
+    'kicker mb-5 text-[22px] leading-[1.3] font-semibold tracking-[-0.015em]'
   const mutedClass = 'text-zinc-500 dark:text-zinc-400'
 
   return (
@@ -72,7 +72,7 @@ export default function Page() {
           </p>
         </div>
         <div>
-          <h2 className="mt-1.5 mb-3.5 text-xl leading-[1.6] font-semibold tracking-[-0.01em]">
+          <h2 className="kicker mt-1.5 mb-3.5 text-xl leading-[1.6] font-semibold tracking-[-0.01em]">
             {t('question')}
           </h2>
           <ul className="overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800">
@@ -83,7 +83,7 @@ export default function Page() {
               >
                 <Link
                   href={`/calculator/${visa}`}
-                  className="grid grid-cols-[1fr_auto] items-center gap-4 px-[18px] py-4 no-underline hover:bg-zinc-100 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-emerald-400 dark:hover:bg-zinc-900 lg:px-[22px] lg:py-5"
+                  className="grid grid-cols-[1fr_auto] items-center gap-4 px-[18px] py-4 no-underline hover:bg-zinc-100 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent dark:hover:bg-zinc-900 lg:px-[22px] lg:py-5"
                 >
                   <span>
                     <span className="block text-lg leading-[1.6] font-semibold tracking-[-0.01em]">
@@ -131,7 +131,7 @@ export default function Page() {
                 <dd className="flex items-center gap-2.5">
                   <span
                     aria-hidden="true"
-                    className={`h-3.5 rounded-r ${key === 'standard' ? 'bg-zinc-400 dark:bg-zinc-600' : 'bg-emerald-600 dark:bg-emerald-400'}`}
+                    className={`h-3.5 rounded-r ${key === 'standard' ? 'bg-zinc-400 dark:bg-zinc-600' : 'bg-red-500'}`}
                     style={{ width: `${(years / 10) * 84}%` }}
                   />
                   <span className="text-[15px] font-semibold whitespace-nowrap tabular-nums">
@@ -186,7 +186,7 @@ export default function Page() {
           <div className="flex text-[15px]">
             <Link
               href="/about"
-              className="underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-emerald-400"
+              className="underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-accent"
             >
               {t('author.link')}
             </Link>

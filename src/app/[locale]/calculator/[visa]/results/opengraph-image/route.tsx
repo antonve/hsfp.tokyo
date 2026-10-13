@@ -27,7 +27,7 @@ export async function GET(
     ? points - HSFP_QUALIFICATION_THRESHOLD
     : HSFP_QUALIFICATION_THRESHOLD - points
 
-  const statusColor = isQualified ? colors.accent : colors.warning
+  const statusColor = isQualified ? colors.qualified : colors.warning
   const statusText = isQualified
     ? t('results.qualified')
     : t('results.not_qualified')

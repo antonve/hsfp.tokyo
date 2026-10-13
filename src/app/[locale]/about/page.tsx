@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 export default function AboutPage() {
   const t = useTranslations('about')
   const linkClass =
-    'text-zinc-900 dark:text-gray-50 underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-emerald-400'
+    'text-zinc-900 dark:text-gray-50 underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-accent'
   const paragraphClass = 'mb-3.5 text-[17px] text-zinc-700 dark:text-zinc-300'
   const headingClass =
     'mt-11 mb-3 text-[22px] leading-[1.3] font-semibold tracking-[-0.015em]'
