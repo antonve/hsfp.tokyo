@@ -19,8 +19,8 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="max-w-7xl mx-auto py-8 px-4 border-t-4 border-zinc-100/50 dark:border-zinc-900/50">
-      <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm leading-[1.6] antialiased text-zinc-500 dark:text-zinc-400">
+    <footer className="max-w-7xl mx-auto px-4">
+      <div className="py-8 border-t-4 border-zinc-100/50 dark:border-zinc-900/50 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm leading-[1.6] antialiased text-zinc-500 dark:text-zinc-400">
         <Link
           href="/about"
           className="hover:text-zinc-900 hover:underline dark:hover:text-gray-50 focus-visible:outline-2 focus-visible:outline-accent"
