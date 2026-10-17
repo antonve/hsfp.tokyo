@@ -31,6 +31,24 @@ for (const [locale, messages] of Object.entries(locales)) {
         await expect(page).toHaveURL(`${prefix}/calculator/engineer`)
       })
 
+      test('the ISA mentions open the official page in a new tab', async ({
+        page,
+        context,
+      }) => {
+        const url =
+          'https://www.moj.go.jp/isa/applications/resources/newimmiact_3_index.html'
+        // Keep the test off the real ISA site
+        await context.route(url, route => route.fulfill({ body: 'ISA' }))
+        const links = page.locator(`main a[href="${url}"]`)
+        await expect(links).toHaveCount(2)
+        const [popup] = await Promise.all([
+          page.waitForEvent('popup'),
+          links.first().click(),
+        ])
+        await expect(popup).toHaveURL(url)
+        await expect(page).toHaveURL(new RegExp(`${prefix || '/'}$`))
+      })
+
       test('has exactly one page heading in the selected language', async ({
         page,
       }) => {

@@ -156,7 +156,7 @@
   },
   "home": {
     "title": "Check your HSFP visa points",
-    "intro": "Score yourself against the official points table from Japan’s Immigration Services Agency. 70 points qualifies you for the Highly Skilled Foreign Professional visa and a faster route to permanent residency.",
+    "intro": "Score yourself against the official points table from Japan’s <isa>Immigration Services Agency</isa>. 70 points qualifies you for the Highly Skilled Foreign Professional visa and a faster route to permanent residency.",
     "meta": "Takes 5–10 minutes. No sign-up, and we never store your answers.",
     "question": "What kind of work do you do?",
     "options": {
@@ -206,7 +206,7 @@
       }
     },
     "author": {
-      "note": "I’m Anton Van Eechaute, a software engineer in Tokyo since 2016. I got permanent residency through the points system and built this because the official points sheet was confusing to fill in. It follows the ISA’s published points table, but it isn’t legal advice.",
+      "note": "I’m Anton Van Eechaute, a software engineer in Tokyo since 2016. I got permanent residency through the points system and built this because the official points sheet was confusing to fill in. It follows the <isa>ISA</isa>’s published points table, but it isn’t legal advice.",
       "link": "Sources and contact"
     }
   },
