@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
-import { Fragment } from 'react'
+import { CSSProperties, Fragment, ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
 import { getOGTranslator, OG_WIDTH, OG_HEIGHT } from '@lib/og'
 import { Link } from '@lib/i18n/navigation'
@@ -52,18 +52,28 @@ export default function Page() {
     { key: '80', years: 1 },
   ] as const
   const headingClass =
-    'kicker mb-5 text-[22px] leading-[1.3] font-semibold tracking-[-0.015em]'
+    'kicker mb-5 text-[22px] leading-[1.3] font-semibold tracking-[-0.015em] lg:text-[26px]'
   const mutedClass = 'text-zinc-500 dark:text-zinc-400'
+  const isaLink = (chunks: ReactNode) => (
+    <a
+      href="https://www.moj.go.jp/isa/applications/resources/newimmiact_3_index.html"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-zinc-900 underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-accent dark:text-gray-50"
+    >
+      {chunks}
+    </a>
+  )
 
   return (
     <main className="mx-auto max-w-7xl px-4 text-left leading-[1.6] antialiased">
-      <section className="grid grid-cols-1 items-start gap-7 pt-8 pb-2 lg:grid-cols-2 lg:gap-[72px] lg:pt-20 lg:pb-10">
+      <section className="grid grid-cols-1 items-start gap-7 pt-8 pb-14 lg:grid-cols-2 lg:gap-[72px] lg:pt-[88px] lg:pb-24">
         <div>
-          <h1 className="mb-3.5 text-[34px] leading-[1.08] font-[650] tracking-[-0.028em] lg:mb-5 lg:max-w-[12ch] lg:text-[46px]">
+          <h1 className="mb-3.5 text-[34px] leading-[1.08] font-[650] tracking-[-0.028em] text-balance [word-break:auto-phrase] lg:mb-6 lg:text-[56px] lg:leading-none lg:font-bold lg:tracking-[-0.04em] xl:text-[72px]">
             {t('title')}
           </h1>
-          <p className="max-w-[34em] text-[17px] leading-[1.55] text-zinc-700 dark:text-zinc-300 lg:mb-6 lg:text-[19px]">
-            {t('intro')}
+          <p className="max-w-[34em] text-[17px] leading-[1.55] text-zinc-700 dark:text-zinc-300 lg:mb-6 lg:text-xl">
+            {t.rich('intro', { isa: isaLink })}
           </p>
           <p
             className={`hidden max-w-[34em] text-[15px] lg:block ${mutedClass}`}
@@ -119,54 +129,58 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="grid grid-cols-1 gap-14 pt-14 lg:grid-cols-2 lg:gap-[72px] lg:pt-[72px]">
+      <section className="grid grid-cols-1 items-end gap-6 border-t border-zinc-200 pt-10 pb-14 lg:grid-cols-2 lg:gap-[72px] lg:pt-14 lg:pb-24 dark:border-zinc-800">
         <div>
-          <h2 className={headingClass}>{t('chart.title')}</h2>
-          <dl className="mb-[18px] grid grid-cols-[7.5em_minmax(0,1fr)] items-center gap-x-4 gap-y-3.5 lg:grid-cols-[9.5em_minmax(0,1fr)]">
-            {routes.map(({ key, years }) => (
-              <Fragment key={key}>
-                <dt className="text-[15px] text-zinc-700 dark:text-zinc-300">
-                  {t(`chart.routes.${key}`)}
-                </dt>
-                <dd className="flex items-center gap-2.5">
-                  <span
-                    aria-hidden="true"
-                    className={`h-3.5 rounded-r ${key === 'standard' ? 'bg-zinc-400 dark:bg-zinc-600' : 'bg-red-500'}`}
-                    // Leave room for the label so every bar shares one scale
-                    style={{ width: `calc((100% - 5.5rem) * ${years / 10})` }}
-                  />
-                  <span className="text-[15px] font-semibold whitespace-nowrap tabular-nums">
-                    {t('chart.years', { count: years })}
-                  </span>
-                </dd>
-              </Fragment>
-            ))}
-          </dl>
-          <p className={`max-w-[38em] text-[15px] ${mutedClass}`}>
+          <h2 className="text-[28px] leading-[1.15] font-[650] tracking-[-0.025em] text-balance [word-break:auto-phrase] lg:max-w-[20ch] lg:text-4xl">
+            {t('chart.title')}
+          </h2>
+          <p className={`mt-4 max-w-[34em] text-[15px] lg:mt-5 ${mutedClass}`}>
             {t('chart.note')}
           </p>
         </div>
+        <dl className="grid grid-cols-[7.5em_minmax(0,1fr)] items-center gap-x-3 gap-y-4 lg:grid-cols-[9.5em_minmax(0,1fr)] lg:gap-x-[18px] lg:gap-y-[22px]">
+          {routes.map(({ key, years }) => (
+            <Fragment key={key}>
+              <dt className="text-[15px] text-zinc-700 lg:text-base dark:text-zinc-300">
+                {t(`chart.routes.${key}`)}
+              </dt>
+              <dd className="flex items-center gap-2.5">
+                <span
+                  aria-hidden="true"
+                  // Leave room for the label so every bar shares one scale
+                  className={`h-4 w-[calc((100%_-_6.5rem)_*_var(--f))] rounded-[5px] lg:h-[22px] lg:w-[calc((100%_-_8.5rem)_*_var(--f))] ${key === 'standard' ? 'bg-zinc-400 dark:bg-zinc-600' : 'bg-red-500'}`}
+                  style={{ '--f': years / 10 } as CSSProperties}
+                />
+                <span className="text-[19px] font-bold tracking-[-0.02em] whitespace-nowrap tabular-nums lg:text-[26px]">
+                  {t('chart.years', { count: years })}
+                </span>
+              </dd>
+            </Fragment>
+          ))}
+        </dl>
+      </section>
+
+      <section className="grid grid-cols-1 gap-14 border-t border-zinc-200 pt-10 lg:grid-cols-2 lg:gap-[72px] lg:pt-14 dark:border-zinc-800">
         <div>
           <h2 className={headingClass}>{t('benefits.title')}</h2>
-          <ul className="list-disc space-y-2 pl-[1.1em] text-zinc-700 marker:text-zinc-500 dark:text-zinc-300 dark:marker:text-zinc-400">
+          <ul className="list-disc space-y-2 pl-[1.1em] text-zinc-700 marker:text-zinc-500 lg:text-[17px] dark:text-zinc-300 dark:marker:text-zinc-400">
             {['stay', 'spouse', 'family', 'side_work'].map(benefit => (
               <li key={benefit}>{t(`benefits.${benefit}`)}</li>
             ))}
           </ul>
         </div>
-      </section>
-
-      <section className="pt-14 lg:pt-[72px]">
-        <h2 className={headingClass}>{t('caveats.title')}</h2>
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-[72px]">
-          {['employer', 'renewal', 'gaps'].map(caveat => (
-            <p key={caveat} className={`text-[15px] ${mutedClass}`}>
-              <strong className="mb-1 block text-base leading-[1.6] font-semibold text-zinc-900 dark:text-gray-50">
-                {t(`caveats.${caveat}.title`)}
-              </strong>
-              {t(`caveats.${caveat}.description`)}
-            </p>
-          ))}
+        <div>
+          <h2 className={headingClass}>{t('caveats.title')}</h2>
+          <div className="grid gap-5">
+            {['employer', 'renewal', 'gaps'].map(caveat => (
+              <p key={caveat} className={`text-[15px] ${mutedClass}`}>
+                <strong className="mb-0.5 block text-base leading-[1.6] font-semibold text-zinc-900 lg:text-[17px] dark:text-gray-50">
+                  {t(`caveats.${caveat}.title`)}
+                </strong>
+                {t(`caveats.${caveat}.description`)}
+              </p>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -181,7 +195,7 @@ export default function Page() {
           />
           <div>
             <p className="mb-1.5 text-[15px] text-zinc-700 dark:text-zinc-300">
-              {t('author.note')}
+              {t.rich('author.note', { isa: isaLink })}
             </p>
             <div className="flex text-[15px]">
               <Link
