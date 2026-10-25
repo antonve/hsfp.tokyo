@@ -33,13 +33,10 @@ jobs:
       - name: Run tests
         run: pnpm run test
 
-      - name: Build production application
-        run: pnpm run build
-
       - name: Install Playwright browsers
         run: pnpm e2e:install
 
-      - name: Run E2E tests
+      - name: Build production application and run E2E tests
         id: e2e
         run: pnpm test:e2e
 

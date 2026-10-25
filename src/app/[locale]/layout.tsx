@@ -36,13 +36,6 @@ export const metadata: Metadata = {
   },
 }
 
-// TODO: Re-enable static rendering once next-intl adds support for it.
-// Ref. https://next-intl-docs.vercel.app/docs/getting-started/app-router-server-components#static-rendering
-// This will generate the dynamic route segments for [locale]
-// export async function generateStaticParams() {
-//   return SUPPORTED_LOCALES.map(locale => ({ locale }))
-// }
-
 export default async function RootLayout({
   children,
   params,
