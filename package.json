@@ -26,7 +26,7 @@
     "@heroicons/react": "^2.2.0",
     "@vercel/og": "^1.0.3",
     "classnames": "^2.5.1",
-    "next": "16.4.2",
+    "next": "16.4.3",
     "next-compose-middleware": "^1.0.0",
     "next-intl": "4.14.9",
     "react": "19.3.1",
@@ -47,7 +47,7 @@
     "autoprefixer": "10.6.1",
     "cross-fetch": "^4.1.0",
     "eslint": "10.12.0",
-    "eslint-config-next": "16.4.2",
+    "eslint-config-next": "16.4.3",
     "jest": "^30.5.2",
     "jest-environment-jsdom": "^30.5.2",
     "jest-extended": "^7.0.0",
@@ -55,6 +55,11 @@
     "prettier": "^3.9.10",
     "tailwindcss": "4.3.3",
     "tailwindcss-motion": "^1.1.1",
-    "typescript": "5.9.3"
+    "typescript": "6.0.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "satori@0.33.5>fflate": "0.7.5"
+    }
   }
 }
