@@ -26,7 +26,7 @@
     "@heroicons/react": "^2.2.0",
     "@vercel/og": "^1.0.3",
     "classnames": "^2.5.1",
-    "next": "16.4.3",
+    "next": "16.4.5",
     "next-compose-middleware": "^1.0.0",
     "next-intl": "4.14.9",
     "react": "19.3.1",
